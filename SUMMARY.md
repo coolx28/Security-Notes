@@ -28,7 +28,7 @@
   * [T1158: Hidden Files](defensive-security-experiments/t1158-hidden-files.md)
   * [T1128: NetSh Helper DLL](defensive-security-experiments/t1128-netsh-helper-dll.md)
   * [T1137: Office Macros](defensive-security-experiments/t1137-offico-macros.md)
-  * [T1013: AddMonitor\(\)](defensive-security-experiments/t1013addmonitor.md)
+  * [T1013: AddMonitor\(\)](defensive-security-experiments/t1013-addmonitor.md)
   * [T1108: WebShells](defensive-security-experiments/t1108-redundant-access.md)
   * [T1198: SIP & Trust Provider Hijacking](defensive-security-experiments/t1198-trust-provider-hijacking.md)
   * [T1180: Screensaver Hijack](defensive-security-experiments/t1180-screensaver-hijack.md)
