@@ -76,9 +76,13 @@ Executing the payload stored in the property of a WMI class's property - note th
 
 ![](../../.gitbook/assets/wmi-payload-executed.png)
 
-If we commit the $evilClass with its .Put\(\) method, our payload will get stored permanently in the WMI Class. Note how a new "Evil" class' properties show the payload we have commited:
+If we commit the `$evilClass` with its `.Put()` method, our payload will get stored permanently in the WMI Class. Note how a new "Evil" class' properties show the payload we have commited:
 
 ![](../../.gitbook/assets/wmi-payload-commited.png)
 
 ## Observations
+
+![](../../.gitbook/assets/wmi-evil-mof.png)
+
+![](../../.gitbook/assets/wmi-objects-data.png)
 
