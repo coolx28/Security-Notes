@@ -2,6 +2,7 @@
 
 ```csharp
 $evilClass = New-Object management.managementclass('root\cimv2',$null,$null)
+$evilClass.Name = "Evil"
 $evilClass.Properties.Add('EvilProperty','Tis notin good sir')
 $evilClass.Put()
 
