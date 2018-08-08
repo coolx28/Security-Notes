@@ -10,7 +10,7 @@ WMI events are made up of 3 key pieces:
 * event consumers - consumers can carry out actions when event filters are triggered \(i.e run a program, log to a log file, execute a script, etc\)
 * filter to consumer bindings - the gluing matter that marries event filters and event consumers together in order for the event consumers.
 
-WMI Events can be used by both offenders \(persistance, i.e launch payload when system is booted\) as well as defenders \(kill process evil.exe on its creation\).
+WMI Events can be used by both offenders \(persistence, i.e launch payload when system is booted\) as well as defenders \(kill process evil.exe on its creation\).
 
 ## Execution
 
@@ -110,17 +110,41 @@ Microsoft-Windows-WMI-Activity/Operational contains logs for event `5861` that c
 
 ![](../../.gitbook/assets/wmi-filter-consumer-creation.png)
 
+## Inspection
+
 If you suspect the host to be compromised and you want to inspect any `FilterToConsumer` bindings, you may not want to PSRemote to the machine since the attacker is already at least a local admin on that box since it is required to create bindings.
 
 Try getting the `%SystemRoot%\System32\wbem\Repository\OBJECTS.DATA`
 
-Once you have that, you can use [PyWMIPersistenceFinder.py](https://github.com/davidpany/WMI_Forensics) by David Pany from Mandient to parse the OBJECTS.DATA file and get a list of bindings like so:
+Then you can use [PyWMIPersistenceFinder.py](https://github.com/davidpany/WMI_Forensics) by David Pany to parse the `OBJECTS.DATA` file and get a list of bindings like so:
 
-```text
+```bash
 ./PyWMIPersistenceFinder.py OBJECTS.DATA
 ```
 
 ![](../../.gitbook/assets/wmi-parser.png)
+
+### Strings + Grep
+
+If you are limited to only the native \*nix utils you have to hand, you can get a pretty good insight into the bindings with the following command:
+
+```csharp
+strings OBJECTS.DATA | grep -i filtertoconsumerbinding -A 3 --color
+```
+
+Below are the results and we can easily see that one binding connects two evils - the evil consumer and the evil filter - see highlighted:
+
+![](../../.gitbook/assets/wmi-strings-grep.png)
+
+Now that you know that you are dealing with `evil` filter and consumer, try  another rudimentary piped command:
+
+```csharp
+strings OBJECTS.DATA | grep -i 'evil' -B3 -A2 --color
+```
+
+Note how we can get a pretty decent glimpse into the malicious WMI persistence - note the `C:\shell.cmd`and `SELECT * FROM` ... - if you recall, this is what we put in our consumers and filters at the very [beginning](./#execution):
+
+![](../../.gitbook/assets/wmi-strings-grep2.png)
 
 Based on the research by [Matthew Graeber](https://twitter.com/mattifestation) and other great resources listed below: 
 

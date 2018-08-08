@@ -88,27 +88,7 @@ The file contains all the classes and other relevant information about those cla
 
 ![](../../.gitbook/assets/wmi-evil-mof.png)
 
-Inspecting the OBJECTS.DATA with a hex editor, it is possible \(although not very practicle\) to find the same data:
+Inspecting the OBJECTS.DATA with a hex editor, it is possible \(although not very practicle\) to find the same data - note that the screenshot is referring to the state of the Evil class at the very beginning of its creation as this is when I took the screenshot:
 
 ![](../../.gitbook/assets/wmi-objects-data.png)
-
-We can get a pretty good insight into the bindings with the following command:
-
-```csharp
-strings OBJECTS.DATA | grep -i filtertoconsumerbinding -A 3 --color
-```
-
-Below are the results and we can easily see that one binding connects two evils - the evil consumer and the evil filter - see highlighted:
-
-![](../../.gitbook/assets/wmi-strings-grep.png)
-
-Now that you know that you are dealing with `evil` filter and consumer, try  another rudimentary piped command:
-
-```csharp
-strings OBJECTS.DATA | grep -i 'evil' -B3 -A2 --color
-```
-
-Note how we can get a pretty decent glimpse into the activity - note the `shell.cmd`, and the `SELECT * FROM` ... - if you recall, this is what we put in our consumers and filters at the very beginning:
-
-![](../../.gitbook/assets/wmi-strings-grep2.png)
 
