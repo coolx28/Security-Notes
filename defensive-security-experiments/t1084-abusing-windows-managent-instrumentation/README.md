@@ -110,6 +110,18 @@ Microsoft-Windows-WMI-Activity/Operational contains logs for event `5861` that c
 
 ![](../../.gitbook/assets/wmi-filter-consumer-creation.png)
 
+If you suspect the host to be compromised and you want to inspect any `FilterToConsumer` bindings, you may not want to PSRemote to the machine since the attacker is already at least a local admin on that box since it is required to create bindings.
+
+Try getting the `%SystemRoot%\System32\wbem\Repository\OBJECTS.DATA`
+
+Once you have that, you can use [PyWMIPersistenceFinder.py](https://github.com/davidpany/WMI_Forensics) by David Pany from Mandient to parse the OBJECTS.DATA file and get a list of bindings like so:
+
+```text
+./PyWMIPersistenceFinder.py OBJECTS.DATA
+```
+
+![](../../.gitbook/assets/wmi-parser.png)
+
 Based on the research by [Matthew Graeber](https://twitter.com/mattifestation) and other great resources listed below: 
 
 {% embed data="{\"url\":\"https://learn-powershell.net/2013/08/14/powershell-and-events-permanent-wmi-event-subscriptions/\",\"type\":\"link\",\"title\":\"PowerShell and Events: Permanent WMI Event Subscriptions\",\"description\":\"Wrapping up my series on PowerShell and Events, I will be talking about Permanent WMI Event Subscriptions and creating these using PowerShell. Mentioned in my previous article on temporary events, …\",\"icon\":{\"type\":\"icon\",\"url\":\"https://s1.wp.com/i/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://boeprox.files.wordpress.com/2013/08/image\_thumb29.png\",\"width\":613,\"height\":98,\"aspectRatio\":0.1598694942903752}}" %}
