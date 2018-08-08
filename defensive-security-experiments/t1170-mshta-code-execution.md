@@ -4,7 +4,7 @@ description: MSHTA code execution - bypass application whitelisting.
 
 # T1170: MSHTA
 
-## Code
+## Execution
 
 {% code-tabs %}
 {% code-tabs-item title="http://10.0.0.5/m.sct" %}
@@ -29,8 +29,6 @@ description: MSHTA code execution - bypass application whitelisting.
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## Execution
-
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
 ```bash
@@ -54,7 +52,7 @@ Also, suspicious commandlines:
 
 ![](../.gitbook/assets/mshta-commandline.png)
 
-## Additionally
+## Bonus
 
 The hta file can be invoked like so:
 

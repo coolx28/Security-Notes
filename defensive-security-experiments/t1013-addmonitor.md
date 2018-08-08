@@ -43,7 +43,7 @@ int main() {
 
 {% file src="../.gitbook/assets/evil64.dll" caption="evil64.dll - meterpreter payload" %}
 
-Move evil64.dll to %systemroot% and execute the compiled `monitor.cpp`.
+Move evil64.dll to `%systemroot%` and execute the compiled `monitor.cpp`.
 
 ## Observations
 

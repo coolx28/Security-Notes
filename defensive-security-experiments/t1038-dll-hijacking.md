@@ -42,7 +42,7 @@ Looking at the rundll32 image info, we can see the current directory, which is h
 
 ![](../.gitbook/assets/dll-noparent.png)
 
-Looking at the sysmon logs gives a better view of what happened - CFF Explorer.exe was started as a process 4856 which then kicked off a rundll32 \(1872\) which then established a connection to 10.0.0.5:
+Looking at the sysmon logs gives a better view of what happened - CFF Explorer.exe was started as a process `4856` which then kicked off a rundll32 \(`1872`\) which then established a connection to 10.0.0.5:
 
 ![](../.gitbook/assets/dll-logs.png)
 

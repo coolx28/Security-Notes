@@ -2,7 +2,7 @@
 description: PowerShell remoting for lateral movement.
 ---
 
-# T1028: WinRM
+# T1028: WinRM for Lateral Movement
 
 ## Execution
 

@@ -4,7 +4,7 @@ description: regsvr32 (squiblydoo) code execution - bypass application whitelist
 
 # T1117: regsvr32
 
-## Code
+## Execution
 
 {% code-tabs %}
 {% code-tabs-item title="back.sct" %}
@@ -25,9 +25,7 @@ description: regsvr32 (squiblydoo) code execution - bypass application whitelist
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## Execution
-
-We can then execute the code from the command prompt:
+We need to host the back.sct somehwere on a web server and then we can then execute the above code from the command prompt:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}

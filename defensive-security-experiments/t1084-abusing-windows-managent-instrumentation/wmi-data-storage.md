@@ -40,7 +40,7 @@ Origin     : Evil
 Qualifiers : {CIMTYPE}
 ```
 
-Checking WMI explorer shows the new `Evil` class has been created under the root\cimv2 namepace - note the `EvilProperty` can also be seen:
+Checking WMI explorer shows the new `Evil` class has been created under the `root\cimv2` namepace - note the `EvilProperty` can also be observed:
 
 ![](../../.gitbook/assets/wmi-data-storage-newclass.png)
 
@@ -56,7 +56,7 @@ $encodedCommand = [Convert]::ToBase64String($bytes)
 # $encodedCommand = YwBtAGQAIAAvAGMAIAAnAG4AZQB0ACAAdQBzAGUAcgAgAGIAYQBjAGsAZABvAG8AcgAgAGIAYQBjAGsAZABvAG8AcgAgAC8AYQBkAGQAJwA=
 ```
 
-Update the `EvilProperty` attribute to now store the `$encodedCommand`:
+Updating `EvilProperty` attribute to store `$encodedCommand`:
 
 ```csharp
 $evilClass.Properties.Add('EvilProperty', $encodedCommand)
@@ -76,13 +76,19 @@ Executing the payload stored in the property of a WMI class's property - note th
 
 ![](../../.gitbook/assets/wmi-payload-executed.png)
 
-If we commit the `$evilClass` with its `.Put()` method, our payload will get stored permanently in the WMI Class. Note how a new "Evil" class' properties show the payload we have commited:
+If we commit the `$evilClass` with its `.Put()` method, our payload will get stored permanently in the WMI Class. Note how a new "Evil" class' properties member shows the payload we have commited:
 
 ![](../../.gitbook/assets/wmi-payload-commited.png)
 
 ## Observations
 
+Using the WMI Explorer, we can inspect the class' definition which is stored in`%SystemRoot%\System32\wbem\Repository\OBJECTS.DATA` 
+
+The file contains all the classes and other relevant information about those classes. In our case, we can see the `EvilProperty` with our malicious payload:
+
 ![](../../.gitbook/assets/wmi-evil-mof.png)
+
+Inspecting the OBJECTS.DATA with a hex editor, it is possible to find the same data, but it is impracticle, do not do it and read on:
 
 ![](../../.gitbook/assets/wmi-objects-data.png)
 

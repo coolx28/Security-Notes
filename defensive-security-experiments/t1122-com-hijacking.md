@@ -12,7 +12,7 @@ On the compromised system, change the `HKEY_LOCAL_MACHINE\SOFTWARE\Classes\mscfi
 
 By default, launching Windows Event Viewer calls under the hood:`"C:\Windows\system32\mmc.exe" "C:\Windows\system32\eventvwr.msc" /s` 
 
-Since we hijacked the `HKEY_LOCAL_MACHINE\SOFTWARE\Classes\mscfile\shell\open\command` to point to powershell, when launching Even Viewer, powershell is launched instead:
+Since we hijacked the `HKEY_LOCAL_MACHINE\SOFTWARE\Classes\mscfile\shell\open\command` to point to powershell, when launching Even Viewer, the powershell is invokes instead:
 
 ![](../.gitbook/assets/com-powershell.png)
 

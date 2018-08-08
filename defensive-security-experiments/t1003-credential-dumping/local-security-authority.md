@@ -45,7 +45,7 @@ Start-Transcript -Path C:\transcript.txt
 {% endcode-tabs %}
 
 {% hint style="warning" %}
-Note that enabling transcription logging is not recommended from powershell profiles, since `powershell -nop` will easily bypass this defence - best if loggin is enabled via GPOs.
+Note that enabling transcription logging is not recommended from powershell profiles, since `powershell -nop` will easily bypass this defence - best if logging is enabled via GPOs.
 {% endhint %}
 
 ### Cannot Start Transcript

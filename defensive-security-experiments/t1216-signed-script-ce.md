@@ -4,11 +4,11 @@ description: >-
   pubprn.vbs
 ---
 
-# T1216: Signed Script Code Execution
+# T1216: pubprn.vbs Signed Script Code Execution
 
 ## Execution
 
-Using pubprn.vbs, we will execute code to launch a calc.exe. First of, the xml that will executed by the script:
+Using pubprn.vbs, we will execute code to launch a calc.exe. First of, the xml that will be executed by the script:
 
 {% code-tabs %}
 {% code-tabs-item title="http://192.168.2.71/tools/mitre/proxy-script/proxy.sct" %}

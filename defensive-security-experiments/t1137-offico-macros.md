@@ -4,7 +4,7 @@ description: Code execution
 
 # T1137: Office Macros
 
-This technique will build a primitive word document that will auto execute the Macro VBA code once the Macros protection is disabled.
+This technique will build a primitive word document that will auto execute the VBA Macros code once the Macros protection is disabled.
 
 ## Weaponization
 
@@ -70,7 +70,7 @@ root@remnux:/home/remnux# hexdump -C Doc3.dotm | head -n1
 00000000  50 4b 03 04 14 00 06 00  08 00 00 00 21 00 cc 3c  |PK..........!..<|
 ```
 
-...the file can be renamed to **Doc3.zip** and simply unzipped like a regular archive. Doing so deflates the archive and reveals the files that make up the suspicious office file. Files include `document.xml` which is where the main document body text goes and `vbaProject.bin` containing our evil macros:
+...the file can be renamed to **Doc3.zip** and simply unzipped like a regular archive. Doing so deflates the archive and reveals the files that make up the suspicious office file. Files include `document.xml` which is where the main document body text goes and `vbaProject.bin` containing the evil macros:
 
 ![](../.gitbook/assets/macros-deflated.png)
 

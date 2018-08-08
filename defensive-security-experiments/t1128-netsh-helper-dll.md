@@ -26,7 +26,7 @@ The helper library, once loaded, will start `calc.exe`:
 
 ## Observations
 
-Adding the helper via commandline adds a registry key for the new helper \(so you may want to monitor for registry changes in `Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NetSh` 
+Adding the helper via commandline adds a registry key for the new helper, so you may want to monitor for registry changes in `Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NetSh`
 
 ![](../.gitbook/assets/netsh-registry.png)
 

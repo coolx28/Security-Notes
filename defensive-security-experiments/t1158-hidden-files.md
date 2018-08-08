@@ -18,13 +18,13 @@ Note how powershell \(or cmd\) says the file does not exist, however you can typ
 
 ![](../.gitbook/assets/attrib-nofile.png)
 
-Note, that `cmd /a:h` \(attribute: hidden\) reveals files with a "hidden" attribut set:
+Note, that `cmd /a:h` \(attribute: hidden\) reveals files with a "hidden" attribute set:
 
 ![](../.gitbook/assets/attrib-reveal.png)
 
 ## Observations
 
-As usual, monitoring commandline arguments may be a good idea:
+As usual, monitoring commandline arguments may be a good idea if you want to identify these events:
 
 ![](../.gitbook/assets/attrib-set.png)
 

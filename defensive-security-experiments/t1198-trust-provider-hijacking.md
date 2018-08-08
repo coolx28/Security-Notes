@@ -8,7 +8,7 @@ description: >-
 
 ## Execution
 
-I will try to sign a simple powershell script test-forget.ps1 that only has one line of code with a Microsoft certificate:
+I will try to sign a simple "rogue" powershell script `test-forged.ps1` that only has one line of code with a **Microsoft's** certificate to appear like a legitimate script and also bypass any whitelisting protections/policies the script may be subject to if not signed:
 
 ![](../.gitbook/assets/trust-ps-file.png)
 
@@ -64,13 +64,13 @@ DbgUIContinue
 
 ![](../.gitbook/assets/trust-to.png)
 
-Launch a new powershell instance \(for the registry changes to take effect\) and check the signature of the forged file now - note how the file is now signed with a Microsoft's certificate, and the signature is verified and valid:
+Now, let's launch a new powershell instance \(for the registry changes to take effect\) and check the signature of the forged file now - note how the file is now signed with a Microsoft's certificate, and the signature is verified and valid:
 
 ![](../.gitbook/assets/trust-signed.png)
 
 ## Observations
 
-Monitoring the following registry keys/values helps discover sucpicous activity:
+Monitoring the following registry keys/values helps discover suspicious activity:
 
 ![](../.gitbook/assets/trust-sysmon1.png)
 
