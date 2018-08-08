@@ -1,5 +1,5 @@
 ---
-description: 'Persistence, privilege escalation.'
+description: 'Persistence, privilege escalation via WMI.'
 ---
 
 # T1084: Abusing Windows Managent Instrumentation
