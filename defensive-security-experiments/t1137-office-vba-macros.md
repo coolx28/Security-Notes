@@ -76,7 +76,7 @@ root@remnux:/home/remnux# hexdump -C Doc3.dotm | head -n1
 
 ![](../.gitbook/assets/macros-deflated.png)
 
-Looking inside the `document.xml`, we can see the body copy we inputted at the very begging of this page in the [Weaponization](t1137-offico-macros.md#weaponization) section:
+Looking inside the `document.xml`, we can see the body copy we inputted at the very begging of this page in the [Weaponization](t1137-office-vba-macros.md#weaponization) section:
 
 ![](../.gitbook/assets/macros-document-unzipped.png)
 
