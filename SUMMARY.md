@@ -35,6 +35,7 @@
   * [T1209: Hijacking Time Providers](defensive-security-experiments/t1209-hijacking-time-providers.md)
   * [T1084: Abusing Windows Managent Instrumentation](defensive-security-experiments/t1084-abusing-windows-managent-instrumentation/README.md)
     * [WMI Data Storage](defensive-security-experiments/t1084-abusing-windows-managent-instrumentation/wmi-data-storage.md)
+  * [T1134: Access Token Manipulation](defensive-security-experiments/t1134-access-token-manipulation.md)
 * [Memory Forensics](memory-forensics/README.md)
   * [Dump Virtual Box Memory](memory-forensics/dump-virtual-box-memory.md)
 
