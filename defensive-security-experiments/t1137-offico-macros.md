@@ -43,6 +43,8 @@ Save the file as a macro enabled document, for example a Doc3.dotm:
 
 ![](../.gitbook/assets/macros-filename.png)
 
+{% file src="../.gitbook/assets/doc3.dotm" caption="Dot3.dotm - Word Document with Embedded VBA Macros" %}
+
 ## Execution
 
 Victim launching the Doc3.dotm:
