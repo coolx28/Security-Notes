@@ -43,7 +43,7 @@ int main() {
 
 {% file src="../.gitbook/assets/evil64.dll" caption="evil64.dll - meterpreter payload" %}
 
-Move evil64.dll to %systemroot% and execute the compiled `monitor.cpp`.
+Move evil64.dll to `%systemroot%` and execute the compiled `monitor.cpp`.
 
 ## Observations
 
@@ -61,7 +61,7 @@ The attacker receives a reverse meterpreter session as **SYSTEM**:
 
 ![](../.gitbook/assets/monitor-shell-system.png)
 
-The below shows the procmon results explained above:
+The below shows confirms the procmon results explained above:
 
 ![](../.gitbook/assets/monitor-spoolsvc-rundll.png)
 

