@@ -6,21 +6,23 @@ description: 'Defense Evasion, Privilege Escalation'
 
 ## Execution
 
-One of the techniques of token manipulations is token impersonation by creating a duplicate token of an already existing access token present in one of the running processes on the local host.
+One of the techniques of token manipulations is token impersonation by creating. This is when a token of an already existing access token present in one of the running processes on the local host, is retrieved and duplicated and then used when creating a new process.
 
-The process is as follows:
+The high level process is as follows:
 
-| Process step | Win32 API |
+| Step | Win32 API |
 | :--- | :--- |
 | Open a process which has the access token you want to steal. | `OpenProcessToken` |
 | Make a duplicate token of the token in the process opened | `DuplicateTokenEx` |
 | Create a new process with the newly aquired | `CreateProcessWithTokenW` |
 
-Below is the C++ code implementing the above process. Note the variable `PID_TO_IMPERSONATE` that has a value of `3060`, which is a process ID that we want to impersonate aka steal its token, since it is running as a domain admin:
+Below is the C++ code implementing the above process. Note the variable `PID_TO_IMPERSONATE` that has a value of `3060` This is a process ID that we want to impersonate/steal its token from, since it is running as a domain admin and makes for a good target:
 
 ![A victim cmd.exe process that is running under the context of DC admin offense\administrator](../.gitbook/assets/tokens-victim-3060.png)
 
-![](../.gitbook/assets/tokens-c++.png)
+Note te line 16 which specifies the executable that should be launched with an impersonted token, which in our case is a simple netcat reverse shell:
+
+![](../.gitbook/assets/tokens-shell-c++.png)
 
 And this is the code if you want to compile and try it yourself:
 
