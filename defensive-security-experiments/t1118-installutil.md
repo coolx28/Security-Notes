@@ -6,7 +6,7 @@ description: InstallUtil code execution - bypass application whitelisting.
 
 ## Execution
 
-First of, generate a C\# payload \(with [InstalUtil script](https://github.com/khr0x40sh/WhiteListEvasion)\) that contains shellcode from msfvenom and upload the temp.cs file to victim's machine:
+First of, generate a C\# payload \(with [InstallUtil script](https://github.com/khr0x40sh/WhiteListEvasion)\) that contains shellcode from msfvenom and upload the temp.cs file to victim's machine:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@local" %}
