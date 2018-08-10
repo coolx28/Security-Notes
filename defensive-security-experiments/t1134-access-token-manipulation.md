@@ -63,6 +63,36 @@ Launching the tokens.exe from the powershell console spawns a reverse shell that
 
 ![](../.gitbook/assets/token-shell-impersonated.png)
 
+Other quick test - I spawned a cmd shell remotely from the attacking machine to the same victim machine via:
+
+{% code-tabs %}
+{% code-tabs-item title="attacker@local" %}
+```text
+pth-winexe //10.0.0.2 -U offense/administrator%pass cmd
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+which spawned a new process on the victim system with a PID of 4780:
+
+![](../.gitbook/assets/tokens-winexe.png)
+
+Enumerating all the access tokens with `Invoke-TokenManipulation -ShowAll | ft -Wrap -Property domain,username,tokentype,logontype,processid` from PowerSploit gives the below, note the available token highlighted - it is the cmd.exe from above screenshot:
+
+![](../.gitbook/assets/tokens-all.png)
+
+This token again can be stolen the same way, just by changing the PID to impersonate in our code:
+
+![](../.gitbook/assets/tokens-new-pid.png)
+
+and observing a new process being spawned witht the new token - note the cmd.exe has a PID 5188:
+
+![](../.gitbook/assets/tokens-new-shell.png)
+
+If we rerun the Invoke-TokenManipulation, we can see the new process is using the access token with logon type 3:
+
+![](../.gitbook/assets/token-new-logon-3%20%281%29.png)
+
 ## Observations
 
 {% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1134\",\"type\":\"link\",\"title\":\"Access Token Manipulation - ATT&CK for Enterprise\",\"icon\":{\"type\":\"icon\",\"url\":\"https://attack.mitre.org/favicon.ico\",\"aspectRatio\":0}}" %}
