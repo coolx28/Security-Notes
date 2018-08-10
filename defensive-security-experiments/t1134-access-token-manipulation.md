@@ -6,13 +6,13 @@ description: 'Defense Evasion, Privilege Escalation'
 
 ## Execution
 
-One of the techniques of token manipulations is token impersonation. This is when a token of an already existing access token present in one of the running processes on the local host, is retrieved and duplicated and then used for creating a new process.
+One of the techniques of token manipulations is creating a new process with a "stolen" token. This is when a token of an already existing access token present in one of the running processes on the local host, is retrieved, then duplicated and then used for creating a new process making the process run in the context of stolen token.
 
-The high level process is as follows:
+A high level process of the token stealing that will be carried out in this lab is as follows:
 
 | Step | Win32 API |
 | :--- | :--- |
-| Open a process which has the access token you want to steal. | `OpenProcess` |
+| Open a process with access token you want to steal | `OpenProcess` |
 | Get a handle to the access token of that process | `OpenProcesToken` |
 | Make a duplicate of the access token present in that process | `DuplicateTokenEx` |
 | Create a new process with the newly aquired access token | `CreateProcessWithTokenW` |
@@ -21,11 +21,11 @@ Below is the C++ code implementing the above process. Note the variable `PID_TO_
 
 ![A victim cmd.exe process that is running under the context of DC admin offense\administrator](../.gitbook/assets/tokens-victim-3060.png)
 
-Note te line 16 which specifies the executable that should be launched with an impersonted token, which in our case is a simple netcat reverse shell:
+Note the line 16, which specifies the executable that should be launched with an impersonted token, which in our case effectively is a simple netcat reverse shell calling back to the attacking system:
 
 ![](../.gitbook/assets/tokens-shell-c++.png)
 
-And this is the code if you want to compile and try it yourself:
+This is the code if you want to compile and try it yourself:
 
 {% code-tabs %}
 {% code-tabs-item title="tokens.cpp" %}
@@ -59,11 +59,13 @@ int main(int argc, char * argv[]) {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Launching the tokens.exe from the powershell console spawns a reverse shell that the we catch on the attacking system. Note how the `powershell.exe` - the parent process of `Tokens.exe` and `Tokens.exe` itself are running under `PC-Mantvydas\mantvydas`, but the newly spawned shell is running under `OFFENSE\Administrator` - this is because of the successful token impersonation:
+Launching `Tokens.exe` from the powershell console spawns a reverse shell that the attacker catches. Note how the `powershell.exe` - the parent process of `Tokens.exe` and `Tokens.exe` itself are running under `PC-Mantvydas\mantvydas`, but the newly spawned shell is running under `OFFENSE\Administrator` - this is because of the successful token theft:
 
 ![](../.gitbook/assets/token-shell-impersonated.png)
 
-Other quick test - I spawned a cmd shell remotely from the attacking machine to the same victim machine via:
+The logon for OFFESNE\administrator in the above test was of logon type 2 \(interactive logon, meaning I launched a new process on the victim system using a `runas /user:administrator@offense cmd` command\). 
+
+Another quick test that I wanted to do is test a theft of an access token that was present in the system due to a network logon \(i.e psexec, winexec, pth-winexe, etc\), so I spawned a cmd shell remotely from the attacking machine to the victim machine via:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@local" %}
@@ -73,37 +75,35 @@ pth-winexe //10.0.0.2 -U offense/administrator%pass cmd
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-which spawned a new process on the victim system with a PID of 4780:
+which created a new process on the victim system with a PID of 4780:
 
 ![](../.gitbook/assets/tokens-winexe.png)
 
-Enumerating all the access tokens with `Invoke-TokenManipulation -ShowAll | ft -Wrap -Property domain,username,tokentype,logontype,processid` from PowerSploit gives the below, note the available token highlighted - it is the cmd.exe from above screenshot and its logon type as expected is 3 \(network logon\):
+Enumerating all the access tokens on the victim system with `Invoke-TokenManipulation -ShowAll | ft -Wrap -Property domain,username,tokentype,logontype,processid` from PowerSploit gives the below. Note the available token \(highlighted\) - it is the cmd.exe from above screenshot and its logon type is as expected is 3 \(a network logon\):
 
 ![](../.gitbook/assets/tokens-all.png)
 
-This token again can be stolen the same way, just by changing the PID to impersonate in our code:
+This token again can be stolen the same way. Let's change the PID in `Tokens.cpp` of the process we want to impersonate to 4780 \(it has the access token we want to steal\):
 
 ![](../.gitbook/assets/tokens-new-pid.png)
 
-and observing a new process being spawned witht the new token - note the cmd.exe has a PID 5188:
+Running the compiled code invokes a new process with the newly stolen token:
 
 ![](../.gitbook/assets/tokens-new-shell.png)
 
-If we rerun the Invoke-TokenManipulation, we can see the new process is using the access token with logon type 3:
+note the cmd.exe has a PID 5188 - if we rerun the `Invoke-TokenManipulation`, we can see the new process is using the access token with logon type 3:
 
 ![](../.gitbook/assets/token-new-logon-3%20%281%29.png)
 
 ## Observations
 
-In this particularly contrived example, since Tokens.exe was written to the disk on the victim system, we could have a quick look at its dissasembly and conclude it is attempting to manipulate access tokens - note that we can see the victim process PID and the CMDLINE arguments:
+Imagine you were investigating the host \(we stole tokens from\) because it exhibited some anomalous behaviour, in this particularly contrived example, since `Tokens.exe` was written to the disk on the victim system, you could have a quick look at its dissasembly and conclude it is attempting to manipulate access tokens - note that we can see the victim process PID and the CMDLINE arguments:
 
 ![](../.gitbook/assets/token-disasm.png)
 
-As suggested by the above, you should think about API monitoring if you want to detect these manipulations, which is not natively easy. Additionally, events `4672` and `4674` may be helpful. Below shows the network logon of a `pth-winexe //10.0.0.2 -U offense/administrator%pass cmd` and then later on the netcat reverse shell originating from the same logon session:
+As suggested by the above, you should think about API monitoring if you want to detect these manipulations on endpoints. Additionally, Windows event logs of IDs `4672` and `4674` may be helpful - below shows a network logon of a `pth-winexe //10.0.0.2 -U offense/administrator%pass cmd` and then later, a netcat reverse shell originating from the same logon session:
 
 ![](../.gitbook/assets/token-logs.png)
-
-
 
 {% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1134\",\"type\":\"link\",\"title\":\"Access Token Manipulation - ATT&CK for Enterprise\",\"icon\":{\"type\":\"icon\",\"url\":\"https://attack.mitre.org/favicon.ico\",\"aspectRatio\":0}}" %}
 
