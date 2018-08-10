@@ -99,6 +99,12 @@ In this particularly contrived example, since Tokens.exe was written to the disk
 
 ![](../.gitbook/assets/token-disasm.png)
 
+As suggested by the above, you should think about API monitoring if you want to detect these manipulations, which is not natively easy. Additionally, events `4672` and `4674` may be helpful. Below shows the network logon of a `pth-winexe //10.0.0.2 -U offense/administrator%pass cmd` and then later on the netcat reverse shell originating from the same logon session:
+
+![](../.gitbook/assets/token-logs.png)
+
+
+
 {% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1134\",\"type\":\"link\",\"title\":\"Access Token Manipulation - ATT&CK for Enterprise\",\"icon\":{\"type\":\"icon\",\"url\":\"https://attack.mitre.org/favicon.ico\",\"aspectRatio\":0}}" %}
 
 {% embed data="{\"url\":\"https://digital-forensics.sans.org/blog/2012/03/21/protecting-privileged-domain-accounts-access-tokens\",\"type\":\"link\",\"title\":\"SANS Digital Forensics and Incident Response Blog \| Protecting Privileged Domain Accounts:  Safeguarding Access Tokens \| SANS Institute\",\"description\":\"SANS Digital Forensics and Incident Response Blog blog pertaining to Protecting Privileged Domain Accounts:  Safeguarding Access Tokens\",\"icon\":{\"type\":\"icon\",\"url\":\"https://digital-forensics.sans.org/favicon.ico\",\"aspectRatio\":0}}" %}
