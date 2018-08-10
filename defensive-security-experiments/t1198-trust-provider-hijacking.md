@@ -1,7 +1,5 @@
 ---
-description: >-
-  Defense Evasion, Persistence. Based on the research by Matt Graeber,
-  @mattifestation
+description: 'Defense Evasion, Persistence, Whitelisting Bypass'
 ---
 
 # T1198: SIP & Trust Provider Hijacking

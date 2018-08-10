@@ -1,5 +1,5 @@
 ---
-description: Redundant Access - webshells for evading defenses and persistence.
+description: Redundant Access - Webshells for evading defenses and persistence
 ---
 
 # T1108: WebShells
