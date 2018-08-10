@@ -1,5 +1,5 @@
 ---
-description: 'UAC Bypass/Defense Evasion, Persistence.'
+description: 'UAC Bypass/Defense Evasion, Persistence'
 ---
 
 # T1122: COM Hijacking

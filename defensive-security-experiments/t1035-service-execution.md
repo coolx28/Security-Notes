@@ -1,5 +1,5 @@
 ---
-description: 'Code execution, privilege escalation'
+description: 'Code Execution, Privilege Escalation'
 ---
 
 # T1035: Service Execution

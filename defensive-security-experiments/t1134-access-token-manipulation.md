@@ -1,5 +1,7 @@
 ---
-description: 'Defense Evasion, Privilege Escalation'
+description: >-
+  Defense Evasion, Privilege Escalation by stealing an re-using security access
+  tokens.
 ---
 
 # T1134: Access Token Manipulation
