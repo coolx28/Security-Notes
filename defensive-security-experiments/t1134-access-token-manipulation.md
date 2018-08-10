@@ -77,7 +77,7 @@ which spawned a new process on the victim system with a PID of 4780:
 
 ![](../.gitbook/assets/tokens-winexe.png)
 
-Enumerating all the access tokens with `Invoke-TokenManipulation -ShowAll | ft -Wrap -Property domain,username,tokentype,logontype,processid` from PowerSploit gives the below, note the available token highlighted - it is the cmd.exe from above screenshot:
+Enumerating all the access tokens with `Invoke-TokenManipulation -ShowAll | ft -Wrap -Property domain,username,tokentype,logontype,processid` from PowerSploit gives the below, note the available token highlighted - it is the cmd.exe from above screenshot and its logon type as expected is 3 \(network logon\):
 
 ![](../.gitbook/assets/tokens-all.png)
 
@@ -94,6 +94,10 @@ If we rerun the Invoke-TokenManipulation, we can see the new process is using th
 ![](../.gitbook/assets/token-new-logon-3%20%281%29.png)
 
 ## Observations
+
+In this particularly contrived example, since Tokens.exe was written to the disk on the victim system, we could have a quick look at its dissasembly and conclude it is attempting to manipulate access tokens - note that we can see the victim process PID and the CMDLINE arguments:
+
+![](../.gitbook/assets/token-disasm.png)
 
 {% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1134\",\"type\":\"link\",\"title\":\"Access Token Manipulation - ATT&CK for Enterprise\",\"icon\":{\"type\":\"icon\",\"url\":\"https://attack.mitre.org/favicon.ico\",\"aspectRatio\":0}}" %}
 
