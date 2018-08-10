@@ -6,7 +6,7 @@ description: 'Defense Evasion, Privilege Escalation'
 
 ## Execution
 
-One of the techniques of token manipulations is token impersonation by creating. This is when a token of an already existing access token present in one of the running processes on the local host, is retrieved and duplicated and then used when creating a new process.
+One of the techniques of token manipulations is token impersonation. This is when a token of an already existing access token present in one of the running processes on the local host, is retrieved and duplicated and then used for creating a new process.
 
 The high level process is as follows:
 
