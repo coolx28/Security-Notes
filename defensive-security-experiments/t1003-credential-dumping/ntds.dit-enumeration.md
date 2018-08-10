@@ -1,7 +1,7 @@
 ---
 description: >-
-  NTDS.dit enumeration - file that contains information about Active Directory
-  users.
+  Dumping and enumerating NTDS.dit - a file that contains information about
+  Active Directory users (hashes!).
 ---
 
 # NTDS - Domain Controller
