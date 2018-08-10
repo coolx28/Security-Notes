@@ -4,7 +4,7 @@ description: >-
   their properties.
 ---
 
-# WMI Data Storage
+# WMI as a Data Storage
 
 ## Execution
 
