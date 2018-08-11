@@ -14,6 +14,7 @@
     * [Local Security Authority](defensive-security-experiments/t1003-credential-dumping/local-security-authority.md)
     * [Security Accounts Manager](defensive-security-experiments/t1003-credential-dumping/sam.md)
     * [NTDS - Domain Controller](defensive-security-experiments/t1003-credential-dumping/ntds.dit-enumeration.md)
+    * [Network vs Interactive Logons](defensive-security-experiments/t1003-credential-dumping/network-vs-interactive-logons.md)
   * [T1028: WinRM for Lateral Movement](defensive-security-experiments/t1028-winrm-for-lateral-movement.md)
   * [T1047: WMI for Lateral Movement](defensive-security-experiments/t1047-wmi-for-lateral-movement.md)
   * [T1035: Service Execution](defensive-security-experiments/t1035-service-execution.md)
