@@ -36,6 +36,7 @@
   * [T1084: Abusing Windows Managent Instrumentation](defensive-security-experiments/t1084-abusing-windows-managent-instrumentation/README.md)
     * [WMI as a Data Storage](defensive-security-experiments/t1084-abusing-windows-managent-instrumentation/wmi-data-storage.md)
   * [T1134: Access Token Manipulation](defensive-security-experiments/t1134-access-token-manipulation.md)
+  * [T1207: DCShadow](defensive-security-experiments/t1207-dcshadow.md)
 * [Memory Forensics](memory-forensics/README.md)
   * [Dump Virtual Box Memory](memory-forensics/dump-virtual-box-memory.md)
 
