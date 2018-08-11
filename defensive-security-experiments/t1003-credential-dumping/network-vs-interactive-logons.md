@@ -6,6 +6,8 @@ description: >-
 
 # Network vs Interactive Logons
 
+Tested against Microsoft Windows 7 Professional 6.1.7601 Service Pack 1 Build 7601
+
 ## Interactive Logon \(2\): Initial Logon
 
 Let's make a base password dump \(using mimikatz\) on the victim system to see what we can get before we start logging on to the victim with other methods. To test this, the victim system was rebooted and no attempts to login to the system were made, except for the interactive logon to get access to the console:
