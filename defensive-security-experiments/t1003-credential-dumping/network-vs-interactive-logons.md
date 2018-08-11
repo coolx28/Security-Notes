@@ -136,7 +136,7 @@ Caches the credentials in memory:
 
 ![](../../.gitbook/assets/pwdump-logon10.png)
 
-## Network + Interactive Logon via PsExec
+## PsExec From An Elevated Prompt
 
 {% code-tabs %}
 {% code-tabs-item title="responder@victim" %}
@@ -162,7 +162,7 @@ Mimikatz shows no credentials got stored in memory for `offense\spot`
 
 Note how all the logon events are of type 3 - network logons and read on.
 
-## Network + Interactive Logon via PsExec + Alternate Credentials
+## PsExec + Alternate Credentials
 
 {% code-tabs %}
 {% code-tabs-item title="responder@victim" %}
