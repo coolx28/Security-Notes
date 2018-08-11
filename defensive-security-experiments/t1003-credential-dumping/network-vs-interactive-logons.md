@@ -65,7 +65,7 @@ mimikatz # sekurlsa::logonpasswords
 
 ## Network Logon \(3\) with Local Account
 
-Imagine and admin or an Incident Responder is connecting to a victim system \(using that machine's local account\) remotely to inspect it for a compromise using psexec or pth-winexe:
+Imagine and admin or an Incident Responder is connecting to a victim system \(using that machine's local account\) remotely to inspect it for a compromise using pth-winexe:
 
 {% code-tabs %}
 {% code-tabs-item title="victim" %}
@@ -87,7 +87,7 @@ Mimikatz shows no credentials got stored in memory for the user `back`.
 
 ## Network Logon \(3\) with Domain Account
 
-Imagine a good admin or an Incident Responder is connecting to a victim system \(using that machine's local account\) remotely to inspect it for a compromise using psexec, pth-winexe, a simple SMB mount or WMI:
+Imagine a good admin or an Incident Responder is connecting to a victim system \(using that machine's local account\) remotely to inspect it for a compromise using pth-winexe, a simple SMB mount or WMI:
 
 {% code-tabs %}
 {% code-tabs-item title="admin@linux" %}
