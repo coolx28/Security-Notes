@@ -63,6 +63,20 @@ mimikatz # sekurlsa::logonpasswords
 
 ![](../../.gitbook/assets/pwdump-test3.png)
 
+## New Credentials \(9\) via runas with /netonly
+
+```text
+runas /user:low /netonly cmd
+```
+
+Event logs suggest the logon of type 9 and also for the user `mantvydas`, although we requested to logon as the user `low`:
+
+![](../../.gitbook/assets/pwdump-runas-netonly.png)
+
+Logon type 9 means that the any network connections originating from our new process will use the new credentials, which in our case are credentials of the user `low`. These credentials, however still get cached on the victim system:
+
+![](../../.gitbook/assets/pwdump-runas-netonly-dump.png)
+
 ## Network Logon \(3\) with Local Account
 
 Imagine and admin or an Incident Responder is connecting to a victim system \(using that machine's local account\) remotely to inspect it for a compromise using pth-winexe:
