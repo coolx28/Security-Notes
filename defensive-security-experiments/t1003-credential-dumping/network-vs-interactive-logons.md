@@ -124,5 +124,19 @@ sekurlsa::logonpasswords
 
 Mimikatz shows no credentials got stored in memory for `offense\spotless` or `offense\administrator`.
 
+## Network Interactive Logon \(10\) with Domain Account
 
+RDPing to the victim system:
+
+![](../../.gitbook/assets/pwdum-test5.png)
+
+Caches the credentials in memory:
+
+![](../../.gitbook/assets/pwdump-test6.png)
+
+![](../../.gitbook/assets/pwdump-logon10.png)
+
+## Observations
+
+Network logons do not get cached in memory, interactive and remote interactive do get cached and can get easily dumped with Mimikatz.
 
