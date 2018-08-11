@@ -1,7 +1,7 @@
 ---
 description: >-
-  This lab explores/compares when credentials are stored on a compromised
-  system.
+  This lab explores/compares when credentials are susceptible to credential
+  dumping.
 ---
 
 # Network vs Interactive Logons
@@ -18,6 +18,8 @@ mimikatz # sekurlsa::logonpasswords
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+Credentials were cached and got dumped by mimikatz:
 
 ![](../../.gitbook/assets/pwdump-test1.png)
 
@@ -39,6 +41,8 @@ mimikatz # sekurlsa::logonpasswords
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+Credentials were cached and got dumped by mimikatz:
+
 ![](../../.gitbook/assets/pwdump-test2.png)
 
 ## Interactive Logon \(2\) via runas and Domain Account
@@ -58,6 +62,8 @@ mimikatz # sekurlsa::logonpasswords
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+Credentials were cached and got dumped by mimikatz:
 
 ![](../../.gitbook/assets/pwdump-test3.png)
 
@@ -142,6 +148,8 @@ RDPing to the victim system:
 
 ![](../../.gitbook/assets/pwdum-test5.png)
 
+Credentials were cached and got dumped by mimikatz:
+
 ![](../../.gitbook/assets/pwdump-test6.png)
 
 Note that any remote logon with a graphical UI is logged as logon event type 10 and the credentials stay on the logged on system:
@@ -183,6 +191,8 @@ Note how all the logon events are of type 3 - network logons and read on to the 
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+Credentials were cached and got dumped by mimikatz:
 
 ![](../../.gitbook/assets/pwdump-psexec-supplied-creds.png)
 
