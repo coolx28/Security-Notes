@@ -41,8 +41,6 @@ mimikatz # sekurlsa::logonpasswords
 
 ![](../../.gitbook/assets/pwdump-test2.png)
 
-
-
 ## Interactive Logon \(2\) via runas and Domain Account
 
 {% code-tabs %}
@@ -79,7 +77,7 @@ Logon type 9 means that the any network connections originating from our new pro
 
 ## Network Logon \(3\) with Local Account
 
-Imagine and admin or an Incident Responder is connecting to a victim system \(using that machine's local account\) remotely to inspect it for a compromise using pth-winexe:
+Imagine an Incident Responder is connecting to a victim system using that machine's local account remotely to inspect it for a compromise using pth-winexe:
 
 {% code-tabs %}
 {% code-tabs-item title="responder@victim" %}
@@ -101,7 +99,7 @@ Mimikatz shows no credentials got stored in memory for the user `back`.
 
 ## Network Logon \(3\) with Domain Account
 
-Imagine a good admin or an Incident Responder is connecting to a victim system \(using that machine's local account\) remotely to inspect it for a compromise using pth-winexe, a simple SMB mount or WMI:
+Imagine an Incident Responder is connecting to a victim system using a privileged domain account remotely to inspect it for a compromise using pth-winexe, a simple SMB mount or WMI:
 
 {% code-tabs %}
 {% code-tabs-item title="responder@victim" %}
@@ -144,9 +142,9 @@ RDPing to the victim system:
 
 ![](../../.gitbook/assets/pwdum-test5.png)
 
-Caches the credentials in memory:
-
 ![](../../.gitbook/assets/pwdump-test6.png)
+
+Note that any remote logon with a graphical UI is logged as logon event type 10 and the credentials stay on the logged on system:
 
 ![](../../.gitbook/assets/pwdump-logon10.png)
 
@@ -174,7 +172,7 @@ C:\Windows\system32>
 
 Mimikatz shows no credentials got stored in memory for `offense\spot`
 
-Note how all the logon events are of type 3 - network logons and read on.
+Note how all the logon events are of type 3 - network logons and read on to the next section.
 
 ## PsExec + Alternate Credentials
 
@@ -188,7 +186,7 @@ Note how all the logon events are of type 3 - network logons and read on.
 
 ![](../../.gitbook/assets/pwdump-psexec-supplied-creds.png)
 
-Looking at the event logs, a logon type 2 \(interactive\) is observed, which explains why credentials could be dumped in the above test:
+Looking at the event logs, a logon type 2 \(interactive\) is observed amongst the network logon 3, which explains why credentials were successfully dumped in the above test:
 
 ![](../../.gitbook/assets/pwdump-psexec-interactive-logon.png)
 
@@ -196,9 +194,9 @@ Looking at the event logs, a logon type 2 \(interactive\) is observed, which exp
 
 ## Observations
 
-Network logons do not get cached in memory excepts for `PsExec` when it is supplied alternate credentials through the use of `-u` switch. 
+Network logons do not get cached in memory except for `PsExec` when it is supplied with alternate credentials through the use of `-u` switch. 
 
-Interactive and remote interactive do get cached and can get easily dumped with Mimikatz.
+Interactive and remote interactive logons do get cached and can get easily dumped with Mimikatz.
 
 Inspired by:
 
