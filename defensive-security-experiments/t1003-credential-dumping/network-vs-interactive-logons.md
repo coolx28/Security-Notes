@@ -24,7 +24,7 @@ mimikatz # sekurlsa::logonpasswords
 ## Interactive Logon \(2\) via runas and Local Account
 
 {% code-tabs %}
-{% code-tabs-item title="victim" %}
+{% code-tabs-item title="responder@victim" %}
 ```text
 runas /user:low cmd
 ```
@@ -46,7 +46,7 @@ mimikatz # sekurlsa::logonpasswords
 ## Interactive Logon \(2\) via runas and Domain Account
 
 {% code-tabs %}
-{% code-tabs-item title="victim" %}
+{% code-tabs-item title="responder@victim" %}
 ```text
 runas /user:spot@offense cmd
 ```
@@ -68,7 +68,7 @@ mimikatz # sekurlsa::logonpasswords
 Imagine and admin or an Incident Responder is connecting to a victim system \(using that machine's local account\) remotely to inspect it for a compromise using pth-winexe:
 
 {% code-tabs %}
-{% code-tabs-item title="victim" %}
+{% code-tabs-item title="responder@victim" %}
 ```csharp
 root@~# pth-winexe //10.0.0.2 -U back%password cmd
 ```
@@ -90,7 +90,7 @@ Mimikatz shows no credentials got stored in memory for the user `back`.
 Imagine a good admin or an Incident Responder is connecting to a victim system \(using that machine's local account\) remotely to inspect it for a compromise using pth-winexe, a simple SMB mount or WMI:
 
 {% code-tabs %}
-{% code-tabs-item title="admin@linux" %}
+{% code-tabs-item title="responder@victim" %}
 ```csharp
 root@~# pth-winexe //10.0.0.2 -U offense/spot%password cmd
 ```
@@ -98,7 +98,7 @@ root@~# pth-winexe //10.0.0.2 -U offense/spot%password cmd
 {% endcode-tabs %}
 
 {% code-tabs %}
-{% code-tabs-item title="admin@windows" %}
+{% code-tabs-item title="responder@victim" %}
 ```text
 PS C:\Users\spot> net use * \\10.0.0.2\test /user:offense\spotless spotless
 Drive Z: is now connected to \\10.0.0.2\test.
@@ -136,7 +136,53 @@ Caches the credentials in memory:
 
 ![](../../.gitbook/assets/pwdump-logon10.png)
 
+## Network + Interactive Logon via PsExec
+
+{% code-tabs %}
+{% code-tabs-item title="responder@victim" %}
+```csharp
+PS C:\tools\PSTools> whoami.exe
+offense\spot
+
+PsExec v2.2 - Execute processes remotely
+Copyright (C) 2001-2016 Mark Russinovich
+Sysinternals - www.sysinternals.com
+
+Microsoft Windows [Version 6.1.7601]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+
+C:\Windows\system32>
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+![](../../.gitbook/assets/pwdump-psexec-no-atlernate-credentials.png)
+
+Mimikatz shows no credentials got stored in memory for `offense\spot`
+
+Note how all the logon events are of type 3 - network logons and read on.
+
+## Network + Interactive Logon via PsExec + Alternate Credentials
+
+{% code-tabs %}
+{% code-tabs-item title="responder@victim" %}
+```text
+.\PsExec64.exe \\10.0.0.2 -u offense\spot -p password cmd
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+![](../../.gitbook/assets/pwdump-psexec-supplied-creds.png)
+
+Looking at the event logs, a logon type 2 \(interactive\) is observed, which explains why credentials could be dumped in the above test:
+
+![](../../.gitbook/assets/pwdump-psexec-interactive-logon.png)
+
+![](../../.gitbook/assets/pwdump-psexec-eventlog.png)
+
 ## Observations
 
-Network logons do not get cached in memory, interactive and remote interactive do get cached and can get easily dumped with Mimikatz.
+Network logons do not get cached in memory excepts for `PsExec` when it is supplied alternate credentials through the use of `-u` switch. 
+
+Interactive and remote interactive do get cached and can get easily dumped with Mimikatz.
 
