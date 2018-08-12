@@ -6,8 +6,6 @@ description: >-
 
 # RDP Hijacking for Lateral Movement
 
-## im
-
 ## Execution
 
 It is possible by design to switch from one user's desktop session to another through the Task Manager \(one of the ways\).
