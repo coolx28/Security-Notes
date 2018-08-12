@@ -65,7 +65,15 @@ Just reinforcing the above - note the usernames and logon session IDs:
 
 ![](../.gitbook/assets/rdp-logon-sessions.png)
 
+
+
+{% embed data="{\"url\":\"http://blog.gentilkiwi.com/securite/vol-de-session-rdp\",\"type\":\"link\",\"title\":\"Vol de session RDP \| Blog de Gentil Kiwi\",\"icon\":{\"type\":\"icon\",\"url\":\"http://blog.gentilkiwi.com/favicon.ico\",\"aspectRatio\":0}}" %}
+
 {% embed data="{\"url\":\"http://www.korznikov.com/2017/03/0-day-or-feature-privilege-escalation.html\",\"type\":\"link\",\"title\":\"Passwordless RDP Session Hijacking Feature All Windows versions\",\"description\":\"0-day or feature? All windows privilege escalation / session hijacking.\",\"icon\":{\"type\":\"icon\",\"url\":\"http://www.korznikov.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://i.ytimg.com/vi/OZqTK\_yQbHk/0.jpg\",\"width\":480,\"height\":360,\"aspectRatio\":0.75}}" %}
 
 {% embed data="{\"url\":\"https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventID=4778\",\"type\":\"link\",\"title\":\"Windows Security Log Event ID 4778 - A session was reconnected to a Window Station\",\"icon\":{\"type\":\"icon\",\"url\":\"https://www.ultimatewindowssecurity.com/favicon.ico\",\"aspectRatio\":0}}" %}
+
+{% embed data="{\"url\":\"https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tscon\",\"type\":\"link\",\"title\":\"tscon\",\"description\":\"Windows Commands topic for \*\*\*\* -\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
+
+
 
