@@ -4,7 +4,7 @@ description: Defense Evasion
 
 # T1207: DCShadow
 
-DCShadow allows an attacker with enough privileges to create a rogue Domain Controller which then enables the attacker to push changes to the DC Active Directory objects.
+DCShadow allows an attacker with enough privileges to create a rogue Domain Controller and push changes to the DC Active Directory objects.
 
 ## Execution
 
