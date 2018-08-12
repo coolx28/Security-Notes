@@ -4,7 +4,7 @@ description: >-
   through the network without the need for credentials.
 ---
 
-# RDP Hijacking for Lateral Movement
+# RDP Hijacking for Lateral Movement with tscon
 
 ## Execution
 
