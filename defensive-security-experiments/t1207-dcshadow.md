@@ -54,7 +54,7 @@ Same for the logs, if you see a non-DC host causing the DC to log a `4929` event
 
 ![](../.gitbook/assets/dcshadow-logs.png)
 
-Current implementation of DCShadow in mimikatz creates the new DC and deletes its associated objects when the push is complete in a quick succession and this pattern could be used to trigger an alert, since creation of a new DC and its deletion in one seconds sounds anomalous:
+Current implementation of DCShadow in mimikatz creates the new DC and deletes its associated objects when the push is complete in a quick succession and this pattern could be used to trigger an alert, since creation of a new DC and its deletion in one seconds sounds anomalous. Events `4662` may be helpful for this:
 
 ![](../.gitbook/assets/dcshadow-createobject.png)
 
