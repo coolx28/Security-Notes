@@ -38,6 +38,7 @@
     * [WMI as a Data Storage](defensive-security-experiments/t1084-abusing-windows-managent-instrumentation/wmi-data-storage.md)
   * [T1134: Access Token Manipulation](defensive-security-experiments/t1134-access-token-manipulation.md)
   * [T1207: DCShadow](defensive-security-experiments/t1207-dcshadow.md)
+  * [RDP Hijacking for Lateral Movement](defensive-security-experiments/rdp-hijacking-for-lateral-movement.md)
 * [Memory Forensics](memory-forensics/README.md)
   * [Dump Virtual Box Memory](memory-forensics/dump-virtual-box-memory.md)
 
