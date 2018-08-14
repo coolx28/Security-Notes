@@ -28,6 +28,8 @@ Monitoring commandline arguments and events mofidying the `HKLM\Software\Microso
 
 ![](../.gitbook/assets/ifeo-cmdline2.png)
 
+{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1183\",\"type\":\"link\",\"title\":\"Image File Execution Options Injection - ATT&CK for Enterprise\"}" %}
+
   
 
 
