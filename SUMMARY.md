@@ -40,6 +40,7 @@
   * [T1207: DCShadow](defensive-security-experiments/t1207-dcshadow.md)
   * [RDP Hijacking for Lateral Movement with tscon](defensive-security-experiments/rdp-hijacking-for-lateral-movement.md)
   * [T1140: Encode/Decode Data with Certutil](defensive-security-experiments/t1140-encode-decode-data-with-certutil.md)
+  * [T1183: Image File Execution Options Injection](defensive-security-experiments/t1183-image-file-execution-options-injection.md)
 * [Memory Forensics](memory-forensics/README.md)
   * [Dump Virtual Box Memory](memory-forensics/dump-virtual-box-memory.md)
 
