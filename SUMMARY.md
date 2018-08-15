@@ -44,6 +44,7 @@
   * [T1202: Forfiles Indirect Command Execution](defensive-security-experiments/t1202-forfiles-indirect-command-execution.md)
   * [T1130: Install Root Certificate](defensive-security-experiments/t1130-install-root-certificate.md)
   * [T1096: Alternate Data Streams](defensive-security-experiments/t1096-alternate-data-streams.md)
+  * [T1027: Obfuscated Powershell Invocations](defensive-security-experiments/t1027-obfuscated-powershell-invocations.md)
 * [Memory Forensics](memory-forensics/README.md)
   * [Dump Virtual Box Memory](memory-forensics/dump-virtual-box-memory.md)
 
