@@ -45,5 +45,7 @@ notepad .\benign.txt:evil.txt
 
 ## Observations
 
+![](../.gitbook/assets/ads-commandline.png)
+
 {% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1096\",\"type\":\"link\",\"title\":\"NTFS File Attributes - ATT&CK for Enterprise\"}" %}
 
