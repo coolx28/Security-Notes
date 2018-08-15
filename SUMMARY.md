@@ -42,6 +42,7 @@
   * [T1140: Encode/Decode Data with Certutil](defensive-security-experiments/t1140-encode-decode-data-with-certutil.md)
   * [T1183: Image File Execution Options Injection](defensive-security-experiments/t1183-image-file-execution-options-injection.md)
   * [T1202: Forfiles Indirect Command Execution](defensive-security-experiments/t1202-forfiles-indirect-command-execution.md)
+  * [T1130: Install Root Certificate](defensive-security-experiments/t1130-install-root-certificate.md)
 * [Memory Forensics](memory-forensics/README.md)
   * [Dump Virtual Box Memory](memory-forensics/dump-virtual-box-memory.md)
 
