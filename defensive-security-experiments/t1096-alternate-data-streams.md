@@ -2,7 +2,7 @@
 
 ## Execution
 
-Creating a benign file:
+Creating a benign text file:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
@@ -27,7 +27,7 @@ cmd '/c echo "this is evil" > benign.txt:evil.txt'
 
 ![](../.gitbook/assets/ads-evil.png)
 
-Note how the evil.txt file is not visible - that is because it is in the alternate data stream. Opening the benign.txt shows no signs of evil.txt. However, the data from evil.txt can still be accessed from the file as shown below in the commandline - `type benign.txt:evil.txt`:
+Note how the evil.txt file is not visible through the explorer - that is because it is in the alternate data stream now. Opening the benign.txt shows no signs of evil.txt. However, the data from evil.txt can still be accessed as shown below in the commandline - `type benign.txt:evil.txt`:
 
 ![](../.gitbook/assets/ads-evil-2.png)
 
@@ -46,6 +46,15 @@ notepad .\benign.txt:evil.txt
 ## Observations
 
 ![](../.gitbook/assets/ads-commandline.png)
+
+Note that powershell can also help finding alternate data streams:
+
+```csharp
+Get-Item c:\experiment\evil.txt -Stream *
+Get-Content .\benign.txt -Stream evil.txt
+```
+
+![](../.gitbook/assets/ads-powershell.png)
 
 {% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1096\",\"type\":\"link\",\"title\":\"NTFS File Attributes - ATT&CK for Enterprise\"}" %}
 
