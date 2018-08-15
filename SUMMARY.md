@@ -43,6 +43,7 @@
   * [T1183: Image File Execution Options Injection](defensive-security-experiments/t1183-image-file-execution-options-injection.md)
   * [T1202: Forfiles Indirect Command Execution](defensive-security-experiments/t1202-forfiles-indirect-command-execution.md)
   * [T1130: Install Root Certificate](defensive-security-experiments/t1130-install-root-certificate.md)
+  * [T1096: Alternate Data Streams](defensive-security-experiments/t1096-alternate-data-streams.md)
 * [Memory Forensics](memory-forensics/README.md)
   * [Dump Virtual Box Memory](memory-forensics/dump-virtual-box-memory.md)
 
