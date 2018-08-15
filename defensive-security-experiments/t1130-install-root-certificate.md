@@ -46,5 +46,3 @@ Commandline logging:
 
 {% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1130\",\"type\":\"link\",\"title\":\"Install Root Certificate - ATT&CK for Enterprise\"}" %}
 
-
-
