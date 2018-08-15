@@ -22,7 +22,7 @@ Launching a notepad on the victim system:
 
 ## Observations
 
-Monitoring commandline arguments and events mofidying the `HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options/<executable>` and `HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\<executable>` should be helpful in detecting these manipulations:
+Monitoring commandline arguments and events modifying registry keys: `HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options/<executable>` and `HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\<executable>` should be helpful in detecting these manipulations:
 
 ![](../.gitbook/assets/ifeo-cmdline.png)
 
