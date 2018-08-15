@@ -44,7 +44,13 @@ Commandline logging:
 
 ![](../.gitbook/assets/certs-logs.png)
 
-The CAs get installed to `Computer\HKEY_CURRENT_USER\Software\Microsoft\SystemCertificates\Root\Certificates\C6B22A75B0633E76C9F21A81F2EE6E991F5C94AE`, so it is worth monitoring registry changes there:
+The CAs get installed to:
+
+```text
+Computer\HKEY_CURRENT_USER\Software\Microsoft\SystemCertificates\Root\Certificates\C6B22A75B0633E76C9F21A81F2EE6E991F5C94AE
+```
+
+..so it is worth monitoring registry changes there:
 
 ![](../.gitbook/assets/certs-registry.png)
 
