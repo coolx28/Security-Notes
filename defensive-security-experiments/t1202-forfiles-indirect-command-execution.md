@@ -22,3 +22,5 @@ Defenders can monitor for commandline parameters to find any unusual executions:
 
 ![](../.gitbook/assets/forfiles-cmdline.png)
 
+{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1202\",\"type\":\"link\",\"title\":\"Indirect Command Execution - ATT&CK for Enterprise\"}" %}
+
