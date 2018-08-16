@@ -45,6 +45,7 @@
   * [T1130: Install Root Certificate](defensive-security-experiments/t1130-install-root-certificate.md)
   * [T1096: Alternate Data Streams](defensive-security-experiments/t1096-alternate-data-streams.md)
   * [T1027: Obfuscated Powershell Invocations](defensive-security-experiments/t1027-obfuscated-powershell-invocations.md)
+  * [T1045: Software Packing - UPX](defensive-security-experiments/t1045-software-packing-upx.md)
 * [Memory Forensics](memory-forensics/README.md)
   * [Dump Virtual Box Memory](memory-forensics/dump-virtual-box-memory.md)
 
