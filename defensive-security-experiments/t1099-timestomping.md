@@ -6,19 +6,35 @@ description: Defense Evasion
 
 ## Execution
 
+Checking original timestamps of the `nc.exe`:
+
 ```csharp
 .\timestomp.exe .\nc.exe -v
-.\RawCopy64.exe /FileNamePath:C:\$MFT /OutputName:c:\experiments\mft.dat
-.\timestomp.exe .\nc.exe -c "Monday 7/25/2005 5:15:55 AM"
-Import-Csv .\mft.csv -Delimiter "`t" | Where-Object {$_.Filename -eq "nc.exe"}
-
 ```
 
 ![](../.gitbook/assets/timestomp-original.png)
 
+Forging the file creation date:
+
+```csharp
+.\timestomp.exe .\nc.exe -c "Monday 7/25/2005 5:15:55 AM"
+```
+
 ![](../.gitbook/assets/timestomp-forged.png)
 
+Checking the `$MFT` for changes - first of, dumping the `$MFT`:
+
+```csharp
+.\RawCopy64.exe /FileNamePath:C:\$MFT /OutputName:c:\experiments\mft.dat
+```
+
 ![](../.gitbook/assets/timestomp-dump-parse-mft.png)
+
+Let's find the `nc.exe` record and check its times:
+
+```csharp
+Import-Csv .\mft.csv -Delimiter "`t" | Where-Object {$_.Filename -eq "nc.exe"}
+```
 
 ![](../.gitbook/assets/timestomp-mft-timestamps.png)
 
