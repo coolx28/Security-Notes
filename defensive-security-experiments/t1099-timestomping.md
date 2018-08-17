@@ -40,7 +40,7 @@ Note how fnCreateTime did not get updated - hence it is always a good idea to ch
 
 ![](../.gitbook/assets/timestomp-mft-timestamps.png)
 
-Note that if we moved the nc.exe file to any other folder on the system and re-parsed the $MFT again, the fnCreateTime timestamp would get updated:
+Note that if we moved the nc.exe file to any other folder on the system and re-parsed the $MFT again, the fnCreateTime timestamp would inherit the timestamp `siCreateTime`:
 
 ![](../.gitbook/assets/timestomp-moved.png)
 
