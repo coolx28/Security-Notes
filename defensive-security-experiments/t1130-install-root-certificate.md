@@ -2,7 +2,7 @@
 description: Defense Evasion
 ---
 
-# T1130: Install Root Certificate
+# T1130: Installing Root Certificate
 
 ## Execution
 
