@@ -4,6 +4,7 @@
 * [Offensive Security Cheatsheets](offensive-security-cheetsheets.md)
 * [\[De\|Of\]fensive Experiments](defensive-security-experiments/README.md)
   * [T1117: regsvr32](defensive-security-experiments/t1117-regsvr32-aka-squiblydoo.md)
+  * [T1099: Timestomping](defensive-security-experiments/t1099-timestomping.md)
   * [T1196: Control Panel Item](defensive-security-experiments/t1196-control-panel-item-code-execution.md)
   * [T1170: MSHTA](defensive-security-experiments/t1170-mshta-code-execution.md)
   * [T1191: CSMTP](defensive-security-experiments/t1191-csmtp-code-execution.md)
