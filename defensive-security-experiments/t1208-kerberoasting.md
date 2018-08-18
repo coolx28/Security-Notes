@@ -32,6 +32,14 @@ Get-NetUser | Where-Object {$_.servicePrincipalName} | fl
 
 ![](../.gitbook/assets/kerberoast-enumeration.png)
 
+Additionally, user accounts with SPN set could be extracted with a native windows binary:
+
+```text
+ setspn -T medin -Q */*
+```
+
+![](../.gitbook/assets/kerberoast-setspn.png)
+
 Attacker requesting a kerberos ticker for a user account with `servicePrincipalName` set to `HTTP/dc-mantvydas.offense.local`- it gets stored in the memory:
 
 {% code-tabs %}
