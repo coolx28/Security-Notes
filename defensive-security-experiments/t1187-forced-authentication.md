@@ -13,6 +13,8 @@ hashcat -m5600 /usr/share/responder/logs/SMBv2-NTLMv2-SSP-10.0.0.2.txt /usr/shar
 
 ![](../.gitbook/assets/forced-auth-word.png)
 
+{% file src="../.gitbook/assets/totes-not-a-scam.docx" caption="Forced SMBv2 Authentication - MS Word File" %}
+
 ![](../.gitbook/assets/forced-auth-hashes.png)
 
 ![](../.gitbook/assets/forced-auth-cracked.png)
