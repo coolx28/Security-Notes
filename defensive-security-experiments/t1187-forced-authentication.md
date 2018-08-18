@@ -56,6 +56,8 @@ Command=ToggleDesktop
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+{% file src="../.gitbook/assets/fa.scf" caption="fa.scf" %}
+
 An victim user `low` then opens the share `\\10.0.0.7\tools`, `fa.scf` gets executed and the user's hashes are sent to the attackers machine:
 
 ![victim opens \\10.0.0.7\tools, fa.scf executes and gives away low&apos;s hashes](../.gitbook/assets/forced-auth-shares.png)
