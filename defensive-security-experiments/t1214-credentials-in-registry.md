@@ -18,7 +18,7 @@ reg query HKCU /f password /t REG_SZ /s
 
 Monitoring for commandline arguments that include `req query` and `password` should raise suspicion and may warrant further investigation:
 
-![](../../.gitbook/assets/passwords-registry.png)
+![](../.gitbook/assets/passwords-registry.png)
 
 {% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1214\",\"type\":\"link\",\"title\":\"Credentials in Registry - ATT&CK for Enterprise\"}" %}
 
