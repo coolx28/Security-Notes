@@ -95,6 +95,16 @@ python2 tgsrepcrack.py pwd kerberoast.bin
 
 ## Observations
 
+Below is a security log `4769` showing service access being requested:
+
+![](../.gitbook/assets/kerberoast-4769.png)
+
+If you see `Add-event -AssemblyName SystemIdentityModel`... followed by a 4769 immediately after that, you may be looking at an old school kerberoasting:
+
+![](../.gitbook/assets/kerberoast-logs.png)
+
+### Traffic
+
 Below is the screenshot showing a request being sent to the `Ticket Granting Service` \(TGS\) for the service with a servicePrincipalName `HTTP/dc-mantvydas.offense.local` :
 
 ![](../.gitbook/assets/kerberoast-tgs-req.png)
