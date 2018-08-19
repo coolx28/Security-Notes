@@ -39,10 +39,10 @@ Get-NetUser | Where-Object {$_.servicePrincipalName} | fl
 Additionally, user accounts with SPN set could be extracted with a native windows binary:
 
 ```text
- setspn -T medin -Q */*
+ setspn -T offense -Q */*
 ```
 
-![](../.gitbook/assets/kerberoast-setspn.png)
+![](../.gitbook/assets/kerberoast-setspn%20%281%29.png)
 
 Attacker requesting a kerberos ticker for a user account with `servicePrincipalName` set to `HTTP/dc-mantvydas.offense.local`- it gets stored in the memory:
 
@@ -99,7 +99,7 @@ Below is the screenshot showing a request being sent to the `Ticket Granting Ser
 
 ![](../.gitbook/assets/kerberoast-tgs-req.png)
 
-Below is the response from the TGS for the user `spotless` \(we initiated this attack from offense\spotless\) which contains the encrypted \(RC4\) kerberos ticket to access the `HTTP/dc-mantvydas.offense.local` service. It is the same ticket we cracked earlier with [tgsrepcrack.py](t1208-kerberoasting.md#cracking-the-ticket):
+Below is the response from the TGS for the user `spotless` \(we initiated this attack from offense\spotless\) which contains the encrypted \(RC4\) kerberos ticket \(server part\) to access the `HTTP/dc-mantvydas.offense.local` service. It is the same ticket we cracked earlier with [tgsrepcrack.py](t1208-kerberoasting.md#cracking-the-ticket):
 
 ![](../.gitbook/assets/kerberoast-tgs-res.png)
 
