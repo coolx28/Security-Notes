@@ -97,7 +97,7 @@ Below is the screenshot showing a request being sent to the `Ticket Granting Ser
 
 ![](../.gitbook/assets/kerberoast-tgs-req.png)
 
-Below is the response from the TGS for the user `spotless` \(we initiated this attack from offense\spotless\) which contains the encrypted kerberos ticket to access the `HTTP/dc-mantvydas.offense.local` service, which is encrypted with RC4 and it's the one that was cracked with [tgsrepcrack.py](t1208-kerberoasting.md#cracking-the-ticket):
+Below is the response from the TGS for the user `spotless` \(we initiated this attack from offense\spotless\) which contains the encrypted \(RC4\) kerberos ticket to access the `HTTP/dc-mantvydas.offense.local` service. It is the same ticket we cracked earlier with [tgsrepcrack.py](t1208-kerberoasting.md#cracking-the-ticket):
 
 ![](../.gitbook/assets/kerberoast-tgs-res.png)
 
