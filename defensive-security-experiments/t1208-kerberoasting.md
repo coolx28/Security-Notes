@@ -126,6 +126,18 @@ Note how the ticket's previously encrypted piece is now in plain text and we can
 
 ![](../.gitbook/assets/kerberoast-decrypted.png)
 
+### tgsrepcrack.py
+
+Looking inside the code and adding a couple of print statements in key areas of the script, we can see that the password from the dictionary \(`Passw0rd`\) initially gets converted into an NTLM \(`K0`\) hash, then another key `K1` is derived from the initial hash and a message type, yet another key `K2` is derived from K1 and an MD5 digest of the encrypted data. Key `K2` is the actual key used to decrypt the encrypted ticket data:
+
+![](../.gitbook/assets/kerberoast-crackstation.png)
+
+![](../.gitbook/assets/kerberoast-printstatements.png)
+
+I did not have to, but I also used an online RC4 decryptor tool to confirm the above findings:
+
+![](../.gitbook/assets/kerberoast-decryptedonline.png)
+
 {% file src="../.gitbook/assets/kerberoast.pcap" caption="kerberoast.pcap" %}
 
 {% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1208\",\"type\":\"link\",\"title\":\"Kerberoasting - ATT&CK for Enterprise\"}" %}
@@ -135,4 +147,8 @@ Note how the ticket's previously encrypted piece is now in plain text and we can
 {% embed data="{\"url\":\"https://blog.stealthbits.com/extracting-service-account-passwords-with-kerberoasting/\",\"type\":\"link\",\"title\":\"Extracting Service Account Passwords with Kerberoasting \| Insider Threat\",\"description\":\"Kerberoasting is effective for extracting service account credentials from Active Directory without needing elevated rights or causing domain traffic.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://blog.stealthbits.com/wp-content/uploads/2016/06/cropped-Logo\_STEALTHbits\_Orb\_Blue\_250x250-192x192.png\",\"width\":192,\"height\":192,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://blog.stealthbits.com/wp-content/uploads/2017/05/Blog2-banner-Extract-Service-Account-Passwords-Kerberoasting1024x326.jpg\",\"width\":1024,\"height\":326,\"aspectRatio\":0.318359375}}" %}
 
 {% embed data="{\"url\":\"https://blog.xpnsec.com/kerberos-attacks-part-1/\",\"type\":\"link\",\"title\":\"Kerberos AD Attacks - Kerberoasting\",\"description\":\"Recently I\'ve been trying to make sure that my redteam knowledge is up to date, exploring many of the advancements in Active Directory Kerberos attacks... and there have been quite a few! I finally found some free time this week to roll up my sleeves and dig into the internals\",\"icon\":{\"type\":\"icon\",\"url\":\"https://blog.xpnsec.com/assets/favicon/android-icon-192x192.png?v=94d6be4395\",\"width\":192,\"height\":192,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://blog.xpnsec.com/content/images/2017/09/cerberos-1.jpg\",\"width\":615,\"height\":539,\"aspectRatio\":0.8764227642276423}}" %}
+
+{% embed data="{\"url\":\"http://rc4.online-domain-tools.com/\",\"type\":\"link\",\"title\":\"RC4 Encryption – Easily encrypt or decrypt strings or files\",\"description\":\"Online interface for RC4 encryption algorithm, also known as ARCFOUR, an algorithm that is used within popular cryptographic protocols such as SSL or WEP.\",\"icon\":{\"type\":\"icon\",\"url\":\"http://online-domain-tools.com/images/apple-touch-icon.png\",\"aspectRatio\":0}}" %}
+
+{% embed data="{\"url\":\"https://crackstation.net/\",\"type\":\"link\",\"title\":\"CrackStation - Online Password Hash Cracking - MD5, SHA1, Linux, Rainbow Tables, etc.\",\"description\":\"Crackstation is the most effective hash cracking service. We crack: MD5, SHA1, SHA2, WPA, and much more...\",\"icon\":{\"type\":\"icon\",\"url\":\"https://crackstation.net/favicon.ico\",\"aspectRatio\":0}}" %}
 
