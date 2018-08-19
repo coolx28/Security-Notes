@@ -20,6 +20,8 @@ nc -lvp 443 > kerberoast.bin
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+### Extracting the Ticket
+
 Attacker enumerating user accounts with `serverPrincipalName` set:
 
 {% code-tabs %}
