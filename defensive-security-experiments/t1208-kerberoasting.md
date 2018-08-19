@@ -99,6 +99,8 @@ Below is the response from the TGS for the user `spotless` \(we initiated this a
 
 ![](../.gitbook/assets/kerberoast-tgs-res.png)
 
+{% file src="../.gitbook/assets/kerberoast.pcap" caption="kerberoast.pcap" %}
+
 {% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1208\",\"type\":\"link\",\"title\":\"Kerberoasting - ATT&CK for Enterprise\"}" %}
 
 {% embed data="{\"url\":\"https://github.com/nidem/kerberoast\",\"type\":\"link\",\"title\":\"nidem/kerberoast\",\"description\":\"Contribute to kerberoast development by creating an account on Github.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://github.com/fluidicon.png\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://avatars3.githubusercontent.com/u/4877511?s=400&v=4\",\"width\":365,\"height\":365,\"aspectRatio\":1}}" %}
