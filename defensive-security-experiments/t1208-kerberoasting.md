@@ -101,6 +101,31 @@ Below is the response from the TGS for the user `spotless` \(we initiated this a
 
 ![](../.gitbook/assets/kerberoast-tgs-res.png)
 
+Out of curiosity, let's decrypt the kerberos ticket since we have the password the ticket was encrypted with.
+
+Creating a kerberos keytab file for use in wireshark:
+
+{% code-tabs %}
+{% code-tabs-item title="attacker@local" %}
+```bash
+root@~# ktutil 
+ktutil:  add_entry -password -p HTTP/iis_svc@dc-mantvydas.offense.local -k 1 -e arcfour-hmac-md5
+Password for HTTP/iis_svc@dc-mantvydas.offense.local: 
+ktutil:  wkt /root/tools/iis.keytab
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+![](../.gitbook/assets/kerberoast-creating-keytab.png)
+
+Adding the keytab to wireshark:
+
+![](../.gitbook/assets/kerberoast-wireshark-keytab.png)
+
+Note how the ticket's previously encrypted piece is now in plain text and we can see information pertinent to the requested ticket for a service `HTTP/dc-mantvydas.offense.local` :
+
+![](../.gitbook/assets/kerberoast-decrypted.png)
+
 {% file src="../.gitbook/assets/kerberoast.pcap" caption="kerberoast.pcap" %}
 
 {% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1208\",\"type\":\"link\",\"title\":\"Kerberoasting - ATT&CK for Enterprise\"}" %}
