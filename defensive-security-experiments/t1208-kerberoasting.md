@@ -4,9 +4,11 @@ description: Credential Access
 
 # T1208: Kerberoasting
 
+This lab explores an attack that allows any domain user to request kerberos tickets from TGS that are encrypted with NTLM hash of the plaintext password of a domain user account that is used as a service account \(for example for running an IIS service\) and crack them offline avoiding lockouts.
+
 ## Execution
 
-Note the vulnerable domain member - a user account with `servicePrincipalName` attribute set:
+Note the vulnerable domain member - a user account with `servicePrincipalName` attribute set \(important piece for kerberoasting - only user accounts with that property set are most likely susceptible to kerberoasting\):
 
 ![](../.gitbook/assets/kerberoast-principalname.png)
 
@@ -145,6 +147,8 @@ I did not have to, but I also used an online RC4 decryptor tool to confirm the a
 {% embed data="{\"url\":\"https://github.com/nidem/kerberoast\",\"type\":\"link\",\"title\":\"nidem/kerberoast\",\"description\":\"Contribute to kerberoast development by creating an account on Github.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://github.com/fluidicon.png\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://avatars3.githubusercontent.com/u/4877511?s=400&v=4\",\"width\":365,\"height\":365,\"aspectRatio\":1}}" %}
 
 {% embed data="{\"url\":\"https://blog.stealthbits.com/extracting-service-account-passwords-with-kerberoasting/\",\"type\":\"link\",\"title\":\"Extracting Service Account Passwords with Kerberoasting \| Insider Threat\",\"description\":\"Kerberoasting is effective for extracting service account credentials from Active Directory without needing elevated rights or causing domain traffic.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://blog.stealthbits.com/wp-content/uploads/2016/06/cropped-Logo\_STEALTHbits\_Orb\_Blue\_250x250-192x192.png\",\"width\":192,\"height\":192,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://blog.stealthbits.com/wp-content/uploads/2017/05/Blog2-banner-Extract-Service-Account-Passwords-Kerberoasting1024x326.jpg\",\"width\":1024,\"height\":326,\"aspectRatio\":0.318359375}}" %}
+
+{% embed data="{\"url\":\"http://www.harmj0y.net/blog/powershell/kerberoasting-without-mimikatz/\",\"type\":\"link\",\"title\":\"Kerberoasting Without Mimikatz\",\"description\":\"Just about two years ago, Tim Medin presented a new attack technique he christened “Kerberoasting”. While we didn’t realize the full implications of this at the time of release, t…\",\"icon\":{\"type\":\"icon\",\"url\":\"http://www.harmj0y.net/blog/wp-content/uploads/2017/05/cropped-specter-192x192.png\",\"width\":192,\"height\":192,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"http://www.harmj0y.net/blog/wp-content/uploads/2016/10/invoke\_kerberoast\_empire-1024x520.png\",\"width\":640,\"height\":325,\"aspectRatio\":0.5078125}}" %}
 
 {% embed data="{\"url\":\"https://blog.xpnsec.com/kerberos-attacks-part-1/\",\"type\":\"link\",\"title\":\"Kerberos AD Attacks - Kerberoasting\",\"description\":\"Recently I\'ve been trying to make sure that my redteam knowledge is up to date, exploring many of the advancements in Active Directory Kerberos attacks... and there have been quite a few! I finally found some free time this week to roll up my sleeves and dig into the internals\",\"icon\":{\"type\":\"icon\",\"url\":\"https://blog.xpnsec.com/assets/favicon/android-icon-192x192.png?v=94d6be4395\",\"width\":192,\"height\":192,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://blog.xpnsec.com/content/images/2017/09/cerberos-1.jpg\",\"width\":615,\"height\":539,\"aspectRatio\":0.8764227642276423}}" %}
 
