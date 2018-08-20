@@ -99,7 +99,7 @@ Below is a security log `4769` showing service access being requested:
 
 ![](../.gitbook/assets/kerberoast-4769.png)
 
-If you see `Add-event -AssemblyName SystemIdentityModel`... followed by a `4769` immediately after that, you may be looking at an old school kerberoasting, especially if ticket encryption type has a value `0x17` \(23 decimal, meaning it's `RC4` encrypted\):
+If you see `Add-event -AssemblyName SystemIdentityModel`... followed by a `4769` immediately after that, you may be looking at an old school Kerberoasting:, especially if ticket encryption type has a value `0x17` \(23 decimal, meaning it's `RC4` encrypted\):
 
 ![](../.gitbook/assets/kerberoast-logs.png)
 
@@ -152,6 +152,8 @@ I did not have to, but I also used an online RC4 decryptor tool to confirm the a
 
 {% file src="../.gitbook/assets/kerberoast.pcap" caption="kerberoast.pcap" %}
 
+[Tim Medin - Attacking Kerberos: Kicking the Guard Dog of Hades](https://files.sans.org/summit/hackfest2014/PDFs/Kicking%20the%20Guard%20Dog%20of%20Hades%20-%20Attacking%20Microsoft%20Kerberos%20%20-%20Tim%20Medin%281%29.pdf)
+
 {% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1208\",\"type\":\"link\",\"title\":\"Kerberoasting - ATT&CK for Enterprise\"}" %}
 
 {% embed data="{\"url\":\"https://github.com/nidem/kerberoast\",\"type\":\"link\",\"title\":\"nidem/kerberoast\",\"description\":\"Contribute to kerberoast development by creating an account on Github.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://github.com/fluidicon.png\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://avatars3.githubusercontent.com/u/4877511?s=400&v=4\",\"width\":365,\"height\":365,\"aspectRatio\":1}}" %}
@@ -160,7 +162,11 @@ I did not have to, but I also used an online RC4 decryptor tool to confirm the a
 
 {% embed data="{\"url\":\"http://www.harmj0y.net/blog/powershell/kerberoasting-without-mimikatz/\",\"type\":\"link\",\"title\":\"Kerberoasting Without Mimikatz\",\"description\":\"Just about two years ago, Tim Medin presented a new attack technique he christened “Kerberoasting”. While we didn’t realize the full implications of this at the time of release, t…\",\"icon\":{\"type\":\"icon\",\"url\":\"http://www.harmj0y.net/blog/wp-content/uploads/2017/05/cropped-specter-192x192.png\",\"width\":192,\"height\":192,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"http://www.harmj0y.net/blog/wp-content/uploads/2016/10/invoke\_kerberoast\_empire-1024x520.png\",\"width\":640,\"height\":325,\"aspectRatio\":0.5078125}}" %}
 
+{% embed data="{\"url\":\"https://pentestlab.blog/2018/06/12/kerberoast/\",\"type\":\"link\",\"title\":\"Kerberoast\",\"description\":\"The process of cracking Kerberos service tickets and rewriting them in order to gain access to the targeted service is called Kerberoast. This is very common attack in red team engagements since it…\",\"icon\":{\"type\":\"icon\",\"url\":\"https://s1.wp.com/i/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://pentestlab.files.wordpress.com/2018/06/autokerberoast-service-ticket-hashes-of-particular-domain-and-group.png\",\"width\":724,\"height\":385,\"aspectRatio\":0.5317679558011049}}" %}
+
 {% embed data="{\"url\":\"https://blog.xpnsec.com/kerberos-attacks-part-1/\",\"type\":\"link\",\"title\":\"Kerberos AD Attacks - Kerberoasting\",\"description\":\"Recently I\'ve been trying to make sure that my redteam knowledge is up to date, exploring many of the advancements in Active Directory Kerberos attacks... and there have been quite a few! I finally found some free time this week to roll up my sleeves and dig into the internals\",\"icon\":{\"type\":\"icon\",\"url\":\"https://blog.xpnsec.com/assets/favicon/android-icon-192x192.png?v=94d6be4395\",\"width\":192,\"height\":192,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://blog.xpnsec.com/content/images/2017/09/cerberos-1.jpg\",\"width\":615,\"height\":539,\"aspectRatio\":0.8764227642276423}}" %}
+
+{% embed data="{\"url\":\"https://pentestlab.blog/2018/06/12/kerberoast/\",\"type\":\"link\",\"title\":\"Kerberoast\",\"description\":\"The process of cracking Kerberos service tickets and rewriting them in order to gain access to the targeted service is called Kerberoast. This is very common attack in red team engagements since it…\",\"icon\":{\"type\":\"icon\",\"url\":\"https://s1.wp.com/i/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://pentestlab.files.wordpress.com/2018/06/autokerberoast-service-ticket-hashes-of-particular-domain-and-group.png\",\"width\":724,\"height\":385,\"aspectRatio\":0.5317679558011049}}" %}
 
 {% embed data="{\"url\":\"http://rc4.online-domain-tools.com/\",\"type\":\"link\",\"title\":\"RC4 Encryption – Easily encrypt or decrypt strings or files\",\"description\":\"Online interface for RC4 encryption algorithm, also known as ARCFOUR, an algorithm that is used within popular cryptographic protocols such as SSL or WEP.\",\"icon\":{\"type\":\"icon\",\"url\":\"http://online-domain-tools.com/images/apple-touch-icon.png\",\"aspectRatio\":0}}" %}
 
