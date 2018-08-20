@@ -40,7 +40,7 @@ Bingo - only one result returned:
 
 ![](../.gitbook/assets/powershell-single.png)
 
-This type of hunting is interesting, so I will be coming back to similar topics to explore this domain further.
+This type of hunting is interesting, so I will be coming back to explore this domain further.
 
 {% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1027\",\"type\":\"link\",\"title\":\"Obfuscated Files or Information - ATT&CK for Enterprise\"}" %}
 
