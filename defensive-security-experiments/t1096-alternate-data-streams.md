@@ -62,5 +62,3 @@ Get-Content .\benign.txt -Stream evil.txt
 
 {% embed data="{\"url\":\"https://blog.malwarebytes.com/101/2015/07/introduction-to-alternate-data-streams/\",\"type\":\"link\",\"title\":\"Introduction to Alternate Data Streams - Malwarebytes Labs\",\"description\":\"What is an alternate data stream \(ADS\)? How it can be created and read, and how one can remove unwanted ADS?\",\"icon\":{\"type\":\"icon\",\"url\":\"https://www.malwarebytes.com/apple-touch-icon-152x152.png\",\"width\":152,\"height\":152,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://blog.malwarebytes.com/wp-content/uploads/2015/07/header1.png\",\"width\":992,\"height\":355,\"aspectRatio\":0.35786290322580644}}" %}
 
-
-

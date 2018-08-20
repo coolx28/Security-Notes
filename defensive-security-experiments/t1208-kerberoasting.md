@@ -36,6 +36,20 @@ Get-NetUser | Where-Object {$_.servicePrincipalName} | fl
 
 ![](../.gitbook/assets/kerberoast-enumeration.png)
 
+Using only built-in powershell, we can extract the susceptible accounts with:
+
+```csharp
+get-adobject | Where-Object {$_.serviceprincipalname -ne $null -and $_.distinguishedname -like "*CN=Users*" -and $_.cn -ne "krbtgt"}
+```
+
+![](../.gitbook/assets/kerberoast-powershell.png)
+
+It would have been better to use the following command provided by [Sean Metcalf](https://adsecurity.org/?p=2293) purely because of the `-filter` usage \(quicker than `select-object`\), but it did not work for me:
+
+```csharp
+get-adobject -filter {serviceprincipalname -like “*sql*”} -prop serviceprincipalname
+```
+
 Additionally, user accounts with SPN set could be extracted with a native windows binary:
 
 ```text
@@ -159,6 +173,8 @@ I did not have to, but I also used an online RC4 decryptor tool to confirm the a
 {% embed data="{\"url\":\"https://github.com/nidem/kerberoast\",\"type\":\"link\",\"title\":\"nidem/kerberoast\",\"description\":\"Contribute to kerberoast development by creating an account on Github.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://github.com/fluidicon.png\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://avatars3.githubusercontent.com/u/4877511?s=400&v=4\",\"width\":365,\"height\":365,\"aspectRatio\":1}}" %}
 
 {% embed data="{\"url\":\"https://blog.stealthbits.com/extracting-service-account-passwords-with-kerberoasting/\",\"type\":\"link\",\"title\":\"Extracting Service Account Passwords with Kerberoasting \| Insider Threat\",\"description\":\"Kerberoasting is effective for extracting service account credentials from Active Directory without needing elevated rights or causing domain traffic.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://blog.stealthbits.com/wp-content/uploads/2016/06/cropped-Logo\_STEALTHbits\_Orb\_Blue\_250x250-192x192.png\",\"width\":192,\"height\":192,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://blog.stealthbits.com/wp-content/uploads/2017/05/Blog2-banner-Extract-Service-Account-Passwords-Kerberoasting1024x326.jpg\",\"width\":1024,\"height\":326,\"aspectRatio\":0.318359375}}" %}
+
+{% embed data="{\"url\":\"https://adsecurity.org/?p=2293\",\"type\":\"link\",\"title\":\"Cracking Kerberos TGS Tickets Using Kerberoast – Exploiting Kerberos to Compromise the Active Directory Domain – Active Directory Security\",\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://adsecurity.org/wp-content/uploads/2015/12/Kerberoast-03.jpg\",\"width\":600,\"height\":50,\"aspectRatio\":0.08333333333333333}}" %}
 
 {% embed data="{\"url\":\"http://www.harmj0y.net/blog/powershell/kerberoasting-without-mimikatz/\",\"type\":\"link\",\"title\":\"Kerberoasting Without Mimikatz\",\"description\":\"Just about two years ago, Tim Medin presented a new attack technique he christened “Kerberoasting”. While we didn’t realize the full implications of this at the time of release, t…\",\"icon\":{\"type\":\"icon\",\"url\":\"http://www.harmj0y.net/blog/wp-content/uploads/2017/05/cropped-specter-192x192.png\",\"width\":192,\"height\":192,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"http://www.harmj0y.net/blog/wp-content/uploads/2016/10/invoke\_kerberoast\_empire-1024x520.png\",\"width\":640,\"height\":325,\"aspectRatio\":0.5078125}}" %}
 
