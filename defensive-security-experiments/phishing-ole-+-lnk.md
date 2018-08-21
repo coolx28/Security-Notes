@@ -80,6 +80,19 @@ Soon after, the powershell gets killed and cmd.exe becomes an orphan:
 
 ![](../.gitbook/assets/ole-ancestry2.png)
 
+Like in [T1137: Phishing - Office Macros](t1137-office-vba-macros.md), you can use rudimentary tools on your Windows workstation to quickly triage the document.   
+First off, rename the file to a .zip extension and unzip it. Then you can navigate to `word\embeddings` and there you will see an `oleObject.bin` file that contains the malicious `.lnk`:
+
+![](../.gitbook/assets/ole-embedded-bin.png)
+
+Then you can do a simple `strings` or hexdump against the file and you should immediately see signs of something that should raise your eyebrow\(s\):
+
+```csharp
+hexdump.exe -C .\oleObject1.bin
+```
+
+![](../.gitbook/assets/ole-hexdump.png)
+
 {% file src="../.gitbook/assets/ole.ps1" caption="OLE+LNK Powershell Script" %}
 
 {% file src="../.gitbook/assets/invoice-fintech-0900541.lnk" caption="Invoice-FinTech-0900541.lnk" %}
