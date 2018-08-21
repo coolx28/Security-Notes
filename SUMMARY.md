@@ -51,7 +51,8 @@
   * [T1027: Obfuscated Powershell Invocations](defensive-security-experiments/t1027-obfuscated-powershell-invocations.md)
   * [T1045: Packed Binaries - UPX](defensive-security-experiments/t1045-software-packing-upx.md)
   * [T1208: Kerberoasting](defensive-security-experiments/t1208-kerberoasting/README.md)
-    * [Kerberos Silver Tickets](defensive-security-experiments/t1208-kerberoasting/kerberos-silver-tickets.md)
+    * [Kerberos: Silver Tickets](defensive-security-experiments/t1208-kerberoasting/kerberos-silver-tickets.md)
+    * [Kerberos: Golden Tickets](defensive-security-experiments/t1208-kerberoasting/kerberos-golden-tickets.md)
 * [Memory Forensics](memory-forensics/README.md)
   * [Dump Virtual Box Memory](memory-forensics/dump-virtual-box-memory.md)
 

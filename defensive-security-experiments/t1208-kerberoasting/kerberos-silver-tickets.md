@@ -2,7 +2,7 @@
 description: Credential Access
 ---
 
-# Kerberos Silver Tickets
+# Kerberos: Silver Tickets
 
 This lab looks at the technique of forging a cracked TGS Kerberos ticket in order to impersonate another user and escalate privileges.
 
@@ -71,4 +71,6 @@ Note a network logon from `benignadmin` as well as forged RIDs:
 It is better not to use user accounts for running services on them or if you do use them, make sure to use really strong passwords! Computer accounts generate long and complex passwords and they change frequently or follow good practices such as using [Group Managed Service Accounts](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/hh831782%28v=ws.11%29) for running services on.
 
 {% embed data="{\"url\":\"https://blog.stealthbits.com/impersonating-service-accounts-with-silver-tickets\",\"type\":\"link\",\"title\":\"Impersonating Service Accounts with Silver Tickets \| Insider Threat Blog\",\"description\":\"How attackers use Kerberos silver tickets to exploit service accounts without creating network traffic or event logs to avoid detection.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://blog.stealthbits.com/wp-content/uploads/2016/06/cropped-Logo\_STEALTHbits\_Orb\_Blue\_250x250-192x192.png\",\"width\":192,\"height\":192,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://blog.stealthbits.com/wp-content/uploads/2017/05/Banner-Blog-Series-1024-x-326-2.jpg\",\"width\":1024,\"height\":326,\"aspectRatio\":0.318359375}}" %}
+
+{% embed data="{\"url\":\"https://adsecurity.org/?p=2011\",\"type\":\"link\",\"title\":\"How Attackers Use Kerberos Silver Tickets to Exploit Systems – Active Directory Security\",\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://adsecurity.org/wp-content/uploads/2015/11/SilverTicket-DC-CIFS.png\",\"width\":600,\"height\":173,\"aspectRatio\":0.28833333333333333}}" %}
 
