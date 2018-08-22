@@ -117,7 +117,11 @@ Logging command line can also help in detecting this activity:
 
 ![](../.gitbook/assets/password-filter-cmdline.png)
 
-Maybe it is worth checking any new DLLs dropped to `%systemroot%\system32` for exported `PasswordChangeNotify` function?
+...especially, if the package has just been recently dropped to disk:
+
+![](../.gitbook/assets/password-filter-createdtime.png)
+
+Also, maybe it is worth considering checking any new DLLs dropped to `%systemroot%\system32` for exported `PasswordChangeNotify` function?
 
 ![](../.gitbook/assets/password-filter.png)
 
