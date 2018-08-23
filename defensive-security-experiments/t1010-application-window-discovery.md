@@ -20,5 +20,7 @@ get-process | where-object {$_.mainwindowtitle -ne ""} | Select-Object mainwindo
 
 ## Observations
 
+{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1010\",\"type\":\"link\",\"title\":\"Application Window Discovery - ATT&CK for Enterprise\"}" %}
+
 
 
