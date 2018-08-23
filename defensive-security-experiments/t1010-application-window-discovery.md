@@ -4,8 +4,6 @@ description: Discovery
 
 # T1010: Application Window Discovery
 
-## Execution
-
 Retrieving running application window titles:
 
 {% code-tabs %}
@@ -16,9 +14,7 @@ get-process | where-object {$_.mainwindowtitle -ne ""} | Select-Object mainwindo
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-
-
-## Observations
+![](../.gitbook/assets/window-titles.png)
 
 {% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1010\",\"type\":\"link\",\"title\":\"Application Window Discovery - ATT&CK for Enterprise\"}" %}
 
