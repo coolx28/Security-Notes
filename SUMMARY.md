@@ -56,6 +56,7 @@
   * [T1208: Kerberoasting](defensive-security-experiments/t1208-kerberoasting/README.md)
     * [Kerberos: Silver Tickets](defensive-security-experiments/t1208-kerberoasting/kerberos-silver-tickets.md)
     * [Kerberos: Golden Tickets](defensive-security-experiments/t1208-kerberoasting/kerberos-golden-tickets.md)
+  * [T1175: Distributed Component Object Model](defensive-security-experiments/t1175-distributed-component-object-model.md)
 * [Memory Forensics](memory-forensics/README.md)
   * [Dump Virtual Box Memory](memory-forensics/dump-virtual-box-memory.md)
 
