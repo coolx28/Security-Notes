@@ -42,7 +42,7 @@
     * [WMI as a Data Storage](defensive-security-experiments/t1084-abusing-windows-managent-instrumentation/wmi-data-storage.md)
   * [T1134: Access Token Manipulation](defensive-security-experiments/t1134-access-token-manipulation.md)
   * [T1207: DCShadow](defensive-security-experiments/t1207-dcshadow.md)
-  * [RDP Hijacking for Lateral Movement with tscon](defensive-security-experiments/rdp-hijacking-for-lateral-movement.md)
+  * [T1076: RDP Hijacking for Lateral Movement with tscon](defensive-security-experiments/t1076-rdp-hijacking-for-lateral-movement.md)
   * [T1140: Encode/Decode Data with Certutil](defensive-security-experiments/t1140-encode-decode-data-with-certutil.md)
   * [T1183: Image File Execution Options Injection](defensive-security-experiments/t1183-image-file-execution-options-injection.md)
   * [T1202: Forfiles Indirect Command Execution](defensive-security-experiments/t1202-forfiles-indirect-command-execution.md)
@@ -57,6 +57,7 @@
     * [Kerberos: Silver Tickets](defensive-security-experiments/t1208-kerberoasting/kerberos-silver-tickets.md)
     * [Kerberos: Golden Tickets](defensive-security-experiments/t1208-kerberoasting/kerberos-golden-tickets.md)
   * [T1175: Distributed Component Object Model](defensive-security-experiments/t1175-distributed-component-object-model.md)
+  * [new](defensive-security-experiments/new.md)
 * [Memory Forensics](memory-forensics/README.md)
   * [Dump Virtual Box Memory](memory-forensics/dump-virtual-box-memory.md)
 
