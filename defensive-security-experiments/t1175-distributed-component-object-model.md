@@ -48,11 +48,11 @@ Below shows the command execution and the result of it - remote machine's `hostn
 
 Once the connection from an attacker to victim is established using the below powershell:
 
-```text
+```csharp
 [System.Activator]::CreateInstance([type]::GetTypeFromProgID("MMC20.Application.1","10.0.0.2"))
 ```
 
-This is what happens on the victim system - `svchost` spawns an `mmc.exe` which opens a listening port via RPC binding:
+This is what happens on the victim system - `svchost` spawns `mmc.exe` which opens a listening port via RPC binding:
 
 ![](../.gitbook/assets/dcom-mmc-bind.png)
 
