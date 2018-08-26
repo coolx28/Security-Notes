@@ -3,6 +3,7 @@
 * [\[De\|Of\]fensive Security](README.md)
 * [Offensive Security Cheatsheets](offensive-security-cheetsheets.md)
 * [\[De\|Of\]fensive Experiments](defensive-security-experiments/README.md)
+  * [Process Injection](defensive-security-experiments/process-injection.md)
   * [T1117: regsvr32](defensive-security-experiments/t1117-regsvr32-aka-squiblydoo.md)
   * [T1187: Forced Authentication](defensive-security-experiments/t1187-forced-authentication.md)
   * [T1099: Timestomping](defensive-security-experiments/t1099-timestomping.md)
