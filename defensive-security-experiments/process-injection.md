@@ -146,6 +146,18 @@ int main()
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+The above code will inject the shellcode into a notepad.exe process with PID 5428. Below shows notepad has not initiated any TCP connections yet:
+
+![](../.gitbook/assets/inject-notepad-not-injected.png)
+
+Once the code is compiled and executed, monitoring the API calls taking place on the system, it can be seen that notepad is doing something it should not ever - spawning a cmd.exe and initiating a TCP connection:
+
+![](../.gitbook/assets/inject-api-monitoring.png)
+
+Checking the notepad again, the results are different this time:
+
+![](../.gitbook/assets/inject-notepad-injected.png)
+
 {% embed data="{\"url\":\"https://docs.microsoft.com/en-us/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openprocess\",\"type\":\"link\",\"title\":\"OpenProcess function\",\"description\":\"Opens an existing local process object.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
 
 {% embed data="{\"url\":\"https://msdn.microsoft.com/en-us/library/windows/desktop/aa366890\(v=vs.85\).aspx\",\"type\":\"link\",\"title\":\"VirtualAllocEx function \(Windows\)\",\"icon\":{\"type\":\"icon\",\"url\":\"https://msdn.microsoft.com/Areas/Epx/Themes/Windows/Content/Winlogo\_favicon.ico\",\"aspectRatio\":0}}" %}
