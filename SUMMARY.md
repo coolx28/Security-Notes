@@ -35,6 +35,7 @@
   * [T1128: NetSh Helper DLL](defensive-security-experiments/t1128-netsh-helper-dll.md)
   * [T1013: AddMonitor\(\)](defensive-security-experiments/t1013-addmonitor.md)
   * [T1108: WebShells](defensive-security-experiments/t1108-redundant-access.md)
+  * [T1051: Shared Webroot](defensive-security-experiments/new.md)
   * [T1198: SIP & Trust Provider Hijacking](defensive-security-experiments/t1198-trust-provider-hijacking.md)
   * [T1180: Screensaver Hijack](defensive-security-experiments/t1180-screensaver-hijack.md)
   * [T1209: Hijacking Time Providers](defensive-security-experiments/t1209-hijacking-time-providers.md)
@@ -57,7 +58,7 @@
     * [Kerberos: Silver Tickets](defensive-security-experiments/t1208-kerberoasting/kerberos-silver-tickets.md)
     * [Kerberos: Golden Tickets](defensive-security-experiments/t1208-kerberoasting/kerberos-golden-tickets.md)
   * [T1175: Distributed Component Object Model](defensive-security-experiments/t1175-distributed-component-object-model.md)
-  * [T1051: Shared Webroot](defensive-security-experiments/new.md)
+  * [T1172: Domain Fronting](defensive-security-experiments/t1172-domain-fronting.md)
 * [Memory Forensics](memory-forensics/README.md)
   * [Dump Virtual Box Memory](memory-forensics/dump-virtual-box-memory.md)
 
