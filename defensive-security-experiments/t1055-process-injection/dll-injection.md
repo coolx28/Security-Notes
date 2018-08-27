@@ -30,6 +30,8 @@ int main(int argc, char *argv[]) {
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+Compiling the above code and executing it with a supplied argument of `4892` which is a PID of the notepad.exe process on the victim system:
+
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
 ```csharp
@@ -39,7 +41,7 @@ Injecting DLL to PID: 4892
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Attacker receiving a shell from the injected process:
+After the DLL is successfully injected, the attacker receives a meterpreter seesion from the injected process:
 
 ![](../../.gitbook/assets/inject-dll-shell.png)
 
