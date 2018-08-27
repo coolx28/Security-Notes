@@ -1,3 +1,9 @@
+---
+description: >-
+  Convenient commands for your pentesting / red-teaming engagements, oscp and
+  CTFs.
+---
+
 # Offensive Security Cheatsheets
 
 ## Reconnaissance / Enumeration
