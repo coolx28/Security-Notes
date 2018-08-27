@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
-```text
+```csharp
 PS C:\experiments\inject1\x64\Debug> .\inject1.exe 4892
 Injecting DLL to PID: 4892
 ```
@@ -54,7 +54,7 @@ Note how the notepad has spawned the rundll32 which then spawned a cmd.exe becau
 
 {% embed data="{\"url\":\"https://msdn.microsoft.com/en-us/library/windows/desktop/ms683212\(v=vs.85\).aspx\",\"type\":\"link\",\"title\":\"GetProcAddress function \(Windows\)\",\"icon\":{\"type\":\"icon\",\"url\":\"https://msdn.microsoft.com/Areas/Epx/Themes/Windows/Content/Winlogo\_favicon.ico\",\"aspectRatio\":0}}" %}
 
-
+{% embed data="{\"url\":\"https://msdn.microsoft.com/en-us/library/windows/desktop/ms684175\(v=vs.85\).aspx\",\"type\":\"link\",\"title\":\"LoadLibrary function \(Windows\)\",\"icon\":{\"type\":\"icon\",\"url\":\"https://msdn.microsoft.com/Areas/Epx/Themes/Windows/Content/Winlogo\_favicon.ico\",\"aspectRatio\":0}}" %}
 
 
 
