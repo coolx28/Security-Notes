@@ -1,3 +1,7 @@
+---
+description: Injecting DLL into a remote process.
+---
+
 # DLL Injection
 
 This lab attempts a classic DLL injection into a remote process.

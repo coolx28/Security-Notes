@@ -1,3 +1,7 @@
+---
+description: Injecting shellcode into a local process.
+---
+
 # CreateRemoteThread Shellcode Injection
 
 This lab explores some classic ways of injecting shellcode into a process memory and executing it.
