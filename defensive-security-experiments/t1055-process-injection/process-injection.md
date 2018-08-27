@@ -147,7 +147,7 @@ int main(int argc, char *argv[])
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-{% file src="../../.gitbook/assets/inject1.exe" caption="Inject shellcode to Remote Process w/ CreateRemoteThread" %}
+{% file src="../../.gitbook/assets/inject1 \(1\).exe" caption="Inject shellcode to Remote Process w/ CreateRemoteThread" %}
 
 The above code will inject the shellcode into a notepad.exe process with PID 5428. Below shows notepad has not initiated any TCP connections yet:
 
@@ -160,6 +160,10 @@ Once the code is compiled and executed, monitoring the API calls taking place on
 Checking the notepad again, the results are different this time:
 
 ![](../../.gitbook/assets/inject-notepad-injected.png)
+
+Note how the notepad has a `ws2_32.dll` module loaded which should never happen in normal circumstances, since that module is responsible for `sockets` management:
+
+![](../../.gitbook/assets/inject-notepad-dll.png)
 
 {% embed data="{\"url\":\"https://docs.microsoft.com/en-us/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openprocess\",\"type\":\"link\",\"title\":\"OpenProcess function\",\"description\":\"Opens an existing local process object.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
 

