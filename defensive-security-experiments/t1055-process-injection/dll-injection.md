@@ -46,7 +46,7 @@ Attacker receiving a shell from the injected process:
 
 ## Observations
 
-Note how the notepad has spawned the rundll32 which then spawned a cmd.exe because of the meterpreter payload that got executed as part of the injected dll evilm64.dll into the notepad process:
+Note how the notepad spawned rundll32 which then spawned a cmd.exe because of the meterpreter payload \(and attacker's `shell` command\) that got executed as part of the injected evilm64.dll into the notepad process:
 
 ![](../../.gitbook/assets/inject-dll.png)
 
