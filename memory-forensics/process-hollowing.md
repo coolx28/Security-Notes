@@ -57,6 +57,40 @@ ntdll!_PEB
 0:001> db 0000000049d40000 L100
 ```
 
+Let's find the commandline the process was started with:
+
+```cpp
+dt _peb @$peb processp*
+ntdll!_PEB
+   +0x020 ProcessParameters : 0x00000000`002a1f40 _RTL_USER_PROCESS_PARAMETERS
+
+dt _RTL_USER_PROCESS_PARAMETERS 0x00000000`002a1f40
+```
+
+![](../.gitbook/assets/peb-cmdline.png)
+
+We can be more direct and ask the same question like so:
+
+```cpp
+0:001> dt _UNICODE_STRING 0x00000000`002a1f40+70
+ntdll!_UNICODE_STRING
+ ""C:\Windows\system32\cmd.exe" "
+   +0x000 Length           : 0x3c
+   +0x002 MaximumLength    : 0x3e
+   +0x008 Buffer           : 0x00000000`002a283c  ""C:\Windows\system32\cmd.exe" "
+```
+
+or even this:
+
+```cpp
+0:001> dd 0x00000000`002a1f40+70+8 L2
+00000000`002a1fb8  002a283c 00000000
+0:001> du 00000000002a283c
+00000000`002a283c  ""C:\Windows\system32\cmd.exe" "
+```
+
+![](../.gitbook/assets/peb-cmdline2.png)
+
 ## Convenience
 
 We can forget about all of the above and just use:
