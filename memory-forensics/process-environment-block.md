@@ -1,4 +1,4 @@
-# Exploring Process Environment Block \(PEB\)
+# Process Environment Block \(PEB\)
 
 This lab explores the some of the things that can be found by the PEB in a process memory.
 
@@ -57,6 +57,20 @@ ntdll!_PEB
 0:001> db 0000000049d40000 L100
 ```
 
+## Convenience
+
+We can forget about all of the above and just use:
+
+```text
+!peb
+```
+
+This gets us a nicely formatted PEB information of some of the key members from the structure:
+
+![](../.gitbook/assets/peb.png)
+
+## Finding Commandline Arguments
+
 Let's find the commandline the process was started with:
 
 ```cpp
@@ -91,24 +105,17 @@ or even this:
 
 ![](../.gitbook/assets/peb-cmdline2.png)
 
-## Convenience
+Since we now know where the commandline arguments are stored - can we modify them? Of course.
 
-We can forget about all of the above and just use:
+## Forging Commandline Arguments
 
-```text
-!peb
+```cpp
+0:001> eu 00000000002a283c "cmdline-logging? Are You Sure?"
 ```
 
-To get a nicely formatted key PEB information:
+![](../.gitbook/assets/peb-cmdline3.png)
 
-![](../.gitbook/assets/peb.png)
-
-```bash
-dt _PEB @$peb
-// or
-
-s -u 00000000`003d1378 L100000 "text"
-```
+{% embed data="{\"url\":\"http://windbg.info/doc/1-common-cmds.html\#13\_breakpoints\",\"type\":\"link\",\"title\":\"Common WinDbg Commands \(Thematically Grouped\)\",\"description\":\"Common WinDbg Commands \(Thematically Grouped\), by Robert Kuster.\",\"icon\":{\"type\":\"icon\",\"url\":\"http://windbg.info/templates/wiki-like-rk/images/dbg.png\",\"aspectRatio\":0}}" %}
 
 
 

@@ -62,6 +62,6 @@
     * [Kerberos: Golden Tickets](defensive-security-experiments/t1208-kerberoasting/kerberos-golden-tickets.md)
   * [T1175: Distributed Component Object Model](defensive-security-experiments/t1175-distributed-component-object-model.md)
 * [Memory Forensics](memory-forensics/README.md)
-  * [Exploring Process Environment Block \(PEB\)](memory-forensics/process-hollowing.md)
+  * [Process Environment Block \(PEB\)](memory-forensics/process-environment-block.md)
   * [Dump Virtual Box Memory](memory-forensics/dump-virtual-box-memory.md)
 
