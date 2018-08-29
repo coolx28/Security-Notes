@@ -4,7 +4,7 @@ description: Exploring a couple of members of the PEB
 
 # Process Environment Block
 
-This lab explores the some of the things that can be found by the PEB in a process memory.
+A very brief look into the PEB in a process memory.
 
 ## Basics
 
@@ -119,7 +119,46 @@ Since we now know where the commandline arguments are stored - can we modify the
 
 ![](../.gitbook/assets/peb-cmdline3.png)
 
+## \_PEB\_LDR\_DATA {#_peb_ldr_data-structure}
+
+Getting a list of loaded modules by the process:
+
+```cpp
+// get the first _LIST_ENTRY structure address
+0:001> dt _peb @$peb ldr->InMemoryOrderModuleList*
+ntdll!_PEB
+   +0x018 Ldr                          : 
+      +0x020 InMemoryOrderModuleList      : _LIST_ENTRY [ 0x00000000`002a2980 - 0x00000000`002a1e40 ]
+
+
+// walking the list manually and getting loaded module info
+
+dt _LIST_ENTRY 0x00000000`002a2980
+// cmd module
+dt _LDR_DATA_TABLE_ENTRY 0x00000000`002a2980
+
+dt _LIST_ENTRY 0x00000000`002a2980 
+// ntdll module
+dt _LDR_DATA_TABLE_ENTRY 0x00000000`002a2a70
+
+dt _LIST_ENTRY 0x00000000`002a2a70
+// kernel32 module
+dt _LDR_DATA_TABLE_ENTRY 0x00000000`002a2df0
+
+...loop...
+```
+
+![](../.gitbook/assets/peb-modulelist.png)
+
+If we check the loaded modules with `!peb`, it shows we were walking the list correctly:
+
+![](../.gitbook/assets/peb-modules2.png)
+
+
+
 {% embed data="{\"url\":\"http://windbg.info/doc/1-common-cmds.html\#13\_breakpoints\",\"type\":\"link\",\"title\":\"Common WinDbg Commands \(Thematically Grouped\)\",\"description\":\"Common WinDbg Commands \(Thematically Grouped\), by Robert Kuster.\",\"icon\":{\"type\":\"icon\",\"url\":\"http://windbg.info/templates/wiki-like-rk/images/dbg.png\",\"aspectRatio\":0}}" %}
+
+{% embed data="{\"url\":\"https://docs.microsoft.com/en-us/windows/desktop/api/winternl/ns-winternl-\_peb\_ldr\_data\",\"type\":\"link\",\"title\":\"\_PEB\_LDR\_DATA\",\"description\":\"Contains information about the loaded modules for the process.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
 
 
 
