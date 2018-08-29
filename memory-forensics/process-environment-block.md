@@ -1,4 +1,8 @@
-# Process Environment Block \(PEB\)
+---
+description: Exploring a couple of members of the PEB
+---
+
+# Process Environment Block
 
 This lab explores the some of the things that can be found by the PEB in a process memory.
 
