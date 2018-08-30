@@ -154,8 +154,6 @@ If we check the loaded modules with `!peb`, it shows we were walking the list co
 
 ![](../.gitbook/assets/peb-modules2.png)
 
-{% embed data="{\"url\":\"http://windbg.info/doc/1-common-cmds.html\#13\_breakpoints\",\"type\":\"link\",\"title\":\"Common WinDbg Commands \(Thematically Grouped\)\",\"description\":\"Common WinDbg Commands \(Thematically Grouped\), by Robert Kuster.\",\"icon\":{\"type\":\"icon\",\"url\":\"http://windbg.info/templates/wiki-like-rk/images/dbg.png\",\"aspectRatio\":0}}" %}
-
 Or another way to find the first `_LDR_DATA_TABLE_ENTRY`:
 
 ```cpp
@@ -168,7 +166,35 @@ dt _LDR_DATA_TABLE_ENTRY 0x00000000`002a2980
 
 ![](../.gitbook/assets/peb-manual2.png)
 
+A nice way of getting a list of linked list structure addresses is by providing address of the first `list_entry` structure to the command `dl` and specifying how many list items it should print out:
+
+```cpp
+0:001> dl 0x00000000`002a2980 6
+00000000`002a2980  00000000`002a2a70 00000000`774ed660
+00000000`002a2990  00000000`00000000 00000000`00000000
+00000000`002a2a70  00000000`002a2df0 00000000`002a2980
+00000000`002a2a80  00000000`002a2f70 00000000`774ed670
+00000000`002a2df0  00000000`002a2f60 00000000`002a2a70
+00000000`002a2e00  00000000`002a3cb0 00000000`002a2f70
+00000000`002a2f60  00000000`002a3ca0 00000000`002a2df0
+00000000`002a2f70  00000000`002a2e00 00000000`002a2a80
+00000000`002a3ca0  00000000`002a41f0 00000000`002a2f60
+00000000`002a3cb0  00000000`002defc0 00000000`002a2e00
+00000000`002a41f0  00000000`002a3ff0 00000000`002a3ca0
+00000000`002a4200  00000000`002e1320 00000000`002a4000
+```
+
+Another way of achieving the same would be to use the !list command to list through the list items and dump the info:
+
+```cpp
+!list -x "dt _LDR_DATA_TABLE_ENTRY" 0x00000000`002a2980
+```
+
+![](../.gitbook/assets/peb-dll-automated.gif)
+
 {% embed data="{\"url\":\"https://docs.microsoft.com/en-us/windows/desktop/api/winternl/ns-winternl-\_peb\_ldr\_data\",\"type\":\"link\",\"title\":\"\_PEB\_LDR\_DATA\",\"description\":\"Contains information about the loaded modules for the process.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
 
 
+
+{% embed data="{\"url\":\"http://windbg.info/doc/1-common-cmds.html\#13\_breakpoints\",\"type\":\"link\",\"title\":\"Common WinDbg Commands \(Thematically Grouped\)\",\"description\":\"Common WinDbg Commands \(Thematically Grouped\), by Robert Kuster.\",\"icon\":{\"type\":\"icon\",\"url\":\"http://windbg.info/templates/wiki-like-rk/images/dbg.png\",\"aspectRatio\":0}}" %}
 
