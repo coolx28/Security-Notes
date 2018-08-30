@@ -154,9 +154,19 @@ If we check the loaded modules with `!peb`, it shows we were walking the list co
 
 ![](../.gitbook/assets/peb-modules2.png)
 
-
-
 {% embed data="{\"url\":\"http://windbg.info/doc/1-common-cmds.html\#13\_breakpoints\",\"type\":\"link\",\"title\":\"Common WinDbg Commands \(Thematically Grouped\)\",\"description\":\"Common WinDbg Commands \(Thematically Grouped\), by Robert Kuster.\",\"icon\":{\"type\":\"icon\",\"url\":\"http://windbg.info/templates/wiki-like-rk/images/dbg.png\",\"aspectRatio\":0}}" %}
+
+Or another way to find the first `_LDR_DATA_TABLE_ENTRY`:
+
+```cpp
+dt _peb @$peb
+dt _PEB_LDR_DATA 0x00000000`774ed640
+dt _LDR_DATA_TABLE_ENTRY 0x00000000`002a2980
+```
+
+![](../.gitbook/assets/peb-manual1.png)
+
+![](../.gitbook/assets/peb-manual2.png)
 
 {% embed data="{\"url\":\"https://docs.microsoft.com/en-us/windows/desktop/api/winternl/ns-winternl-\_peb\_ldr\_data\",\"type\":\"link\",\"title\":\"\_PEB\_LDR\_DATA\",\"description\":\"Contains information about the loaded modules for the process.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
 
