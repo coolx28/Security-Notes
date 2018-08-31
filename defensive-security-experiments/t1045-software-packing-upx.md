@@ -2,7 +2,7 @@
 description: 'Defense Evasion, Code Obfuscation'
 ---
 
-# T1045: Packed Binaries - UPX
+# T1045: Packed Binaries
 
 For this exercise, I will pack a binary with a well known UPX packer.
 

@@ -204,3 +204,5 @@ Continuing further:
 
 {% embed data="{\"url\":\"https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/-list\",\"type\":\"link\",\"title\":\"list\",\"description\":\"The list extension executes the specified debugger commands repeatedly, once for every element in a linked list.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
 
+{% embed data="{\"url\":\"https://docs.microsoft.com/en-us/windows/desktop/api/winternl/ns-winternl-\_peb\_ldr\_data\",\"type\":\"link\",\"title\":\"\_PEB\_LDR\_DATA\",\"description\":\"Contains information about the loaded modules for the process.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
+

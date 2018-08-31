@@ -2,7 +2,7 @@
 description: Credential Access
 ---
 
-# T1174: Password Filter DLL
+# T1174: Password Filter
 
 This lab explores a native OS notification of when the user account password gets changed, which is responsible for validating it. That means, the password can be intercepted..
 
