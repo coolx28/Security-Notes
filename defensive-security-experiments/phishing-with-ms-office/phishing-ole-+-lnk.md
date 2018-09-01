@@ -93,7 +93,7 @@ hexdump.exe -C .\oleObject1.bin
 
 ![](../../.gitbook/assets/ole-hexdump.png)
 
-As an analyst, one should look for CLSID 00021401-0000-0000-c000-000000000046 in the .bin file, which in our case can be observed here:
+As an analyst, one should look for CLSID 00021401-0000-0000-c000-000000000046 in the .bin file, which signifies the .doc contains an embnedded .lnk file. In our case this can be observed here:
 
 ![](../../.gitbook/assets/lnk-clsid.png)
 
