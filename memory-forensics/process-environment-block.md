@@ -4,7 +4,7 @@ description: Exploring a couple of members of the PEB
 
 # Process Environment Block
 
-A very brief look into the PEB in a process memory.
+A very brief look into the PEB in a process memory aiming to get a bit more comfortable with WinDBG and walking memory structures.
 
 ## Basics
 
