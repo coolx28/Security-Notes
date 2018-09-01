@@ -206,3 +206,9 @@ Continuing further:
 
 {% embed data="{\"url\":\"https://docs.microsoft.com/en-us/windows/desktop/api/winternl/ns-winternl-\_peb\_ldr\_data\",\"type\":\"link\",\"title\":\"\_PEB\_LDR\_DATA\",\"description\":\"Contains information about the loaded modules for the process.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
 
+{% embed data="{\"url\":\"http://jumpdollar.blogspot.com/2014/08/windbg-peb-command.html\",\"type\":\"link\",\"title\":\"WinDbg : the !peb Command\",\"description\":\"WinDbg : !peb    The process environment block \(PEB\) is one of the most critical data structures used by Windows to track processes. The PE...\",\"icon\":{\"type\":\"icon\",\"url\":\"http://jumpdollar.blogspot.com/favicon.ico\",\"aspectRatio\":0}}" %}
+
+{% embed data="{\"url\":\"http://jumpdollar.blogspot.com/search/label/.process\",\"type\":\"link\",\"title\":\"Jump$\",\"description\":\"The name Jump dollar is a tribute to the popular BIOS programmers jmp$ assembly instruction to add dead loops for debugging in the BIOS.  This blog is an effort to help beginners learn debugging, especially on Windows platform with windbg and other tools.\",\"icon\":{\"type\":\"icon\",\"url\":\"http://jumpdollar.blogspot.com/favicon.ico\",\"aspectRatio\":0}}" %}
+
+
+
