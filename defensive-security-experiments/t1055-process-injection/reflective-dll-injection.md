@@ -69,13 +69,15 @@ Let's inspect those two addresses - those are indeed holding the values the Mess
 
 ![](../../.gitbook/assets/reflective-dll-injection-strings.png)
 
-Looking at the output of the !address function and correlating it with the address the variables are stored, we can derive that the memory region allocated for the evil dll is located in the range 0\`031e0000 - 0\`031f7000:
+Looking at the output of the `!address` function and correlating it with the address the variables are stored, we can derive that the memory region allocated for the evil dll is located in the range `031e0000 - 031f7000`:
 
 ![](../../.gitbook/assets/reflective-dll-injection-range.png)
 
-Indeed, if we look at the 0\`031e0000, we can see the executable header:
+Indeed, if we look at the `031e0000`, we can see the executable header:
 
 ![](../../.gitbook/assets/reflective-dll-injection-mz.png)
+
+![](../../.gitbook/assets/reflective-dll-strings.gif)
 
 Look for !address and inspect memory at around 0\`031e0000
 
