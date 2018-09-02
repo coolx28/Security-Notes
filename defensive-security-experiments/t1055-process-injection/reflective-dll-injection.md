@@ -26,5 +26,58 @@ After executing the post exploitation module, the below graphic shows how the no
 
 ## Observations
 
+Once the metasploit's post-exploitation module is run, the procmon accurately registers that notepad created a new thread:
 
+![](../../.gitbook/assets/reflective-dll-injection-new-thread.png)
+
+Let's see if we can locate where the contents of `reflective_dll.x64.dll` were injected into the victim process when
+
+For that, in WinDBG, I set up a breakpoint for `MessageBoxA` as shown below and run the post-exploitation module again:
+
+```cpp
+0:007> bp MessageBoxA
+0:007> bl
+0 e 00000000`77331304     0001 (0001)  0:**** USER32!MessageBoxA
+```
+
+The breakpoint is hit:
+
+![](../../.gitbook/assets/reflective-dll-bp-hit.png)
+
+At this point, we can inspect the stack with `kv` and see the call trace. A couple of points to note here:
+
+* return address the code will jump to after the `USER32!MessageBoxA` executes is `00000000031e103e`
+* inspecting assembly instructions around the above mentioned address, we see a call instruction `call qword ptr [00000000031e9208]`
+* inspecting bytes stored in `00000000031e9208`, we can see they look like a memory address `0000000077331304` \(note this address\)
+* inspecting the EIP pointer where the code execution is paused at the moment, we see that it is the same `0000000077331304` address, which means the earlier mentioned instruction `call qword ptr [00000000031e9208]` is the call to USER32!MessageBoxA!
+* This means prior to the call, there must be references to the variables that are passed to the MessageBoxA function
+
+![](../../.gitbook/assets/reflective-dll-injection-mem-analysis.png)
+
+If we inspect the 00000000031e103e 0x30 bytes earlier, we can see some suspect memory addresses and a call instruction almost immediatley after that:
+
+![](../../.gitbook/assets/reflective-dll-injection-variables.png)
+
+Let's inspect those two addresses - those are indeed holding the values the MessageBox prints out upoin successful DLL injection into the victim process:
+
+```cpp
+0:007> da 00000000`031e92c8
+00000000`031e92c8  "Reflective Dll Injection"
+0:007> da 00000000`031e92e8
+00000000`031e92e8  "Hello from DllMain!"
+```
+
+![](../../.gitbook/assets/reflective-dll-injection-strings.png)
+
+Looking at the output of the !address function and correlating it with the address the variables are stored, we can derive that the memory region allocated for the evil dll is located in the range 0\`031e0000 - 0\`031f7000:
+
+![](../../.gitbook/assets/reflective-dll-injection-range.png)
+
+Indeed, if we look at the 0\`031e0000, we can see the executable header:
+
+![](../../.gitbook/assets/reflective-dll-injection-mz.png)
+
+Look for !address and inspect memory at around 0\`031e0000
+
+{% embed data="{\"url\":\"https://github.com/stephenfewer/ReflectiveDLLInjection\",\"type\":\"link\",\"title\":\"stephenfewer/ReflectiveDLLInjection\",\"description\":\"Reflective DLL injection is a library injection technique in which the concept of reflective programming is employed to perform the loading of a library from memory into a host process. - stephenfe...\",\"icon\":{\"type\":\"icon\",\"url\":\"https://github.com/fluidicon.png\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://avatars1.githubusercontent.com/u/1172185?s=400&v=4\",\"width\":400,\"height\":400,\"aspectRatio\":1}}" %}
 
