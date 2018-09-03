@@ -77,5 +77,21 @@ Indeed, if we look at the `031e0000`, we can see the executable header and the s
 
 ![](../../.gitbook/assets/reflective-dll-strings.gif)
 
+## Detecting Reflective DLL Injection with Volatility
+
+`Malfind` is the Volatility's pluging responsible for finding various types of code injection and reflective DLL injection can usually be detected with the help of this plugin. 
+
+The plugin, at a high level will scan through various memory regions described by Virtual Address Descriptors \(VADs\) and look for memory regions with `PAGE_EXECUTE_READWRITE` memory protection and check for the magic bytes `4d5a` \(MZ in ASCII\) at the very beginning of those regions. Those bytes signify a start of the windows binary \(exe or a dll\):
+
+```csharp
+volatility -f /mnt/memdumps/w7-reflective-dll.bin malfind --profile Win7SP1x64
+```
+
+Note how in our case, volatility discovered the reflective dll injection we inspected manually above with WindDBG:
+
+![](../../.gitbook/assets/reflective-dll-volatility.png)
+
 {% embed data="{\"url\":\"https://github.com/stephenfewer/ReflectiveDLLInjection\",\"type\":\"link\",\"title\":\"stephenfewer/ReflectiveDLLInjection\",\"description\":\"Reflective DLL injection is a library injection technique in which the concept of reflective programming is employed to perform the loading of a library from memory into a host process. - stephenfe...\",\"icon\":{\"type\":\"icon\",\"url\":\"https://github.com/fluidicon.png\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://avatars1.githubusercontent.com/u/1172185?s=400&v=4\",\"width\":400,\"height\":400,\"aspectRatio\":1}}" %}
+
+{% embed data="{\"url\":\"https://github.com/volatilityfoundation/volatility/wiki/Command-Reference-Mal\",\"type\":\"link\",\"title\":\"volatilityfoundation/volatility\",\"description\":\"An advanced memory forensics framework. Contribute to volatilityfoundation/volatility development by creating an account on GitHub.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://github.com/fluidicon.png\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://avatars3.githubusercontent.com/u/6001145?s=400&v=4\",\"width\":400,\"height\":400,\"aspectRatio\":1}}" %}
 
