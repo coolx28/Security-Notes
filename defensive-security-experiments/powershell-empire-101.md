@@ -83,7 +83,15 @@ Continuing testing with the `http` listener and a `multi/launcher` stager, the a
 
 ![](../.gitbook/assets/stager-received.gif)
 
+## Beaconing
 
+With default http listener profile set, below are the most commonly used URIs for the agent beaconing back to the listener:
+
+![](../.gitbook/assets/agent-beaconing.png)
+
+The packet data in any of those beacons:
+
+![](../.gitbook/assets/agent-beacon-request-response.png)
 
 
 
