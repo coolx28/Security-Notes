@@ -1,3 +1,7 @@
+---
+description: Exploring key concepts of the Powershell Empire
+---
+
 # Powershell Empire 101
 
 ## Listener
@@ -50,6 +54,36 @@ execute
 A quick look at the stager code:
 
 ![](../.gitbook/assets/stager-hta.gif)
+
+### Issues
+
+Various stagers I generated for the meterpreter listener were giving me errors like [this](https://github.com/EmpireProject/Empire/issues/896) and this:
+
+![](../.gitbook/assets/stager-bat.png)
+
+and this:
+
+![](../.gitbook/assets/stager-vbs.png)
+
+After looking at the traffic and a quick nmap scan, it seems like there may be a bug in Empire's uselistener module when used with meterpreter - for some reason it will not actually start listening/open up the port:
+
+![](../.gitbook/assets/stager-listeners.png)
+
+![](../.gitbook/assets/stager-pcap.png)
+
+To test this assumption, I created another http listener on port 80 - which worked immediately, leaving the meterpeter listener being buggy at least on my system:
+
+![](../.gitbook/assets/stager-http.png)
+
+## Agent
+
+Agent is essentially a victim system that called back to the listener and is now ready to receive commands.
+
+Continuing testing with the `http` listener and a `multi/launcher` stager, the agent is finally returned once the `launcher.ps1` \(read: stager\) is executed on the victim system:
+
+![](../.gitbook/assets/stager-received.gif)
+
+
 
 
 
