@@ -25,7 +25,7 @@ execute
 
 ## Stager
 
-Stager will download and execute the final payload which will call back to the listener we set up previously - `meterpreter`:
+Stager will download and execute the final payload which will call back to the listener we set up previously - `meterpreter`- below shows how to set it up and generate:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@local" %}
@@ -45,7 +45,13 @@ execute
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-![](../.gitbook/assets/empire-stager.png)
+![](../.gitbook/assets/empire-stager%20%281%29.png)
+
+A quick look at the stager code:
+
+![](../.gitbook/assets/stager-hta.gif)
+
+
 
 
 
