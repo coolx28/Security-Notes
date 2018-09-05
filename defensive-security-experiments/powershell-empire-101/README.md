@@ -17,7 +17,7 @@ info
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-![](../.gitbook/assets/empire-listener.png)
+![](../../.gitbook/assets/empire-listener.png)
 
 Starting the listener:
 
@@ -25,7 +25,7 @@ Starting the listener:
 execute
 ```
 
-![](../.gitbook/assets/empire-startlistener.png)
+![](../../.gitbook/assets/empire-startlistener.png)
 
 ## Stager
 
@@ -49,31 +49,31 @@ execute
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-![](../.gitbook/assets/empire-stager%20%281%29.png)
+![](../../.gitbook/assets/empire-stager%20%281%29.png)
 
 A quick look at the stager code:
 
-![](../.gitbook/assets/stager-hta.gif)
+![](../../.gitbook/assets/stager-hta.gif)
 
 ### Issues
 
 Various stagers I generated for the meterpreter listener were giving me errors like [this](https://github.com/EmpireProject/Empire/issues/896) and this:
 
-![](../.gitbook/assets/stager-bat.png)
+![](../../.gitbook/assets/stager-bat.png)
 
 and this:
 
-![](../.gitbook/assets/stager-vbs.png)
+![](../../.gitbook/assets/stager-vbs.png)
 
 After looking at the traffic and a quick nmap scan, it seems like there may be a bug in Empire's uselistener module when used with meterpreter - for some reason it will not actually start listening/open up the port:
 
-![](../.gitbook/assets/stager-listeners.png)
+![](../../.gitbook/assets/stager-listeners.png)
 
-![](../.gitbook/assets/stager-pcap.png)
+![](../../.gitbook/assets/stager-pcap.png)
 
 To test this assumption, I created another http listener on port 80 - which worked immediately, leaving the meterpeter listener being buggy at least on my system:
 
-![](../.gitbook/assets/stager-http.png)
+![](../../.gitbook/assets/stager-http.png)
 
 ## Agent
 
@@ -81,9 +81,9 @@ Agent is essentially a victim system that called back to the listener and is now
 
 Continuing testing with the `http` listener and a `multi/launcher` stager, the agent is finally returned once the `launcher.ps1` \(read: stager\) is executed on the victim system:
 
-![](../.gitbook/assets/stager-received.gif)
+![](../../.gitbook/assets/stager-received.gif)
 
-Let's try getting one more agent back from another machine via [WMI lateral movement](t1047-wmi-for-lateral-movement.md):
+Let's try getting one more agent back from another machine via [WMI lateral movement](../t1047-wmi-for-lateral-movement.md):
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@local" %}
@@ -99,23 +99,23 @@ run
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-![](../.gitbook/assets/empire-lateral-wmi.gif)
+![](../../.gitbook/assets/empire-lateral-wmi.gif)
 
 ## Beaconing
 
 With default http listener profile set, below are the most commonly used URIs for the agent beaconing back to the listener:
 
-![](../.gitbook/assets/agent-beaconing.png)
+![](../../.gitbook/assets/agent-beaconing.png)
 
 The packet data in any of those beacons:
 
-![](../.gitbook/assets/agent-beacon-request-response.png)
+![](../../.gitbook/assets/agent-beacon-request-response.png)
 
 ## Observations
 
 Note how executing the stager launcher.ps1 spawned another powershell instance and both parent and the child windows are hidden. Note that the children powershell was invoked with an encodded powershell commandline:
 
-![](../.gitbook/assets/agent-procmon.png)
+![](../../.gitbook/assets/agent-procmon.png)
 
 Stager's commandline in base64:
 
@@ -181,19 +181,19 @@ $DaTA = $DatA[4..$DatA.LeNgTH]; - jOiN[ChaR[]]( & $R $datA($IV + $K)) | IEX
 
 If we isolate the evil powershell that was infected by the Empire in our SIEM, we can see the beacons:
 
-![](../.gitbook/assets/agent-beacons-logs.png)
+![](../../.gitbook/assets/agent-beacons-logs.png)
 
 A compromised system can generate event `800` showing the following in Windows PowerShell logs \(powershell 5.0+\):
 
-![](../.gitbook/assets/empire-800.png)
+![](../../.gitbook/assets/empire-800.png)
 
 Also loads of events `4103` in `Microsoft-Windows-PowerShell/Operational`:
 
-![](../.gitbook/assets/empire-4103.png)
+![](../../.gitbook/assets/empire-4103.png)
 
 In the same way, if PS transcript logging is enabled, the stager execution could be captured in there:
 
-![](../.gitbook/assets/empire-transcript.png)
+![](../../.gitbook/assets/empire-transcript.png)
 
 ### Memory Dumps
 
@@ -203,7 +203,7 @@ A memory dump can also reveal the same stager activity:
 volatility -f /mnt/memdumps/w7-empire.bin consoles --profile Win7SP1x64
 ```
 
-![](../.gitbook/assets/empire-volatility.png)
+![](../../.gitbook/assets/empire-volatility.png)
 
 
 
