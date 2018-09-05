@@ -4,9 +4,9 @@ description: Loading DLL from memory rather than disk.
 
 # Reflective DLL Injection
 
-This is a DLL injection technique where a malicious binary writes some evil DLL's contents into a remote \(victim\) process and makes the victim process load that DLL and execute malicious code contained by that evil DLL.
+This is a DLL injection technique where a malicious binary writes an evil DLL's contents into a remote \(victim\) process and makes the victim process load that DLL and execute its malicious code.
 
-This is done in a series of steps, but one of key pieces is that Process Environment Block is leveraged of the victim's process in order to find the required loaded modules such as `kernel32` and then find its exported functions such as `LoadLibrary`, `GetProcAddress` and `VirtualAlloc`.
+This is done in a series of steps, but one of key steps is that Process Environment Block is leveraged of the victim's process in order to find the required loaded modules such as `kernel32` and then find its exported functions such as `LoadLibrary`, `GetProcAddress` and `VirtualAlloc`. in order to carry out the injection.
 
 For our exploration of the PEB:
 
@@ -14,7 +14,7 @@ For our exploration of the PEB:
 
 ## Execution
 
-This lab assumes that the attacker has already gained a meterpreter shell from a victim system and the attacker now will attempt to inject a reflective DLL that is sitting on the attackers disk into a process on a compromised victim system, more specifically into a notepad.exe process with PID 6156.
+This lab assumes that the attacker has already gained a meterpreter shell from a victim system and the attacker now will attempt to inject a reflective DLL that is sitting on the attackers disk into a process on a compromised victim system, more specifically into a `notepad.exe` process with PID `6156`.
 
 Metasploit's post-exploitation module `windows/manage/reflective_dll_inject` configured:
 
@@ -32,7 +32,7 @@ Once the metasploit's post-exploitation module is run, the procmon accurately re
 
 Let's see if we can locate where the contents of `reflective_dll.x64.dll` are injected into the victim process when the metasploit's post-exploitation module executes.
 
-For that, in WinDBG, let's set up a breakpoint for `MessageBoxA` as shown below and run the post-exploitation module again:
+For that, lets debug notepad in WinDBG and set up a breakpoint for `MessageBoxA` as shown below and run the post-exploitation module again:
 
 ```cpp
 0:007> bp MessageBoxA
@@ -58,7 +58,7 @@ If we inspect the `00000000031e103e` 0x30 bytes earlier, we can see some suspect
 
 ![](../../.gitbook/assets/reflective-dll-injection-variables.png)
 
-Upon inspecting those two  addresses - those are indeed holding the values the `MessageBoxA` prints out upon successful DLL injection into the victim process:
+Upon inspecting those two addresses - they are indeed holding the values the `MessageBoxA` prints out upon successful DLL injection into the victim process:
 
 ```cpp
 0:007> da 00000000`031e92c8
@@ -81,7 +81,7 @@ Indeed, if we look at the `031e0000`, we can see the executable header and the s
 
 `Malfind` is the Volatility's pluging responsible for finding various types of code injection and reflective DLL injection can usually be detected with the help of this plugin. 
 
-The plugin, at a high level will scan through various memory regions described by Virtual Address Descriptors \(VADs\) and look for memory regions with `PAGE_EXECUTE_READWRITE` memory protection and check for the magic bytes `4d5a` \(MZ in ASCII\) at the very beginning of those regions. Those bytes signify a start of the windows binary \(exe or a dll\):
+The plugin, at a high level will scan through various memory regions described by Virtual Address Descriptors \(VADs\) and look for memory regions with `PAGE_EXECUTE_READWRITE` memory protection and check for the magic bytes `4d5a` \(MZ in ASCII\) at the very beginning of those regions. Those bytes signify a start of the Windows binary \(exe or a dll\):
 
 ```csharp
 volatility -f /mnt/memdumps/w7-reflective-dll.bin malfind --profile Win7SP1x64
