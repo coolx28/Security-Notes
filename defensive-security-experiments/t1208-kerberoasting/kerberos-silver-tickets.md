@@ -10,7 +10,7 @@ This lab builds on the explorations in [T1208: Kerberoasting](./) where a TGS ti
 
 ## Execution
 
-I will be using mimikatz to create a Kerberos Silver Ticket - forging/rewriting the cracked ticket with some new details that benefit the me as an attacker. 
+I will be using mimikatz to create a Kerberos Silver Ticket - forging/rewriting the cracked ticket with some new details that benefit me as an attacker. 
 
 Below is a table with values supplied to mimikatz explained and the command itseld:
 
