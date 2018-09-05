@@ -4,7 +4,7 @@ description: Persistence and Privilege Escalation with Golden Kerberots tickets
 
 # Kerberos: Golden Tickets
 
-This lab explores an attack on Active Directory Kerberos Authentication. To be more precise - an attack that forges Kerberos Ticket Granting Tickets \(TGT\) that are used to authenticate users with Kerberos. TGTs are used when requesting Ticket Granting Service \(TGS\) tickets, which means a forged TGT can get us any TGS ticket - hence the golden.
+This lab explores an attack on Active Directory Kerberos Authentication. To be more precise - an attack that forges Kerberos Ticket Granting Tickets \(TGT\) that are used to authenticate users with Kerberos. TGTs are used when requesting Ticket Granting Service \(TGS\) tickets, which means a forged TGT can get us any TGS ticket - hence it's golden.
 
 This attack assumes a Domain Controller compromise where `KRBTGT` account hash will be extracted.
 

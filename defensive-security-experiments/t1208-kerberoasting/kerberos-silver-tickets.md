@@ -4,7 +4,7 @@ description: Credential Access
 
 # Kerberos: Silver Tickets
 
-This lab looks at the technique of forging a cracked TGS Kerberos ticket in order to impersonate another user and escalate privileges.
+This lab looks at the technique of forging a cracked TGS Kerberos ticket in order to impersonate another user and escalate privileges from the perspective of a service the TGS was cracked for.
 
 This lab builds on the explorations in [T1208: Kerberoasting](./) where a TGS ticket got cracked.
 
