@@ -8,6 +8,8 @@ This lab is based on an [Empire Case Study](https://enigma0x3.net/2016/01/28/an-
 
 ## Domain Trust Relationships
 
+Firstly, some LAB setup - need to create a child domain controller as well as a new forest with a new domain controller.
+
 ### Parent/Child
 
 After installing a child domain `red.offense.local` of a parent domain `offense.local`, Active Directory Domains and Trusts show the parent-child relationship between the domains as well as their default trusts:
@@ -63,6 +65,18 @@ Incoming trust for dc-mantvydas.offense.local is now created:
 Testing nltest output:
 
 ![](../../.gitbook/assets/domain-trusts-nltest.png)
+
+### Forest test
+
+Now that the trust relationship is set, it is easy to check if it was done correctly. What should happen now is that resources on dc-blue.defense.local \(trusting domain\) should be available to members of offense.local \(trusted domain\).
+
+Note how the user on `dc-mantvydas.offense.local` is not able to share a folder to `defense\administrator` \(because `offense.local` does not trust `defense.local`\):
+
+![](../../.gitbook/assets/domain-trusts-notfound.png)
+
+However, `dc-blue.defense.local`, trusts `offense.local`, hence is able to share a resource to one of the members of `offense.local` - forests setup correctly and as intended:
+
+![](../../.gitbook/assets/domain-trusts-shared%20%281%29.png)
 
 {% embed data="{\"url\":\"https://enigma0x3.net/2016/01/28/an-empire-case-study/\",\"type\":\"link\",\"title\":\"An Empire Case Study\",\"description\":\"This post is part of the ‘Empire Series’, with some background and an ongoing list of series posts \[kept here\].  Empire has gotten a lot of use since its initial release at BSides Las Vegas. Most o…\",\"icon\":{\"type\":\"icon\",\"url\":\"https://s1.wp.com/i/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://enigma0x3.files.wordpress.com/2016/01/lab\_local\_krbtgt.png\",\"width\":1244,\"height\":1160,\"aspectRatio\":0.932475884244373}}" %}
 
