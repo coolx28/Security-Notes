@@ -50,7 +50,19 @@ First of, setting up condictional DNS forwarders on both DCs:
 
 Adding a new trust by making `dc-mantvydas` a trusted domain:
 
+![](../../.gitbook/assets/domain-trust-one-way-incoming.png)
+
+Setting the trus type to `Forest`:
+
 ![](../../.gitbook/assets/domain-trusts-forest.png)
+
+Incoming trust for dc-mantvydas.offense.local is now created:
+
+![](../../.gitbook/assets/domain-trust-one-way-incoming-created.png)
+
+Testing nltest output:
+
+![](../../.gitbook/assets/domain-trusts-nltest.png)
 
 {% embed data="{\"url\":\"https://enigma0x3.net/2016/01/28/an-empire-case-study/\",\"type\":\"link\",\"title\":\"An Empire Case Study\",\"description\":\"This post is part of the ‘Empire Series’, with some background and an ongoing list of series posts \[kept here\].  Empire has gotten a lot of use since its initial release at BSides Las Vegas. Most o…\",\"icon\":{\"type\":\"icon\",\"url\":\"https://s1.wp.com/i/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://enigma0x3.files.wordpress.com/2016/01/lab\_local\_krbtgt.png\",\"width\":1244,\"height\":1160,\"aspectRatio\":0.932475884244373}}" %}
 
