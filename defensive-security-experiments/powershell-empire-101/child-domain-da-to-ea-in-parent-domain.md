@@ -8,6 +8,8 @@ This lab is based on an [Empire Case Study](https://enigma0x3.net/2016/01/28/an-
 
 ## Domain Trust Relationships
 
+### Parent/Child
+
 After installing a child domain `red.offense.local` of a parent domain `offense.local`, Active Directory Domains and Trusts show the parent-child relationship between the domains as well as their default trusts:
 
 ![](../../.gitbook/assets/domains-trusts1.png)
@@ -29,6 +31,26 @@ nltest /domain_trusts
 ```
 
 ![](../../.gitbook/assets/domains-nltest.png)
+
+Powershell way of checking trust relationships:
+
+```csharp
+([System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()).GetAllTrustRelationships()
+```
+
+![](../../.gitbook/assets/domains-trusts-powershell.png)
+
+### Forests
+
+After installing a new DC `dc-blue` in a new forest, let's setup a one way trust between `offense.local` and `defense.local` domains using contollers `dc-mantvydas.offense.local` and `dc-blue.defense.blue`.
+
+First of, setting up condictional DNS forwarders on both DCs:
+
+![](../../.gitbook/assets/domain-trust-conditional-forwarders.png)
+
+Adding a new trust by making `dc-mantvydas` a trusted domain:
+
+![](../../.gitbook/assets/domain-trusts-forest.png)
 
 {% embed data="{\"url\":\"https://enigma0x3.net/2016/01/28/an-empire-case-study/\",\"type\":\"link\",\"title\":\"An Empire Case Study\",\"description\":\"This post is part of the ‘Empire Series’, with some background and an ongoing list of series posts \[kept here\].  Empire has gotten a lot of use since its initial release at BSides Las Vegas. Most o…\",\"icon\":{\"type\":\"icon\",\"url\":\"https://s1.wp.com/i/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://enigma0x3.files.wordpress.com/2016/01/lab\_local\_krbtgt.png\",\"width\":1244,\"height\":1160,\"aspectRatio\":0.932475884244373}}" %}
 
