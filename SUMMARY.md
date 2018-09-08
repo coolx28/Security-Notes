@@ -67,6 +67,7 @@
   * [T1175: Distributed Component Object Model](offensive-security-experiments/t1175-distributed-component-object-model.md)
   * [Powershell Empire 101](offensive-security-experiments/powershell-empire-101/README.md)
     * [From DA to EA](offensive-security-experiments/powershell-empire-101/child-domain-da-to-ea-in-parent-domain.md)
+  * [PowerView: Active Directory Enumeration](offensive-security-experiments/active-directory-enumeration-with-powerview.md)
 * [Memory Forensics](memory-forensics/README.md)
   * [Process Environment Block](memory-forensics/process-environment-block.md)
   * [Dump Virtual Box Memory](memory-forensics/dump-virtual-box-memory.md)
