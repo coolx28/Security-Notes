@@ -1,10 +1,14 @@
 ---
-description: Explore Parent-Child Domain Trust Relationships and Privilege Escalation
+description: >-
+  Explore Parent-Child Domain Trust Relationships and abuse it for Privilege
+  Escalation
 ---
 
-# Child Domain DA to EA in Parent Domain
+# From DA to EA
 
 This lab is based on an [Empire Case Study](https://enigma0x3.net/2016/01/28/an-empire-case-study/) and its goal is to get more familiar with some of the concepts of Powershell Empire and its modules as well as Active Directory concepts such as Forests, Parent/Child domains and Trust Relationships and how they can be abused to escalate privileges.
+
+The end goal of this lab is to replicate privilege escalation from DA on a child domain to EA on a root domain.
 
 ## Domain Trust Relationships
 
