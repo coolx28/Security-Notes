@@ -1,6 +1,6 @@
 # Table of contents
 
-* [\[De\|Of\]fensive Security](README.md)
+* [Red Teaming Experiments](README.md)
 * [Offensive Security Cheatsheets](offensive-security-cheetsheets.md)
 * [Red Teaming Experiments](defensive-security-experiments/README.md)
   * [T1055: Process Injection](defensive-security-experiments/t1055-process-injection/README.md)
