@@ -169,7 +169,9 @@ After that, a password hash of the `krbtgt` accoutn in of the compromised `DC-RE
 
 ![](../../.gitbook/assets/empire-krbtgt-hash.png)
 
-We can now generate a golden ticket for `offense.local\Domain Admins`: since we have the SID of the `offense.local\krbtgt` and the hash of `red.offense.local\krbtgt`:
+### Golden Ticket for Root Domain
+
+We can now generate a golden ticket for `offense.local\Domain Admins`since we have the SID of the `offense.local\krbtgt` and the hash of `red.offense.local\krbtgt`:
 
 ```csharp
 usemodule powershell/credentials/mimikatz/golden_ticket
@@ -186,15 +188,15 @@ The `CredID` property in the dcsync module comes from the Empire's credential st
 
 ![](../../.gitbook/assets/empire-creds.png)
 
-We now should be Enterprise Admin in `offense.local`
-
-We can test it by listing the admin share c$ of the `dc-mantvydas.offense.local:`
+We now should be Enterprise Admin in `offense.local`and we can test it by listing the admin share c$ of the `dc-mantvydas.offense.local:`
 
 ```csharp
 shell dir \\dc-mantvydas\c$
 ```
 
 ![](../../.gitbook/assets/empire-enterprise-admin.png)
+
+### Agent from Root Domain
 
 For the sake of fun and wrapping this lab up, let's get an agent from the `dc-mantvydas`:
 
