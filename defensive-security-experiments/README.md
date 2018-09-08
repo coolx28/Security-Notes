@@ -2,7 +2,7 @@
 description: The following sub-pages of this page will explore common attacking techniques
 ---
 
-# \[De\|Of\]fensive Experiments
+# Red Teaming Experiments
 
 The goal of this project is simple - read other researchers work, execute some common/uncommon attacking techniques in the lab environment and:
 

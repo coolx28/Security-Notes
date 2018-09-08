@@ -2,7 +2,7 @@
 
 * [\[De\|Of\]fensive Security](README.md)
 * [Offensive Security Cheatsheets](offensive-security-cheetsheets.md)
-* [\[De\|Of\]fensive Experiments](defensive-security-experiments/README.md)
+* [Red Teaming Experiments](defensive-security-experiments/README.md)
   * [T1055: Process Injection](defensive-security-experiments/t1055-process-injection/README.md)
     * [CreateRemoteThread Shellcode Injection](defensive-security-experiments/t1055-process-injection/process-injection.md)
     * [DLL Injection](defensive-security-experiments/t1055-process-injection/dll-injection.md)
