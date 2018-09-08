@@ -10,7 +10,7 @@ This lab is based on an [Empire Case Study](https://enigma0x3.net/2016/01/28/an-
 
 Firstly, some LAB setup - need to create a child domain controller as well as a new forest with a new domain controller.
 
-### Parent / Child domains
+### Parent / Child Domains
 
 After installing a child domain `red.offense.local` of a parent domain `offense.local`, Active Directory Domains and Trusts show the parent-child relationship between the domains as well as their default trusts:
 
@@ -66,7 +66,7 @@ Testing nltest output:
 
 ![](../../.gitbook/assets/domain-trusts-nltest.png)
 
-### Forests test
+### Forests Test
 
 Now that the trust relationship is set, it is easy to check if it was done correctly. What should happen now is that resources on dc-blue.defense.local \(trusting domain\) should be available to members of offense.local \(trusted domain\).
 
@@ -80,13 +80,61 @@ However, `dc-blue.defense.local`, trusts `offense.local`, hence is able to share
 
 ## Back to Empire: From DA to EA
 
-We just got an agent back from 
+Assume we got our first agent back on a computer `PC-MANTVYDAS$`:
+
+![](../../.gitbook/assets/empire-1st-agent.png)
+
+### Credential Dumping
+
+Since the agent is running withing a high integrity process, let's dump credentials - some interesting credentials for a user in `red.offense.local` domain:
+
+![](../../.gitbook/assets/empire-mimikatz.png)
+
+Listing the processes with `ps`, we can see number of process running under the `red\spotless` account, here is one:
+
+![](../../.gitbook/assets/empire-ps.png)
+
+The domain user is of interest, so we would use a `usemodule situational_awareness/network/powerview/get_user` command to enumerate the red\spotless user and see if it is a member of any interesting groups, however my empire instance did not seem to return any results for this command. For this lab, assume it showd that the user red\spotless is a member of `Administrators` group on the `red.offense.local` domain.
+
+### Token Manipulation
+
+Let's steal the token of a process with PID 4900 that runs with `red\spotless` credentials: 
+
+![](../../.gitbook/assets/empire-stealtoken.png)
+
+### DC Recon
+
+Let's get the Domain Controller computer name. Again, my Empire instance is buggy, so I used a custom command to get it:
 
 ```csharp
-shell [Direshell [DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().DomainControllers | ForEach-Object { $_.Name }
+shell [DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().DomainControllers | ForEach-Object { $_.Name }
+```
+
+![](../../.gitbook/assets/empire-get-dcname.png)
+
+Check if I have access to the DC-RED:
+
+```csharp
 shell dir \\dc-red.red.offense.local\c$
+```
+
+![](../../.gitbook/assets/empire-dir-childdc.png)
+
+### Lateral Movement
+
+Let's get back an agent from DC-RED - note that the credentials are coming from the previous dump with mimikatz:
+
+```csharp
 usemodule lateral_movement/invoke_wmi
 ```
+
+![](../../.gitbook/assets/empire-lateral-childdc.png)
+
+We now have the agent back, let's just confirm where we landed:
+
+![](../../.gitbook/assets/empire-childdc-recon.png)
+
+
 
 {% embed data="{\"url\":\"https://enigma0x3.net/2016/01/28/an-empire-case-study/\",\"type\":\"link\",\"title\":\"An Empire Case Study\",\"description\":\"This post is part of the ‘Empire Series’, with some background and an ongoing list of series posts \[kept here\].  Empire has gotten a lot of use since its initial release at BSides Las Vegas. Most o…\",\"icon\":{\"type\":\"icon\",\"url\":\"https://s1.wp.com/i/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://enigma0x3.files.wordpress.com/2016/01/lab\_local\_krbtgt.png\",\"width\":1244,\"height\":1160,\"aspectRatio\":0.932475884244373}}" %}
 
