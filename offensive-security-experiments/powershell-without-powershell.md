@@ -1,4 +1,10 @@
+---
+description: Understanding ConstrainedLanguageMode
+---
+
 # Powershell without Powershell \(?\)
+
+Constrained Language Mode in short locks down the nice features of Powershell usually required for complex attacks to be carried out.
 
 ## Powershell Inside Powershell
 
@@ -28,6 +34,12 @@ With `ConstrainedLanguage`, trying to download a file from remote machine, we ge
 ![](../.gitbook/assets/ps-constrained-download-denied.png)
 
 However, if you have access to the system and enough privileges to change environment variables, the lock can be lifted by removing the variable `__PSLockdownPolicy` and re-spawning another powershell instance.
+
+### Powershell Downgrade
+
+If you have the ability to downgrade to Powershell 2.0, this can allow you to bypass the `ConstrainedLanguage`mode. Note how `$ExecutionContext.SessionState.LanguageMode` keeps returning `ConstrainedLangue` in powershell instances that were not launched with `-version Powershell 2` until it does not:
+
+![](../.gitbook/assets/ps-downgrade.png)
 
 {% embed data="{\"url\":\"https://blogs.msdn.microsoft.com/powershell/2017/11/02/powershell-constrained-language-mode/\",\"type\":\"link\",\"title\":\"PowerShell Constrained Language Mode\",\"description\":\"Automating the world one-liner at a time…\",\"icon\":{\"type\":\"icon\",\"url\":\"https://blogs.msdn.microsoft.com/powershell/wp-content/themes/cloud-platform/images/favicon-msdn.png\",\"aspectRatio\":0}}" %}
 
