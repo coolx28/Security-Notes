@@ -1,7 +1,7 @@
 # Table of contents
 
-* [Red Teaming Experiments](README.md)
-* [Offensive Security Cheatsheets](offensive-security-cheetsheets.md)
+* [Red Teaming & Pentesting Experiments](README.md)
+* [Pentesting Cheatsheets](offensive-security-cheetsheets.md)
 * [Red Teaming Experiments](offensive-security-experiments/README.md)
   * [T1055: Process Injection](offensive-security-experiments/t1055-process-injection/README.md)
     * [CreateRemoteThread Shellcode Injection](offensive-security-experiments/t1055-process-injection/process-injection.md)
@@ -52,6 +52,7 @@
   * [T1207: DCShadow](offensive-security-experiments/t1207-dcshadow.md)
   * [T1076: RDP Hijacking for Lateral Movement with tscon](offensive-security-experiments/t1076-rdp-hijacking-for-lateral-movement.md)
   * [T1140: Encode/Decode Data with Certutil](offensive-security-experiments/t1140-encode-decode-data-with-certutil.md)
+  * [Downloading File with Certutil](offensive-security-experiments/downloading-file-with-certutil.md)
   * [T1183: Image File Execution Options Injection](offensive-security-experiments/t1183-image-file-execution-options-injection.md)
   * [T1202: Forfiles Indirect Command Execution](offensive-security-experiments/t1202-forfiles-indirect-command-execution.md)
   * [T1130: Installing Root Certificate](offensive-security-experiments/t1130-install-root-certificate.md)
@@ -68,6 +69,7 @@
   * [Powershell Empire 101](offensive-security-experiments/powershell-empire-101/README.md)
     * [From DA to EA](offensive-security-experiments/powershell-empire-101/child-domain-da-to-ea-in-parent-domain.md)
   * [PowerView: Active Directory Enumeration](offensive-security-experiments/active-directory-enumeration-with-powerview.md)
+  * [Powershell without Powershell](offensive-security-experiments/powershell-without-powershell.md)
 * [Memory Forensics](memory-forensics/README.md)
   * [Process Environment Block](memory-forensics/process-environment-block.md)
   * [Dump Virtual Box Memory](memory-forensics/dump-virtual-box-memory.md)

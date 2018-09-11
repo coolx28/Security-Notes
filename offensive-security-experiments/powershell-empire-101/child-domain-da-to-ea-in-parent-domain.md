@@ -78,7 +78,7 @@ Note how the user on `dc-mantvydas.offense.local` is not able to share a folder 
 
 ![](../../.gitbook/assets/domain-trusts-notfound.png)
 
-However, `dc-blue.defense.local`, trusts `offense.local`, hence is able to share a resource to one of the members of `offense.local` - forests setup correctly and as intended:
+However, `dc-blue.defense.local`, trusts `offense.local`, hence is able to share a resource to one of the members of `offense.local` - forest trust relationships setup and work as intended:
 
 ![](../../.gitbook/assets/domain-trusts-shared%20%281%29.png)
 
