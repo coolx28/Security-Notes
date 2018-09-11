@@ -65,7 +65,7 @@
   * [T1208: Kerberoasting](offensive-security-experiments/t1208-kerberoasting/README.md)
     * [Kerberos: Silver Tickets](offensive-security-experiments/t1208-kerberoasting/kerberos-silver-tickets.md)
     * [Kerberos: Golden Tickets](offensive-security-experiments/t1208-kerberoasting/kerberos-golden-tickets.md)
-  * [T1175: Distributed Component Object Model](offensive-security-experiments/t1175-distributed-component-object-model.md)
+  * [T1175: Lateral Movement via DCOM](offensive-security-experiments/t1175-distributed-component-object-model.md)
   * [Powershell Empire 101](offensive-security-experiments/powershell-empire-101/README.md)
     * [From DA to EA](offensive-security-experiments/powershell-empire-101/child-domain-da-to-ea-in-parent-domain.md)
   * [PowerView: Active Directory Enumeration](offensive-security-experiments/active-directory-enumeration-with-powerview.md)
