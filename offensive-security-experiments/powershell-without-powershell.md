@@ -1,4 +1,25 @@
-# Powershell without Powershell
+# Powershell without Powershell \(?\)
+
+## Powershell Inside Powershell
+
+For fun - creating another powershell instance inside powershell without actually spawning a new `powershell.exe` process:
+
+![](../.gitbook/assets/ps-invoke.gif)
+
+## Constrained Language Mode
+
+Enabling constrained language mode, that does not allow powershell execute complex attacks \(i.e. mimikatz\):
+
+```csharp
+[Environment]::SetEnvironmentVariable(‘__PSLockdownPolicy‘, ‘4’, ‘Machine‘)
+```
+
+Checking constrained language mode is enabled:
+
+```csharp
+PS C:\Users\mantvydas> $ExecutionContext.SessionState.LanguageMode
+ConstrainedLanguage
+```
 
 
 

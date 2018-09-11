@@ -69,7 +69,7 @@
   * [Powershell Empire 101](offensive-security-experiments/powershell-empire-101/README.md)
     * [From DA to EA](offensive-security-experiments/powershell-empire-101/child-domain-da-to-ea-in-parent-domain.md)
   * [PowerView: Active Directory Enumeration](offensive-security-experiments/active-directory-enumeration-with-powerview.md)
-  * [Powershell without Powershell](offensive-security-experiments/powershell-without-powershell.md)
+  * [Powershell without Powershell \(?\)](offensive-security-experiments/powershell-without-powershell.md)
 * [Memory Forensics](memory-forensics/README.md)
   * [Process Environment Block](memory-forensics/process-environment-block.md)
   * [Dump Virtual Box Memory](memory-forensics/dump-virtual-box-memory.md)
