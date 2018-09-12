@@ -47,3 +47,5 @@ If you have the ability to downgrade to Powershell 2.0, this can allow you to by
 
 {% embed data="{\"url\":\"https://adsecurity.org/?p=2604\",\"type\":\"link\",\"title\":\"Detecting Offensive PowerShell Attack Tools – Active Directory Security\"}" %}
 
+{% embed data="{\"url\":\"https://pentestn00b.wordpress.com/2017/03/20/simple-bypass-for-powershell-constrained-language-mode/\",\"type\":\"link\",\"title\":\"Simple Bypass for PowerShell Constrained Language Mode\",\"description\":\"Edit – I just had this pointed out to me that on Friday 17th March Lee Holmes wrote about this very attack on his blog here –  This is a pure coincidence and I was not aware of this blo…\",\"icon\":{\"type\":\"icon\",\"url\":\"https://secure.gravatar.com/blavatar/41defc30f1872942ae9b680998df57ea?s=32\",\"width\":16,\"height\":16,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://pentestn00b.files.wordpress.com/2017/03/windows-features.png\",\"width\":551,\"height\":631,\"aspectRatio\":1.1451905626134302}}" %}
+
