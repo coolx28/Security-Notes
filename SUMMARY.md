@@ -7,6 +7,7 @@
     * [CreateRemoteThread Shellcode Injection](offensive-security-experiments/t1055-process-injection/process-injection.md)
     * [DLL Injection](offensive-security-experiments/t1055-process-injection/dll-injection.md)
     * [Reflective DLL Injection](offensive-security-experiments/t1055-process-injection/reflective-dll-injection.md)
+  * [Get-InjectedThread](offensive-security-experiments/get-injectedthread.md)
   * [T1117: regsvr32](offensive-security-experiments/t1117-regsvr32-aka-squiblydoo.md)
   * [T1187: Forced Authentication](offensive-security-experiments/t1187-forced-authentication.md)
   * [T1099: Timestomping](offensive-security-experiments/t1099-timestomping.md)
