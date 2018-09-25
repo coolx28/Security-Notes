@@ -1,39 +1,57 @@
 ---
-description: Exploring injected threads with Get-InjectedThreads.ps1 and WinDBG
+description: >-
+  A short exploration of injected threads with Get-InjectedThreads.ps1 and
+  WinDBG
 ---
 
 # Exploring Injected Threads
 
-Scan all the running processes for any injected threads:
+Firstly, let's use an [injector](../offensive-security-experiments/t1055-process-injection/process-injection.md) program we wrote earlier to inject some shellcode into a process that will give us a reverse shell. In this case, we are injecting the shellcode into explorer.exe:
+
+![](../.gitbook/assets/injected-threads-explorer-injected.png)
+
+Scan all the running processes for any injected threads using [Get-InjectedThreads.ps1](https://gist.github.com/jaredcatkinson/23905d34537ce4b5b1818c3e6405c1d2):
 
 ```csharp
 $a = Get-InjectedThread; $a
 ```
 
-Double checking the payload found in the injected thread:
+![](../.gitbook/assets/injected-threads-get-injected-thread.png)
+
+Check the payload found in the injected thread and cross-verify with the shellcode in our injector binary:
 
 ```csharp
 ($a.Bytes | ForEach-Object tostring x2) -join "\x"
 ```
 
-The below WinDBG commands show:
+![](../.gitbook/assets/injected-threads-shellcode2.png)
 
-1. Getting a list of threads in the injected process that is being debugged
-2. Switching debugging context to 6th thread
-3. Inspecting `StartAddress`of the 7th thread
-4. Converting `StartAddress` from decimal \(Get-InjectedThread `StartAddress` output\) to hex
+If we compare the bytes observed by `Get-InjectedThreads` with the shellcode that we used in the injector program, we see they match as expected:
 
-```csharp
-~
-~6s
-0:007> ~.
-.  7  Id: be4.d38 Suspend: 1 Teb: 000007ff`fffac000 Unfrozen
-      Start: 00000000`036f0000
-      Priority: 0  Priority class: 32  Affinity: f
+![](../.gitbook/assets/injected-threads-shellcode.png)
 
-0:007> ?0x036f0000
-Evaluate expression: 57606144 = 00000000`036f0000
-```
+In order to inspect the newly created thread that executes the above shellcode we need to know its thread id. For this experiment, we use Process Explorer and note the newly created thread's ID which is `2112`. Note the `ThreadId` is also shown in the output of Get-InjectedThread powershell script:
+
+![](../.gitbook/assets/injected-threads-threadid.png)
+
+We can see the same in WinDBG:
+
+![](../.gitbook/assets/injected-threads-threadid-windbg.png)
+
+In order to inspect the bytes stored/executed in the injected thread, we need to get thread's `StartAddress` which can be retrieved with `~.` command in WinDBG when in the context of the thread of interest.
+
+Below graphic shows the injected thread's contents with WinDBG. Note that all the threads are listed initially with `~` command.   
+Thread `0x1494 = 5268` is then inspected for its `StartAddress`, which happened to be `0x03730000 = 57868288` . 
+
+For reference, the original shellcode bytes are displayed in the upper right corner. Bottom right corner shows the output of the `Get-InjectedThreads` indicating `ThreadId` and `StartAddress` in decimal:
+
+![Injected thread id + StartAddress + content bytes](../.gitbook/assets/injected-threads-inspection.png)
+
+One of the things Get-InjectedThreads does in order to detect code injection is - it enumerates all the threads in each running process on the system and performs the following checks on memory regions holding those threads: `MemoryType == MEM_IMAGE && MemoryState == MEM_COMMIT`. If the condition is not met, this means that the code running from the inspected thread does not have a corresponding image file on the disk, suggesting the code may have been injected directly to memory, hence the code injection.
+
+Below graphic shows details of the memory region containing the injected thread using WinDBG and Get-InjectedThreads. Note the Type/MemoryType and State/MemoryState in WinDBG/Get-InjectedThreads outputs respectively:
+
+![](../.gitbook/assets/injected-threads-address.png)
 
 {% embed data="{\"url\":\"https://posts.specterops.io/defenders-think-in-graphs-too-part-1-572524c71e91\",\"type\":\"link\",\"title\":\"Defenders Think in Graphs Too! Part 1\",\"description\":\"Introduction to Get-InjectedThread and Series Introduction\",\"icon\":{\"type\":\"icon\",\"url\":\"https://cdn-images-1.medium.com/fit/c/304/304/1\*D-FDlfkqivRBQZoESrwtqw.png\",\"width\":152,\"height\":152,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://cdn-images-1.medium.com/max/834/1\*G8\_Rb1FcBsz9cWdzubDvSA.png\",\"width\":417,\"height\":721,\"aspectRatio\":1.7290167865707433}}" %}
 
