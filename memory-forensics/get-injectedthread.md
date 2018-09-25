@@ -1,17 +1,31 @@
 ---
-description: WIP
+description: Exploring injected threads with Get-InjectedThreads.ps1 and WinDBG
 ---
 
 # Exploring Injected Threads
 
-```text
-$a = Get-InjectedThread
-($a.Bytes | ForEach-Object tostring x2) -join "\x"
+Scan all the running processes for any injected threads:
 
+```csharp
+$a = Get-InjectedThread; $a
+```
+
+Double checking the payload found in the injected thread:
+
+```csharp
+($a.Bytes | ForEach-Object tostring x2) -join "\x"
+```
+
+The below WinDBG commands show:
+
+1. Getting a list of threads in the injected process that is being debugged
+2. Switching debugging context to 6th thread
+3. Inspecting `StartAddress`of the 7th thread
+4. Converting `StartAddress` from decimal \(Get-InjectedThread `StartAddress` output\) to hex
+
+```csharp
 ~
 ~6s
-!teb
-
 0:007> ~.
 .  7  Id: be4.d38 Suspend: 1 Teb: 000007ff`fffac000 Unfrozen
       Start: 00000000`036f0000
@@ -19,7 +33,6 @@ $a = Get-InjectedThread
 
 0:007> ?0x036f0000
 Evaluate expression: 57606144 = 00000000`036f0000
-
 ```
 
 {% embed data="{\"url\":\"https://posts.specterops.io/defenders-think-in-graphs-too-part-1-572524c71e91\",\"type\":\"link\",\"title\":\"Defenders Think in Graphs Too! Part 1\",\"description\":\"Introduction to Get-InjectedThread and Series Introduction\",\"icon\":{\"type\":\"icon\",\"url\":\"https://cdn-images-1.medium.com/fit/c/304/304/1\*D-FDlfkqivRBQZoESrwtqw.png\",\"width\":152,\"height\":152,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://cdn-images-1.medium.com/max/834/1\*G8\_Rb1FcBsz9cWdzubDvSA.png\",\"width\":417,\"height\":721,\"aspectRatio\":1.7290167865707433}}" %}
