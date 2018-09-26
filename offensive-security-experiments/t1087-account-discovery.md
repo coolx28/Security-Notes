@@ -22,7 +22,7 @@ whoami /all
 
 Having command line logging can help identifying a cluster of enumeration commands used in a relatively short span of time.
 
-For this lab, I exported 8600+ commandlines from various proceeses and wrote a dirty powershell script that ingests those commandlines and inspects them for a couple of classic windows enumeration commands that are executed in the span of 2 minutes and spits them out:
+For this lab, I exported 8600+ commandlines from various proceses and wrote a dirty powershell script that ingests those commandlines and inspects them for a couple of classic windows enumeration commands that are executed in the span of 2 minutes and spits them out:
 
 {% code-tabs %}
 {% code-tabs-item title="hunt.ps1" %}
