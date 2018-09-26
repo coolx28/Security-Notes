@@ -4,9 +4,9 @@ description: Loading DLL from memory rather than disk.
 
 # Reflective DLL Injection
 
-This is a DLL injection technique where a malicious binary writes an evil DLL's contents into a remote \(victim\) process and makes the victim process load that DLL and execute its malicious code.
+This is a DLL injection technique that allows an attacker to inject a DLL's into a remote \(victim\) process **from memory** rather than a disk - way stealthier way to execute malicious code.
 
-This is done in a series of steps, but one of key steps is that Process Environment Block is leveraged of the victim's process in order to find the required loaded modules such as `kernel32` and then find its exported functions such as `LoadLibrary`, `GetProcAddress` and `VirtualAlloc`. in order to carry out the injection.
+Injection is achieved with a series of steps, but one of the key steps is that Process Environment Block \(`_PEB`\) of the victim's process is leveraged in order to find the required loaded modules in the process such as `kernel32` and then find its exported functions such as `LoadLibrary`, `GetProcAddress` and `VirtualAlloc`. in order to carry out the injection.
 
 For our exploration of the PEB:
 
@@ -14,7 +14,7 @@ For our exploration of the PEB:
 
 ## Execution
 
-This lab assumes that the attacker has already gained a meterpreter shell from a victim system and the attacker now will attempt to inject a reflective DLL that is sitting on the attackers disk into a process on a compromised victim system, more specifically into a `notepad.exe` process with PID `6156`.
+This lab assumes that the attacker has already gained a meterpreter shell from the victim system and the attacker now will attempt to inject a reflective DLL \(that is sitting on the attackers disk\) into a remote process on a compromised victim system, more specifically into a `notepad.exe` process with PID `6156`
 
 Metasploit's post-exploitation module `windows/manage/reflective_dll_inject` configured:
 
