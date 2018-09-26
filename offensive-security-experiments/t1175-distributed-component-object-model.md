@@ -4,7 +4,7 @@ description: Lateral Movement via Distributed Component Object Model
 
 # T1175: Lateral Movement via DCOM
 
-This lab explores a DCOM lateral movement technique using MMC20.Application COM as originally researched by enima0x3 in his blog post [Lateral Movement using the mmc20.application Com Object](https://enigma0x3.net/2017/09/11/lateral-movement-using-excel-application-and-dcom/)
+This lab explores a DCOM lateral movement technique using MMC20.Application COM as originally researched by @enigma0x3 in his blog post [Lateral Movement using the mmc20.application Com Object](https://enigma0x3.net/2017/09/11/lateral-movement-using-excel-application-and-dcom/)
 
 ## Execution
 
