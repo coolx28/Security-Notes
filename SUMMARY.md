@@ -70,7 +70,7 @@
     * [From DA to EA](offensive-security-experiments/powershell-empire-101/child-domain-da-to-ea-in-parent-domain.md)
   * [PowerView: Active Directory Enumeration](offensive-security-experiments/active-directory-enumeration-with-powerview.md)
   * [Powershell Constrained Language Mode ByPass](offensive-security-experiments/powershell-constrained-language-mode-bypass.md)
-  * [Powershell Without Powershell](offensive-security-experiments/powershell-without-powershell.md)
+  * [Powershell Without Powershell.exe](offensive-security-experiments/powershell-without-powershell.md)
   * [Unloading Sysmon Driver](offensive-security-experiments/unloading-sysmon-driver.md)
 * [Memory Forensics](memory-forensics/README.md)
   * [Process Environment Block](memory-forensics/process-environment-block.md)
