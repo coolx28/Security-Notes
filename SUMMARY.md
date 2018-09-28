@@ -72,6 +72,7 @@
   * [Powershell Constrained Language Mode ByPass](offensive-security-experiments/powershell-constrained-language-mode-bypass.md)
   * [Powershell Without Powershell.exe](offensive-security-experiments/powershell-without-powershell.md)
   * [Unloading Sysmon Driver](offensive-security-experiments/unloading-sysmon-driver.md)
+  * [Commandline Obfusaction](offensive-security-experiments/commandline-obfusaction.md)
 * [Memory Forensics](memory-forensics/README.md)
   * [Process Environment Block](memory-forensics/process-environment-block.md)
   * [Exploring Injected Threads](memory-forensics/get-injectedthread.md)
