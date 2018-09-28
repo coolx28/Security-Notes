@@ -7,7 +7,7 @@ C:\Users\mantvydas>set a=/c & set b=calc
 C:\Users\mantvydas>cmd %a% %b%
 ```
 
-Note though that the commandline logging still works as the commandline needs to be expanded before it can get executed:
+Note though that the commandline logging \(dynamic detection\) still works as the commandline needs to be expanded before it can get executed, but static detections could potentially be bypassed:
 
 ![](../.gitbook/assets/environment-variables.png)
 
@@ -17,7 +17,7 @@ Note though that the commandline logging still works as the commandline needs to
 C:\Users\mantvydas>c""m"d"
 ```
 
-Note how double quotes can actually make the commandline logging a bit more difficult:
+Note how double quotes can actually make both static and dynamic detections a bit more difficult:
 
 ![](../.gitbook/assets/double-quotes.png)
 
@@ -27,7 +27,7 @@ Note how double quotes can actually make the commandline logging a bit more diff
 C:\Users\mantvydas>n^e^t u^s^er
 ```
 
-Commandline logging, same as with using environment variables, is not affected:
+Commandline logging, same as with using environment variables, is not affected, however some static detections could be bypassed:
 
 ![](../.gitbook/assets/carets.png)
 
@@ -49,7 +49,7 @@ Introducing garbage delimiters `@` into the equation:
 PS C:\Users\mantvydas> cmd /c "set x=c@alc & echo %x:@=% | cmd"
 ```
 
-The above does the same as the earlier example, except that it introduces more filth into the command \(`c@lc`\). You can see from the below screenshot that Windows does not recognis such a thing as c@lc, but the `%x:@=%` removes that extraneous @ from the string and the command is then executed successfully:
+The above does the same as the earlier example, except that it introduces more filth into the command \(`c@lc`\). You can see from the below screenshot that Windows does not recognise such `c@lc`, but later attempt when the `%x:@=%` removes that extraneous `@` symbol from the string, command is executed successfully:
 
 ![](../.gitbook/assets/garbage2.png)
 
