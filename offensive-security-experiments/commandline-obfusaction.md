@@ -72,7 +72,37 @@ In the above, the value `mantvydas` got inserted in the c@lc in the place of @, 
 %programdata:~0,1%md
 ```
 
+Note that this is only good for bypassing static detections:
+
 ![](../.gitbook/assets/substring1.png)
+
+## Batch FOR, DELIMS + TOKENS
+
+We can use a builtin batch looping to extract the Powershell string from an environment variable in order to launch it and bypass the static detections.
+
+{% code-tabs %}
+{% code-tabs-item title="@cmd" %}
+```text
+set pSM 
+PSModulePath=C:\Users\mantvydas\Documents\WindowsPowerShell\Modules;....
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Note how the WindowsPowerShell string is present in the PSModule env variable - this mean we can extract it like so:
+
+```text
+FOR /F "tokens=7 delims=s\" %g IN ('set^|findstr PSM') do %g
+```
+
+What the above does is:
+
+1. Executes `set^|findstr PSM` to get the PSModulePath variable value
+2. splits the string using delimiters `s` & `\`
+3. Prints out the 7th token, which happens to be the `PowerShell`
+4. Which effectively launches PowerShell
+
+![](../.gitbook/assets/batch-powershell.png)
 
 {% embed data="{\"url\":\"https://www.youtube.com/watch?v=mej5L9PE1fs\",\"type\":\"video\",\"title\":\"Invoke-DOSfuscation: Techniques FOR %F IN \(-style\) DO \(S-level CMD Obfuscation\)\",\"description\":\"Voted Best of Black Hat Asia 2018 Briefings \\nBy Daniel Bohannon\\n\\nIn this presentation, I will dive deep into cmd\[.\]exe\'s multi-faceted obfuscation opportunities beginning with carets, quotes and stdin argument hiding. Next I will extrapolate more complex techniques including FIN7\'s string removal/replacement concept and two never-before-seen obfuscation and full encoding techniques – all performed entirely in memory by cmd\[.\]exe. Finally, I will outline three approaches for obfuscating binary names from static and dynamic analysis while highlighting lesser-known cmd\[.\]exe replacement binaries.\\n\\nFull Abstract & Presentation Materials: https://www.blackhat.com/asia-18/briefings.html\#invoke-dosfuscation-techniques-for-%f-in--style-do-s-level-cmd-obfuscation\",\"icon\":{\"type\":\"icon\",\"url\":\"https://www.youtube.com/yts/img/favicon\_144-vfliLAfaB.png\",\"width\":144,\"height\":144,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://i.ytimg.com/vi/mej5L9PE1fs/maxresdefault.jpg\",\"width\":1280,\"height\":720,\"aspectRatio\":0.5625},\"embed\":{\"type\":\"player\",\"url\":\"https://www.youtube.com/embed/mej5L9PE1fs?rel=0&showinfo=0\",\"html\":\"<div style=\\\"left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.2493%;\\\"><iframe src=\\\"https://www.youtube.com/embed/mej5L9PE1fs?rel=0&amp;showinfo=0\\\" style=\\\"border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;\\\" allowfullscreen scrolling=\\\"no\\\"></iframe></div>\",\"aspectRatio\":1.7778}}" %}
 
