@@ -123,7 +123,7 @@ PC-MANTVYDAS
 
 ## FORCoding
 
-What happens below is essentially a loop through the list of indexes \(0 1 2 3 2 6 2 4 5 6 0 7\) which are used to point to characters in the variable `unique`. This allows the FOR loop to concatenate the final string that gets called with `CALL %final%` when the loop reaches the index 1337.
+What happens below is essentially there is a loop that goes through the list of indexes \(0 1 2 3 2 6 2 4 5 6 0 7\) which are used to point to characters in the variable `unique`. This allows the FOR loop to concatenate the final string that gets called with `CALL %final%` when the loop reaches the index 1337.
 
 ```text
 PS C:\Users\mantvydas> cmd /V /C "set unique=nets /ao&&FOR %A IN (0 1 2 3 2 6 2 4 5 6 0 7 1337) DO set final=!final!!uni
