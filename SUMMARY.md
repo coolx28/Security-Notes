@@ -73,7 +73,7 @@
   * [Powershell Constrained Language Mode ByPass](offensive-security-experiments/powershell-constrained-language-mode-bypass.md)
   * [Powershell Without Powershell.exe](offensive-security-experiments/powershell-without-powershell.md)
   * [Unloading Sysmon Driver](offensive-security-experiments/unloading-sysmon-driver.md)
-  * [AV Bypass with Metasploit Templates](offensive-security-experiments/av-bypass-with-metasploit-templates.md)
+  * [AV Bypass with Metasploit Templates and Custom Compiled Binaries](offensive-security-experiments/av-bypass-with-metasploit-templates.md)
 * [Memory Forensics](memory-forensics/README.md)
   * [Process Environment Block](memory-forensics/process-environment-block.md)
   * [Exploring Injected Threads](memory-forensics/get-injectedthread.md)

