@@ -22,7 +22,7 @@
     * [Kerberos: Silver Tickets](offensive-security-experiments/t1208-kerberoasting/kerberos-silver-tickets.md)
     * [Kerberos: Golden Tickets](offensive-security-experiments/t1208-kerberoasting/kerberos-golden-tickets.md)
   * [T1134: Access Token Manipulation](offensive-security-experiments/t1134-access-token-manipulation.md)
-  * [AV Bypass with Metasploit Templates and Custom Compiled Binaries](offensive-security-experiments/av-bypass-with-metasploit-templates.md)
+  * [AV Bypass with Metasploit Templates and Custom Binaries](offensive-security-experiments/av-bypass-with-metasploit-templates.md)
   * [T1117: regsvr32](offensive-security-experiments/t1117-regsvr32-aka-squiblydoo.md)
   * [T1187: Forced Authentication](offensive-security-experiments/t1187-forced-authentication.md)
   * [T1099: Timestomping](offensive-security-experiments/t1099-timestomping.md)

