@@ -1,4 +1,21 @@
-# HTTP Redirectors
+---
+description: 'Traffic forwarders using Linux iptables, socat'
+---
+
+# Redirectors a.k.a Forwarders
+
+## Purpose
+
+Re-directors or traffic forwarders are essentially proxies between the red teaming server \(say the one for sending phishing emails or a C2 server\) and the victim: `victim <> re-director <> team server`
+
+The purpose of the re-director host is as usual:
+
+* Obscure the red-teaming server by concealing its IP address. In other words - the victim will see traffic coming from the re-director host rather than the team server.
+* If incident responders detect suspicious activity, the re-director can be "easily" decommissioned and replaced with another one.
+
+## Simple HTTP Forwarding with iptables
+
+A simple way to create an HTTP redirector is to use a linux box and its iptables capability. Below shows how to turn a linux box into a HTTP redirector. In this case, all the HTTP traffic will be forwarded to `10.0.0.2:80` :
 
 ```text
 iptables -I INPUT -p tcp -m tcp --dport 80 -j ACCEPT
@@ -8,6 +25,8 @@ iptables -I FORWARD -j ACCEPT
 iptables -P FORWARD ACCEPT
 sysctl net.ipv4.ip_forward=1
 ```
+
+Checking that the iptable rules got created successfully:
 
 ![](../../.gitbook/assets/redirectors-iptables.png)
 
