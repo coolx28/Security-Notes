@@ -2,7 +2,7 @@
 description: 'Traffic forwarders using Linux iptables, socat'
 ---
 
-# Redirectors a.k.a Forwarders
+# Redirectors / Forwarders
 
 ## Purpose
 

@@ -24,7 +24,7 @@
   * [T1134: Access Token Manipulation](offensive-security-experiments/t1134-access-token-manipulation.md)
   * [AV Bypass with Metasploit Templates and Custom Binaries](offensive-security-experiments/av-bypass-with-metasploit-templates.md)
   * [Red Team Infrastructure](offensive-security-experiments/red-team-infrastructure/README.md)
-    * [Redirectors a.k.a Forwarders](offensive-security-experiments/red-team-infrastructure/redirectors-a.k.a-forwarders.md)
+    * [Redirectors / Forwarders](offensive-security-experiments/red-team-infrastructure/redirectors-forwarders.md)
   * [T1027: Obfuscated Powershell Invocations](offensive-security-experiments/t1027-obfuscated-powershell-invocations.md)
   * [Commandline Obfusaction](offensive-security-experiments/commandline-obfusaction.md)
   * [T1117: regsvr32](offensive-security-experiments/t1117-regsvr32-aka-squiblydoo.md)
