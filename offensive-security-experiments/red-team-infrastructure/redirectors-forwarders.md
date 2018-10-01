@@ -11,17 +11,19 @@ Re-directors or traffic forwarders are essentially proxies between the red teami
 The purpose of the re-director host is as usual:
 
 * Obscure the red-teaming server by concealing its IP address. In other words - the victim will see traffic coming from the re-director host rather than the team server.
-* If incident responders detect suspicious activity, the re-director can be "easily" decommissioned and replaced with another one.
+* If incident responders detect suspicious activity originating from the redirector, it can be "easily" decommissioned and replaced with another one, which is "easier" than rebuilding the team server.
 
 ## Simple HTTP Forwarding with iptables
 
+Simple forwarder is just that - it simply listens on a given interface and port and forwards all the traffic it receives on that port, to the listener on the team server.
+
 Environment in this example:
 
-* Attacker host and an evil listener: `10.0.0.2:80`
-* Redirector host: `10.0.0.5:80`
+* Attacker host and a listening port: `10.0.0.2:80`
+* Re-director host and a listening port: `10.0.0.5:80`
 * Victim host: `10.0.0.11`
 
-A simple way to create an HTTP redirector is to use a linux box and its iptables capability. Below shows how to turn a linux box into an HTTP redirector. In this case, all the HTTP traffic to `10.0.0.5:80` will be forwarded to `10.0.0.2:80` :
+An easy way to create an HTTP re-director is to use a Linux box and its iptables capability. Below shows how to turn a Linux box into an HTTP re-director. In this case, all the HTTP traffic to `10.0.0.5:80` will be forwarded to `10.0.0.2:80` :
 
 ```text
 iptables -I INPUT -p tcp -m tcp --dport 80 -j ACCEPT
@@ -32,7 +34,7 @@ iptables -P FORWARD ACCEPT
 sysctl net.ipv4.ip_forward=1
 ```
 
-Checking that the iptable rules got created successfully:
+Checking that the iptables rules were created successfully:
 
 ![](../../.gitbook/assets/redirectors-iptables.png)
 
