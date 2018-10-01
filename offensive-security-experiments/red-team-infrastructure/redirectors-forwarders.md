@@ -66,5 +66,7 @@ socat TCP4-LISTEN:80,fork TCP4:10.0.0.2:80
 
 {% embed data="{\"url\":\"http://linux-training.be/networking/ch14.html\",\"type\":\"link\",\"title\":\"Chapter 14. iptables firewall\"}" %}
 
+{% embed data="{\"url\":\"http://technostuff.blogspot.com/2008/10/some-useful-socat-commands.html\",\"type\":\"link\",\"title\":\"Some useful socat commands\",\"description\":\"Embedded system hardware software design Information Technologies pic msp430 arduino raspberry pi microcontrollers\",\"icon\":{\"type\":\"icon\",\"url\":\"http://technostuff.blogspot.com/favicon.ico\",\"aspectRatio\":0}}" %}
+
 [https://www.thegeekstuff.com/2011/01/iptables-fundamentals/](https://www.thegeekstuff.com/2011/01/iptables-fundamentals/)
 
