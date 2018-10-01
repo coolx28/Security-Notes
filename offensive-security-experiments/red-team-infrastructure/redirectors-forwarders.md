@@ -1,5 +1,7 @@
 ---
-description: 'Traffic forwarders using Linux iptables, socat'
+description: >-
+  Concealing attacking hosts through the use of redirectors/traffic forwardes,
+  using iptables and/or socat
 ---
 
 # Redirectors / Forwarders
