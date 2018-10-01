@@ -13,9 +13,9 @@ The purpose of the re-director host is as usual:
 * Obscure the red-teaming server by concealing its IP address. In other words - the victim will see traffic coming from the re-director host rather than the team server.
 * If incident responders detect suspicious activity originating from the redirector, it can be "easily" decommissioned and replaced with another one, which is "easier" than rebuilding the team server.
 
-## Simple HTTP Forwarding with iptables
+## HTTP Forwarding with iptables
 
-Simple forwarder is just that - it simply listens on a given interface and port and forwards all the traffic it receives on that port, to the listener on the team server.
+I will explore simple HTTP forwarders which are just that - they simply listen on a given interface and port and forward all the traffic they receive on that port, to a listener port on the team server.
 
 Environment in this example:
 
@@ -37,6 +37,10 @@ sysctl net.ipv4.ip_forward=1
 Checking that the iptables rules were created successfully:
 
 ![](../../.gitbook/assets/redirectors-iptables.png)
+
+## HTTP forwarding with SOCAT
+
+text here
 
 {% embed data="{\"url\":\"https://github.com/bluscreenofjeff/Red-Team-Infrastructure-Wiki\#https\",\"type\":\"link\",\"title\":\"bluscreenofjeff/Red-Team-Infrastructure-Wiki\",\"description\":\"Wiki to collect Red Team infrastructure hardening resources - bluscreenofjeff/Red-Team-Infrastructure-Wiki\",\"icon\":{\"type\":\"icon\",\"url\":\"https://github.com/fluidicon.png\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://avatars1.githubusercontent.com/u/6732151?s=400&v=4\",\"width\":400,\"height\":400,\"aspectRatio\":1}}" %}
 
