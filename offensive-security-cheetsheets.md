@@ -117,6 +117,32 @@ snmp-check $TARGET
 smtp-user-enum -U /usr/share/wordlists/names.txt -t $TARGET -m 150
 ```
 
+### Active Directory
+
+```text
+# current domain info
+[System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
+
+# domain trusts
+([System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()).GetAllTrustRelationships()
+
+# current forest info
+[System.DirectoryServices.ActiveDirectory.Forest]::GetCurrentForest()
+
+# get forest trust relationships
+([System.DirectoryServices.ActiveDirectory.Forest]::GetForest((New-Object System.DirectoryServices.ActiveDirectory.DirectoryContext('Forest', 'forest-of-interest.local')))).GetAllTrustRelationships()
+
+# get DCs of a domain
+nltest /dclist:offes.local
+
+# get domain trusts from cmd shell
+nltest /domain_trusts
+
+# get user info
+nltest /user:"spotless"
+
+```
+
 ## Gaining Access
 
 ### Reverse Shell One-Liners
