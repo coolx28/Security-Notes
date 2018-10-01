@@ -38,6 +38,16 @@ Checking that the iptables rules were created successfully:
 
 ![](../../.gitbook/assets/redirectors-iptables.png)
 
+Let's simulate a simplified reverse shell from a victim system 10.0.0.11 to the attacking system 10.0.0.2 using redirector system 10.0.0.5 as a proxy and inspect the traffic over the wire - if redirectos was setup correctly, systems 10.0.0.11 and 10.0.0.2 should not be communicating directly - all the traffic will be flowing through 10.0.0.5 and 10.0.0.2 \(attacking system\) will not be visible to the victim 10.0.0.11:
+
+![](../../.gitbook/assets/redirector.gif)
+
+Having a closer look at the traffic/conversations between the endpoints, we can clearly see that at no point the victim system 10.0.0.11 communicated directly with the attacking system 10.0.0.2 - all communications were flowing through the redirector host 10.0.0.5:
+
+![](../../.gitbook/assets/redirector-conversations.png)
+
+{% file src="../../.gitbook/assets/redirector.pcapng" caption="Redirector Network Trace" %}
+
 ## HTTP forwarding with SOCAT
 
 text here
