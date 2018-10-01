@@ -48,9 +48,17 @@ Having a closer look at the traffic/conversations between the endpoints, we can 
 
 {% file src="../../.gitbook/assets/redirector.pcapng" caption="Redirector Network Trace" %}
 
-## HTTP forwarding with SOCAT
+## HTTP Forwarding with SOCAT
 
-text here
+SOCAT is another tools that can be used to do the "dumb pipe" \(simple\) traffic forwarding. The environment remains the same as described in the above lab.
+
+Setting up an HTTP redirector with socat:
+
+```text
+socat TCP4-LISTEN:80,fork TCP4:10.0.0.2:80
+```
+
+![](../../.gitbook/assets/redirector-socat.gif)
 
 {% embed data="{\"url\":\"https://github.com/bluscreenofjeff/Red-Team-Infrastructure-Wiki\#https\",\"type\":\"link\",\"title\":\"bluscreenofjeff/Red-Team-Infrastructure-Wiki\",\"description\":\"Wiki to collect Red Team infrastructure hardening resources - bluscreenofjeff/Red-Team-Infrastructure-Wiki\",\"icon\":{\"type\":\"icon\",\"url\":\"https://github.com/fluidicon.png\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://avatars1.githubusercontent.com/u/6732151?s=400&v=4\",\"width\":400,\"height\":400,\"aspectRatio\":1}}" %}
 
