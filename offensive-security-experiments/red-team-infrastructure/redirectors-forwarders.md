@@ -15,7 +15,13 @@ The purpose of the re-director host is as usual:
 
 ## Simple HTTP Forwarding with iptables
 
-A simple way to create an HTTP redirector is to use a linux box and its iptables capability. Below shows how to turn a linux box into a HTTP redirector. In this case, all the HTTP traffic will be forwarded to `10.0.0.2:80` :
+Environment in this example:
+
+* Attacker host and an evil listener: `10.0.0.2:80`
+* Redirector host: `10.0.0.5:80`
+* Victim host: `10.0.0.11`
+
+A simple way to create an HTTP redirector is to use a linux box and its iptables capability. Below shows how to turn a linux box into an HTTP redirector. In this case, all the HTTP traffic to `10.0.0.5:80` will be forwarded to `10.0.0.2:80` :
 
 ```text
 iptables -I INPUT -p tcp -m tcp --dport 80 -j ACCEPT
