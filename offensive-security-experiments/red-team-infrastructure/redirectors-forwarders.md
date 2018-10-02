@@ -4,7 +4,7 @@ description: >-
   using iptables and/or socat
 ---
 
-# Redirectors / Forwarders
+# HTTP Forwarders / Relays
 
 ## Purpose
 

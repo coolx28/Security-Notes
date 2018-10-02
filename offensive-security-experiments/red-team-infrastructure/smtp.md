@@ -1,46 +1,74 @@
-# SMTP
+---
+description: SMTP Redirector + Stripping Email Headers
+---
+
+# SMTP Forwarders / Relays
+
+```text
+root@ubuntu-s-1vcpu-1gb-sfo2-01:~# sendmail mantvydo@gmail.com
+yala
+.
+```
 
 ```text
 Delivered-To: xxx@gmail.com
-Received: by 2002:a81:1157:0:0:0:0:0 with SMTP id 84-v6csp4998183ywr;
-        Tue, 2 Oct 2018 11:51:25 -0700 (PDT)
-X-Google-Smtp-Source: ACcGV61rWqp1E/Dq7h+145ZifuvUWkJHDxYGEQCJVFcfppuUXnnyGTTp5GN2SxN4xDhIDhdrPp97
-X-Received: by 2002:a17:902:6689:: with SMTP id e9-v6mr18028257plk.115.1538506285065;
-        Tue, 02 Oct 2018 11:51:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1538506285; cv=none;
+Received: by 2002:a81:1157:0:0:0:0:0 with SMTP id 84-v6csp5026946ywr;
+        Tue, 2 Oct 2018 12:22:38 -0700 (PDT)
+X-Google-Smtp-Source: ACcGV62oH69fwYnfV1zg+o+jbTpjQIzIzASmjoIsXbbfvdevE0LlkY32jflNS/acOtNBXiwzxYxP
+X-Received: by 2002:a62:6547:: with SMTP id z68-v6mr17716388pfb.20.1538508158395;
+        Tue, 02 Oct 2018 12:22:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1538508158; cv=none;
         d=google.com; s=arc-20160816;
-        b=u8bei/9S+/jeDJRr9PjXtzNJ8gohm3ZQtZ3LcACWVeANU4NXhIP+UifRuDwKn1ZseU
-         KFHoXxj6y50dOxMKejouK6Lt5/tUtlAiAuvVwFmN7fdfN2w0VyhKv6T+JQ8ctClfSdaM
-         V/pVDanH+bUKxpgnvto2KDY2iOLoq1gKHFcV8SVzh9qklQpeNB4WbU8aPlcnwkXPw2bp
-         EqLsOEL3yEMauoxu62xAAueQg50arIcTzBUnhgk7cIYS9GqXGqxNJuS409NjtpU71dUm
-         JE348119qU01A2DcbsViMfbNpDIp56jM7eXsKrIuBW2xH/6X+yFKKX4aUW3xtCH/Oc9a
-         9V5w==
+        b=FpEgLAICLn66cI+DDvpIsStUrReQ8fArcreT7FyS8SYcFQXFiK44HDcxwVHXCA8Xxb
+         fUl+3HcerQEznHZMttZ4pZIMbN18pJS08wzuZdOlhGKAA2JSTkxGd+1PhJwDe1SFTYZc
+         NoARSHL9opemJKg5YqZNjSTDSTfk/QqaCbq7mQL9LAwCKzanGSNR/R/28WymYrdRACOR
+         GSmDCVvPaUaoemIP8+GwXkfU5Gkk49+F7t9Jbg23HKKq/YOhwF3ryeOEVfn74bhtZIkM
+         QcUzWn5WSL0lIm0nbd2t7677/wcabOg0TCoZj1IHg+I7yLXE7+QZOYX1TguKu16oZeqt
+         mTIA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
         h=from:date:message-id;
-        bh=YlscECf2wWowOFI8AefnsRrT3iR8e3568ybpdHzjKvQ=;
-        b=s1mpEbypbCkFPK2leGYJ+LGh9wa6e7rbY1ra7HlbxFz9FvOHB8yFMuNUD79003sdmr
-         wORUr03R1U3NnbZWuVU0Uq1v2mXPCOVoDULuk18K7kyY7bCxrjUQ4PHJ+7oqpRVb1Q/J
-         w2TXdaSSHcM5+eJZwakj8mijDXcWWj8uub0vfGULdFrV+GCCu42Bx+Xgb0AGgb0zAE6s
-         rze729Dd8yohuwOuFDmZltYz8hN9AdjZkKYlC3ixGkAfuiMzdrvmUXEfRWdt5Qng0CAR
-         y9siHNIlusIsnXpk8ws/BXvMr/Wjn919zLPJ41eY6A5v/RrJV1tLH9pFqR/osDcY8up0
-         1XKQ==
+        bh=VSFU9fKoMQMmtQzPFdmefDuA+phTpwZXd9k5xGRzwRs=;
+        b=VZ2vHjhPUSs17PXAUDyjYzm0w5sdQYqFx7h9iirh/BF1krrl3MQg4QAgfeo0py9qZH
+         Xf8/9HmNe1pIgxnZiiZJeVijXeSHCIB4XkG4HYFJY2m/gQ9oZ4JSMfX/Kiw/CXEmbt71
+         YP5S7yQKQNkHw24XnP3WUeDDQ7XvENEfPIS+LlCVtQOPT8fM9TAWQReKz06idynolfhR
+         7P73wH8igwPea7586wdhSOtDYCURSMKTNVb8yP2eEPNBlP2u2jUrFImG2D2/lke4O6Iu
+         7zu96tCYEY9FVG11dPFheKlMjvMoL4rqPSAQ3zty4Cbi4Vy2Is6f/VF8AYZ34i0FJooj
+         eEkw==
 ARC-Authentication-Results: i=1; mx.google.com;
-       spf=neutral (google.com: 206.189.221.162 is neither permitted nor denied by best guess record for domain of root@mail.nodspot.com) smtp.mailfrom=root@mail.nodspot.com
-Return-Path: <root@mail.nodspot.com>
+       spf=pass (google.com: domain of root@nodspot.com designates 206.189.221.162 as permitted sender) smtp.mailfrom=root@nodspot.com
+Return-Path: <root@nodspot.com>
 Received: from ubuntu-s-1vcpu-1gb-sfo2-01 ([206.189.221.162])
-        by mx.google.com with ESMTP id p61-v6si17358929plb.55.2018.10.02.11.51.24
+        by mx.google.com with ESMTP id 38-v6si3160283pgr.237.2018.10.02.12.22.38
         for <xxx@gmail.com>;
-        Tue, 02 Oct 2018 11:51:24 -0700 (PDT)
-Received-SPF: neutral (google.com: 206.189.221.162 is neither permitted nor denied by best guess record for domain of root@mail.nodspot.com) client-ip=206.189.221.162;
+        Tue, 02 Oct 2018 12:22:38 -0700 (PDT)
+Received-SPF: pass (google.com: domain of root@nodspot.com designates 206.189.221.162 as permitted sender) client-ip=206.189.221.162;
 Authentication-Results: mx.google.com;
-       spf=neutral (google.com: 206.189.221.162 is neither permitted nor denied by best guess record for domain of root@mail.nodspot.com) smtp.mailfrom=root@mail.nodspot.com
-Received: by ubuntu-s-1vcpu-1gb-sfo2-01 (Postfix, from userid 0) id AC6D93F155; Tue,
-  2 Oct 2018 18:51:24 +0000 (UTC)
-Message-Id: <20181002185124.AC6D93F155@ubuntu-s-1vcpu-1gb-sfo2-01>
+       spf=pass (google.com: domain of root@nodspot.com designates 206.189.221.162 as permitted sender) smtp.mailfrom=root@nodspot.com
+Received: by ubuntu-s-1vcpu-1gb-sfo2-01 (Postfix, from userid 0) id DC6DD3F156; Tue,
+  2 Oct 2018 19:22:37 +0000 (UTC)
+Message-Id: <20181002192237.DC6DD3F156@ubuntu-s-1vcpu-1gb-sfo2-01>
 Date: Tue,
-  2 Oct 2018 18:51:19 +0000 (UTC)
-From: root <root@mail.nodspot.com>
+  2 Oct 2018 19:22:31 +0000 (UTC)
+From: root <root@nodspot.com>
 
-yala
+yolo
+,
 ```
+
+{% code-tabs %}
+{% code-tabs-item title="/etc/postfix/header\_checks" %}
+```text
+/^Received:.*/              IGNORE
+/^X-Originating-IP:/    IGNORE
+/^X-Mailer:/            IGNORE
+/^Mime-Version:/        IGNORE
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% embed data="{\"url\":\"https://serverfault.com/questions/91954/how-do-i-remove-these-junk-mail-headers\",\"type\":\"link\",\"title\":\"How do I remove these junk mail headers?\",\"description\":\"I\'m using Postfix 2.3.3 and mail sent from my server always add useless headers which I\'d like to remove. Currently I\'m only using the PHP mail\(\) function to send mail. Return-Path:  Received: fro...\",\"icon\":{\"type\":\"icon\",\"url\":\"https://cdn.sstatic.net/Sites/serverfault/img/apple-touch-icon.png?v=6c3100d858bb\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://cdn.sstatic.net/Sites/serverfault/img/apple-touch-icon@2.png?v=9b1f48ae296b\",\"width\":316,\"height\":316,\"aspectRatio\":1}}" %}
+
+{% embed data="{\"url\":\"https://major.io/2013/04/14/remove-sensitive-information-from-email-headers-with-postfix/\",\"type\":\"link\",\"title\":\"Remove sensitive information from email headers with postfix - major.io\",\"description\":\"I’m in the process of moving back to a postfix/dovecot setup for hosting my own mail and I wanted a way to remove the more sensitive email headers that are normally generated when I send mail. My goal is to hide the originating IP address of my mail as well as my mail client type …\",\"icon\":{\"type\":\"icon\",\"url\":\"https://major.io/wp-content/themes/wintersong-pro/images/favicon.ico\",\"aspectRatio\":0}}" %}
+
+{% embed data="{\"url\":\"https://www.youtube.com/watch?v=mRUGEygkDEQ\",\"type\":\"video\",\"title\":\"How to redirect your domain emails to gmail for FREE Digital Ocean, PostFix, DNS Setup\",\"description\":\"🔥 https://goo.gl/olppgw 🔥 ← Want to become a Full-Stack Developer? I\'ll show you how\\n\\nThe blog post → http://goo.gl/ULZ1pu\\n\\n★☆★FOLLOW ALONG★☆★\\nBlog     → http://goo.gl/eEuWa7a\\nTwitter  → http://goo.gl/oX8kJz\\nGoggle+  → http://goo.gl/bqXqp1\\nFacebook → http://goo.gl/aEZzPE\\n\\nCreating a digital empire is not easy, let’s say that their is 40 domain names that are under the umbrella of your consulting firm. No problem right? just jump unto google business and pay the $5 dollars per domain. Although this solution works, and it’s the most reliable option that I have found for the price.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://www.youtube.com/yts/img/favicon\_144-vfliLAfaB.png\",\"width\":144,\"height\":144,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://i.ytimg.com/vi/mRUGEygkDEQ/mqdefault.jpg\",\"width\":320,\"height\":180,\"aspectRatio\":0.5625},\"embed\":{\"type\":\"player\",\"url\":\"https://www.youtube.com/embed/mRUGEygkDEQ?rel=0&showinfo=0\",\"html\":\"<div style=\\\"left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.2493%;\\\"><iframe src=\\\"https://www.youtube.com/embed/mRUGEygkDEQ?rel=0&amp;showinfo=0\\\" style=\\\"border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;\\\" allowfullscreen scrolling=\\\"no\\\"></iframe></div>\",\"aspectRatio\":1.7778}}" %}
 
