@@ -4,7 +4,7 @@ description: Commandline obfuscation
 
 # Commandline Obfusaction
 
-This lab is fully based on the research done by Daniel Bohannon from Fireye, see references below.
+This lab is fully based on the research done by Daniel Bohannon from FireEye, see references below.
 
 ## Environment variables
 
