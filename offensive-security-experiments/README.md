@@ -1,10 +1,13 @@
 ---
-description: The following sub-pages of this page will explore common attacking techniques
+description: >-
+  The following sub-pages of this page will explore some of the common offensive
+  security techniques involving gaining code execution, lateral movement,
+  persistence and more.
 ---
 
 # Red Teaming Experiments
 
-The goal of this project is simple - read other researchers work, execute some common/uncommon attacking techniques in the lab environment and:
+The goal of this project is simple - read other researchers work, execute some common/uncommon attacking techniques in a lab environment and:
 
 * understand how the attacks can be performed 
 * see what most common artifacts they leave behind 
