@@ -103,7 +103,37 @@ yolo
 ,
 ```
 
+## Setting up Originating Mail Server
 
+We need to set up the originating mail server that will use the server we set up earlier as a relay server. To achieve this, on my attacking machine, I installed postfix mail server.
+
+The next thing to do is to amend the `/etc/postfix/main.cf` and set the `relayhost=nodspot.com`which makes the outgoing emails from the attacking system travel to the nodspot.com mail server \(the server we set up above\) first:
+
+![](../../.gitbook/assets/smtp-relay-setting-relay.png)
+
+Once the change is made and the postfix server is rebooted, we can try sending a test email from the attacking server:
+
+![](../../.gitbook/assets/smtp-relay-send-phish-like-a-sir.png)
+
+If you do not receive the email, make sure that the relay server is not denying access to the attacking machine. If you see your emails getting deferred \(on your attacking machine\) with the below message, it is exactly what is happening:
+
+![](../../.gitbook/assets/smtp-relay-relay-access-denied.png)
+
+Once the relay issue is solved, we can repeat the test and see a successful relay:
+
+![](../../.gitbook/assets/smtp-relay-gmail-phish.png)
+
+This time the headers look like so - note how this time we are observering the originating host's details such as a hostname and an IP address - this is unwanted and we want to redact that information out:
+
+![](../../.gitbook/assets/smtp-relay-headers-relayed.png)
+
+{% file src="../../.gitbook/assets/original\_msg.txt" caption="Email Headers" %}
+
+## Removing Sensitive Headers in Postfix
+
+We need to make some configuration changes in the relay server.
+
+First off, let's create a file on the server like that contains regular expressions that will hunt for the headers that will be removed:
 
 {% code-tabs %}
 {% code-tabs-item title="/etc/postfix/header\_checks" %}
@@ -115,6 +145,66 @@ yolo
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+Next thing, we need to amend the `/etc/postfix/master.cf` to include the following line `-o header_checks=regexp:/etc/postfix/header_checks`
+
+![](../../.gitbook/assets/smtp-relay-header-checks.png)
+
+Save the changes and reload the postfix server:
+
+```text
+postmap /etc/postfix/header_checks
+postfix reload
+```
+
+and send the test email from the attacking machine again and inspect the headers. Note how the `Received` headers exposing the originating \(the attacking\) machine were removed this time:
+
+![](../../.gitbook/assets/smtp-relay-removed-traces.png)
+
+![](../../.gitbook/assets/smtp-relay-removed-traces2.png)
+
+```text
+Delivered-To: mantvydo@gmail.com
+Received: by 2002:a81:1157:0:0:0:0:0 with SMTP id 84-v6csp5668508ywr;
+        Wed, 3 Oct 2018 03:47:35 -0700 (PDT)
+X-Google-Smtp-Source: ACcGV614wuffoVOsvFkTPPxCiRj0hgFwTIH7y3B4ziIaXfogLFjsoiFyYOdNVChhr+oRcL1axO+a
+X-Received: by 2002:a17:902:a9cc:: with SMTP id b12-v6mr988630plr.198.1538563655360;
+        Wed, 03 Oct 2018 03:47:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1538563655; cv=none;
+        d=google.com; s=arc-20160816;
+        b=qhbzI+R3vHbkqwp2ALOEQ0ItUXU/fA1kEmYln1dBe0CmLELuIfourst4gZVYiU0tAf
+         sRx20Z5Vcqvv9w6s6f2gVp6crlOuoX2cSKJCn/HyRYKiDB5aVKpEYTDjQtGEBRLoL9xm
+         /T8+3PgV6CHy/KowoPeLugKg3t5mIh9pq+Ig8gG+VVKZcFyvUBJa9YEgBgVKcMwew8H6
+         x8WzIB2zyavpZLnbIi6SrtheYZAeSTMTwXRutqxZl0n4O/iZS4Y+ZVdRlYeXFXFNdtMK
+         JFaS1XVLR4hYXOzlQT1IC2yeQlqf+Q3FJukmkDlDTgw91ImfZa0HtQYQoo3LwKotp92Q
+         1HiQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=from:date:message-id;
+        bh=hZH42YPrA1C1YyKkQ/LM0S6pyh9p5LGmoqE/s4CGGts=;
+        b=Squ71HtAuuwYHfX+4z63WcgBMoiKbcX5KAQLKwfvlnXuF5QEJNHjfX0GwekViXJIZ5
+         D2v03648ni6W3/b6uXVoecrtX0MZ9Z/Ck+LxcJRi16toE4QfjR6fhX5l9OSKFjgqkst3
+         Exk9yB1iiX8IAoIvnSaT0pQ5UzOov5Yneti3HO8QbzeCnT1/HieLwIhB/d+znryw1mTQ
+         jj/VBlNEGFEJhpXjS7cbQFHQEz3yGl1YTSNB3Kxp9T5a7+ncsW3pOAlfKqNYpVywSlBe
+         s6OUSTZ/bEwVYP3dv9aHmbpOIV6rC8uPgUlm+SKYtlj9xiR9uXTtj21IbA0F1esFx+Up
+         jAQw==
+ARC-Authentication-Results: i=1; mx.google.com;
+       spf=pass (google.com: domain of root@nodspot.com designates 206.189.221.162 as permitted sender) smtp.mailfrom=root@nodspot.com
+Return-Path: <root@nodspot.com>
+Received: from ubuntu-s-1vcpu-1gb-sfo2-01 ([206.189.221.162])
+        by mx.google.com with ESMTP id y11-v6si1190446plg.237.2018.10.03.03.47.35
+        for <mantvydo@gmail.com>;
+        Wed, 03 Oct 2018 03:47:35 -0700 (PDT)
+Received-SPF: pass (google.com: domain of root@nodspot.com designates 206.189.221.162 as permitted sender) client-ip=206.189.221.162;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: domain of root@nodspot.com designates 206.189.221.162 as permitted sender) smtp.mailfrom=root@nodspot.com
+Message-Id: <20181003104734.1871F42006E@kali>
+Date: Wed,  3 Oct 2018 11:47:28 +0100 (BST)
+From: root <root@nodspot.com>
+
+removing traces like a sir
+```
+
+{% file src="../../.gitbook/assets/headers-removed.txt" caption="Headers Removed" %}
 
 {% embed data="{\"url\":\"https://serverfault.com/questions/91954/how-do-i-remove-these-junk-mail-headers\",\"type\":\"link\",\"title\":\"How do I remove these junk mail headers?\",\"description\":\"I\'m using Postfix 2.3.3 and mail sent from my server always add useless headers which I\'d like to remove. Currently I\'m only using the PHP mail\(\) function to send mail. Return-Path:  Received: fro...\",\"icon\":{\"type\":\"icon\",\"url\":\"https://cdn.sstatic.net/Sites/serverfault/img/apple-touch-icon.png?v=6c3100d858bb\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://cdn.sstatic.net/Sites/serverfault/img/apple-touch-icon@2.png?v=9b1f48ae296b\",\"width\":316,\"height\":316,\"aspectRatio\":1}}" %}
 
