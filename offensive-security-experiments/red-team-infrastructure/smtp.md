@@ -4,14 +4,62 @@ description: SMTP Redirector + Stripping Email Headers
 
 # SMTP Forwarders / Relays
 
+## Setting up Relay Mail Server
+
+I am going to set up a mail server that will be later used as an SMTP relay server. First off, a new Ubuntu droplet was created in Digital Ocean. 
+
+![](../../.gitbook/assets/smtp-relay-droplet.png)
+
+Postfix MTA was installed on the droplet with:
+
+```text
+apt-get install postfix
+```
+
+During postfix installation, I set `nodspot.com` as the mail name. After the installation, this can be checked/changed here:
+
+```text
+root@ubuntu-s-1vcpu-1gb-sfo2-01:~# cat /etc/mailname
+nodspot.com
+```
+
+## DNS Records
+
+DNS records for nodspot.com has to be updated like so:
+
+![](../../.gitbook/assets/smtp-relay-maila.png)
+
+![](../../.gitbook/assets/smtp-relay-mx.png)
+
+## Testing Mail Server
+
+Once postfix is installed and DNS is configured, we can test if the mail server is running by:
+
+```text
+telnet mail.nodspot.com 25
+```
+
+If successfull, you should see something like this:
+
+![](../../.gitbook/assets/smtp-relay-test-mail.png)
+
+We can further test if the mail server works by trying to send an actual email like so:
+
 ```text
 root@ubuntu-s-1vcpu-1gb-sfo2-01:~# sendmail mantvydo@gmail.com
-yala
+yolo
+,
 .
 ```
 
+Soon enough, the email was received:
+
+![](../../.gitbook/assets/smtp-relay-first-email.png)
+
+...with the following headers - all as expected:
+
 ```text
-Delivered-To: xxx@gmail.com
+Delivered-To: mantvydo@gmail.com
 Received: by 2002:a81:1157:0:0:0:0:0 with SMTP id 84-v6csp5026946ywr;
         Tue, 2 Oct 2018 12:22:38 -0700 (PDT)
 X-Google-Smtp-Source: ACcGV62oH69fwYnfV1zg+o+jbTpjQIzIzASmjoIsXbbfvdevE0LlkY32jflNS/acOtNBXiwzxYxP
@@ -39,7 +87,7 @@ ARC-Authentication-Results: i=1; mx.google.com;
 Return-Path: <root@nodspot.com>
 Received: from ubuntu-s-1vcpu-1gb-sfo2-01 ([206.189.221.162])
         by mx.google.com with ESMTP id 38-v6si3160283pgr.237.2018.10.02.12.22.38
-        for <xxx@gmail.com>;
+        for <mantvydo@gmail.com>;
         Tue, 02 Oct 2018 12:22:38 -0700 (PDT)
 Received-SPF: pass (google.com: domain of root@nodspot.com designates 206.189.221.162 as permitted sender) client-ip=206.189.221.162;
 Authentication-Results: mx.google.com;
@@ -54,6 +102,8 @@ From: root <root@nodspot.com>
 yolo
 ,
 ```
+
+
 
 {% code-tabs %}
 {% code-tabs-item title="/etc/postfix/header\_checks" %}
