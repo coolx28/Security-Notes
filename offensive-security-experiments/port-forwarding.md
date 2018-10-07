@@ -42,7 +42,7 @@ The above indeed shows that we got a reverse shell from 10.0.0.12.
 
 Remote port forwarding helps in situations when you have compromised a box which has a service running on a port bound to 127.0.0.1, but you want to access that service from outside. In other words - it exposes an otherwise obscured port to the host on the other end of the tunnel.
 
-Synatx for creating remote port forwarding with ssh tunnels is:
+Pseudo syntax for creating remote port forwarding with ssh tunnels is:
 
 ```csharp
 ssh -R 5555:LOCAL_HOST:3389 user@SSH_SERVER
@@ -79,6 +79,22 @@ Let's try sending some traffic to 127.0.0.1:5555 - this should give us a reverse
 ![](../.gitbook/assets/ssh-remote-shell.png)
 
 ## SSH: Dynamic Port Forwarding
+
+Pseudo syntax for creating dynamic port forwarding with ssh tunnels is:
+
+```csharp
+ssh -D 127.0.0.1:8080 user@SSH_SERVER
+```
+
+Which essentially means - bind port 8080 on localhost and any traffic that gets sent to this port, please just relay it to the SSH\_SERVER - I trust it to make the connections for me and send any data it sees back to me.
+
+Example:
+
+```text
+ssh -D9090 root@159.65.200.10
+```
+
+
 
 {% embed data="{\"url\":\"https://blog.trackets.com/2014/05/17/ssh-tunnel-local-and-remote-port-forwarding-explained-with-examples.html\",\"type\":\"link\",\"title\":\"SSH Tunnel - Local and Remote Port Forwarding Explained With Examples -  Trackets Blog\",\"icon\":{\"type\":\"icon\",\"url\":\"https://blog.trackets.com/images/favicon.ico\",\"aspectRatio\":0}}" %}
 
