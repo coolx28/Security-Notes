@@ -52,7 +52,7 @@ The above suggests that any port sent to port 5555 on SSH\_SERVER will be forwar
 
 #### On machine 10.0.0.12
 
-Let's create a reverse shell listener bound to 127.0.0.1 \(not reachable to hosts from outside\):
+Let's create a reverse shell listener bound to 127.0.0.1 \(not reachable to hosts from outside\) on port 4444:
 
 ```csharp
 nc -lp 4444 -s 127.0.0.1 -e /bin/bash & ss -lt
@@ -92,27 +92,31 @@ For the demo, let's check what is my current IP before the ssh tunnel is setup:
 
 ![](../.gitbook/assets/ssh-dynamic-port-forwarding-myip1.png)
 
-Creating an ssh tunnel to 159.65.200.10 and binding port 9090 on a local machine \(10.0.0.5
+Creating an ssh tunnel to 159.65.200.10 and binding port 9090 on the local machine 10.0.0.5:
 
-```text
+```csharp
 ssh -D9090 root@159.65.200.10
 ```
 
 ![](../.gitbook/assets/ssh-dynamic-port-forwarding-create-tunel.png)
 
-Checking network connections on the local host, we can see that the port 9090 is now exposed:
+Checking network connections on the localhost 10.0.0.5, we can see that the port 9090 is now exposed:
 
 ![](../.gitbook/assets/ssh-dynamic-port-forwarding-port-listening.png)
 
-This means that if we send any traffic to 127.0.0.1:9090, it should use the other host of our ssh tunnel \(159.65.200.10\) as a proxy - 159.65.200.10 will make connections oin behalf of us and return any data it receives.
+This means that if we send any traffic to 127.0.0.1:9090, it should use the other host of our ssh tunnel \(159.65.200.10\) as a proxy - 159.65.200.10 will make connections on behalf of us and return any data it receives back to our originating host at  10.0.0.5.
 
 To test this, we can set our browser to use a socks5 proxy server 127.0.0.1:9090 like so:
 
 ![](../.gitbook/assets/ssh-dynamic-port-forwarding-configure-browser.png)
 
-Now if we test what our IP is again, we can see that the we are indeed masquerading the internet as 159.65.200.10:
+If we check what our IP is again, it is obvious that we are now indeed masquerading the internet as 159.65.200.10:
 
 ![](../.gitbook/assets/ssh-dynamic-port-forwarding-myip2.png)
+
+{% hint style="info" %}
+Dynamic port forwarding plays along nicely with ProxyChains.
+{% endhint %}
 
 {% embed data="{\"url\":\"https://blog.trackets.com/2014/05/17/ssh-tunnel-local-and-remote-port-forwarding-explained-with-examples.html\",\"type\":\"link\",\"title\":\"SSH Tunnel - Local and Remote Port Forwarding Explained With Examples -  Trackets Blog\",\"icon\":{\"type\":\"icon\",\"url\":\"https://blog.trackets.com/images/favicon.ico\",\"aspectRatio\":0}}" %}
 
