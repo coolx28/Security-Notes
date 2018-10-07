@@ -27,7 +27,7 @@ Environment in this example:
 
 An easy way to create an HTTP re-director is to use a Linux box and its iptables capability. Below shows how to turn a Linux box into an HTTP re-director. In this case, all the HTTP traffic to `10.0.0.5:80` will be forwarded to `10.0.0.2:80` :
 
-```text
+```csharp
 iptables -I INPUT -p tcp -m tcp --dport 80 -j ACCEPT
 iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 10.0.0.2:80
 iptables -t nat -A POSTROUTING -j MASQUERADE
@@ -56,7 +56,7 @@ SOCAT is another tools that can be used to do the "dumb pipe" \(simple\) traffic
 
 Setting up an HTTP redirector with socat:
 
-```text
+```csharp
 socat TCP4-LISTEN:80,fork TCP4:10.0.0.2:80
 ```
 

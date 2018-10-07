@@ -26,6 +26,7 @@
   * [Red Team Infrastructure](offensive-security-experiments/red-team-infrastructure/README.md)
     * [HTTP Forwarders / Relays](offensive-security-experiments/red-team-infrastructure/redirectors-forwarders.md)
     * [SMTP Forwarders / Relays](offensive-security-experiments/red-team-infrastructure/smtp.md)
+  * [Port Forwarding](offensive-security-experiments/port-forwarding.md)
   * [T1027: Obfuscated Powershell Invocations](offensive-security-experiments/t1027-obfuscated-powershell-invocations.md)
   * [Commandline Obfusaction](offensive-security-experiments/commandline-obfusaction.md)
   * [T1117: regsvr32](offensive-security-experiments/t1117-regsvr32-aka-squiblydoo.md)

@@ -18,7 +18,7 @@ apt-get install postfix
 
 During postfix installation, I set `nodspot.com` as the mail name. After the installation, this can be checked/changed here:
 
-```text
+```csharp
 root@ubuntu-s-1vcpu-1gb-sfo2-01:~# cat /etc/mailname
 nodspot.com
 ```
@@ -35,7 +35,7 @@ DNS records for nodspot.com has to be updated like so:
 
 Once postfix is installed and DNS is configured, we can test if the mail server is running by:
 
-```text
+```csharp
 telnet mail.nodspot.com 25
 ```
 
@@ -45,7 +45,7 @@ If successfull, you should see something like this:
 
 We can further test if the mail server works by trying to send an actual email like so:
 
-```text
+```csharp
 root@ubuntu-s-1vcpu-1gb-sfo2-01:~# sendmail mantvydo@gmail.com
 yolo
 ,
@@ -58,7 +58,7 @@ Soon enough, the email was received:
 
 ...with the following headers - all as expected:
 
-```text
+```csharp
 Delivered-To: mantvydo@gmail.com
 Received: by 2002:a81:1157:0:0:0:0:0 with SMTP id 84-v6csp5026946ywr;
         Tue, 2 Oct 2018 12:22:38 -0700 (PDT)
