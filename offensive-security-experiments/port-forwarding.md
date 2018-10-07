@@ -40,7 +40,15 @@ The above indeed shows that we got a reverse shell from 10.0.0.12.
 
 ## SSH: Remote Port Forwarding
 
-Remote port forwarding helps in situations when you have compromised a box which has a service running on a port bound to 127.0.0.1, but you want to access that service from outside. In other words - it exposes the otherwise an obscured port to the outside.
+Remote port forwarding helps in situations when you have compromised a box which has a service running on a port bound to 127.0.0.1, but you want to access that service from outside. In other words - it exposes an otherwise obscured port to the host on the other end of the tunnel.
+
+Synatx for creating remote port forwarding with ssh tunnels is:
+
+```csharp
+ssh -R 5555:LOCAL_HOST:3389 user@SSH_SERVER
+```
+
+The above suggests that any port sent to port 5555 on SSH\_SERVER will be forwarded to the port 3389 on the LOCAL\_HOST - the host with an obsucure service.
 
 #### On machine 10.0.0.12
 
