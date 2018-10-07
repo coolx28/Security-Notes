@@ -86,9 +86,9 @@ Pseudo syntax for creating dynamic port forwarding with ssh tunnels is:
 ssh -D 127.0.0.1:8080 user@SSH_SERVER
 ```
 
-Which essentially means - bind port 8080 on localhost and any traffic that gets sent to this port, please just relay it to the SSH\_SERVER - I trust it to make the connections for me and send any data it sees back to me.
+Which essentially means: bind port 8080 on localhost and any traffic that gets sent to this port, please relay it to the SSH\_SERVER - I trust it to make the connections for me. Once it gets a response, please send that data back.
 
-For the demo, let's check what is my current IP before the ssh tunnel is setup:
+For the demo, let's check what is our current IP before the ssh tunnel is set up:
 
 ![](../.gitbook/assets/ssh-dynamic-port-forwarding-myip1.png)
 
@@ -100,11 +100,11 @@ ssh -D9090 root@159.65.200.10
 
 ![](../.gitbook/assets/ssh-dynamic-port-forwarding-create-tunel.png)
 
-Checking network connections on the localhost 10.0.0.5, we can see that the port 9090 is now exposed:
+Checking network connections on the localhost 10.0.0.5, we can see that the port 9090 is now exposed and listening:
 
 ![](../.gitbook/assets/ssh-dynamic-port-forwarding-port-listening.png)
 
-This means that if we send any traffic to 127.0.0.1:9090, it should use the other host of our ssh tunnel \(159.65.200.10\) as a proxy - 159.65.200.10 will make connections on behalf of us and return any data it receives back to our originating host at  10.0.0.5.
+This means that if we send any traffic to 127.0.0.1:9090, that traffic will be sent to the hosts on the other end of the ssh tunnel - 159.65.200.10 and then the host 159.65.200.10 will make connections on behalf of the host 10.0.0.5 and return any data it receives back to our originating host at 10.0.0.5.
 
 To test this, we can set our browser to use a socks5 proxy server 127.0.0.1:9090 like so:
 
