@@ -88,13 +88,31 @@ ssh -D 127.0.0.1:8080 user@SSH_SERVER
 
 Which essentially means - bind port 8080 on localhost and any traffic that gets sent to this port, please just relay it to the SSH\_SERVER - I trust it to make the connections for me and send any data it sees back to me.
 
-Example:
+For the demo, let's check what is my current IP before the ssh tunnel is setup:
+
+![](../.gitbook/assets/ssh-dynamic-port-forwarding-myip1.png)
+
+Creating an ssh tunnel to 159.65.200.10 and binding port 9090 on a local machine \(10.0.0.5
 
 ```text
 ssh -D9090 root@159.65.200.10
 ```
 
+![](../.gitbook/assets/ssh-dynamic-port-forwarding-create-tunel.png)
 
+Checking network connections on the local host, we can see that the port 9090 is now exposed:
+
+![](../.gitbook/assets/ssh-dynamic-port-forwarding-port-listening.png)
+
+This means that if we send any traffic to 127.0.0.1:9090, it should use the other host of our ssh tunnel \(159.65.200.10\) as a proxy - 159.65.200.10 will make connections oin behalf of us and return any data it receives.
+
+To test this, we can set our browser to use a socks5 proxy server 127.0.0.1:9090 like so:
+
+![](../.gitbook/assets/ssh-dynamic-port-forwarding-configure-browser.png)
+
+Now if we test what our IP is again, we can see that the we are indeed masquerading the internet as 159.65.200.10:
+
+![](../.gitbook/assets/ssh-dynamic-port-forwarding-myip2.png)
 
 {% embed data="{\"url\":\"https://blog.trackets.com/2014/05/17/ssh-tunnel-local-and-remote-port-forwarding-explained-with-examples.html\",\"type\":\"link\",\"title\":\"SSH Tunnel - Local and Remote Port Forwarding Explained With Examples -  Trackets Blog\",\"icon\":{\"type\":\"icon\",\"url\":\"https://blog.trackets.com/images/favicon.ico\",\"aspectRatio\":0}}" %}
 
