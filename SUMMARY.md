@@ -13,6 +13,7 @@
     * [T1137: Phishing - Office Macros](offensive-security-experiments/phishing-with-ms-office/t1137-office-vba-macros.md)
     * [Phishing: OLE + LNK](offensive-security-experiments/phishing-with-ms-office/phishing-ole-+-lnk.md)
     * [Phishing: Embedded Internet Explorer](offensive-security-experiments/phishing-with-ms-office/phishing-embedded-internet-explorer.md)
+    * [Phishing: .SLK Excel](offensive-security-experiments/phishing-with-ms-office/phishing-.slk-excel.md)
     * [Phishing: Embedded HTML Forms](offensive-security-experiments/phishing-with-ms-office/phishing-embedded-html-forms.md)
   * [T1003: Credential Dumping](offensive-security-experiments/t1003-credential-dumping/README.md)
     * [Local Security Authority](offensive-security-experiments/t1003-credential-dumping/local-security-authority.md)
