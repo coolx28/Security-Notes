@@ -8,6 +8,7 @@
     * [DLL Injection](offensive-security-experiments/t1055-process-injection/dll-injection.md)
     * [Reflective DLL Injection](offensive-security-experiments/t1055-process-injection/reflective-dll-injection.md)
   * [Phishing with MS Office](offensive-security-experiments/phishing-with-ms-office/README.md)
+    * [Phishing: XLM / Macro 4.0](offensive-security-experiments/phishing-with-ms-office/phishing-xlm-macro-4.0.md)
     * [T1173: Phishing - DDE](offensive-security-experiments/phishing-with-ms-office/t1173-dde.md)
     * [T1137: Phishing - Office Macros](offensive-security-experiments/phishing-with-ms-office/t1137-office-vba-macros.md)
     * [Phishing: OLE + LNK](offensive-security-experiments/phishing-with-ms-office/phishing-ole-+-lnk.md)
