@@ -29,6 +29,8 @@ Note how we need to rename the `A1` cell to `Auto_Open` if we want the Macros to
 
 ![](../../.gitbook/assets/phishing-xlm-auto-open.png)
 
+{% file src="../../.gitbook/assets/excel-4.0-macro-functions-reference-1.pdf" caption="Excel 4.0 Macro Functions Reference.pdf" %}
+
 {% file src="../../.gitbook/assets/phishing-xlm.xlsm" caption="XLM Phishing.xlsm" %}
 
 ## Execution
