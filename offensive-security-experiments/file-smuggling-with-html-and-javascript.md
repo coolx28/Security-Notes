@@ -57,7 +57,7 @@ If we open the HTML file in Internet Explorer, we get the Run/Download prompt an
 
 ![](../.gitbook/assets/file-smuggling-rev-shell.gif)
 
-
-
 {% embed data="{\"url\":\"https://outflank.nl/blog/2018/08/14/html-smuggling-explained/\",\"type\":\"link\",\"title\":\"HTML smuggling explained \| Outflank Blog\",\"description\":\"<p>Using a combination of HTML5 and JavaScript to sneak malicious files past content filters is not a new offensive technique. This mechanism has been incorporated into popular offensive frameworks such as Demiguise and SharpShooter for example. However, from our discussions and trainings with blue teams, we have learned that many defenders are not aware of…</p>\"}" %}
+
+[https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2017/august/smuggling-hta-files-in-internet-exploreredge/](https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2017/august/smuggling-hta-files-in-internet-exploreredge/)
 
