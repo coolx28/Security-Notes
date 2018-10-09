@@ -80,6 +80,7 @@
   * [PowerView: Active Directory Enumeration](offensive-security-experiments/active-directory-enumeration-with-powerview.md)
   * [Powershell Constrained Language Mode ByPass](offensive-security-experiments/powershell-constrained-language-mode-bypass.md)
   * [Powershell Without Powershell.exe](offensive-security-experiments/powershell-without-powershell.md)
+  * [Detecting Sysmon on the Victim Host](offensive-security-experiments/detecting-sysmon-on-the-victim-host.md)
   * [Unloading Sysmon Driver](offensive-security-experiments/unloading-sysmon-driver.md)
 * [Memory Forensics](memory-forensics/README.md)
   * [Process Environment Block](memory-forensics/process-environment-block.md)
