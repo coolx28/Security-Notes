@@ -4,8 +4,6 @@ description: Exploring ways to detect Sysmon presence on the victim system
 
 # Detecting Sysmon on the Victim Host
 
-Once landed, on a victim machine, attackers may want to check if sysmon is installed on the system.
-
 ## Processes
 
 {% code-tabs %}
