@@ -32,5 +32,5 @@ Both on the host initiating the connection and on the receivind end, events `462
 
 ![](../.gitbook/assets/wmi-logons.png)
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1047\",\"type\":\"link\",\"title\":\"Windows Management Instrumentation - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1047" %}
 

@@ -196,19 +196,19 @@ Continuing further:
 
 ![](../.gitbook/assets/peb-dll-automated2.gif)
 
-{% embed data="{\"url\":\"https://docs.microsoft.com/en-us/windows/desktop/api/winternl/ns-winternl-\_peb\_ldr\_data\",\"type\":\"link\",\"title\":\"\_PEB\_LDR\_DATA\",\"description\":\"Contains information about the loaded modules for the process.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
+{% embed url="https://docs.microsoft.com/en-us/windows/desktop/api/winternl/ns-winternl-\_peb\_ldr\_data" %}
 
-{% embed data="{\"url\":\"http://windbg.info/doc/1-common-cmds.html\#13\_breakpoints\",\"type\":\"link\",\"title\":\"Common WinDbg Commands \(Thematically Grouped\)\",\"description\":\"Common WinDbg Commands \(Thematically Grouped\), by Robert Kuster.\",\"icon\":{\"type\":\"icon\",\"url\":\"http://windbg.info/templates/wiki-like-rk/images/dbg.png\",\"aspectRatio\":0}}" %}
+{% embed url="http://windbg.info/doc/1-common-cmds.html\#13\_breakpoints" %}
 
-{% embed data="{\"url\":\"https://www.aldeid.com/wiki/PEB\_LDR\_DATA\",\"type\":\"link\",\"title\":\"PEB LDR DATA - aldeid\",\"icon\":{\"type\":\"icon\",\"url\":\"https://www.aldeid.com/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://www.aldeid.com/wiki/PEB\_LDR\_DATA" %}
 
-{% embed data="{\"url\":\"https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/-list\",\"type\":\"link\",\"title\":\"list\",\"description\":\"The list extension executes the specified debugger commands repeatedly, once for every element in a linked list.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
+{% embed url="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/-list" %}
 
-{% embed data="{\"url\":\"https://docs.microsoft.com/en-us/windows/desktop/api/winternl/ns-winternl-\_peb\_ldr\_data\",\"type\":\"link\",\"title\":\"\_PEB\_LDR\_DATA\",\"description\":\"Contains information about the loaded modules for the process.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
+{% embed url="https://docs.microsoft.com/en-us/windows/desktop/api/winternl/ns-winternl-\_peb\_ldr\_data" %}
 
-{% embed data="{\"url\":\"http://jumpdollar.blogspot.com/2014/08/windbg-peb-command.html\",\"type\":\"link\",\"title\":\"WinDbg : the !peb Command\",\"description\":\"WinDbg : !peb    The process environment block \(PEB\) is one of the most critical data structures used by Windows to track processes. The PE...\",\"icon\":{\"type\":\"icon\",\"url\":\"http://jumpdollar.blogspot.com/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="http://jumpdollar.blogspot.com/2014/08/windbg-peb-command.html" %}
 
-{% embed data="{\"url\":\"http://jumpdollar.blogspot.com/search/label/.process\",\"type\":\"link\",\"title\":\"Jump$\",\"description\":\"The name Jump dollar is a tribute to the popular BIOS programmers jmp$ assembly instruction to add dead loops for debugging in the BIOS.  This blog is an effort to help beginners learn debugging, especially on Windows platform with windbg and other tools.\",\"icon\":{\"type\":\"icon\",\"url\":\"http://jumpdollar.blogspot.com/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="http://jumpdollar.blogspot.com/search/label/.process" %}
 
 
 

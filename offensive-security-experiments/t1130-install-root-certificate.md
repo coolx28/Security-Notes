@@ -54,5 +54,5 @@ Computer\HKEY_CURRENT_USER\Software\Microsoft\SystemCertificates\Root\Certificat
 
 ![](../.gitbook/assets/certs-registry.png)
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1130\",\"type\":\"link\",\"title\":\"Install Root Certificate - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1130" %}
 

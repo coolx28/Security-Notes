@@ -53,11 +53,11 @@ Then we use this code and insert our base64 encoded payload into the variable `f
 
 ## Execution
 
-If we open the HTML file in Internet Explorer, we get the Run/Download prompt and once it's run - the shell popped as expected:
+If we open the HTML file in Internet Explorer \(or Chrome\), we get the Run/Download prompt and once it's run - the shell popped as expected:
 
 ![](../.gitbook/assets/file-smuggling-rev-shell.gif)
 
-{% embed data="{\"url\":\"https://outflank.nl/blog/2018/08/14/html-smuggling-explained/\",\"type\":\"link\",\"title\":\"HTML smuggling explained \| Outflank Blog\",\"description\":\"<p>Using a combination of HTML5 and JavaScript to sneak malicious files past content filters is not a new offensive technique. This mechanism has been incorporated into popular offensive frameworks such as Demiguise and SharpShooter for example. However, from our discussions and trainings with blue teams, we have learned that many defenders are not aware of…</p>\"}" %}
+{% embed url="https://outflank.nl/blog/2018/08/14/html-smuggling-explained/" %}
 
 [https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2017/august/smuggling-hta-files-in-internet-exploreredge/](https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2017/august/smuggling-hta-files-in-internet-exploreredge/)
 

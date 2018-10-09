@@ -44,7 +44,7 @@ schtasks /create /sc minute /mo 1 /tn "eviltask" /tr calc /ru "SYSTEM" /s dc-man
 
 ![](../.gitbook/assets/schtasks-remote.png)
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1053\",\"type\":\"link\",\"title\":\"Scheduled Task - ATT&CK for Enterprise\",\"icon\":{\"type\":\"icon\",\"url\":\"https://attack.mitre.org/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1053" %}
 
-{% embed data="{\"url\":\"https://docs.microsoft.com/en-us/windows/desktop/taskschd/schtasks\",\"type\":\"link\",\"title\":\"Schtasks.exe\",\"description\":\"Enables an administrator to create, delete, query, change, run, and end scheduled tasks on a local or remote computer.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
+{% embed url="https://docs.microsoft.com/en-us/windows/desktop/taskschd/schtasks" %}
 

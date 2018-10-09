@@ -40,5 +40,5 @@ If there are no fancy tools to hand, but you have `strings.exe`, you can make a 
 
 ![](../.gitbook/assets/upx-strings.png)
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1045\",\"type\":\"link\",\"title\":\"Software Packing - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1045" %}
 

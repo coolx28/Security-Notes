@@ -52,7 +52,7 @@ Now switching back to the console the attacker used to create a golden ticket \(
 
 ![](../../.gitbook/assets/kerberos-golden-share.png)
 
-{% embed data="{\"url\":\"https://blog.stealthbits.com/complete-domain-compromise-with-golden-tickets/\",\"type\":\"link\",\"title\":\"Complete Domain Compromise with Golden Tickets \| Insider Threat Blog\",\"description\":\"Use Mimikatz to get password hashes for the KRBTGT account to forge Kerberos tickets \(TGTs\), Golden Tickets, to compromise all accounts in Active Directory.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://blog.stealthbits.com/wp-content/uploads/2016/06/cropped-Logo\_STEALTHbits\_Orb\_Blue\_250x250-192x192.png\",\"width\":192,\"height\":192,\"aspectRatio\":1},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://blog.stealthbits.com/wp-content/uploads/2017/05/Banner-Blog-Series-1024-x-326-3.jpg\",\"width\":1024,\"height\":326,\"aspectRatio\":0.318359375}}" %}
+{% embed url="https://blog.stealthbits.com/complete-domain-compromise-with-golden-tickets/" %}
 
-{% embed data="{\"url\":\"https://adsecurity.org/?p=1515\",\"type\":\"link\",\"title\":\"Detecting Forged Kerberos Ticket \(Golden Ticket & Silver Ticket\) Use in Active Directory – Active Directory Security\"}" %}
+{% embed url="https://adsecurity.org/?p=1515" %}
 

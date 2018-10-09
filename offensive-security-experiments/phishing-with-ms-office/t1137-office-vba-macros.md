@@ -90,5 +90,5 @@ If you have a malware analysis linux distro Remnux, you can easily inspect the V
 
 ![](../../.gitbook/assets/macros-olevba.png)
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1137\",\"type\":\"link\",\"title\":\"Office Application Startup - ATT&CK for Enterprise\",\"icon\":{\"type\":\"icon\",\"url\":\"https://attack.mitre.org/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1137" %}
 

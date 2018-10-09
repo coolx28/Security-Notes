@@ -26,5 +26,5 @@ Commandline arguments monitoring:
 
 ![](../.gitbook/assets/bits-operational-logs.png)
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1197\",\"type\":\"link\",\"title\":\"BITS Jobs - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1197" %}
 

@@ -125,7 +125,7 @@ Also, maybe it is worth considering checking any new DLLs dropped to `%systemroo
 
 ![](../.gitbook/assets/password-filter.png)
 
-{% embed data="{\"url\":\"http://carnal0wnage.attackresearch.com/2013/09/stealing-passwords-every-time-they.html\",\"type\":\"link\",\"title\":\"Stealing passwords every time they change\",\"description\":\"Password Filters  \[0\] are a way for organizations and governments to enforce stricter password requirements on Windows Accounts than those a...\",\"icon\":{\"type\":\"icon\",\"url\":\"http://carnal0wnage.attackresearch.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"http://4.bp.blogspot.com/-mQpGY-r4r-M/Ui96UJQH3dI/AAAAAAAADic/IFTyH90xM\_8/s640/Screen+Shot+2013-09-10+at+3.59.11+PM.png\",\"width\":640,\"height\":148,\"aspectRatio\":0.23125}}" %}
+{% embed url="http://carnal0wnage.attackresearch.com/2013/09/stealing-passwords-every-time-they.html" %}
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1174\",\"type\":\"link\",\"title\":\"Password Filter DLL - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1174" %}
 

@@ -67,5 +67,5 @@ Below are some of the findings which you may warrant further investigation to se
 
 ![](../.gitbook/assets/enumeration-hunt-1.png)
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1087\",\"type\":\"link\",\"title\":\"Account Discovery - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1087" %}
 

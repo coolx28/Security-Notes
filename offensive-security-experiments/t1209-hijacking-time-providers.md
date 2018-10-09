@@ -56,5 +56,5 @@ Note that the code is running under the context of `LOCAL SERVICE`:
 
 This time and time again shows that binaries running off of svchost.exe, especially if they are rundll32 and are making network connections, should be a good sign for you to start investigating the machine closer.
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1209\",\"type\":\"link\",\"title\":\"Time Providers - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1209" %}
 

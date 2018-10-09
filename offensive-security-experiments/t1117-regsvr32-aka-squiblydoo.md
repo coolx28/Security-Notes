@@ -47,5 +47,5 @@ Additionally, sysmon will show regsvr32 establishing a network connection:
 
 ![](../.gitbook/assets/regsvr32-network.png)
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1117\",\"type\":\"link\",\"title\":\"Regsvr32 - ATT&CK for Enterprise\",\"icon\":{\"type\":\"icon\",\"url\":\"https://attack.mitre.org/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1117" %}
 

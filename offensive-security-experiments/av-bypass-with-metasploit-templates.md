@@ -178,5 +178,5 @@ int main()
 
 ![](../.gitbook/assets/msf-vt4.png)
 
-{% embed data="{\"url\":\"https://www.offensive-security.com/metasploit-unleashed/backdooring-exe-files/\",\"type\":\"link\",\"title\":\"Backdooring EXE Files\",\"description\":\"The ability to embed a Metasploit Payload in any executable that you want is simply brilliant. The best part about it is its extremely simple.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://www.offensive-security.com/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://www.offensive-security.com/metasploit-unleashed/backdooring-exe-files/" %}
 

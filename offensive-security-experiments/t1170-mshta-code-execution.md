@@ -87,5 +87,5 @@ RunProgram()
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1170\",\"type\":\"link\",\"title\":\"Mshta - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1170" %}
 

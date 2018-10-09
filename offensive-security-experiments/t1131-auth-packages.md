@@ -55,9 +55,9 @@ As expected, mimilib.dll can be observed in the list of DLLs loaded by the lsass
 
 ![](../.gitbook/assets/lsa-loaded-dll.png)
 
-{% embed data="{\"url\":\"https://github.com/veramine/Detections/wiki/LSA-Packages\",\"type\":\"link\",\"title\":\"veramine/Detections\",\"description\":\"Contribute to Detections development by creating an account on GitHub.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://github.com/fluidicon.png\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://avatars3.githubusercontent.com/u/26036714?s=400&v=4\",\"width\":136,\"height\":136,\"aspectRatio\":1}}" %}
+{% embed url="https://github.com/veramine/Detections/wiki/LSA-Packages" %}
 
-{% embed data="{\"url\":\"https://adsecurity.org/?p=1760\",\"type\":\"link\",\"title\":\"Sneaky Active Directory Persistence \#12: Malicious Security Support Provider \(SSP\) – Active Directory Security\"}" %}
+{% embed url="https://adsecurity.org/?p=1760" %}
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1131\",\"type\":\"link\",\"title\":\"Authentication Package - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1131" %}
 

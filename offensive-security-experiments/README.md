@@ -22,7 +22,7 @@ Do not take everything or anything for granted nor expect the notes to be very d
 
 Follow me on twitter:
 
-{% embed data="{\"url\":\"https://twitter.com/kondencuotas\",\"type\":\"rich\",\"title\":\"Mantvydas B. \(@kondencuotas\) \| Twitter\",\"description\":\"The latest Tweets from Mantvydas B. \(@kondencuotas\). Security Enthusiast \| OSCP \| https://t.co/5H2ys6PPia. Little Britain\",\"icon\":{\"type\":\"icon\",\"url\":\"https://abs.twimg.com/icons/apple-touch-icon-192x192.png\",\"width\":192,\"height\":192,\"aspectRatio\":1},\"embed\":{\"type\":\"reader\",\"html\":\"<div align=\\\"center\\\"><a class=\\\"twitter-timeline\\\" data-width=\\\"600\\\" data-dnt=\\\"true\\\" data-tweet-limit=\\\"4\\\" href=\\\"https://twitter.com/kondencuotas?ref\_src=twsrc%5Etfw\\\">Tweets by kondencuotas</a>\\n<script async src=\\\"https://platform.twitter.com/widgets.js\\\" charset=\\\"utf-8\\\"></script>\\n</div>\",\"maxWidth\":600,\"aspectRatio\":null}}" %}
+{% embed url="https://twitter.com/kondencuotas" %}
 
 
 

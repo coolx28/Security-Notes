@@ -48,5 +48,5 @@ Let's have a look at the contents of the file `dec` which now contains the base6
 
 ![](../.gitbook/assets/certutil-decoded.png)
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1140\",\"type\":\"link\",\"title\":\"Deobfuscate/Decode Files or Information - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1140" %}
 

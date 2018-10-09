@@ -46,5 +46,5 @@ Loading the helper DLL crashed the netsh \(did not get to the root cause of the 
 
 ![](../.gitbook/assets/netsh-ancestry.png)
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1128\",\"type\":\"link\",\"title\":\"Netsh Helper DLL - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1128" %}
 

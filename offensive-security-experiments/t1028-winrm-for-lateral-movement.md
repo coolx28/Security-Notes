@@ -83,7 +83,7 @@ Since we entered into a PS Shell on the remote system `(Enter-PSSession)` , ther
 
 ![](../.gitbook/assets/winrm-shell.png)
 
-{% embed data="{\"url\":\"http://www.hurryupandwait.io/blog/a-look-under-the-hood-at-powershell-remoting-through-a-ruby-cross-plaform-lens\",\"type\":\"link\",\"title\":\"A look under the hood at Powershell Remoting through a cross plaform lens\",\"description\":\"Many Powershell enthusiasts don\'t realize that when they are using commands like  New-PsSession  and streaming pipelines to a powershell runspace on a remote machine, they are actually writing a binary message wrapped in a SOAP envelope that leverages a protocol with the namesake of Windows Vista. N\",\"icon\":{\"type\":\"icon\",\"url\":\"https://static1.squarespace.com/static/53eb0624e4b022b28bd6cc45/t/53f1b170e4b086379f989c6f/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"http://static1.squarespace.com/static/53eb0624e4b022b28bd6cc45/t/575c93c6746fb9ca8e944664/1465685011839/?format=1000w\",\"width\":400,\"height\":415,\"aspectRatio\":1.0375}}" %}
+{% embed url="http://www.hurryupandwait.io/blog/a-look-under-the-hood-at-powershell-remoting-through-a-ruby-cross-plaform-lens" %}
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1028\",\"type\":\"link\",\"title\":\"Windows Remote Management - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1028" %}
 

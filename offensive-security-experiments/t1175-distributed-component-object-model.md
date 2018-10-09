@@ -66,13 +66,13 @@ A network connection is logged from 10.0.0.7 \(attacker\) to 10.0.0.2 \(victim\)
 
 ![](../.gitbook/assets/dcom-connection2.png)
 
-{% embed data="{\"url\":\"https://enigma0x3.net/2017/01/05/lateral-movement-using-the-mmc20-application-com-object/\",\"type\":\"link\",\"title\":\"Lateral Movement using the MMC20.Application COM Object\",\"description\":\"For those of you who conduct pentests or red team assessments, you are probably aware that there are only so many ways to pivot, or conduct lateral movement to a Windows system. Some of those techn…\",\"icon\":{\"type\":\"icon\",\"url\":\"https://s1.wp.com/i/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://enigma0x3.files.wordpress.com/2017/01/process\_validation.png\",\"width\":1416,\"height\":598,\"aspectRatio\":0.422316384180791}}" %}
+{% embed url="https://enigma0x3.net/2017/01/05/lateral-movement-using-the-mmc20-application-com-object/" %}
 
-{% embed data="{\"url\":\"https://docs.microsoft.com/en-us/previous-versions/windows/desktop/mmc/view-executeshellcommand\",\"type\":\"link\",\"title\":\"View ExecuteShellCommand method\",\"description\":\"The ExecuteShellCommand method runs a command in a window. After this method successfully starts the command in a separate process, it returns immediately \(it does not wait for the command to complete\).\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
+{% embed url="https://docs.microsoft.com/en-us/previous-versions/windows/desktop/mmc/view-executeshellcommand" %}
 
-{% embed data="{\"url\":\"https://docs.microsoft.com/en-us/dotnet/api/system.type.gettypefromclsid?view=netframework-4.7.2\#System\_Type\_GetTypeFromCLSID\_System\_Guid\_System\_String\_\",\"type\":\"link\",\"title\":\"Type.GetTypeFromCLSID Method \(System\)\",\"description\":\"Gets the type associated with the specified class identifier \(CLSID\).\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
+{% embed url="https://docs.microsoft.com/en-us/dotnet/api/system.type.gettypefromclsid?view=netframework-4.7.2\#System\_Type\_GetTypeFromCLSID\_System\_Guid\_System\_String\_" %}
 
-{% embed data="{\"url\":\"https://docs.microsoft.com/en-us/windows/desktop/com/com-technical-overview\",\"type\":\"link\",\"title\":\"COM Technical Overview\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
+{% embed url="https://docs.microsoft.com/en-us/windows/desktop/com/com-technical-overview" %}
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1175\",\"type\":\"link\",\"title\":\"Distributed Component Object Model - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1175" %}
 

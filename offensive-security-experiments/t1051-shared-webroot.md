@@ -81,5 +81,5 @@ See T1108: Webshells for observations:
 
 {% page-ref page="t1108-redundant-access.md" %}
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1051\",\"type\":\"link\",\"title\":\"Shared Webroot - ATT&CK for Enterprise\",\"icon\":{\"type\":\"icon\",\"url\":\"https://attack.mitre.org/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1051" %}
 

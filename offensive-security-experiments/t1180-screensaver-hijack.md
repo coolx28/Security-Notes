@@ -42,7 +42,7 @@ Commandline line argument monitoring:
 
 ![](../.gitbook/assets/screensaver-logs.png)
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1180\",\"type\":\"link\",\"title\":\"Screensaver - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1180" %}
 
 
 

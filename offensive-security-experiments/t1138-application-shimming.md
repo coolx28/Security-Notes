@@ -68,7 +68,7 @@ Correlate it with other events exhibited by the application that has been fixed 
 
 ![](../.gitbook/assets/shim-connection.png)
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1138\",\"type\":\"link\",\"title\":\"Application Shimming - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1138" %}
 
-{% embed data="{\"url\":\"https://blacksunhackers.club/2016/08/post-exploitation-persistence-with-application-shims-intro/\",\"type\":\"link\",\"title\":\"Post Exploitation Persistence With Application Shims \(Intro\) · Blacksun Hackers Club\",\"icon\":{\"type\":\"icon\",\"url\":\"https://blacksunhackers.club/public/apple-touch-icon-precomposed.png\",\"width\":144,\"height\":144,\"aspectRatio\":1}}" %}
+{% embed url="https://blacksunhackers.club/2016/08/post-exploitation-persistence-with-application-shims-intro/" %}
 

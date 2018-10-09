@@ -28,5 +28,5 @@ Looking at sysmon process creation logs, we can immediately identify nefarious b
 
 ![](../.gitbook/assets/webshell-sysmon.png)
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1108\",\"type\":\"link\",\"title\":\"Redundant Access - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1108" %}
 

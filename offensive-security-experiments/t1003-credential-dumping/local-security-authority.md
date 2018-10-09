@@ -143,7 +143,7 @@ I wanted to check if I could find any traces of non-powershell.exe processes cre
 
 I could not get sysmon to log the transcript file creation caused by the `bypass.exe` although the file got successfuly created - something to thing about and research further!
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1003\",\"type\":\"link\",\"title\":\"Credential Dumping - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1003" %}
 
-{% embed data="{\"url\":\"https://www.fireeye.com/blog/threat-research/2016/02/greater\_visibilityt.html\",\"type\":\"link\",\"title\":\"Greater Visibility Through PowerShell Logging « Greater Visibility Through PowerShell Logging\",\"description\":\"Mandiant is continuously investigating attacks that leverage Powershell throughout all phases of the attack. A common issue we experience is a lack of available logging that adequately shows what actions the attacker performed using PowerShell. In those investigations, Mandiant routinely offers guidance on increasing PowerShell logging to provide investigators a detection mechanism for malicious activity and a historical record of how PowerShell was used on systems. This blog post details various PowerShell logging options and how they can help you obtain the visibility needed to better respond, investigate, and remediate attacks involving PowerShell.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://www.fireeye.com/content/dam/fireeye-www/brand/logos/fireeye.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://www.fireeye.com/content/dam/fireeye-www/fw/images/fireeye-2-color-square.png\",\"width\":400,\"height\":400,\"aspectRatio\":1}}" %}
+{% embed url="https://www.fireeye.com/blog/threat-research/2016/02/greater\_visibilityt.html" %}
 

@@ -118,5 +118,5 @@ If we check what our IP is again, it is obvious that we are now indeed masquerad
 Dynamic port forwarding plays along nicely with ProxyChains.
 {% endhint %}
 
-{% embed data="{\"url\":\"https://blog.trackets.com/2014/05/17/ssh-tunnel-local-and-remote-port-forwarding-explained-with-examples.html\",\"type\":\"link\",\"title\":\"SSH Tunnel - Local and Remote Port Forwarding Explained With Examples -  Trackets Blog\",\"icon\":{\"type\":\"icon\",\"url\":\"https://blog.trackets.com/images/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://blog.trackets.com/2014/05/17/ssh-tunnel-local-and-remote-port-forwarding-explained-with-examples.html" %}
 

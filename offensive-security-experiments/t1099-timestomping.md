@@ -44,9 +44,9 @@ Note that if we moved the nc.exe file to any other folder on the system and re-p
 
 ![](../.gitbook/assets/timestomp-moved.png)
 
-{% embed data="{\"url\":\"https://www.forensicswiki.org/wiki/Timestomp\",\"type\":\"link\",\"title\":\"Timestomp - ForensicsWiki\",\"icon\":{\"type\":\"icon\",\"url\":\"https://www.forensicswiki.org/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://www.forensicswiki.org/wiki/Timestomp" %}
 
-{% embed data="{\"url\":\"https://digital-forensics.sans.org/blog/2010/11/02/digital-forensics-time-stamp-manipulation\",\"type\":\"link\",\"title\":\"SANS Digital Forensics and Incident Response Blog \| Digital Forensics: Detecting time stamp manipulation \| SANS Institute\",\"description\":\"SANS Digital Forensics and Incident Response Blog blog pertaining to Digital Forensics: Detecting time stamp manipulation\",\"icon\":{\"type\":\"icon\",\"url\":\"https://digital-forensics.sans.org/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://digital-forensics.sans.org/blog/2010/11/02/digital-forensics-time-stamp-manipulation" %}
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1099\",\"type\":\"link\",\"title\":\"Timestomp - ATT&CK for Enterprise\",\"icon\":{\"type\":\"icon\",\"url\":\"https://attack.mitre.org/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1099" %}
 

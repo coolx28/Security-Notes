@@ -30,5 +30,5 @@ Windows security, application, Service Control Manager and sysmon logs provide s
 
 ![](../.gitbook/assets/services-shell.png)
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1035\",\"type\":\"link\",\"title\":\"Service Execution - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1035" %}
 

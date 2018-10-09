@@ -62,13 +62,13 @@ socat TCP4-LISTEN:80,fork TCP4:10.0.0.2:80
 
 ![](../../.gitbook/assets/redirector-socat.gif)
 
-{% embed data="{\"url\":\"https://github.com/bluscreenofjeff/Red-Team-Infrastructure-Wiki\#https\",\"type\":\"link\",\"title\":\"bluscreenofjeff/Red-Team-Infrastructure-Wiki\",\"description\":\"Wiki to collect Red Team infrastructure hardening resources - bluscreenofjeff/Red-Team-Infrastructure-Wiki\",\"icon\":{\"type\":\"icon\",\"url\":\"https://github.com/fluidicon.png\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://avatars1.githubusercontent.com/u/6732151?s=400&v=4\",\"width\":400,\"height\":400,\"aspectRatio\":1}}" %}
+{% embed url="https://github.com/bluscreenofjeff/Red-Team-Infrastructure-Wiki\#https" %}
 
-{% embed data="{\"url\":\"https://www.frozentux.net/iptables-tutorial/chunkyhtml/x4033.html\",\"type\":\"link\",\"title\":\"DNAT target\",\"icon\":{\"type\":\"icon\",\"url\":\"https://www.frozentux.net/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://www.frozentux.net/iptables-tutorial/chunkyhtml/x4033.html" %}
 
-{% embed data="{\"url\":\"http://linux-training.be/networking/ch14.html\",\"type\":\"link\",\"title\":\"Chapter 14. iptables firewall\"}" %}
+{% embed url="http://linux-training.be/networking/ch14.html" %}
 
-{% embed data="{\"url\":\"http://technostuff.blogspot.com/2008/10/some-useful-socat-commands.html\",\"type\":\"link\",\"title\":\"Some useful socat commands\",\"description\":\"Embedded system hardware software design Information Technologies pic msp430 arduino raspberry pi microcontrollers\",\"icon\":{\"type\":\"icon\",\"url\":\"http://technostuff.blogspot.com/favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="http://technostuff.blogspot.com/2008/10/some-useful-socat-commands.html" %}
 
 [https://www.thegeekstuff.com/2011/01/iptables-fundamentals/](https://www.thegeekstuff.com/2011/01/iptables-fundamentals/)
 

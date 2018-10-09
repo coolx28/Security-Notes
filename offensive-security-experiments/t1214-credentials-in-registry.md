@@ -20,5 +20,5 @@ Monitoring for commandline arguments that include `req query` and `password` sho
 
 ![](../.gitbook/assets/passwords-registry.png)
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1214\",\"type\":\"link\",\"title\":\"Credentials in Registry - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1214" %}
 

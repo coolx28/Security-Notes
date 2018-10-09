@@ -57,9 +57,9 @@ Note how the notepad spawned rundll32 which then spawned a cmd.exe because of th
 
 ![](../../.gitbook/assets/inject-dll-procmon.png)
 
-{% embed data="{\"url\":\"https://msdn.microsoft.com/en-us/library/windows/desktop/ms683212\(v=vs.85\).aspx\",\"type\":\"link\",\"title\":\"GetProcAddress function \(Windows\)\",\"icon\":{\"type\":\"icon\",\"url\":\"https://msdn.microsoft.com/Areas/Epx/Themes/Windows/Content/Winlogo\_favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://msdn.microsoft.com/en-us/library/windows/desktop/ms683212\(v=vs.85\).aspx" %}
 
-{% embed data="{\"url\":\"https://msdn.microsoft.com/en-us/library/windows/desktop/ms684175\(v=vs.85\).aspx\",\"type\":\"link\",\"title\":\"LoadLibrary function \(Windows\)\",\"icon\":{\"type\":\"icon\",\"url\":\"https://msdn.microsoft.com/Areas/Epx/Themes/Windows/Content/Winlogo\_favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://msdn.microsoft.com/en-us/library/windows/desktop/ms684175\(v=vs.85\).aspx" %}
 
 
 

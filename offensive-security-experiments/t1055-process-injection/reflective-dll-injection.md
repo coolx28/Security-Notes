@@ -91,7 +91,7 @@ Note how in our case, volatility discovered the reflective dll injection we insp
 
 ![](../../.gitbook/assets/reflective-dll-volatility.png)
 
-{% embed data="{\"url\":\"https://github.com/stephenfewer/ReflectiveDLLInjection\",\"type\":\"link\",\"title\":\"stephenfewer/ReflectiveDLLInjection\",\"description\":\"Reflective DLL injection is a library injection technique in which the concept of reflective programming is employed to perform the loading of a library from memory into a host process. - stephenfe...\",\"icon\":{\"type\":\"icon\",\"url\":\"https://github.com/fluidicon.png\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://avatars1.githubusercontent.com/u/1172185?s=400&v=4\",\"width\":400,\"height\":400,\"aspectRatio\":1}}" %}
+{% embed url="https://github.com/stephenfewer/ReflectiveDLLInjection" %}
 
-{% embed data="{\"url\":\"https://github.com/volatilityfoundation/volatility/wiki/Command-Reference-Mal\",\"type\":\"link\",\"title\":\"volatilityfoundation/volatility\",\"description\":\"An advanced memory forensics framework. Contribute to volatilityfoundation/volatility development by creating an account on GitHub.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://github.com/fluidicon.png\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://avatars3.githubusercontent.com/u/6001145?s=400&v=4\",\"width\":400,\"height\":400,\"aspectRatio\":1}}" %}
+{% embed url="https://github.com/volatilityfoundation/volatility/wiki/Command-Reference-Mal" %}
 

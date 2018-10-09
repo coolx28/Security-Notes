@@ -70,7 +70,7 @@ What is interesting is that I could not see an established network connection lo
 Will be coming back to this one for further inspection. Need to review the sysmon configuration.
 {% endhint %}
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1118\",\"type\":\"link\",\"title\":\"InstallUtil - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1118" %}
 
-{% embed data="{\"url\":\"https://github.com/khr0x40sh/WhiteListEvasion\",\"type\":\"link\",\"title\":\"khr0x40sh/WhiteListEvasion\",\"description\":\"WhiteListEvasion - Collection of scripts, binaries and the like to aid in WhiteList Evasion on a Microsoft Windows Network.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://github.com/fluidicon.png\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://avatars1.githubusercontent.com/u/6656699?s=400&v=4\",\"width\":400,\"height\":400,\"aspectRatio\":1}}" %}
+{% embed url="https://github.com/khr0x40sh/WhiteListEvasion" %}
 

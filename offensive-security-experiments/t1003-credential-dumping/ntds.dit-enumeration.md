@@ -48,9 +48,9 @@ Additionally, there are multiple Application logs that can indicate some activit
 
 ![](../../.gitbook/assets/ntds-appllication-log.png)
 
-{% embed data="{\"url\":\"https://adsecurity.org/?p=2362\",\"type\":\"link\",\"title\":\"Attack Methods for Gaining Domain Admin Rights in Active Directory – Active Directory Security\",\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://adsecurity.org/wp-content/uploads/2015/12/MS14068-01.png\",\"width\":600,\"height\":470,\"aspectRatio\":0.7833333333333333}}" %}
+{% embed url="https://adsecurity.org/?p=2362" %}
 
-{% embed data="{\"url\":\"https://www.trustwave.com/Resources/SpiderLabs-Blog/Tutorial-for-NTDS-goodness-\(VSSADMIN,-WMIS,-NTDS-dit,-SYSTEM\)/\",\"type\":\"link\",\"title\":\"Tutorial for NTDS goodness \(VSSADMIN, WMIS, NTDS.dit, SYSTEM\)\",\"description\":\"I recently performed an internal penetration test where the NTDS.dit file got me thousands of password hashes. After compromising unpatched Microsoft Windows computers on the client\'s domain, I gained access to a number of domain accounts. Below I\'ll explain how...\",\"icon\":{\"type\":\"icon\",\"url\":\"https://www.trustwave.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://www.trustwave.com/uploadedImages/Images/Social\_Share\_Images/Default-Facebook.png\",\"width\":1200,\"height\":627,\"aspectRatio\":0.5225}}" %}
+{% embed url="https://www.trustwave.com/Resources/SpiderLabs-Blog/Tutorial-for-NTDS-goodness-\(VSSADMIN,-WMIS,-NTDS-dit,-SYSTEM\)/" %}
 
 
 

@@ -55,5 +55,5 @@ Monitoring commandlines can give be useful in detecting the script being abused:
 
 ![](../.gitbook/assets/pubprn-logs.png)
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1216\",\"type\":\"link\",\"title\":\"Signed Script Proxy Execution - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1216" %}
 

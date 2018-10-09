@@ -169,17 +169,17 @@ Note how the notepad has a `ws2_32.dll` module loaded which should never happen 
 
 ![](../../.gitbook/assets/inject-notepad-dll.png)
 
-{% embed data="{\"url\":\"https://docs.microsoft.com/en-us/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openprocess\",\"type\":\"link\",\"title\":\"OpenProcess function\",\"description\":\"Opens an existing local process object.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
+{% embed url="https://docs.microsoft.com/en-us/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openprocess" %}
 
-{% embed data="{\"url\":\"https://msdn.microsoft.com/en-us/library/windows/desktop/aa366890\(v=vs.85\).aspx\",\"type\":\"link\",\"title\":\"VirtualAllocEx function \(Windows\)\",\"icon\":{\"type\":\"icon\",\"url\":\"https://msdn.microsoft.com/Areas/Epx/Themes/Windows/Content/Winlogo\_favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://msdn.microsoft.com/en-us/library/windows/desktop/aa366890\(v=vs.85\).aspx" %}
 
-{% embed data="{\"url\":\"https://docs.microsoft.com/en-us/windows/desktop/ProcThread/process-security-and-access-rights\",\"type\":\"link\",\"title\":\"Process Security and Access Rights\",\"description\":\"The Microsoft Windows security model enables you to control access to process objects. For more information about security, see Access-Control Model.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
+{% embed url="https://docs.microsoft.com/en-us/windows/desktop/ProcThread/process-security-and-access-rights" %}
 
-{% embed data="{\"url\":\"https://msdn.microsoft.com/en-us/library/windows/desktop/aa366887\(v=vs.85\).aspx\",\"type\":\"link\",\"title\":\"VirtualAlloc function \(Windows\)\",\"icon\":{\"type\":\"icon\",\"url\":\"https://msdn.microsoft.com/Areas/Epx/Themes/Windows/Content/Winlogo\_favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://msdn.microsoft.com/en-us/library/windows/desktop/aa366887\(v=vs.85\).aspx" %}
 
-{% embed data="{\"url\":\"https://docs.microsoft.com/en-us/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createremotethread\",\"type\":\"link\",\"title\":\"CreateRemoteThread function\",\"description\":\"Creates a thread that runs in the virtual address space of another process.\",\"icon\":{\"type\":\"icon\",\"url\":\"https://docs.microsoft.com/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://docs.microsoft.com/\_themes/docs.theme/master/en-us/\_themes/images/microsoft-header.png\",\"width\":128,\"height\":128,\"aspectRatio\":1}}" %}
+{% embed url="https://docs.microsoft.com/en-us/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createremotethread" %}
 
-{% embed data="{\"url\":\"https://msdn.microsoft.com/en-us/library/windows/desktop/ms681674\(v=vs.85\).aspx\",\"type\":\"link\",\"title\":\"WriteProcessMemory function \(Windows\)\",\"icon\":{\"type\":\"icon\",\"url\":\"https://msdn.microsoft.com/Areas/Epx/Themes/Windows/Content/Winlogo\_favicon.ico\",\"aspectRatio\":0}}" %}
+{% embed url="https://msdn.microsoft.com/en-us/library/windows/desktop/ms681674\(v=vs.85\).aspx" %}
 
 
 

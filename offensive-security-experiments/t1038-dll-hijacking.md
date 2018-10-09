@@ -46,9 +46,9 @@ Looking at the sysmon logs gives a better view of what happened - CFF Explorer.e
 
 ![](../.gitbook/assets/dll-logs.png)
 
-{% embed data="{\"url\":\"https://attack.mitre.org/wiki/Technique/T1038\",\"type\":\"link\",\"title\":\"DLL Search Order Hijacking - ATT&CK for Enterprise\"}" %}
+{% embed url="https://attack.mitre.org/wiki/Technique/T1038" %}
 
-{% embed data="{\"url\":\"https://pentestlab.blog/2017/03/27/dll-hijacking/\",\"type\":\"link\",\"title\":\"DLL Hijacking\",\"description\":\"In Windows environments when an application or a service is starting it looks for a number of DLL’s in order to function properly. If these DLL’s doesn’t exist or are implemented …\",\"icon\":{\"type\":\"icon\",\"url\":\"https://s1.wp.com/i/favicon.ico\",\"aspectRatio\":0},\"thumbnail\":{\"type\":\"thumbnail\",\"url\":\"https://pentestlab.files.wordpress.com/2017/03/generating-malicious-dll.png\",\"width\":726,\"height\":200,\"aspectRatio\":0.27548209366391185}}" %}
+{% embed url="https://pentestlab.blog/2017/03/27/dll-hijacking/" %}
 
   
 
