@@ -22,11 +22,15 @@ Note: process name can be changed during installation
 
 ## Services
 
+{% code-tabs %}
+{% code-tabs-item title="attacker@victim" %}
 ```csharp
 Get-CimInstance win32_service -Filter "Description = 'System Monitor service'"
 # or
 Get-Service | where-object {$_.DisplayName -like "*sysm*"}
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ![](../.gitbook/assets/screenshot-from-2018-10-09-17-48-11.png)
 
@@ -36,17 +40,25 @@ Note: display names and descriptions can be changed
 
 ## Windows Events
 
+{% code-tabs %}
+{% code-tabs-item title="attacker@victim" %}
 ```csharp
 reg query HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WINEVT\Channels\Microsoft-Windows-Sysmon/Operational
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ![](../.gitbook/assets/screenshot-from-2018-10-09-17-50-47.png)
 
 ## Filters
 
+{% code-tabs %}
+{% code-tabs-item title="attacker@victim" %}
 ```text
 PS C:\> fltMC.exe
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Note how even though you can change the service name and the driver name, the sysmon altitude is always the same - `385201`
 
@@ -54,11 +66,39 @@ Note how even though you can change the service name and the driver name, the sy
 
 ## Sysmon Tools + Accepted Eula
 
+{% code-tabs %}
+{% code-tabs-item title="attacker@victim" %}
 ```text
 ls HKCU:\Software\Sysinternals
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ![](../.gitbook/assets/screenshot-from-2018-10-09-17-56-33.png)
+
+## Sysmon -c
+
+Once symon exeuctable is found, the config file can be checked like so:
+
+```text
+sysmon -c
+```
+
+![](../.gitbook/assets/screenshot-from-2018-10-09-18-43-39.png)
+
+## Config File on the Disk
+
+If you are lucky enough, you may be able to find the config file itseld on the disk by using native windows utility findstr:
+
+{% code-tabs %}
+{% code-tabs-item title="attcker@victim" %}
+```csharp
+findstr /si '<ProcessCreate onmatch="exclude">' C:\tools\*
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+![](../.gitbook/assets/screenshot-from-2018-10-09-18-57-32.png)
 
 ## Get-SysmonConfiguration
 
