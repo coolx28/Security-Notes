@@ -28,6 +28,7 @@
   * [Red Team Infrastructure](offensive-security-experiments/red-team-infrastructure/README.md)
     * [HTTP Forwarders / Relays](offensive-security-experiments/red-team-infrastructure/redirectors-forwarders.md)
     * [SMTP Forwarders / Relays](offensive-security-experiments/red-team-infrastructure/smtp.md)
+  * [File Smuggling with HTML and JavaScript](offensive-security-experiments/file-smuggling-with-html-and-javascript.md)
   * [SSH Tunnelling / Port Forwarding](offensive-security-experiments/ssh-tunnelling-port-forwarding.md)
   * [T1027: Obfuscated Powershell Invocations](offensive-security-experiments/t1027-obfuscated-powershell-invocations.md)
   * [Commandline Obfusaction](offensive-security-experiments/commandline-obfusaction.md)
