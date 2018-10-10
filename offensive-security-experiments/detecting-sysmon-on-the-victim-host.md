@@ -88,7 +88,7 @@ sysmon -c
 
 ## Config File on the Disk
 
-If you are lucky enough, you may be able to find the config file itseld on the disk by using native windows utility findstr:
+If you are lucky enough, you may be able to find the config file itself on the disk by using native windows utility findstr:
 
 {% code-tabs %}
 {% code-tabs-item title="attcker@victim" %}
