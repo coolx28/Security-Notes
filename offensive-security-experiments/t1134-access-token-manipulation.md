@@ -6,7 +6,7 @@ description: >-
 
 # T1134: Access Token Manipulation
 
-## Execution
+## Context
 
 One of the techniques of token manipulations is creating a new process with a "stolen" token. This is when a token of an already existing access token present in one of the running processes on the local host, is retrieved, then duplicated and then used for creating a new process making the process run in the context of the stolen token.
 
@@ -18,6 +18,8 @@ A high level process of the token stealing that will be carried out in this lab 
 | Get a handle to the access token of that process | `OpenProcesToken` |
 | Make a duplicate of the access token present in that process | `DuplicateTokenEx` |
 | Create a new process with the newly aquired access token | `CreateProcessWithTokenW` |
+
+## Weaponization
 
 Below is the C++ code implementing the above process. Note the variable `PID_TO_IMPERSONATE` that has a value of `3060` This is a process ID that we want to impersonate/steal its token from, since it is running as a domain admin and makes for a good target:
 
@@ -60,6 +62,8 @@ int main(int argc, char * argv[]) {
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
+
+## Execution
 
 Launching `Tokens.exe` from the powershell console spawns a reverse shell that the attacker catches. Note how the `powershell.exe` - the parent process of `Tokens.exe` and `Tokens.exe` itself are running under `PC-Mantvydas\mantvydas`, but the newly spawned shell is running under `OFFENSE\Administrator` - this is because of the successful token theft:
 
