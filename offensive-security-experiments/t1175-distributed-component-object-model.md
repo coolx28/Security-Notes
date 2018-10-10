@@ -4,6 +4,10 @@ description: Lateral Movement via Distributed Component Object Model
 
 # T1175: Lateral Movement via DCOM
 
+> The Microsoft Component Object Model \(COM\) is a platform-independent, distributed, object-oriented system for creating binary software components that can interact. COM is the foundation technology for Microsoft's OLE \(compound documents\), ActiveX \(Internet-enabled components\), as well as others.
+>
+> [https://docs.microsoft.com/en-us/windows/desktop/com/the-component-object-model](https://docs.microsoft.com/en-us/windows/desktop/com/the-component-object-model)
+
 This lab explores a DCOM lateral movement technique using MMC20.Application COM as originally researched by @enigma0x3 in his blog post [Lateral Movement using the mmc20.application Com Object](https://enigma0x3.net/2017/09/11/lateral-movement-using-excel-application-and-dcom/)
 
 ## Execution
