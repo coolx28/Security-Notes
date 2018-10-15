@@ -24,12 +24,12 @@ I assume you have read [PowerShell DNS Delivery with PowerDNS](https://www.mdsec
 
 Invoke-PowerCloud works in a similar fashion, except for a couple of key differences, which may simplify the configuration process of your infrastructure to start delivering paylods via DNS.   
   
-**With Invoke-PowerCloud:**
+**With PowerDNS you need:**
 
-* you do not need a dedicated linux box with a public IP where you can run PowerDNS so it can act as a DNS NameServer. 
-* you also do not need multiple domain names to get the nameservers configured properly
+* a dedicated linux box with a public IP where you can run PowerDNS so it can act as a DNS NameServer
+* you also need multiple domain names to get the nameservers configured properly
 
-**What you need is:**
+**With Invoke-PowerCloud you need:**
 
 * a cloudflare.com account
 * a domain name whose DNS management is transferred to cloudflare
@@ -39,7 +39,7 @@ Invoke-PowerCloud works in a similar fashion, except for a couple of key differe
 The way the tools works is by performing the following high level steps:
 
 * Take the powershell payload file
-* Divide into chunks of 255 bytes
+* Divide the payload file into chunks of 255 bytes
 * Create a DNS zone file with DNS TXT records representing each chunk of the payload data retrieved from the previous step in base64 format
 * Send the DNS zone file to cloudlfare
 * Generate two stagers for use with autoritative NS/non-authoritative NS, that can be then executed on the target system
@@ -49,7 +49,7 @@ The way the tools works is by performing the following high level steps:
 
 ## Demo / Execution
 
-### One off setup
+### One off Configuration
 
 Remember - you need a cloudflare.com account for this to work. Assuming you have that, you need to edit the script to specify: 
 
