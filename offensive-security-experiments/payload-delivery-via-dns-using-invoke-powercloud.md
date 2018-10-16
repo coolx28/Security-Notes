@@ -8,7 +8,7 @@ description: >-
 
 ## Credits
 
-Rushing to say that the tool [**Invoke-PowerCloud**](https://github.com/mantvydasb/powercloud/blob/master/Invoke-PowerCloud.ps1) was heavily inspired by and based on the awesome work that Dominic Chell \([@domchell](https://twitter.com/domchell)\) from [MDSec](https://twitter.com/MDSecLabs) had done with [PowerDNS](https://github.com/mdsecactivebreach/PowerDNS) - go follow them and try out the [tool](https://www.mdsec.co.uk/2017/07/powershell-dns-delivery-with-powerdns/) if you are not doing so yet!
+Rushing to say that the tool [Invoke-PowerCloud](https://github.com/mantvydasb/powercloud/blob/master/Invoke-PowerCloud.ps1) was heavily inspired by and based on the awesome work that Dominic Chell \([@domchell](https://twitter.com/domchell)\) from [MDSec](https://twitter.com/MDSecLabs) had done with [PowerDNS](https://github.com/mdsecactivebreach/PowerDNS) - go follow them and try out the [tool](https://www.mdsec.co.uk/2017/07/powershell-dns-delivery-with-powerdns/) if you are not doing so yet!
 
 Not only that, I want to thank Dominic for taking his time to answer some of my questions regarding the PowerDNS, the setup and helping me troubleshoot it as I was having "some" issues getting the payload delivered to the target from the PowerDNS server.
 
@@ -41,11 +41,14 @@ The way the tools works is by performing the following high level steps:
 * Take the powershell payload file
 * Divide the payload file into chunks of 255 bytes
 * Create a DNS zone file with DNS TXT records representing each chunk of the payload data retrieved from the previous step in base64 format
-* Send the generated DNS zone file to cloudlfare using their APIs
+* Send the generated DNS zone file to cloudflare using their APIs
 * Generate two stagers for use with autoritative NS/non-authoritative NS
 * Stager can then be executed on the victim system. The stager will recover the base64 chunks from the DNS TXT records and rebuild the original payload
-* Payload gets executed in memory - boom!
-* If you run the tool again to deliver another payload, the previous DNS TXT records will be deleted
+* Stager executed the payload in memory!
+
+{% hint style="info" %}
+If you run the tool again to deliver another payload, the previous DNS TXT records will be deleted
+{% endhint %}
 
 ## Demo / Execution
 
