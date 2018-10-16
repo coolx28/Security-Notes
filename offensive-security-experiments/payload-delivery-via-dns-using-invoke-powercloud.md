@@ -112,13 +112,43 @@ Let's execute the stager on the victim system to get the payload delivered via D
 
 ![](../.gitbook/assets/screenshot-from-2018-10-15-22-47-12.png)
 
+### Animated Demo
+
 Everything in action can be seen in the below gif:
 
 ![](../.gitbook/assets/invoke-powercloud-demo.gif)
 
 ## Is Invoke-PowerCloud better than PowerDNS?
 
-No. It just works slightly differently, but achieves the same end goal.
+No. It just works slightly differently, but achieves the same end goal. Also note, that Cloudflare API rate limiting applies.
+
+## Detection
+
+Let's deliver a PowerShell empire payload using DNS and see how the system reacts to this:
+
+![](../.gitbook/assets/empire-stager-via-dns.gif)
+
+For those wondering about detection possibilities, the following is a list of signs \(mix and match\) that may qualify the host behaviour as `suspicious` that may warrant further investigation:
+
+* host "suddenly" bursted "many" `DNS TXT` requests to one domain
+* DNS queries follow the naming convention of 1, 2, 3, ..., N
+* majority of DNS answers contain `TXT Lenght` of `255` \(trivial to change\)
+* DNS answers are all `TTL = 120` \(trivial to change\)
+* TXT data in DNS answer has no white spaces \(easy to change\)
+* host suddenly/in a short span of time spawned "many" `nslookup` processes
+* has the endpoint changed once the DNS lookups stopped? i.e new processes spawned?
+
+Below is a snippet of the PCAP showing DNS traffic from the above demo - note the TXT Length and the data itself:
+
+![](../.gitbook/assets/screenshot-from-2018-10-16-20-12-57.png)
+
+Spike of `nslookup` for a host in a short amount of time:
+
+![](../.gitbook/assets/screenshot-from-2018-10-16-20-17-42.png)
+
+Below is a sample PCAP for your inspection:
+
+{% file src="../.gitbook/assets/dns-packets.pcapng" caption="DNS Traffic Packet Trace" %}
 
 ## Download
 
