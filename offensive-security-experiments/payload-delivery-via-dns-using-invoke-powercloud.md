@@ -4,7 +4,7 @@ description: >-
   the title says.
 ---
 
-# Powershell Payload delivery via DNS using Invoke-PowerCloud
+# Powershell Payload Delivery via DNS using Invoke-PowerCloud
 
 ## Credits
 

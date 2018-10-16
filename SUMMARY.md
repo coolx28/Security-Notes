@@ -3,7 +3,7 @@
 * [About /?](README.md)
 * [Pentesting Cheatsheets](offensive-security-cheetsheets.md)
 * [Red Teaming Experiments](offensive-security-experiments/README.md)
-  * [Powershell Payload delivery via DNS using Invoke-PowerCloud](offensive-security-experiments/payload-delivery-via-dns-using-invoke-powercloud.md)
+  * [Powershell Payload Delivery via DNS using Invoke-PowerCloud](offensive-security-experiments/payload-delivery-via-dns-using-invoke-powercloud.md)
   * [T1055: Process Injection](offensive-security-experiments/t1055-process-injection/README.md)
     * [CreateRemoteThread Shellcode Injection](offensive-security-experiments/t1055-process-injection/process-injection.md)
     * [DLL Injection](offensive-security-experiments/t1055-process-injection/dll-injection.md)
