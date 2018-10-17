@@ -83,8 +83,10 @@
   * [Powershell Without Powershell.exe](offensive-security-experiments/powershell-without-powershell.md)
   * [Detecting Sysmon on the Victim Host](offensive-security-experiments/detecting-sysmon-on-the-victim-host.md)
   * [Unloading Sysmon Driver](offensive-security-experiments/unloading-sysmon-driver.md)
-* [Memory Forensics](memory-forensics/README.md)
-  * [Process Environment Block](memory-forensics/process-environment-block.md)
-  * [Exploring Injected Threads](memory-forensics/get-injectedthread.md)
-  * [Dump Virtual Box Memory](memory-forensics/dump-virtual-box-memory.md)
+
+## Memory Forensics
+
+* [Exploring Injected Threads](test/get-injectedthread.md)
+* [Process Environment Block](test/process-environment-block.md)
+* [Dump Virtual Box Memory](test/dump-virtual-box-memory.md)
 
