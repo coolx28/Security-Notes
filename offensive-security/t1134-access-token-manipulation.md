@@ -85,7 +85,7 @@ which created a new process on the victim system with a PID of 4780:
 
 ![](../.gitbook/assets/tokens-winexe.png)
 
-Enumerating all the access tokens on the victim system with `Invoke-TokenManipulation -ShowAll | ft -Wrap -Property domain,username,tokentype,logontype,processid` from PowerSploit gives the below. Note the available token \(highlighted\) - it is the cmd.exe from above screenshot and its logon type is as expected is 3 \(a network logon\):
+Enumerating all the access tokens on the victim system with `Invoke-TokenManipulation -ShowAll | ft -Wrap -Property domain,username,tokentype,logontype,processid` from PowerSploit gives the below. Note the available token \(highlighted\) - it is the cmd.exe from above screenshot and its logon type is as expected - 3 - a network logon:
 
 ![](../.gitbook/assets/tokens-all.png)
 
