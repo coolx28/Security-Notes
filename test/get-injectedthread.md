@@ -8,7 +8,7 @@ description: >-
 
 ## Injecting Shellcode
 
-Firstly, let's use an [injector](../offensive-security-experiments/t1055-process-injection/process-injection.md) program we wrote earlier to inject some shellcode into a process that will give us a reverse shell. In this case, we are injecting the shellcode into explorer.exe:
+Firstly, let's use an [injector](../offensive-security/t1055-process-injection/process-injection.md) program we wrote earlier to inject some shellcode into a process that will give us a reverse shell. In this case, we are injecting the shellcode into explorer.exe:
 
 ![](../.gitbook/assets/injected-threads-explorer-injected.png)
 
