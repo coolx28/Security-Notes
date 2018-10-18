@@ -36,7 +36,7 @@ Invoke-PowerCloud works in a similar fashion, except for a couple of key differe
 
 ## Cloudflare? eh?
 
-The way the tools works is by performing the following high level steps:
+The way the tool works is by performing the following high level steps:
 
 * Take the powershell payload file
 * Divide the payload file into chunks of 255 bytes
@@ -44,13 +44,13 @@ The way the tools works is by performing the following high level steps:
 * Send the generated DNS zone file to cloudflare using their APIs
 * Generate two stagers for use with autoritative NS/non-authoritative NS
 * Stager can then be executed on the victim system. The stager will recover the base64 chunks from the DNS TXT records and rebuild the original payload
-* Stager executed the payload in memory!
+* Stager executes the payload in memory!
 
 {% hint style="info" %}
 If you run the tool again to deliver another payload, the previous DNS TXT records will be deleted
 {% endhint %}
 
-## Demo / Execution
+## Demo
 
 ### One off Configuration
 
