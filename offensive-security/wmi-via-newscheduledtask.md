@@ -1,4 +1,4 @@
-# WMI via NewScheduledTask
+# WMI + NewScheduledTaskAction Lateral Movement
 
 ## Execution
 
@@ -23,4 +23,10 @@ $connection = New-Cimsession -ComputerName "dc-mantvydas" -SessionOption (New-Ci
 As usual, services.exe spawning interesting binaries should raise suspicion. As a defender, you may want to also consider monitoring unusual scheduled tasks that get created.
 
 ![](../.gitbook/assets/screenshot-from-2018-10-19-22-35-13.png)
+
+![](../.gitbook/assets/screenshot-from-2018-10-19-22-59-12.png)
+
+{% hint style="info" %}
+Sysmon config master version 64 from [https://github.com/SwiftOnSecurity/sysmon-config](https://github.com/SwiftOnSecurity/sysmon-config) does not log the Process Creation event.
+{% endhint %}
 
