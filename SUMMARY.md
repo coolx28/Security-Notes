@@ -86,6 +86,7 @@
 * [Powershell Without Powershell.exe](offensive-security/powershell-without-powershell.md)
 * [Detecting Sysmon on the Victim Host](offensive-security/detecting-sysmon-on-the-victim-host.md)
 * [Unloading Sysmon Driver](offensive-security/unloading-sysmon-driver.md)
+* [WMI + MSI Lateral Movement](offensive-security/wmi-+-msi-lateral-movement.md)
 
 ## Memory Forensics
 
