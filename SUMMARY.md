@@ -87,6 +87,7 @@
 * [Detecting Sysmon on the Victim Host](offensive-security/detecting-sysmon-on-the-victim-host.md)
 * [Unloading Sysmon Driver](offensive-security/unloading-sysmon-driver.md)
 * [WMI + MSI Lateral Movement](offensive-security/wmi-+-msi-lateral-movement.md)
+* [WMI via NewScheduledTask](offensive-security/wmi-via-newscheduledtask.md)
 
 ## Memory Forensics
 
