@@ -1,7 +1,7 @@
 # Table of contents
 
 * [About /?](README.md)
-* [Red Teaming Experiments](offensive-security-experiments/README.md)
+* [Pinned Posts](offensive-security-experiments/README.md)
   * [Powershell Payload Delivery via DNS using Invoke-PowerCloud](offensive-security-experiments/payload-delivery-via-dns-using-invoke-powercloud.md)
 
 ## offensive security
