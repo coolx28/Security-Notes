@@ -8,6 +8,8 @@ On the victim system, let's run a simple loop to see when a new scheduled task g
 $a=$null; while($a -eq $null) { $a=Get-ScheduledTask | Where-Object {$_.TaskName -eq "lateral"}; $a }
 ```
 
+Now from the compromised victim system, let's execute code laterally:
+
 {% code-tabs %}
 {% code-tabs-item title="attacker@remote" %}
 ```csharp
@@ -16,17 +18,19 @@ $connection = New-Cimsession -ComputerName "dc-mantvydas" -SessionOption (New-Ci
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+Graphic showing both of the above commands and also the process ancestry on the target system:
+
 ![](../.gitbook/assets/peek-2018-10-19-22-24.gif)
 
 ## Observations
 
-As usual, services.exe spawning interesting binaries should raise suspicion. As a defender, you may want to also consider monitoring unusual scheduled tasks that get created.
+As usual, services.exe spawning unusual binaries should raise a wary defender's suspicion. You may want to also consider monitoring unusual scheduled tasks that get created on your systems if you want to detect this type of lateral movement:
 
 ![](../.gitbook/assets/screenshot-from-2018-10-19-22-35-13.png)
 
 ![](../.gitbook/assets/screenshot-from-2018-10-19-22-59-12.png)
 
 {% hint style="info" %}
-Sysmon config master version 64 from [https://github.com/SwiftOnSecurity/sysmon-config](https://github.com/SwiftOnSecurity/sysmon-config) does not log the Process Creation event.
+Sysmon config master version 64 from [https://github.com/SwiftOnSecurity/sysmon-config](https://github.com/SwiftOnSecurity/sysmon-config) does not log the calc.exe Process Creation event being spawned by the services.exe
 {% endhint %}
 
