@@ -1,7 +1,6 @@
 # Table of contents
 
 * [About /?](README.md)
-* [Pinned Posts](offensive-security-experiments2.md)
 
 ## Pinned posts
 
