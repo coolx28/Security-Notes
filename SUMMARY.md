@@ -1,8 +1,11 @@
 # Table of contents
 
 * [About /?](README.md)
-* [Pinned Posts](offensive-security-experiments/README.md)
-  * [Powershell Payload Delivery via DNS using Invoke-PowerCloud](offensive-security-experiments/payload-delivery-via-dns-using-invoke-powercloud.md)
+* [Pinned Posts](offensive-security-experiments2.md)
+
+## Pinned posts
+
+* [Powershell Payload Delivery via DNS using Invoke-PowerCloud](offensive-security-experiments/payload-delivery-via-dns-using-invoke-powercloud.md)
 
 ## offensive security
 
