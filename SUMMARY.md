@@ -5,6 +5,7 @@
 ## Pinned posts
 
 * [Powershell Payload Delivery via DNS using Invoke-PowerCloud](offensive-security-experiments/payload-delivery-via-dns-using-invoke-powercloud.md)
+* [Masquerading Processes in Userland through \_PEB](offensive-security-experiments/masquerading-processes-in-userland-through-_peb.md)
 
 ## offensive security
 
@@ -93,7 +94,7 @@
 
 ## Memory Forensics
 
-* [Exploring Injected Threads](test/get-injectedthread.md)
-* [Process Environment Block](test/process-environment-block.md)
-* [Dump Virtual Box Memory](test/dump-virtual-box-memory.md)
+* [Exploring Injected Threads](memory-forensics/get-injectedthread.md)
+* [Process Environment Block](memory-forensics/process-environment-block.md)
+* [Dump Virtual Box Memory](memory-forensics/dump-virtual-box-memory.md)
 

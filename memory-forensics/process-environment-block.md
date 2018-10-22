@@ -119,7 +119,7 @@ Since we now know where the commandline arguments are stored - can we modify the
 
 ![](../.gitbook/assets/peb-cmdline3.png)
 
-## \_PEB\_LDR\_DATA {#_peb_ldr_data-structure}
+## \_PEB\_LDR\_DATA <a id="_peb_ldr_data-structure"></a>
 
 Getting a list of loaded modules by the process:
 

@@ -10,7 +10,7 @@ Injection is achieved with a series of steps, but one of the key steps is that P
 
 For our exploration of the PEB:
 
-{% page-ref page="../../test/process-environment-block.md" %}
+{% page-ref page="../../memory-forensics/process-environment-block.md" %}
 
 ## Execution
 
