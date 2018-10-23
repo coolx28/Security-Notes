@@ -120,9 +120,7 @@ If we check the `!peb` data, we can see a notepad.exe is being shown in the  `Ld
 
 ![](../.gitbook/assets/screenshot-from-2018-10-23-19-47-59.png)
 
+Note that even though it shows in the loaded modules that notepad.exe was loaded, it still does not mean that there was an actual notepad.exe process created and sysmon logs prove this:
 
-
-
-
-
+![](../.gitbook/assets/screenshot-from-2018-10-23-20-02-49.png)
 
