@@ -4,7 +4,7 @@ description: >-
   binary
 ---
 
-# Masquerading Processes in Userland through \_PEB
+# WIP: Masquerading Processes in Userland through \_PEB
 
 In this short lab I am going to use a WinDBG to make my malicious program pretend to be a notepad \(hence masquerading\) when inspecting system's running processes with tools like Sysinternals ProcExplorer and similar. Note that his is not a code injection exercise. 
 
@@ -98,33 +98,23 @@ eb 0x00000000`005e1f60+60 3e
 dt _UNICODE_STRING 0x00000000`005e1f60+60
 ```
 
-The buffer is no longer getting truncated:
+The string `Buffer` is no longer getting truncated:
 
 ![](../.gitbook/assets/masquerade-2.png)
 
-
+For the sake of this exercise, we can clear out the commandline arguments like so:
 
 ```text
-//check - should show notepad.exe now
-du 0x00000000`005e280e
-
-
-
-//full string now
-dt _UNICODE_STRING 0x00000000`005e1f60+60
-
-//remove commandline params
 eb 0x00000000`005e1f60+70 0x0
-0:002> dt _UNICODE_STRING 0x00000000`005e1f60+70
-
-
 ```
 
-![](../.gitbook/assets/masquerade-6.png)
+The offset of `0x70` is concerned with a `Buffer` length in another `_UNICODE_STRING` structure holding a string of a commandline arguments the process was launched. 
+
+Now if we inspect the process using Process Explorer, we can see that our nc.exe now look slike a notepad:
 
 ![](../.gitbook/assets/masquerade-14.png)
 
-
+## Observations
 
 
 
