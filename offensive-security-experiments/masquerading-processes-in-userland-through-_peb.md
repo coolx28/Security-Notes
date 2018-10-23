@@ -153,11 +153,13 @@ int main()
 
 ## Observations
 
-Switchingf back to the nc.exe for a moment, if we check the `!peb` data, we can see a notepad.exe is being shown in the  `Ldr.InMemoryOrderModuleList` memory structure - pretty cool:
+Switchingf back to the nc.exe, if we check the `!peb` data, we can see a notepad.exe is being shown in the  `Ldr.InMemoryOrderModuleList` memory structure - pretty cool:
 
 ![](../.gitbook/assets/screenshot-from-2018-10-23-19-47-59.png)
 
 Note that even though it shows in the loaded modules that notepad.exe was loaded, it still does not mean that there was an actual notepad.exe process created and sysmon logs prove this:
 
 ![](../.gitbook/assets/screenshot-from-2018-10-23-20-02-49.png)
+
+{% embed url="https://docs.microsoft.com/en-us/windows/desktop/api/winternl/nf-winternl-ntqueryinformationprocess\#return-value" %}
 
