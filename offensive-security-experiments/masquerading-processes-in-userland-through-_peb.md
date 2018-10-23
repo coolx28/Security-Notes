@@ -4,7 +4,7 @@ description: >-
   binary
 ---
 
-# WIP: Masquerading Processes in Userland through \_PEB
+# Masquerading Processes in Userland with \_PEB
 
 In this short lab I am going to use a WinDBG to make my malicious program pretend to be a notepad \(hence masquerading\) when inspecting system's running processes with tools like Sysinternals ProcExplorer and similar. Note that his is not a code injection exercise. 
 
