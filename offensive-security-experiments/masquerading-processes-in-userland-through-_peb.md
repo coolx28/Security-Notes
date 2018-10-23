@@ -116,5 +116,13 @@ Now if we inspect the process using Process Explorer, we can see that our nc.exe
 
 ## Observations
 
+If we check the `!peb` data, we can see a notepad.exe is being shown in the  `Ldr.InMemoryOrderModuleList` memory structure - pretty cool:
+
+![](../.gitbook/assets/screenshot-from-2018-10-23-19-47-59.png)
+
+
+
+
+
 
 
