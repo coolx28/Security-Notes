@@ -114,9 +114,46 @@ Now if we inspect the process using Process Explorer, we can see that our nc.exe
 
 ![](../.gitbook/assets/masquerade-14.png)
 
+## A simple PoC
+
+As part of this simple lab, I wanted to write a simple C++ proof of concept that would make the running program masquerade itself as a notepad. Here is the code:
+
+{% code-tabs %}
+{% code-tabs-item title="pebmasquerade.cpp" %}
+```cpp
+#include "stdafx.h"
+#include "Windows.h"
+#include "winternl.h"
+
+typedef NTSTATUS(*MYPROC) (HANDLE, PROCESSINFOCLASS, PVOID, ULONG, PULONG);
+
+int main()
+{
+	HANDLE h = GetCurrentProcess();
+	PROCESS_BASIC_INFORMATION ProcessInformation;
+	ULONG lenght = 0;
+	HINSTANCE ntdll;
+	MYPROC GetProcessInformation;
+	wchar_t commandline[] = L"C:\\windows\\system32\\notepad.exe";
+	ntdll = LoadLibrary(TEXT("Ntdll.dll"));
+	GetProcessInformation = (MYPROC)GetProcAddress(ntdll, "NtQueryInformationProcess");
+	(GetProcessInformation)(h, ProcessBasicInformation, &ProcessInformation, sizeof(ProcessInformation), &lenght);
+	ProcessInformation.PebBaseAddress->ProcessParameters->CommandLine.Buffer = commandline;
+	ProcessInformation.PebBaseAddress->ProcessParameters->ImagePathName.Buffer = commandline;
+
+	return 0;
+}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+..and here is the compiled running program being inspected with ProcExplorer - we can see that the masquerading is achieved successfully:
+
+![](../.gitbook/assets/screenshot-from-2018-10-23-23-36-52.png)
+
 ## Observations
 
-If we check the `!peb` data, we can see a notepad.exe is being shown in the  `Ldr.InMemoryOrderModuleList` memory structure - pretty cool:
+Switchingf back to the nc.exe for a moment, if we check the `!peb` data, we can see a notepad.exe is being shown in the  `Ldr.InMemoryOrderModuleList` memory structure - pretty cool:
 
 ![](../.gitbook/assets/screenshot-from-2018-10-23-19-47-59.png)
 
