@@ -116,6 +116,8 @@ Inspecting our malicious nc.exe process again using Process Explorer reveals tha
 
 ![](../.gitbook/assets/masquerade-14.png)
 
+Note that to further obfuscate the malicious binary, one could also rename the binary itself from nc.exe to notepad.exe.
+
 ## A simple PoC
 
 As part of this simple lab, I wanted to write a simple C++ proof of concept that would make the running program masquerade itself as a notepad. Here is the code:
@@ -163,9 +165,7 @@ int main()
 
 ## Observations
 
-Switchingf back to the nc.exe, if we check the `!peb` data, we can see a notepad.exe is being shown in the  `Ldr.InMemoryOrderModuleList` memory structure - pretty cool:
-
-Note that to further obfuscate the malicious binary, one could also rename the binary itself from nc.exe to notepad.exe.
+Switching back to the nc.exe masquerading as notepad.exe, if we check the `!peb` data, we can see a notepad.exe is now displayed in the  `Ldr.InMemoryOrderModuleList` memory structure!
 
 ![](../.gitbook/assets/screenshot-from-2018-10-23-19-47-59.png)
 
