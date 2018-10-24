@@ -39,8 +39,8 @@ Invoke-PowerCloud works in a similar fashion, except for a couple of key differe
 The way the tool works is by performing the following high level steps:
 
 * Take the powershell payload file
-* Divide the payload file into chunks of 255 bytes
-* Create a DNS zone file with DNS TXT records representing each chunk of the payload data retrieved from the previous step in base64 format
+* Divide the payload file into chunks of 255 bytes and base64 encode them
+* Create a DNS zone file with DNS TXT records representing each chunk of the payload data retrieved from the previous step
 * Send the generated DNS zone file to cloudflare using their APIs
 * Generate two stagers for use with autoritative NS/non-authoritative NS
 * Stager can then be executed on the victim system. The stager will recover the base64 chunks from the DNS TXT records and rebuild the original payload
@@ -54,7 +54,7 @@ If you run the tool again to deliver another payload, the previous DNS TXT recor
 
 ### One off Configuration
 
-Remember - you need a cloudflare.com account for this to work. Assuming you have that, you need to edit the script to specify: 
+Remember - you need a cloudflare.com account for this to work. Assuming you have that, you need to edit the Invoke-PowerCloud as follows: 
 
 1. your cloudflare API key, defined in the variable `$Global:API_KEY`
 2. your cloudflare email address, defined in the variable `$Global:EMAIL`
@@ -128,12 +128,12 @@ Let's deliver a PowerShell empire payload using DNS and see how the system react
 
 ![](../.gitbook/assets/empire-stager-via-dns.gif)
 
-For those wondering about detection possibilities, the following is a list of signs \(mix and match\) that may qualify the host behaviour as `suspicious` that may warrant further investigation:
+For those wondering about detection possibilities, the following is a list of signs \(mix and match\) that may qualify the host behaviour as `suspicious` and warrant a further investigation:
 
 * host "suddenly" bursted "many" `DNS TXT` requests to one domain
 * DNS queries follow the naming convention of 1, 2, 3, ..., N
-* majority of DNS answers contain `TXT Lenght` of `255` \(trivial to change\)
-* DNS answers are all `TTL = 120` \(trivial to change\)
+* majority of DNS answers contain `TXT Lenght` of `255` \(trivial to change/randomize\)
+* DNS answers are all `TTL = 120` \(trivial to change/randomize\)
 * TXT data in DNS answer has no white spaces \(easy to change\)
 * host suddenly/in a short span of time spawned "many" `nslookup` processes
 * has the endpoint changed once the DNS lookups stopped? i.e new processes spawned?
