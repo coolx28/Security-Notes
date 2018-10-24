@@ -153,6 +153,8 @@ int main()
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+{% file src="../.gitbook/assets/pebmasquerade.exe" caption="pebmasquerade.exe" %}
+
 ..and here is the compiled running program being inspected with ProcExplorer - we can see that the masquerading is achieved successfully:
 
 ![](../.gitbook/assets/screenshot-from-2018-10-23-23-36-52.png)

