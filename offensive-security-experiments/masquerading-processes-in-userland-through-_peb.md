@@ -114,6 +114,8 @@ eb 0x00000000`005e1f60+70 0x0
 
 Inspecting our malicious nc.exe process again using Process Explorer reveals that it now looks like notepad without commandline arguments:
 
+![](../.gitbook/assets/masquerade-14.png)
+
 ## A simple PoC
 
 As part of this simple lab, I wanted to write a simple C++ proof of concept that would make the running program masquerade itself as a notepad. Here is the code:
@@ -158,8 +160,6 @@ int main()
 ..and here is the compiled running program being inspected with ProcExplorer - we can see that the masquerading is achieved successfully:
 
 ![](../.gitbook/assets/screenshot-from-2018-10-23-23-36-52.png)
-
-![](../.gitbook/assets/masquerade-14.png)
 
 ## Observations
 
