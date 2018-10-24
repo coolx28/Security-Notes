@@ -136,8 +136,14 @@ int main()
 	MYPROC GetProcessInformation;
 	wchar_t commandline[] = L"C:\\windows\\system32\\notepad.exe";
 	ntdll = LoadLibrary(TEXT("Ntdll.dll"));
+
+	//resolve address of NtQueryInformationProcess in ntdll.dll
 	GetProcessInformation = (MYPROC)GetProcAddress(ntdll, "NtQueryInformationProcess");
+
+	//get _PEB object
 	(GetProcessInformation)(h, ProcessBasicInformation, &ProcessInformation, sizeof(ProcessInformation), &lenght);
+
+	//replace commandline and imagepathname
 	ProcessInformation.PebBaseAddress->ProcessParameters->CommandLine.Buffer = commandline;
 	ProcessInformation.PebBaseAddress->ProcessParameters->ImagePathName.Buffer = commandline;
 
