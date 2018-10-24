@@ -179,7 +179,7 @@ Note that even though it shows in the loaded modules that notepad.exe was loaded
 [  
 @Mumbai](https://twitter.com/@ilove2pwn_) for talking to me about C++ and NtQueryInformationProcess
 
-## References 
+## References
 
 {% embed url="https://twitter.com/fuzzysec/status/775541332513259520?lang=en" %}
 
