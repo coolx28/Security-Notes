@@ -15,7 +15,7 @@ We can then execute command by typing into the cells:
 =halt()
 ```
 
-As always the contents of shel.cmd is a simple NC reverse shell:
+As usual, the contents of shell.cmd is a simple netcat reverse shell:
 
 {% code-tabs %}
 {% code-tabs-item title="c:\\shell.cmd" %}
@@ -47,7 +47,7 @@ As usual, look for any suspicious children originating from under the Excel.exe:
 
 ![](../../.gitbook/assets/phishing-xlm-procexp.png)
 
-Having a quick look at the file with a hex editor, in our case, we can see the suspicious string `shell.cmd`, so for example, if the Macro contained a string `powershell` - you may want to dig deeper:
+Having a quick look at the file with a hex editor, we can see a suspicious string `shell.cmd` immediately, which is of course good news for defenders:
 
 ![](../../.gitbook/assets/phishing-xlm-hex.png)
 

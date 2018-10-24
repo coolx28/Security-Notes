@@ -30,7 +30,7 @@ Get-ChildItem 'registry::HKEY_CLASSES_ROOT\CLSID\{EAB22AC3-30C1-11CF-A7EB-0000C0
 
 ![](../../.gitbook/assets/phishing-explorer-obj.png)
 
-As an analyst, one should inspect the .bin file and look for the {EAB22AC3-30C1-11CF-A7EB-0000C05BAE0B} bytes inside, signifying the `Shell.Explorer.1` object is embedded in the file:
+As an analyst, one should inspect the .bin file and look for the {EAB22AC3-30C1-11CF-A7EB-0000C05BAE0B} bytes inside, signifying the `Shell.Explorer.1` object being embedded in the .bin file:
 
 ![](../../.gitbook/assets/phishing-clsid.png)
 

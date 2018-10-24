@@ -4,7 +4,7 @@ description: 'Phishing, Initial Access using embedded OLE + LNK objects'
 
 # Phishing: OLE + LNK
 
-This lab explores a popular phishing technique where attackers embed .lnk files and camouflage them with Ms Word office icon in .doc files to deceive victims to click the embedded file. Once clicked, the embedded file executes the malicious payload.
+This lab explores a popular phishing technique where attackers embed .lnk files into the Office documents and camouflage them with Ms Word office icons in order to deceive victims to click and run them. 
 
 ## Weaponization
 
@@ -66,22 +66,27 @@ Victim executing the embedded document. Gets presented with a popup to confirm e
 
 ![](../../.gitbook/assets/ole-execution.png)
 
-Confirms execution - note how the reverse shell came back to the attacker:
+Once the victim confirms they want to open the file - the reverse shell comes back to the attacker:
 
 ![](../../.gitbook/assets/ole-execution2.png)
 
+{% file src="../../.gitbook/assets/ole.ps1" caption="OLE+LNK Powershell Script" %}
+
+{% file src="../../.gitbook/assets/invoice-fintech-0900541.lnk" caption="Invoice-FinTech-0900541.lnk" %}
+
+{% file src="../../.gitbook/assets/completely-not-a-scam-ole+lnk.docx" caption="Phishing: OLE+Lnk MS Word Doc Package" %}
+
 ## Observations
 
-After the payload is triggered, the process ancestry looks as expected - powershell gets spawned by winword, cmd is spawned by powershell, etc.:
+After the payload is triggered, the process ancestry looks as expected - powershell gets spawned by winword, cmd is spawned by powershell..:
 
 ![](../../.gitbook/assets/ole-ancestry1.png)
 
-Soon after, the powershell gets killed and cmd.exe becomes an orphan:
+Soon after, the powershell gets killed and cmd.exe becomes an orphaned process:
 
 ![](../../.gitbook/assets/ole-ancestry2.png)
 
-Like in [T1137: Phishing - Office Macros](t1137-office-vba-macros.md), you can use rudimentary tools on your Windows workstation to quickly triage the document.   
-First off, rename the file to a .zip extension and unzip it. Then you can navigate to `word\embeddings` and there you will see an `oleObject.bin` file that contains the malicious `.lnk`:
+Like in [T1137: Phishing - Office Macros](t1137-office-vba-macros.md), you can use rudimentary tools on your Windows workstation to quickly triage the suspicious Office document. First off, rename the file to a .zip extension and unzip it. Then you can navigate to `word\embeddings` and find `oleObject.bin` file that contains the malicious `.lnk`:
 
 ![](../../.gitbook/assets/ole-embedded-bin.png)
 
@@ -93,15 +98,11 @@ hexdump.exe -C .\oleObject1.bin
 
 ![](../../.gitbook/assets/ole-hexdump.png)
 
-As an analyst, one should look for CLSID 00021401-0000-0000-c000-000000000046 in the .bin file, which signifies the .doc contains an embnedded .lnk file. In our case this can be observed here:
+As an analyst, one should look for `CLSID 00021401-0000-0000-c000-000000000046` in the .bin file, which signifies that the .doc contains an embnedded .lnk file. In our case this can be observed here:
 
 ![](../../.gitbook/assets/lnk-clsid.png)
 
-{% file src="../../.gitbook/assets/ole.ps1" caption="OLE+LNK Powershell Script" %}
+{% embed url="https://msdn.microsoft.com/en-gb/library/dd891343.aspx" %}
 
-{% file src="../../.gitbook/assets/invoice-fintech-0900541.lnk" caption="Invoice-FinTech-0900541.lnk" %}
-
-{% file src="../../.gitbook/assets/completely-not-a-scam-ole+lnk.docx" caption="Phishing: OLE+Lnk MS Word Doc Package" %}
-
-[https://adsecurity.org/wp-content/uploads/2016/09/DerbyCon6-2016-AttackingEvilCorp-Anatomy-of-a-Corporate-Hack-Presented.pdf](https://adsecurity.org/wp-content/uploads/2016/09/DerbyCon6-2016-AttackingEvilCorp-Anatomy-of-a-Corporate-Hack-Presented.pdf)
+{% embed url="https://adsecurity.org/wp-content/uploads/2016/09/DerbyCon6-2016-AttackingEvilCorp-Anatomy-of-a-Corporate-Hack-Presented.pdf" %}
 
