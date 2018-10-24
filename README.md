@@ -15,8 +15,9 @@ The following sub-pages of this page will explore some of the common offensive s
 
 The goal of this project is simple - read other researchers work, execute some common/uncommon attacking techniques in a lab environment and:
 
-* understand how the attacks can be performed 
-* see what most common artifacts they leave behind 
+* understand how the attacks can be performed
+* write code to further the understanding of some of the tools and techniques
+* see what most common artifacts they leave behind
 * try out various industry tools and become more profficient in using them
 * make any notes as a reference for the future
 

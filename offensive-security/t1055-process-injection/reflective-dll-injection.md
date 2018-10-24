@@ -4,17 +4,23 @@ description: Loading DLL from memory rather than disk.
 
 # Reflective DLL Injection
 
-This is a DLL injection technique that allows an attacker to inject a DLL's into a remote \(victim\) process **from memory** rather than a disk - way stealthier way to execute malicious code.
+This is a DLL injection technique that allows an attacker to inject a DLL's into a remote \(victim\) process **from memory** rather than a disk - a stealthier way to execute malicious code.
 
-Injection is achieved with a series of steps, but one of the key steps is that Process Environment Block \(`_PEB`\) of the victim's process is leveraged in order to find the required loaded modules in the process such as `kernel32` and then find its exported functions such as `LoadLibrary`, `GetProcAddress` and `VirtualAlloc`. in order to carry out the injection.
+The way the reflective injection works is nicely described by Stephen Fewer [here](https://github.com/stephenfewer/ReflectiveDLLInjection):
 
-For our exploration of the PEB:
-
-{% page-ref page="../../memory-forensics/process-environment-block.md" %}
+> * Execution is passed, either via CreateRemoteThread\(\) or a tiny bootstrap shellcode, to the library's ReflectiveLoader function which is an exported function found in the library's export table.
+> * As the library's image will currently exists in an arbitrary location in memory the ReflectiveLoader will first calculate its own image's current location in memory so as to be able to parse its own headers for use later on.
+> * The ReflectiveLoader will then parse the host processes kernel32.dll export table in order to calculate the addresses of three functions required by the loader, namely LoadLibraryA, GetProcAddress and VirtualAlloc.
+> * The ReflectiveLoader will now allocate a continuous region of memory into which it will proceed to load its own image. The location is not important as the loader will correctly relocate the image later on.
+> * The library's headers and sections are loaded into their new locations in memory.
+> * The ReflectiveLoader will then process the newly loaded copy of its image's import table, loading any additional library's and resolving their respective imported function addresses.
+> * The ReflectiveLoader will then process the newly loaded copy of its image's relocation table.
+> * The ReflectiveLoader will then call its newly loaded image's entry point function, DllMain with DLL\_PROCESS\_ATTACH. The library has now been successfully loaded into memory.
+> * Finally the ReflectiveLoader will return execution to the initial bootstrap shellcode which called it, or if it was called via CreateRemoteThread, the thread will terminate.
 
 ## Execution
 
-This lab assumes that the attacker has already gained a meterpreter shell from the victim system and the attacker now will attempt to inject a reflective DLL \(that is sitting on the attackers disk\) into a remote process on a compromised victim system, more specifically into a `notepad.exe` process with PID `6156`
+This lab assumes that the attacker has already gained a meterpreter shell from the victim system and will now attempt to perform a reflective DLL injection into a remote process on a compromised victim system, more specifically into a `notepad.exe` process with PID `6156`
 
 Metasploit's post-exploitation module `windows/manage/reflective_dll_inject` configured:
 
@@ -73,7 +79,7 @@ Looking at the output of the `!address` function and correlating it with the add
 
 ![](../../.gitbook/assets/reflective-dll-injection-range.png)
 
-Indeed, if we look at the `031e0000`, we can see the executable header and the strings can be also found further into the binary:
+Indeed, if we look at the `031e0000`, we can see the executable header \(MZ\) and the strings fed into the `MessageBoxA` API can be also found further into the binary:
 
 ![](../../.gitbook/assets/reflective-dll-strings.gif)
 
@@ -81,7 +87,7 @@ Indeed, if we look at the `031e0000`, we can see the executable header and the s
 
 `Malfind` is the Volatility's pluging responsible for finding various types of code injection and reflective DLL injection can usually be detected with the help of this plugin. 
 
-The plugin, at a high level will scan through various memory regions described by Virtual Address Descriptors \(VADs\) and look for memory regions with `PAGE_EXECUTE_READWRITE` memory protection and check for the magic bytes `4d5a` \(MZ in ASCII\) at the very beginning of those regions. Those bytes signify a start of the Windows binary \(exe or a dll\):
+The plugin, at a high level will scan through various memory regions described by Virtual Address Descriptors \(VADs\) and look for any regions with `PAGE_EXECUTE_READWRITE` memory protection and then check for the magic bytes `4d5a` \(MZ in ASCII\) at the very beginning of those regions as those bytes signify the start of a Windows executable \(i.e exe, dll\):
 
 ```csharp
 volatility -f /mnt/memdumps/w7-reflective-dll.bin malfind --profile Win7SP1x64

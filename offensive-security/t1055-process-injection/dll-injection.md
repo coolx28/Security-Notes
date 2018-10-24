@@ -41,7 +41,7 @@ Injecting DLL to PID: 4892
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-After the DLL is successfully injected, the attacker receives a meterpreter seesion from the injected process:
+After the DLL is successfully injected, the attacker receives a meterpreter session from the injected process and its privileges:
 
 ![](../../.gitbook/assets/inject-dll-shell.png)
 
