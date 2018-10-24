@@ -5,7 +5,7 @@
 ## Pinned posts
 
 * [Powershell Payload Delivery via DNS using Invoke-PowerCloud](offensive-security-experiments/payload-delivery-via-dns-using-invoke-powercloud.md)
-* [Masquerading Processes in Userland with \_PEB](offensive-security-experiments/masquerading-processes-in-userland-through-_peb.md)
+* [Masquerading Processes in Userland via \_PEB](offensive-security-experiments/masquerading-processes-in-userland-through-_peb.md)
 
 ## offensive security
 
