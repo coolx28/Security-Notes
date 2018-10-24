@@ -109,11 +109,13 @@ note the cmd.exe has a PID 5188 - if we rerun the `Invoke-TokenManipulation`, we
 
 ## Observations
 
-Imagine you were investigating the host \(we stole tokens from\) because it exhibited some anomalous behaviour. In this particularly contrived example, since `Tokens.exe` was written to the disk on the victim system, you could have a quick look at its dissasembly and conclude it is attempting to manipulate access tokens - note that we can see the victim process PID and the CMDLINE arguments:
+Imagine you were investigating the host we stole the tokens from, because it exhibited some anomalous behaviour. In this particularly contrived example, since `Tokens.exe` was written to the disk on the victim system, you could have a quick look at its dissasembly and conclude it is attempting to manipulate access tokens - note that we can see the victim process PID and the CMDLINE arguments:
 
 ![](../.gitbook/assets/token-disasm.png)
 
-As suggested by the above, you should think about API monitoring if you want to detect these manipulations on endpoints although this can be quite noisy. Additionally, Windows event logs of IDs `4672` and `4674` may be helpful for you as a defender - below shows a network logon of a `pth-winexe //10.0.0.2 -U offense/administrator%pass cmd` and then later, a netcat reverse shell originating from the same logon session:
+As suggested by the above, you should think about API monitoring if you want to detect these token manipulations on endpoints, but beware - this can be quite noisy. 
+
+Windows event logs of IDs `4672` and `4674` may be helpful for you as a defender also - below shows a network logon of a `pth-winexe //10.0.0.2 -U offense/administrator%pass cmd` and then later, a netcat reverse shell originating from the same logon session:
 
 ![](../.gitbook/assets/token-logs.png)
 
