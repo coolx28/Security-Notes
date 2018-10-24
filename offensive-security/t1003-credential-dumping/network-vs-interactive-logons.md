@@ -10,7 +10,7 @@ Tested against Microsoft Windows 7 Professional 6.1.7601 Service Pack 1 Build 76
 
 ## Interactive Logon \(2\): Initial Logon
 
-Let's make a base password dump \(using mimikatz\) on the victim system to see what we can get before we start logging on to the victim with other methods. To test this, the victim system was rebooted and no attempts to login to the system were made, except for the interactive logon to get access to the console:
+Let's make a base password dump using mimikatz on the victim system to see what we can get before we start logging on to it using other methods such as runas, psexec, etc. To test this, the victim system was rebooted and no other attempts to login to the system were made except for the interactive logon to get access to the console:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
@@ -29,7 +29,7 @@ Credentials were cached and got dumped by mimikatz:
 
 {% code-tabs %}
 {% code-tabs-item title="responder@victim" %}
-```text
+```csharp
 runas /user:low cmd
 ```
 {% endcode-tabs-item %}
@@ -37,7 +37,7 @@ runas /user:low cmd
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
-```text
+```csharp
 mimikatz # sekurlsa::logonpasswords
 ```
 {% endcode-tabs-item %}
@@ -51,7 +51,7 @@ Credentials were cached and got dumped by mimikatz:
 
 {% code-tabs %}
 {% code-tabs-item title="responder@victim" %}
-```text
+```csharp
 runas /user:spot@offense cmd
 ```
 {% endcode-tabs-item %}
@@ -59,7 +59,7 @@ runas /user:spot@offense cmd
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
-```text
+```csharp
 mimikatz # sekurlsa::logonpasswords
 ```
 {% endcode-tabs-item %}
@@ -71,15 +71,15 @@ Credentials were cached and got dumped by mimikatz:
 
 ## New Credentials \(9\) via runas with /netonly
 
-```text
+```csharp
 runas /user:low /netonly cmd
 ```
 
-Event logs suggest the logon of type 9 and also for the user `mantvydas`, although we requested to logon as the user `low`:
+Note that event logs show the logon of type 9 for the user `mantvydas`, although we requested to logon as the user `low`:
 
 ![](../../.gitbook/assets/pwdump-runas-netonly.png)
 
-Logon type 9 means that the any network connections originating from our new process will use the new credentials, which in our case are credentials of the user `low`. These credentials, however still get cached on the victim system:
+Logon type 9 means that the any network connections originating from our new process will use the new credentials, which in our case are credentials of the user `low`. These credentials, get cached:
 
 ![](../../.gitbook/assets/pwdump-runas-netonly-dump.png)
 
@@ -163,8 +163,7 @@ Note that any remote logon with a graphical UI is logged as logon event type 10 
 {% code-tabs %}
 {% code-tabs-item title="responder@victim" %}
 ```csharp
-PS C:\tools\PSTools> whoami.exe
-offense\spot
+.\PsExec64.exe \\10.0.0.2 cmd
 
 PsExec v2.2 - Execute processes remotely
 Copyright (C) 2001-2016 Mark Russinovich
@@ -188,7 +187,7 @@ Note how all the logon events are of type 3 - network logons and read on to the 
 
 {% code-tabs %}
 {% code-tabs-item title="responder@victim" %}
-```text
+```csharp
 .\PsExec64.exe \\10.0.0.2 -u offense\spot -p password cmd
 ```
 {% endcode-tabs-item %}
@@ -210,7 +209,7 @@ Network logons do not get cached in memory except for when using `PsExec` with a
 
 Interactive and remote interactive logons do get cached and can get easily dumped with Mimikatz.
 
-Inspired by:
-
 {% embed url="https://digital-forensics.sans.org/blog/2012/02/21/protecting-privileged-domain-account-safeguarding-password-hashes" %}
+
+
 

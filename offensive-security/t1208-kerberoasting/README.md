@@ -4,11 +4,11 @@ description: Credential Access
 
 # T1208: Kerberoasting
 
-This lab explores an attack that allows any domain user to request kerberos tickets from TGS that are encrypted with NTLM hash of the plaintext password of a domain user account that is used as a service account \(for example for running an IIS service\) and crack them offline avoiding AD account lockouts.
+This lab explores an attack that allows any domain user to request kerberos tickets from TGS that are encrypted with NTLM hash of the plaintext password of a domain user account that is used as a service account \(i.e account used for running an IIS service\) and crack them offline avoiding AD account lockouts.
 
 ## Execution
 
-Note the vulnerable domain member - a user account with `servicePrincipalName` attribute set \(important piece for kerberoasting - only user accounts with that property set are most likely susceptible to kerberoasting\):
+Note the vulnerable domain member - a user account with `servicePrincipalName` attribute set, which is very important piece for kerberoasting - only user accounts with that property set are most likely susceptible to kerberoasting:
 
 ![](../../.gitbook/assets/kerberoast-principalname.png)
 
@@ -24,7 +24,7 @@ nc -lvp 443 > kerberoast.bin
 
 ### Extracting the Ticket
 
-Attacker enumerating user accounts with `serverPrincipalName` set:
+Attacker enumerating user accounts with `serverPrincipalName` attribute set:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
@@ -58,7 +58,7 @@ Additionally, user accounts with SPN set could be extracted with a native window
 
 ![](../../.gitbook/assets/kerberoast-setspn%20%281%29.png)
 
-Attacker requesting a kerberos ticker for a user account with `servicePrincipalName` set to `HTTP/dc-mantvydas.offense.local`- it gets stored in the memory:
+Attacker requesting a kerberos ticket \(TGS\) for a user account with `servicePrincipalName` set to `HTTP/dc-mantvydas.offense.local`- it gets stored in the memory:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
@@ -113,7 +113,7 @@ Below is a security log `4769` showing service access being requested:
 
 ![](../../.gitbook/assets/kerberoast-4769.png)
 
-If you see `Add-event -AssemblyName SystemIdentityModel` \(from advanced Powershell logging\) followed by a windows security event `4769` immediately after that, you may be looking at an old school Kerberoasting:, especially if ticket encryption type has a value `0x17` \(23 decimal, meaning it's `RC4` encrypted\):
+If you see `Add-event -AssemblyName SystemIdentityModel` \(from advanced Powershell logging\) followed by a windows security event `4769` immediately after that, you may be looking at an old school Kerberoasting, especially if ticket encryption type has a value `0x17` \(23 decimal, meaning it's RC4 encrypted\):
 
 ![](../../.gitbook/assets/kerberoast-logs.png)
 
@@ -127,7 +127,7 @@ Below is the response from the TGS for the user `spotless` \(we initiated this a
 
 ![](../../.gitbook/assets/kerberoast-tgs-res.png)
 
-Out of curiosity, let's decrypt the kerberos ticket since we have the password the ticket was encrypted with.
+Out of curiosity, let's decrypt the kerberos ticket since we have the password the ticket was encrypted with. 
 
 Creating a kerberos keytab file for use in wireshark:
 
