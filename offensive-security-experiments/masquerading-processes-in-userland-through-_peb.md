@@ -8,7 +8,7 @@ description: >-
 
 ## Overview
 
-In this short lab I am going to use a WinDBG to make my malicious program pretend to look like a notepad.exe \(hence masquerading\) when inspecting system's running processes with tools like Sysinternals ProcExplorer and similar. Note that his is not a [code injection](../offensive-security/t1055-process-injection/) exercise. 
+In this short lab I am going to use a WinDBG to make my malicious program pretend to look like a notepad.exe \(hence masquerading\) when inspecting system's running processes with tools like Sysinternals ProcExplorer and similar. Note that this is not a [code injection](../offensive-security/t1055-process-injection/) exercise. 
 
 This is possible, because information about the process, i.e commandline arguments, image location, loaded modules, etc is stored in a memory structure called Process Environment Block \(`_PEB`\) that is accessible and, given right privileges \(`SeDebugPrivilege`\) - writeable from the userland.
 
