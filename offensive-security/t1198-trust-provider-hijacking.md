@@ -4,9 +4,11 @@ description: 'Defense Evasion, Persistence, Whitelisting Bypass'
 
 # T1198: SIP & Trust Provider Hijacking
 
+In this lab, I will try to sign a simple "rogue" powershell script `test-forged.ps1` that only has one line of code, with **Microsoft's** certificate and bypass any whitelisting protections/policies the script may be subject to if it is not signed.
+
 ## Execution
 
-I will try to sign a simple "rogue" powershell script `test-forged.ps1` that only has one line of code with a **Microsoft's** certificate to appear like a legitimate script and also bypass any whitelisting protections/policies the script may be subject to if not signed:
+The script that I will try to sign:
 
 ![](../.gitbook/assets/trust-ps-file.png)
 
@@ -16,13 +18,13 @@ Just before I start, let's make sure that the script is not signed by using a `G
 
 In order to sign the script with Microsoft's certificate, we need to first find a native Microsoft Signed PowerShell script. I used powershell for this:
 
-```bash
+```csharp
 Get-ChildItem -Path C:\*.ps* -Recurse -ErrorAction SilentlyContinue | Select-String -Pattern "# SIG # Begin signature block"
 ```
 
 ![](../.gitbook/assets/trust-find-signed.png)
 
-I chose one script at random and simply checked if it was signed by just printing it out:
+I chose one script at random and simply checked if it was signed - luckily it was:
 
 ```bash
 type C:\Windows\WinSxS\x86_microsoft-windows-m..ell-cmdlets-modules_31bf3856ad364e35_10.0.16299.15_none_c7c20f51cd336675\Wdac.psd1
@@ -30,13 +32,15 @@ type C:\Windows\WinSxS\x86_microsoft-windows-m..ell-cmdlets-modules_31bf3856ad36
 
 ![](../.gitbook/assets/trust-check-if-signing-block-exists.png)
 
-Copied the Microsoft's signature block to my script:
+Let's copy the Microsoft signature block to my script:
 
 ![](../.gitbook/assets/trust-script-with-ms-signing-code.png)
 
-Modified registry at:
+Now let's modify registry at:
 
-`HKLM\SOFTWARE\Microsoft\Cryptography\OID\EncodingType 0\CryptSIPDllVerifyIndirectData\{603BCC1F-4B59-4E08-B724-D2C6297EF351}`
+```text
+HKLM\SOFTWARE\Microsoft\Cryptography\OID\EncodingType 0\CryptSIPDllVerifyIndirectData\{603BCC1F-4B59-4E08-B724-D2C6297EF351}
+```
 
 From:
 
@@ -46,7 +50,7 @@ To:
 
 {% code-tabs %}
 {% code-tabs-item title="DLL" %}
-```text
+```csharp
 C:\Windows\System32\ntdll.dll
 ```
 {% endcode-tabs-item %}
@@ -62,13 +66,13 @@ DbgUIContinue
 
 ![](../.gitbook/assets/trust-to.png)
 
-Now, let's launch a new powershell instance \(for the registry changes to take effect\) and check the signature of the forged file now - note how the file is now signed with a Microsoft's certificate, and the signature is verified and valid:
+Now, let's launch a new powershell instance \(for the registry changes to take effect\) and check the signature of the forged script - note how it now shows as signed, verified and valid:
 
 ![](../.gitbook/assets/trust-signed.png)
 
 ## Observations
 
-Monitoring the following registry keys/values helps discover suspicious activity:
+Monitoring the following registry keys/values helps discover this suspicious activity:
 
 ![](../.gitbook/assets/trust-sysmon1.png)
 

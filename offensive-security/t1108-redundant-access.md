@@ -4,21 +4,21 @@ description: Redundant Access - Webshells for evading defenses and persistence.
 
 # T1108: WebShells
 
-## Execution
-
 This demo assumes a server compromise and that the attacker has already uploaded a webshell to the compromised host for persistence.
 
-Below shows a simple webshell uploaded to a compromised Windows 2008R at 10.0.0.6 server running an IIS web service. It also shows output of the classic system enumeration commands - net, whoami, ipconfig, etc:
+## Execution
+
+Below illustrates the existence of a simple webshell on a compromised Windows 2008R at 10.0.0.6 running IIS web service. It also shows output of the classic system enumeration commands - `net`, `whoami`, `ipconfig`, etc:
 
 ![](../.gitbook/assets/webshell-attacker.png)
 
 ## Observations
 
-Note that this particular webshell's HTTP requests are sent to the webserver via POST method, which means looking at the IIS web logs will not allow you to see what commands were issued - you will just see a bunch of requests to the `c.aspx` file:
+Note that this particular webshell's HTTP requests are sent to the webserver via POST method which means that looking at the IIS web logs will not allow you to see what commands were executed using the webshell. The only things you will just will be a bunch of POST requests to the `c.aspx` file:
 
 ![](../.gitbook/assets/webshell-iis-logs.png)
 
-However, if you have a the ability to sniff the network, you can see the attacker's commands and their responses:
+However, if you are collecting network traffic data, you can see the attacker's commands and their outputs:
 
 ![](../.gitbook/assets/webshell-pcap.png)
 

