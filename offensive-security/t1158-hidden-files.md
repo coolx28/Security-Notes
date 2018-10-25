@@ -6,9 +6,11 @@ description: 'Defense Evasion, Persistence'
 
 ## Execution
 
+Hiding the file mantvydas.sdb using a native windows binary:
+
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
-```bash
+```csharp
 PS C:\experiments> attrib.exe +h .\mantvydas.sdb
 ```
 {% endcode-tabs-item %}
@@ -18,7 +20,7 @@ Note how powershell \(or cmd\) says the file does not exist, however you can typ
 
 ![](../.gitbook/assets/attrib-nofile.png)
 
-Note, that `cmd /a:h` \(attribute: hidden\) reveals files with a "hidden" attribute set:
+Note, that `dir /a:h` \(attribute: hidden\) reveals files with a "hidden" attribute set:
 
 ![](../.gitbook/assets/attrib-reveal.png)
 

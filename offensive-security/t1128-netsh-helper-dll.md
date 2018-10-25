@@ -6,7 +6,7 @@ description: 'Persistence, code execution using netsh helper arbitrary libraries
 
 ## Execution
 
-[NetshHelperBeacon helper DLL](https://github.com/outflanknl/NetshHelperBeacon) will be used to test out this technique - it can be downloaded below:
+[NetshHelperBeacon helper DLL](https://github.com/outflanknl/NetshHelperBeacon) will be used to test out this technique. A compiled x64 DLL can be downloaded below:
 
 {% file src="../.gitbook/assets/netshhelperbeacon.dll" caption="NetshHelperBeacon" %}
 
@@ -26,11 +26,11 @@ The helper library, once loaded, will start `calc.exe`:
 
 ## Observations
 
-Adding the helper via commandline adds a registry key for the new helper, so you may want to monitor for registry changes in `Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NetSh`
+Adding a new helper via commandline modifies registry, so as a defender you may want to monitor for registry changes in `Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NetSh`:
 
 ![](../.gitbook/assets/netsh-registry.png)
 
-When netsh gets executed, Procmon captures the evil DLL being loaded as new thread is being created by the netsh because of the evil DLL:
+When netsh is started, Procmon captures how `InitHelperDLL` expored function of our malicious DLL is called:
 
 ![](../.gitbook/assets/netsh-procmon.png)
 
@@ -42,7 +42,7 @@ As usual, monitoring command line arguments is a good idea that may help uncover
 
 ## Interesting
 
-Loading the helper DLL crashed the netsh \(did not get to the root cause of the issue\). Inspecting the calc.exe process after the crash with Process Explorer reveals that the parent process is svchost, although the sysmon logs showed cmd.exe as its parent:
+Loading the malicious helper DLL crashed netsh. Inspecting the calc.exe process after the crash with Process Explorer reveals that the parent process is svchost, although the sysmon logs showed cmd.exe as its parent:
 
 ![](../.gitbook/assets/netsh-ancestry.png)
 

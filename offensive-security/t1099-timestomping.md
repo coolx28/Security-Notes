@@ -30,17 +30,19 @@ Checking the `$MFT` for changes - first of, dumping the `$MFT`:
 
 ![](../.gitbook/assets/timestomp-dump-parse-mft.png)
 
-Let's find the `nc.exe` record and check its times:
+Let's find the `nc.exe` record and check its timestamps:
 
 ```csharp
 Import-Csv .\mft.csv -Delimiter "`t" | Where-Object {$_.Filename -eq "nc.exe"}
 ```
 
-Note how fnCreateTime did not get updated - hence it is always a good idea to check both `$STANDARD_INFO` and `$FILE_NAME` times during the investigation to have better chances at detecting timestomping.
+Note how `fnCreateTime` did not get updated:
 
 ![](../.gitbook/assets/timestomp-mft-timestamps.png)
 
-Note that if we moved the nc.exe file to any other folder on the system and re-parsed the $MFT again, the `fnCreateTime` timestamp would inherit the timestamp `siCreateTime`:
+For this reason, it is always a good idea to check both `$STANDARD_INFO` and `$FILE_NAME` times during the investigation to have a better chance at detecting timestomping.
+
+Note that if we moved the nc.exe file to any other folder on the system and re-parsed the $MFT again, the `fnCreateTime` timestamp would inherit the timestamp from `siCreateTime`:
 
 ![](../.gitbook/assets/timestomp-moved.png)
 

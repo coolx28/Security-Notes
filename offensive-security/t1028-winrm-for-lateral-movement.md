@@ -6,11 +6,11 @@ description: PowerShell remoting for lateral movement.
 
 ## Execution
 
-Attacker establishing a ps-remoting session from a compromised system `10.0.0.2` connecting to a DC \(dc-mantvydas\) at `10.0.0.6`:
+Attacker establishing a PSRemoting session from a compromised system `10.0.0.2` to a domain controller `dc-mantvydas` at `10.0.0.6`:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@10.0.0.2" %}
-```bash
+```csharp
 New-PSSession -ComputerName dc-mantvydas -Credential (Get-Credential)
 
   Id Name            ComputerName    ComputerType    State         ConfigurationName     Availability
@@ -25,17 +25,17 @@ PS C:\Users\mantvydas> Enter-PSSession 1
 
 ## Observations
 
-Note the process ancestry \(run on Windows Server 2012\):
+Note the process ancestry:
 
 ![](../.gitbook/assets/wsmprovhost-calc.png)
 
 ![](../.gitbook/assets/wsmprovhost-calc-sysmon.png)
 
-On the host which initiated the connection, a `4648` logon attempt is logged showing what process initiated it, the hostname where it connected to and which account was used:
+On the host that initiated the connection, a `4648` logon attempt is logged, showing what process initiated it, the hostname where it connected to and which account was used:
 
 ![](../.gitbook/assets/winrm-local-logon-events.png)
 
-The below graphic shows that the logon events `4648` annd `4624` are being logged on both the hostname that initiated the connection \(`pc-mantvydas - 4648`\) and the hostname that was connected to \(`dc-mantvydas - 4624`\):
+The below graphic shows that the logon events `4648` annd `4624` are being logged on both the system that initiated the connection \(`pc-mantvydas - 4648`\) and the system that it logged on to \(`dc-mantvydas - 4624`\):
 
 ![](../.gitbook/assets/winrm-logons-both.png)
 
@@ -79,7 +79,7 @@ Additionally, `%SystemRoot%\System32\Winevt\Logs\Microsoft-Windows-WinRM%4Operat
 
 ![](../.gitbook/assets/winrm-session-information.png)
 
-Since we entered into a PS Shell on the remote system `(Enter-PSSession)` , there is another interesting log showing establishment of a remote shell - note that the ShellID corresponds to the earlier observed `Correlation ActivityID`:
+Since we entered into a PS Shell on the remote system `(Enter-PSSession)` , there is another interesting log showing the establishment of a remote shell - note that the ShellID corresponds to the earlier observed `Correlation ActivityID`:
 
 ![](../.gitbook/assets/winrm-shell.png)
 

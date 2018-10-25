@@ -1,3 +1,7 @@
+---
+description: 'Internal recon, hunting for passwords in Windows registry'
+---
+
 # T1214: Credentials in Registry
 
 ## Execution
@@ -16,7 +20,7 @@ reg query HKCU /f password /t REG_SZ /s
 
 ## Observations
 
-Monitoring for commandline arguments that include `req query` and `password` should raise suspicion and may warrant further investigation:
+As a defender, you may want to monitor commandline argument logs and look for any that include `req query` and `password`strings:
 
 ![](../.gitbook/assets/passwords-registry.png)
 

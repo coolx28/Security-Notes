@@ -18,7 +18,7 @@ Hit shift 5 times while on the logon screen to invoke the backdoor:
 
 ## Observations
 
-If you notice sethc.exe spawning well known windows processes, you may want to investigate the endpoint further to make sure it is not a lazy admin you are dealing with:
+If you notice sethc.exe spawning well known windows processes, you may want to investigate the endpoint further:
 
 ![](../.gitbook/assets/sethc-enumeration.png)
 

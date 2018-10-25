@@ -28,7 +28,7 @@ Inspecting sysmon and windows audit logs, we can see `4648` logon events being l
 
 ![](../.gitbook/assets/wmic-spawn.png)
 
-Both on the host initiating the connection and on the receivind end, events `4624` and `4648` should be logged:
+Both on the host initiating the connection and on the host that is being logged on to, events `4624` and `4648` should be logged:
 
 ![](../.gitbook/assets/wmi-logons.png)
 

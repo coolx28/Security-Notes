@@ -6,6 +6,8 @@ description: 'Code execution, privilege escalation, lateral movement and persite
 
 ## Execution
 
+Creating a new scheduled task that will launch shell.cmd every minute:
+
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
 ```bash
@@ -16,7 +18,7 @@ schtasks /create /sc minute /mo 1 /tn "eviltask" /tr C:\tools\shell.cmd /ru "SYS
 
 ## Observations
 
-Note that processes spawned as scheduled tasks have `taskeng.exe` process as the parent:
+Note that processes spawned as scheduled tasks have `taskeng.exe` process as their parent:
 
 ![](../.gitbook/assets/schtask-ancestry.png)
 
@@ -26,7 +28,7 @@ Monitoring and inspecting commandline arguments and established network connecti
 
 ![](../.gitbook/assets/schtask-connection.png)
 
-Also, look for vents 4698 indicating new scheduled task creation:
+Also, look for events 4698 indicating new scheduled task creation:
 
 ![](../.gitbook/assets/schtasks-created-new-task.png)
 
