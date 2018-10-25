@@ -27,19 +27,19 @@ nodspot.com
 
 DNS records for nodspot.com has to be updated like so:
 
-![](../../.gitbook/assets/smtp-relay-maila.png)
+![A record pointing to the droplet IP](../../.gitbook/assets/smtp-relay-maila.png)
 
 ![](../../.gitbook/assets/smtp-relay-mx.png)
 
 ## Testing Mail Server
 
-Once postfix is installed and DNS is configured, we can test if the mail server is running by:
+Once postfix is installed and the DNS records are configured, we can test if the mail server is running by:
 
 ```csharp
 telnet mail.nodspot.com 25
 ```
 
-If successfull, you should see something like this:
+If successful, you should see something like this:
 
 ![](../../.gitbook/assets/smtp-relay-test-mail.png)
 
@@ -52,11 +52,11 @@ yolo
 .
 ```
 
-Soon enough, the email was received:
+Soon enough, the email comes to my gmail:
 
 ![](../../.gitbook/assets/smtp-relay-first-email.png)
 
-...with the following headers - all as expected:
+...with the following headers - all as expected. Note that at this point the originating IP seen in headers is my droplet IP 206.189.221.162:
 
 ```csharp
 Delivered-To: mantvydo@gmail.com
@@ -107,7 +107,7 @@ yolo
 
 We need to set up the originating mail server that will use the server we set up earlier as a relay server. To achieve this, on my attacking machine, I installed postfix mail server.
 
-The next thing to do is to amend the `/etc/postfix/main.cf` and set the `relayhost=nodspot.com`which makes the outgoing emails from the attacking system travel to the nodspot.com mail server \(the server we set up above\) first:
+The next thing to do is to amend the `/etc/postfix/main.cf` and set the `relayhost=nodspot.com`which will make the outgoing emails from the attacking system travel to the nodspot.com mail server \(the server we set up above\) first:
 
 ![](../../.gitbook/assets/smtp-relay-setting-relay.png)
 
@@ -115,7 +115,7 @@ Once the change is made and the postfix server is rebooted, we can try sending a
 
 ![](../../.gitbook/assets/smtp-relay-send-phish-like-a-sir.png)
 
-If you do not receive the email, make sure that the relay server is not denying access to the attacking machine. If you see your emails getting deferred \(on your attacking machine\) with the below message, it is exactly what is happening:
+If you do not receive the email, make sure that the relay server is not denying access for the attacking machine. If you see your emails getting deferred \(on your attacking machine\) with the below message, it is exactly what is happening:
 
 ![](../../.gitbook/assets/smtp-relay-relay-access-denied.png)
 
@@ -123,21 +123,23 @@ Once the relay issue is solved, we can repeat the test and see a successful rela
 
 ![](../../.gitbook/assets/smtp-relay-gmail-phish.png)
 
-This time the headers look like so - note how this time we are observering the originating host's details such as a hostname and an IP address - this is unwanted and we want to redact that information out:
+This time the headers look like so:
 
 ![](../../.gitbook/assets/smtp-relay-headers-relayed.png)
+
+Note how this time we are observing the originating host's details such as a host name and an IP address - this is unwanted and we want to redact that information out.
 
 {% file src="../../.gitbook/assets/original\_msg.txt" caption="Email Headers" %}
 
 ## Removing Sensitive Headers in Postfix
 
-We need to make some configuration changes in the relay server.
+We need to make some configuration changes in the relay server in order to redact the headers for outgoing emails.
 
-First off, let's create a file on the server like that contains regular expressions that will hunt for the headers that will be removed:
+First off, let's create a file on the server that contains regular expressions that will hunt for the headers that we want removed:
 
 {% code-tabs %}
 {% code-tabs-item title="/etc/postfix/header\_checks" %}
-```text
+```csharp
 /^Received:.*/              IGNORE
 /^X-Originating-IP:/    IGNORE
 /^X-Mailer:/            IGNORE
@@ -146,9 +148,11 @@ First off, let's create a file on the server like that contains regular expressi
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Next thing, we need to amend the `/etc/postfix/master.cf` to include the following line `-o header_checks=regexp:/etc/postfix/header_checks`
+Next we need to amend the `/etc/postfix/master.cf` to include the following line: `-o header_checks=regexp:/etc/postfix/header_checks`:
 
 ![](../../.gitbook/assets/smtp-relay-header-checks.png)
+
+This will tell the postfix server to remove headers from outgoing emails that match regular expressions found in the file we created above.
 
 Save the changes and reload the postfix server:
 
@@ -157,11 +161,13 @@ postmap /etc/postfix/header_checks
 postfix reload
 ```
 
-and send the test email from the attacking machine again and inspect the headers. Note how the `Received` headers exposing the originating \(the attacking\) machine were removed this time:
+Now send a test email from the attacking machine again and inspect the headers of that email: 
 
 ![](../../.gitbook/assets/smtp-relay-removed-traces.png)
 
 ![](../../.gitbook/assets/smtp-relay-removed-traces2.png)
+
+Note how the `Received` headers exposing the originating \(the attacking\) machine were removed, which is exactly what we wanted to achieve:
 
 ```text
 Delivered-To: mantvydo@gmail.com
@@ -206,7 +212,7 @@ removing traces like a sir
 
 {% file src="../../.gitbook/assets/headers-removed.txt" caption="Headers Removed" %}
 
-This lab is not going to deal with the emails being marked as phishing by gmail, however, this is related to setting up DKIM, PTR records and the likes, see below for more references.
+This lab is not going to deal with the emails being marked as phishing by gmail. This, however, is related to setting up DKIM, PTR records and the likes, see below for more references.
 
 {% embed url="https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-dkim-with-postfix-on-debian-wheezy" %}
 

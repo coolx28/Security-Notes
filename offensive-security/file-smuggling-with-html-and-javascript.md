@@ -1,6 +1,6 @@
 # File Smuggling with HTML and JavaScript
 
-File smuggling is a technique that allows bypassing proxy blocks for certain types that the user is trying to download. So, for example if a corporate proxy blocks `.exe` files from being downloaded via the browser, this is the technique that you can use to serve the user file of your choice.
+File smuggling is a technique that allows bypassing proxy blocks for certain file types that the user is trying to download. For example if a corporate proxy blocks `.exe` files from being downloaded via the browser, this is the technique you can use to smuggle those files through.
 
 ## Weaponization
 
@@ -59,5 +59,5 @@ If we open the HTML file in Internet Explorer \(or Chrome\), we get the Run/Down
 
 {% embed url="https://outflank.nl/blog/2018/08/14/html-smuggling-explained/" %}
 
-[https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2017/august/smuggling-hta-files-in-internet-exploreredge/](https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2017/august/smuggling-hta-files-in-internet-exploreredge/)
+{% embed url="https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2017/august/smuggling-hta-files-in-internet-exploreredge/" %}
 

@@ -4,13 +4,13 @@ description: Defense Evasion
 
 # T1027: Obfuscated Powershell Invocations
 
-This topic is huge, but in this lab, I wanted to see if I could do a simple \(maybe a bit overly simplistic, but I think it shows the concept OK\) hunt for encoded powershell command invocations.
+This topic is huge, but in this lab, I wanted to see if I could do a simple hunt for encoded powershell command invocations.
 
 ## Defining the Hunt
 
 I want to find processes with base64 encoded commandlines that may indicate obfuscated powershell invocations.
 
-Data sources: process creation commandline arguments provided by sysmon logs.
+Data source: sysmon logs that provide insight into process creation events, that contains commandlines the process was started.
 
 ## Execution
 
@@ -18,9 +18,9 @@ I had a sample of 27000 events that had a commandline logged, which I exported t
 
 ![](../.gitbook/assets/kibana-cmdlines.png)
 
-Since malicious encoded commands are usually lenghty, contiguous sequence of printable ASCII characters \(including characters such as =,/,+\), I decided to loop through the commandlines and only pull those that matched a simple regex `([A-Za-z0-9]){64,}`
+Since malicious encoded commands are usually lengthy, contiguous sequence of printable ASCII characters \(including characters such as =,/,+\), I decided to loop through the commandlines and only pull those that matched a simple regex `([A-Za-z0-9]){64,}`
 
-Full powershell oneliner below:
+Full powershell one liner below:
 
 ```csharp
 Import-Csv .\cmdline.csv | Where-Object {$_."event_data.CommandLine" -match '([A-Za-z0-9]){64,}' }  | ForEach-Object { Write-Output $_.'event_data.CommandLine'; Write-host }
@@ -40,7 +40,7 @@ Bingo - only one result returned:
 
 ![](../.gitbook/assets/powershell-single.png)
 
-This type of hunting is interesting, so I will be coming back to explore this domain further.
+This type of hunting is interesting, so I will be coming back to explore this area further.
 
 {% embed url="https://attack.mitre.org/wiki/Technique/T1027" %}
 

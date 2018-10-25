@@ -1,6 +1,6 @@
 # AV Bypass with Metasploit Templates and Custom Binaries
 
-This is a quick look at a couple of simple ways to **attempt** to bypass antivirus vendors for your shellcodes.
+This is a quick look at a couple of simple ways that **attempt** to bypass antivirus vendors for your shellcodes.
 
 ## 48/68 detections
 
