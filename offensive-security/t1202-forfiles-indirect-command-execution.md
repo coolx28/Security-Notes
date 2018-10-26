@@ -16,7 +16,7 @@ forfiles /p c:\windows\system32 /m notepad.exe /c calc.exe
 
 ## Observations
 
-Defenders can monitor for commandline parameters to find any unusual executions:
+Defenders can monitor for process creation/commandline logs to detect this activity:
 
 ![](../.gitbook/assets/forfiles-ancestry.png)
 

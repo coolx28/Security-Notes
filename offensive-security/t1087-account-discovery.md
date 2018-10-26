@@ -6,6 +6,8 @@ description: Discovery
 
 ## Execution
 
+Let's run some of the popular enumeration commands on the victim system:
+
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
 ```csharp
@@ -18,11 +20,11 @@ whoami /all
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-## Observations
+## Hunting and Observations
 
-Having command line logging can help identifying a cluster of enumeration commands used in a relatively short span of time.
+Having command line logging can help in identifying a cluster of enumeration commands executed in a relatively short span of time on a compromised host .
 
-For this lab, I exported 8600+ commandlines from various proceses and wrote a dirty powershell script that ingests those commandlines and inspects them for a couple of classic windows enumeration commands that are executed in the span of 2 minutes and spits them out:
+For this lab, I exported 8600+ command lines from various processes and wrote a dirty powershell script that ingests those command lines and inspects them for a couple of classic windows enumeration commands that are executed in the span of 2 minutes and spits them out:
 
 {% code-tabs %}
 {% code-tabs-item title="hunt.ps1" %}
@@ -55,7 +57,7 @@ Invoking the script to start the hunt:
 . \hunt.ps1; hunt -verbose
 ```
 
-Below are some of the findings which you may warrant further investigation to see what the system was up to at those points in time:
+Below are some of the findings which may warrant further investigation of the suspect host:
 
 ![](../.gitbook/assets/enumeration-hunt-5.png)
 

@@ -1,7 +1,7 @@
 ---
 description: >-
   This lab explores a technique that allows a SYSTEM account to move laterally
-  through the network without the need for credentials.
+  through the network using RDP without the need for credentials.
 ---
 
 # T1076: RDP Hijacking for Lateral Movement with tscon
@@ -10,11 +10,11 @@ description: >-
 
 It is possible by design to switch from one user's desktop session to another through the Task Manager \(one of the ways\).
 
-Below shows that there are two users on the system and currently the administrator session is in place:
+Below shows that there are two users on the system and currently the administrator session is in active:
 
 ![](../.gitbook/assets/rdp-admin.png)
 
-Let's swtich to the `spotless` session - this requires knowing the user's password, which for this exercise is known, so lets enter it:
+Let's switch to the `spotless` session - this requires knowing the user's password, which for this exercise is known, so lets enter it:
 
 ![](../.gitbook/assets/rdp-login.png)
 
@@ -39,7 +39,7 @@ Enumerate available sessions on the host with `query user`:
 
 Switch to the `spotless` session without getting requested for a password by using the native windows binary `tscon.exe`that enables users to connect to other desktop sessions by specifying which session ID \(`2` in this case for the `spotless` session\) should be connected to which session \(`console` in this case, where the active `administator` session originates from\):
 
-```text
+```csharp
 cmd /k tscon 2 /dest:console
 ```
 
@@ -51,7 +51,7 @@ Immediately after that, we are presented with the desktop session for `spotless`
 
 ## Observations
 
-Looking at the logs, `tscon.exe` being executed as a `SYSTEM` user is something you may want to investigate further to make sure there is nothing malicious happening:
+Looking at the logs, `tscon.exe` being executed as a `SYSTEM` user is something you may want to investigate further to make sure this is not a lateral movement attempt:
 
 ![](../.gitbook/assets/rdp-logs%20%281%29.png)
 

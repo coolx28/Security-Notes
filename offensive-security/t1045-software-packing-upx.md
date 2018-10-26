@@ -22,7 +22,7 @@ Some of the tell-tale signs of a UPX packed binary are the PE section headers - 
 
 ![](../.gitbook/assets/upx-packed-vs-unpacked.png)
 
-Another important observation should be made from the above screenshot - `nc-packed` binary's `Raw Size` \(section's size on the disk\) is 0 bytes for the UPX0 section \(.text/.code section\) and is much smaller than the `Virtual Size` \(space allocated for this section in process memory\), whereas these values in a non-packed binary are of similar sizes.  This is another good indicator suggesting the binary may be packed when it's 0 bytes on the disk, but gets expanded/unpacked in memory.
+Another important observation should be made from the above screenshot - `nc-packed` binary's `Raw Size` \(section's size on the disk\) is 0 bytes for the UPX0 section \(.text/.code section\) and therefore much smaller than the `Virtual Size` \(space allocated for this section in the process memory\), whereas these values in a non-packed binary are of similar sizes.  This is another good indicator suggesting the binary may be packed.
 
 Yet another sign of a potentially packed binary is a low\(-er\) number of imported DLLs and their functions:
 
@@ -32,11 +32,11 @@ Note how the packed binary only imports one function from the `WSOCK32.dll` and 
 
 ![](../.gitbook/assets/upx-sockets.png)
 
-A classic sign of a packed binary is the imported functions from a `KERNEL32.dll`. The functions `LoadLibraryA` and `GetProcAddress` are crucial for the binary as they are used to locate other important functions of the `KERNEL32.dll` located in the process memory, hence packed binaries will almost always have those functions exposed:
+Another classic sign of a packed binary is `KERNEL32.dll` **only** importing a couple of functions, including:`LoadLibraryA` and `GetProcAddress`. These are crucial for the binary as they are used to locate other important functions of the `KERNEL32.dll` located in the process memory, hence packed binaries will almost always have those functions exposed since they are required for the binary to work properly:
 
 ![](../.gitbook/assets/upx-kernel.png)
 
-If there are no fancy tools to hand, but you have `strings.exe`, you can make a fairly good educated guess whether the binary is packed by just running strings against it and noting the DLL imports - if there's only a few of them \(and more importantly - GetProcAddress and LoadLibrary\) and they are from KERNEL32.dll - the binary is likely packed:
+If you have no fancy malware analysis tools to hand, but you have `strings.exe`, you can make a fairly good educated guess whether the binary is packed by just running strings against it and noting the DLL imports - if there's only a few of them \(and more importantly - GetProcAddress and LoadLibrary\) and they are from KERNEL32.dll - the binary is likely packed:
 
 ![](../.gitbook/assets/upx-strings.png)
 

@@ -22,7 +22,7 @@ Checking to see the certificate got installed:
 
 ![](../.gitbook/assets/certs-installed.png)
 
-Adding a certificate with powershell:
+Adding the certificate with powershell:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
@@ -46,7 +46,7 @@ Commandline logging:
 
 The CAs get installed to:
 
-```text
+```csharp
 Computer\HKEY_CURRENT_USER\Software\Microsoft\SystemCertificates\Root\Certificates\C6B22A75B0633E76C9F21A81F2EE6E991F5C94AE
 ```
 

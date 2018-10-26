@@ -2,7 +2,7 @@
 description: Downloading additional files to the victim system using native OS binary.
 ---
 
-# Downloading File with Certutil
+# Downloading Files with Certutil
 
 ## Execution
 

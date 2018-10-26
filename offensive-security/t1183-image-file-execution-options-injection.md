@@ -6,6 +6,8 @@ description: 'Defense Evasion, Persistence, Privilege Escalation'
 
 ## Execution
 
+Modifying registry to set cmd.exe as notepad.exe debugger, so that when notepad.exe is executed, it will actually start cmd.exe:
+
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
 ```csharp
@@ -18,11 +20,13 @@ Launching a notepad on the victim system:
 
 ![](../.gitbook/assets/ifeo-notepad.png)
 
+Same from the cmd shell:
+
 ![](../.gitbook/assets/ifeo-notepad2.png)
 
 ## Observations
 
-Monitoring commandline arguments and events modifying registry keys: `HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options/<executable>` and `HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\<executable>` should be helpful in detecting these manipulations:
+Monitoring command line arguments and events modifying registry keys: `HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options/<executable>` and `HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\<executable>` should be helpful in detecting this attack:
 
 ![](../.gitbook/assets/ifeo-cmdline.png)
 

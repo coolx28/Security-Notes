@@ -8,11 +8,11 @@ description: >-
 
 This lab is based on an [Empire Case Study](https://enigma0x3.net/2016/01/28/an-empire-case-study/) and its goal is to get more familiar with some of the concepts of Powershell Empire and its modules as well as Active Directory concepts such as Forests, Parent/Child domains and Trust Relationships and how they can be abused to escalate privileges.
 
-The end goal of this lab is to replicate privilege escalation from DA on a child domain to EA on a root domain.
+The end goal of this lab is a privilege escalation from DA on a child domain to EA on a root domain.
 
 ## Domain Trust Relationships
 
-Firstly, some LAB setup - need to create a child domain controller as well as a new forest with a new domain controller.
+Firstly, some LAB setup - we need to create a child domain controller as well as a new forest with a new domain controller.
 
 ### Parent / Child Domains
 
@@ -48,9 +48,9 @@ Powershell way of checking trust relationships:
 
 ### Forests
 
-After installing a new DC `dc-blue` in a new forest, let's setup a one way trust between `offense.local` and `defense.local` domains using contollers `dc-mantvydas.offense.local` and `dc-blue.defense.blue`.
+After installing a new DC `dc-blue` in a new forest, let's setup a one way trust between `offense.local` and `defense.local` domains using controllers `dc-mantvydas.offense.local` and `dc-blue.defense.blue`.
 
-First of, setting up condictional DNS forwarders on both DCs:
+First of, setting up conditional DNS forwarders on both DCs:
 
 ![](../../.gitbook/assets/domain-trust-conditional-forwarders.png)
 
@@ -58,11 +58,11 @@ Adding a new trust by making `dc-mantvydas` a trusted domain:
 
 ![](../../.gitbook/assets/domain-trust-one-way-incoming.png)
 
-Setting the trus type to `Forest`:
+Setting the trust type to `Forest`:
 
 ![](../../.gitbook/assets/domain-trusts-forest.png)
 
-Incoming trust for dc-mantvydas.offense.local is now created:
+Incoming trust for `dc-mantvydas.offense.local` is now created:
 
 ![](../../.gitbook/assets/domain-trust-one-way-incoming-created.png)
 
@@ -72,29 +72,29 @@ Testing nltest output:
 
 ### Forests Test
 
-Now that the trust relationship is set, it is easy to check if it was done correctly. What should happen now is that resources on dc-blue.defense.local \(trusting domain\) should be available to members of offense.local \(trusted domain\).
+Now that the trust relationship is set, it is easy to check if it was done correctly. What should happen now is that resources on defense.local \(trusting domain\) should be available to members of offense.local \(trusted domain\).
 
 Note how the user on `dc-mantvydas.offense.local` is not able to share a folder to `defense\administrator` \(because `offense.local` does not trust `defense.local`\):
 
 ![](../../.gitbook/assets/domain-trusts-notfound.png)
 
-However, `dc-blue.defense.local`, trusts `offense.local`, hence is able to share a resource to one of the members of `offense.local` - forest trust relationships setup and work as intended:
+However, `dc-blue.defense.local`, trusts `offense.local`, hence is able to share a resource to one of the members of `offense.local` - forest trust relationships work as intended:
 
 ![](../../.gitbook/assets/domain-trusts-shared%20%281%29.png)
 
 ## Back to Empire: From DA to EA
 
-Assume we got our first agent back on a computer `PC-MANTVYDAS$`:
+Assume we got our first agent back from the computer `PC-MANTVYDAS$`:
 
 ![](../../.gitbook/assets/empire-1st-agent.png)
 
 ### Credential Dumping
 
-Since the agent is running withing a high integrity process, let's dump credentials - some interesting credentials for a user in `red.offense.local` domain:
+Since the agent is running withing a high integrity process, let's dump credentials - some interesting credentials can be observed for a user in `red.offense.local` domain:
 
 ![](../../.gitbook/assets/empire-mimikatz.png)
 
-Listing the processes with `ps`, we can see number of process running under the `red\spotless` account, here is one:
+Listing the processes with `ps`, we can see a number of process running under the `red\spotless` account. Here is one:
 
 ![](../../.gitbook/assets/empire-ps.png)
 
@@ -108,7 +108,7 @@ Let's steal the token of a process with PID 4900 that runs with `red\spotless` c
 
 ### DC Recon
 
-Let's get the Domain Controller computer name. Again, my Empire instance is buggy, so I used a custom command to get it:
+After assuming privileges of the member red\spotless, let's get the Domain Controller computer name for that user. Again, my Empire instance is buggy, so I used a custom command to get it:
 
 ```csharp
 shell [DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain().DomainControllers | ForEach-Object { $_.Name }
@@ -124,9 +124,11 @@ shell dir \\dc-red.red.offense.local\c$
 
 ![](../../.gitbook/assets/empire-dir-childdc.png)
 
+We are lucky, the user is a domain admin as can be seen from the above screenshot.
+
 ### Lateral Movement
 
-Let's get back an agent from `DC-RED` - note that the credentials are coming from the previous dump with mimikatz:
+Let's get an agent from `DC-RED` - note that the credentials are coming from the previous dump with mimikatz:
 
 ```csharp
 usemodule lateral_movement/invoke_wmi

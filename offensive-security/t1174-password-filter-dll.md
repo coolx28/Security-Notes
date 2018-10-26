@@ -4,7 +4,7 @@ description: Credential Access
 
 # T1174: Password Filter
 
-This lab explores a native OS notification of when the user account password gets changed, which is responsible for validating it. That means, the password can be intercepted..
+This lab explores a native OS notification of when the user account password gets changed, which is responsible for validating it. That, of course means, that the password can be intercepted and logged.
 
 ## Execution
 
@@ -22,7 +22,7 @@ Or via regedit:
 
 ![](../.gitbook/assets/password-filter-regedit.png)
 
-Building an evil filter DLL based on a great [article](http://carnal0wnage.attackresearch.com/2013/09/stealing-passwords-every-time-they.html) by mubix. He has also kindly provided the code to use, which I modified slightly to make sure that the critical DLL functions were exported in order for this technique to work since mubix's code did not work for me out of the box. I also had to change the logging statements in order to rectify a couple of compiler issues:
+Building an evil filter DLL based on a great [article](http://carnal0wnage.attackresearch.com/2013/09/stealing-passwords-every-time-they.html) by mubix. He has also kindly provided the code to use, which I modified slightly to make sure that the critical DLL functions were exported correctly in order for this technique to work, since mubix's code did not work for me out of the box. I also had to change the logging statements in order to rectify a couple of compiler issues:
 
 ```cpp
 #include "stdafx.h"
@@ -88,7 +88,7 @@ extern "C" __declspec(dllexport) NTSTATUS __stdcall PasswordChangeNotify(
 
 {% file src="../.gitbook/assets/evilpwfilter.dll" caption="Password Filter DLL" %}
 
-Injecting the evil password filter into the victims system:
+Injecting the evil password filter into the victim system:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
@@ -121,7 +121,7 @@ Logging command line can also help in detecting this activity:
 
 ![](../.gitbook/assets/password-filter-createdtime.png)
 
-Also, maybe it is worth considering checking any new DLLs dropped to `%systemroot%\system32` for exported `PasswordChangeNotify` function?
+Also, it may be worth considering checking new DLLs dropped to `%systemroot%\system32` for exported `PasswordChangeNotify`function:
 
 ![](../.gitbook/assets/password-filter.png)
 

@@ -72,7 +72,7 @@
 * [T1207: DCShadow](offensive-security/t1207-dcshadow.md)
 * [T1076: RDP Hijacking for Lateral Movement with tscon](offensive-security/t1076-rdp-hijacking-for-lateral-movement.md)
 * [T1140: Encode/Decode Data with Certutil](offensive-security/t1140-encode-decode-data-with-certutil.md)
-* [Downloading File with Certutil](offensive-security/downloading-file-with-certutil.md)
+* [Downloading Files with Certutil](offensive-security/downloading-file-with-certutil.md)
 * [T1183: Image File Execution Options Injection](offensive-security/t1183-image-file-execution-options-injection.md)
 * [T1202: Forfiles Indirect Command Execution](offensive-security/t1202-forfiles-indirect-command-execution.md)
 * [T1130: Installing Root Certificate](offensive-security/t1130-install-root-certificate.md)

@@ -1,22 +1,22 @@
 # PowerView: Active Directory Enumeration
 
-This lab explores a couple of common cmdlets of Powerview that related to Active Directory/Domain enumeration.
+This lab explores a couple of common cmdlets of PowerView that allows for Active Directory/Domain enumeration.
 
 ## Get-NetDomain
 
-Gets current user's domain:
+Get current user's domain:
 
 ![](../.gitbook/assets/powerview-getnetdomain.png)
 
 ## Get-NetForest
 
-Get information about forest the current user's domain is in:
+Get information about the forest the current user's domain is in:
 
 ![](../.gitbook/assets/powerview-forestinfo.png)
 
 ## Get-NetForestDomain
 
-Get all domains of the forest the current user is from:
+Get all domains of the forest the current user is in:
 
 ![](../.gitbook/assets/powerview-forest-domains.png)
 
@@ -46,7 +46,7 @@ Enumerate domain trust relationships of the current user's domain:
 
 ## Get-NetForestTrust
 
-Enumerate forest trusts fromt the current domain's perspective:
+Enumerate forest trusts from the current domain's perspective:
 
 ![](../.gitbook/assets/powerview-foresttrusts.png)
 
