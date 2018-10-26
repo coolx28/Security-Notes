@@ -24,7 +24,7 @@ Graphic showing both of the above commands and also the process ancestry on the 
 
 ## Observations
 
-As usual, services.exe spawning unusual binaries should raise a wary defender's suspicion. You may want to also consider monitoring unusual scheduled tasks that get created on your systems if you want to detect this type of lateral movement:
+As usual, services.exe spawning unusual binaries should raise a wary defender's suspicion. You may also want consider monitoring for new scheduled tasks that get created on your systems:
 
 ![](../.gitbook/assets/screenshot-from-2018-10-19-22-35-13.png)
 

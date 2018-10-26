@@ -60,7 +60,7 @@ PS C:\> fltMC.exe
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Note how even though you can change the service name and the driver name, the sysmon altitude is always the same - `385201`
+Note how even though you can change the sysmon service and driver names, the sysmon altitude is always the same - `385201`
 
 ![](../.gitbook/assets/screenshot-from-2018-10-09-17-51-45.png)
 
@@ -78,7 +78,7 @@ ls HKCU:\Software\Sysinternals
 
 ## Sysmon -c
 
-Once symon exeuctable is found, the config file can be checked like so:
+Once symon executable is found, the config file can be checked like so:
 
 ```text
 sysmon -c

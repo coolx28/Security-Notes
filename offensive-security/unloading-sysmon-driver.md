@@ -28,7 +28,7 @@ As well as processes requesting special privileges:
 
 ![](../.gitbook/assets/sysmon-unload-log2.png)
 
-Note how in the last 35 minutes since the driver was unloaded, no further process creation events were recorded although I spawned new processes during that time:
+Note how in the last 35 minutes since the driver was unloaded, no further process creation events were recorded, although I spawned new processes during that time:
 
 ![](../.gitbook/assets/sysmon-last-event.png)
 

