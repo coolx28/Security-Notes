@@ -6,7 +6,7 @@ description: WMI lateral movement with .msi packages
 
 ## Execution
 
-Generating a payload in MSI \(Microsoft Installer Package\):
+Generating malicious payload in MSI \(Microsoft Installer Package\):
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@local" %}
