@@ -34,6 +34,8 @@ As an analyst, one should inspect the .bin file and look for the {EAB22AC3-30C1-
 
 ![](../../.gitbook/assets/phishing-clsid.png)
 
+## References
+
 {% embed url="https://securify.nl/blog/SFY20180801/click-me-if-you-can\_-office-social-engineering-with-embedded-objects.html" %}
 
   

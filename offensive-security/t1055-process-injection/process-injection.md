@@ -171,6 +171,8 @@ Note how the notepad has a `ws2_32.dll` module loaded which should never happen 
 
 ![](../../.gitbook/assets/inject-notepad-dll.png)
 
+## References
+
 {% embed url="https://docs.microsoft.com/en-us/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openprocess" %}
 
 {% embed url="https://msdn.microsoft.com/en-us/library/windows/desktop/aa366890\(v=vs.85\).aspx" %}

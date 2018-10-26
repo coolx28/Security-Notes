@@ -178,5 +178,7 @@ int main()
 
 ![](../.gitbook/assets/msf-vt4.png)
 
+## References
+
 {% embed url="https://www.offensive-security.com/metasploit-unleashed/backdooring-exe-files/" %}
 

@@ -20,7 +20,7 @@ Now that we have injected the code into a new thread of the explorer.exe process
 $a = Get-InjectedThread; $a
 ```
 
-Looks like an injected thread was successfully detected:
+Looks like the injected thread was successfully detected:
 
 ![](../.gitbook/assets/injected-threads-get-injected-thread.png)
 
@@ -34,13 +34,13 @@ Lets check the payload found in the injected thread:
 
 ![](../.gitbook/assets/injected-threads-shellcode2.png)
 
-and cross-verify iit with the shellcode in our injector binary. We see they match as expected:
+and cross-verify it with the shellcode specified in our injector binary. We see they match as expected:
 
 ![](../.gitbook/assets/injected-threads-shellcode.png)
 
 ## Inspecting with WinDBG
 
-In order to inspect the newly created thread in that executes the above shellcode with WinDBG, we need to know the injected thread id. For this experiment, we use Process Explorer and note the newly created thread's ID which is `2112`. Note the `ThreadId` is also shown in the output of Get-InjectedThread powershell script:
+In order to inspect the newly created thread that executes the above shellcode with WinDBG, we need to know the injected thread id. For this, we use Process Explorer and note the newly created thread's ID which is `2112`. Note the `ThreadId` is also shown in the output of Get-InjectedThread powershell script:
 
 ![](../.gitbook/assets/injected-threads-threadid.png)
 
@@ -60,11 +60,17 @@ For reference, the original shellcode bytes are displayed in the upper right cor
 
 ## How Get-InjectedThreads detects code injection?
 
-One of the things Get-InjectedThreads does in order to detect code injection is - it enumerates all the threads in each running process on the system and performs the following checks on memory regions holding those threads: `MemoryType == MEM_IMAGE && MemoryState == MEM_COMMIT`. If the condition is not met, it means that the code running from the inspected thread does not have a corresponding image file on the disk, suggesting the code may be injected directly to memory, hence the code injection.
+One of the things Get-InjectedThreads does in order to detect code injection is: 
+
+* it enumerates all the threads in each running process on the system
+* performs the following checks on memory regions holding those threads: `MemoryType == MEM_IMAGE && MemoryState == MEM_COMMIT` 
+* If the condition is not met, it means that the code, running from the thread being inspected, does not have a corresponding image file on the disk, suggesting the code may be injected directly to memory.
 
 Below graphic shows details of the memory region containing the injected thread using WinDBG and Get-InjectedThreads. Note the Type/MemoryType and State/MemoryState in WinDBG/Get-InjectedThreads outputs respectively:
 
 ![](../.gitbook/assets/injected-threads-address.png)
+
+## References
 
 {% embed url="https://posts.specterops.io/defenders-think-in-graphs-too-part-1-572524c71e91" %}
 

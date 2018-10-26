@@ -82,6 +82,8 @@ and that the connection is initiated by the .tmp file \(I ran another test, henc
 
 ![](../.gitbook/assets/screenshot-from-2018-10-19-18-55-53.png)
 
+## References
+
 {% embed url="https://www.cybereason.com/blog/wmi-lateral-movement-win32" %}
 
 {% embed url="https://twitter.com/buffaloverflow/status/1002523407261536256" %}

@@ -141,7 +141,9 @@ I wanted to check if I could find any traces of non-powershell.exe processes cre
 
 ![](../../.gitbook/assets/powershell-transcript-logs.png)
 
-I could not get sysmon to log the transcript.txt file creation event caused by the `bypass.exe` although the file got successfuly created!
+I could not get sysmon to log the transcript.txt file creation event caused by the `bypass.exe` although the file got successfully created!
+
+## References
 
 {% embed url="https://attack.mitre.org/wiki/Technique/T1003" %}
 

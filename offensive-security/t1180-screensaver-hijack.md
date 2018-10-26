@@ -42,6 +42,8 @@ Note the process ancestry on the victim system - the reverse shell process trace
 
 ![](../.gitbook/assets/screensaver-logs.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1180" %}
 
 

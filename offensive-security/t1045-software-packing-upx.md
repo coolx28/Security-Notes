@@ -40,5 +40,7 @@ If you have no fancy malware analysis tools to hand, but you have `strings.exe`,
 
 ![](../.gitbook/assets/upx-strings.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1045" %}
 

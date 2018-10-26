@@ -70,6 +70,8 @@ What is interesting is that I could not see an established network connection lo
 Will be coming back to this one for further inspection - possibly related to sysmon configuration.
 {% endhint %}
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1118" %}
 
 {% embed url="https://github.com/khr0x40sh/WhiteListEvasion" %}

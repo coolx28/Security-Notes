@@ -59,6 +59,8 @@ As expected, mimilib.dll can be observed in the list of DLLs loaded by the lsass
 
 ![](../.gitbook/assets/lsa-loaded-dll.png)
 
+## References
+
 {% embed url="https://github.com/veramine/Detections/wiki/LSA-Packages" %}
 
 {% embed url="https://adsecurity.org/?p=1760" %}

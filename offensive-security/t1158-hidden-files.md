@@ -30,6 +30,8 @@ As usual, monitoring commandline arguments may be a good idea if you want to ide
 
 ![](../.gitbook/assets/attrib-set.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1158" %}
 
 

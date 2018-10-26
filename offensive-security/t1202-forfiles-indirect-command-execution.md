@@ -22,5 +22,7 @@ Defenders can monitor for process creation/commandline logs to detect this activ
 
 ![](../.gitbook/assets/forfiles-cmdline.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1202" %}
 

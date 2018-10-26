@@ -53,5 +53,7 @@ Having a quick look at the file with a hex editor, we can see a suspicious strin
 
 ![](../../.gitbook/assets/phishing-xlm-strings.png)
 
+## References
+
 {% embed url="https://outflank.nl/blog/2018/10/06/old-school-evil-excel-4-0-macros-xlm/" %}
 

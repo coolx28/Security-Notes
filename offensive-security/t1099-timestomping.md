@@ -46,6 +46,8 @@ Note that if we moved the nc.exe file to any other folder on the system and re-p
 
 ![](../.gitbook/assets/timestomp-moved.png)
 
+## References
+
 {% embed url="https://www.forensicswiki.org/wiki/Timestomp" %}
 
 {% embed url="https://digital-forensics.sans.org/blog/2010/11/02/digital-forensics-time-stamp-manipulation" %}

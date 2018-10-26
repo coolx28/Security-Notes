@@ -67,6 +67,8 @@ Sysmon commandline arguments and network connection logging to the rescue:
 
 ![](../.gitbook/assets/monitor-sysmon.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1013" %}
 
 {% embed url="https://www.youtube.com/watch?v=dq2Hv7J9fvk" %}

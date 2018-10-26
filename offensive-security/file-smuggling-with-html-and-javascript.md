@@ -57,6 +57,8 @@ If we open the HTML file in Internet Explorer \(or Chrome\), we get the Run/Down
 
 ![](../.gitbook/assets/file-smuggling-rev-shell.gif)
 
+## References
+
 {% embed url="https://outflank.nl/blog/2018/08/14/html-smuggling-explained/" %}
 
 {% embed url="https://www.nccgroup.trust/uk/about-us/newsroom-and-events/blogs/2017/august/smuggling-hta-files-in-internet-exploreredge/" %}

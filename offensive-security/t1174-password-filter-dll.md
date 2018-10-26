@@ -125,6 +125,8 @@ Also, it may be worth considering checking new DLLs dropped to `%systemroot%\sys
 
 ![](../.gitbook/assets/password-filter.png)
 
+## References
+
 {% embed url="http://carnal0wnage.attackresearch.com/2013/09/stealing-passwords-every-time-they.html" %}
 
 {% embed url="https://attack.mitre.org/wiki/Technique/T1174" %}

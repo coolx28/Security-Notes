@@ -214,6 +214,8 @@ removing traces like a sir
 
 This lab is not going to deal with the emails being marked as phishing by gmail. This, however, is related to setting up DKIM, PTR records and the likes, see below for more references.
 
+## References
+
 {% embed url="https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-dkim-with-postfix-on-debian-wheezy" %}
 
 {% embed url="https://serverfault.com/questions/91954/how-do-i-remove-these-junk-mail-headers" %}

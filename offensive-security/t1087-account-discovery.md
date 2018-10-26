@@ -69,5 +69,7 @@ Below are some of the findings which may warrant further investigation of the su
 
 ![](../.gitbook/assets/enumeration-hunt-1.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1087" %}
 

@@ -46,6 +46,8 @@ schtasks /create /sc minute /mo 1 /tn "eviltask" /tr calc /ru "SYSTEM" /s dc-man
 
 ![](../.gitbook/assets/schtasks-remote.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1053" %}
 
 {% embed url="https://docs.microsoft.com/en-us/windows/desktop/taskschd/schtasks" %}

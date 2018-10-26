@@ -57,6 +57,8 @@ Note how the notepad spawned rundll32 which then spawned a cmd.exe because of th
 
 ![](../../.gitbook/assets/inject-dll-procmon.png)
 
+## References
+
 {% embed url="https://msdn.microsoft.com/en-us/library/windows/desktop/ms683212\(v=vs.85\).aspx" %}
 
 {% embed url="https://msdn.microsoft.com/en-us/library/windows/desktop/ms684175\(v=vs.85\).aspx" %}

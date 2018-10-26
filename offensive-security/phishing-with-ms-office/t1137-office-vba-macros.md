@@ -94,5 +94,7 @@ If you have a malware analysis linux distro Remnux, you can easily inspect the V
 Note that the olevba can be fooled as per [http://www.irongeek.com/i.php?page=videos/derbycon8/track-3-18-the-ms-office-magic-show-stan-hegt-pieter-ceelen](http://www.irongeek.com/i.php?page=videos/derbycon8/track-3-18-the-ms-office-magic-show-stan-hegt-pieter-ceelen)
 {% endhint %}
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1137" %}
 

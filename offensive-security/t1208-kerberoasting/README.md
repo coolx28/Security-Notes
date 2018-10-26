@@ -166,6 +166,8 @@ I did not have to, but I also used an online RC4 decryptor tool to confirm the a
 
 {% file src="../../.gitbook/assets/kerberoast.pcap" caption="kerberoast.pcap" %}
 
+## References
+
 [Tim Medin - Attacking Kerberos: Kicking the Guard Dog of Hades](https://files.sans.org/summit/hackfest2014/PDFs/Kicking%20the%20Guard%20Dog%20of%20Hades%20-%20Attacking%20Microsoft%20Kerberos%20%20-%20Tim%20Medin%281%29.pdf)
 
 {% embed url="https://attack.mitre.org/wiki/Technique/T1208" %}

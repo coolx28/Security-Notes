@@ -42,5 +42,7 @@ Bingo - only one result returned:
 
 This type of hunting is interesting, so I will be coming back to explore this area further.
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1027" %}
 

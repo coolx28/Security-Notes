@@ -47,5 +47,7 @@ Additionally, of course sysmon will show regsvr32 establishing a network connect
 
 ![](../.gitbook/assets/regsvr32-network.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1117" %}
 

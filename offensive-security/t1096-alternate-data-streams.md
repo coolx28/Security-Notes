@@ -56,6 +56,8 @@ Get-Content .\benign.txt -Stream evil.txt
 
 ![](../.gitbook/assets/ads-powershell.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1096" %}
 
 {% embed url="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/providers/filesystem-provider/get-item-for-filesystem?view=powershell-6" %}

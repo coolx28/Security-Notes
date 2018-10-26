@@ -1,10 +1,10 @@
 ---
-description: Exploring a couple of members of the PEB
+description: Exploring a couple of interesting members of the PEB memory structure fields
 ---
 
 # Process Environment Block
 
-A very brief look into the PEB in a process memory aiming to get a bit more comfortable with WinDBG and walking memory structures.
+A very brief look into the PEB memory structure found, aiming to get a bit more comfortable with WinDBG and walking memory structures.
 
 ## Basics
 
@@ -14,7 +14,7 @@ First of, checking what members the `_PEB` structure actually entails:
 dt _peb
 ```
 
-There are many fields in the structure among which there are ImageBaseAddresss and ProcessParameters which are interesting fields:
+There are many fields in the structure among which there are `ImageBaseAddresss` and `ProcessParameters` which are interesting to us for this lab:
 
 ![](../.gitbook/assets/peb-structure%20%281%29.png)
 
@@ -31,17 +31,17 @@ The `_PEB` structure can now be overlaid on the memory pointed to by the `$peb` 
 0:001> dt _peb @$peb
 ```
 
-\_PEB structure is now populated with data:
+`_PEB` structure is now populated with the actual data pulled from the process memory:
 
 ![](../.gitbook/assets/peb-overlay.png)
 
-Let's check what's in memory at address `0000000049d40000` - pointed by the ImageBaseAddress member of the \_peb structure:
+Let's check what's in memory at address `0000000049d40000` - pointed to by the `ImageBaseAddress` member of the `_peb` structure:
 
 ```cpp
 0:001> db 0000000049d40000 L100
 ```
 
-Hey, this is the actual binary image of the running process:
+Exactly! This is the actual binary image of the running process:
 
 ![](../.gitbook/assets/peb-baseimage.png)
 
@@ -69,13 +69,13 @@ We can forget about all of the above and just use:
 !peb
 ```
 
-This gets us a nicely formatted PEB information of some of the key members from the structure:
+This gets us a nicely formatted PEB information of some of the key members of the structure:
 
 ![](../.gitbook/assets/peb.png)
 
 ## Finding Commandline Arguments
 
-Let's find the commandline the process was started with:
+One of the interesting fields the PEB holds is the process commandline arguments. Let's find them:
 
 ```cpp
 dt _peb @$peb processp*
@@ -121,7 +121,7 @@ Since we now know where the commandline arguments are stored - can we modify the
 
 ## \_PEB\_LDR\_DATA <a id="_peb_ldr_data-structure"></a>
 
-Getting a list of loaded modules by the process:
+Getting a list of loaded modules \(exe/dll\) by the process:
 
 ```cpp
 // get the first _LIST_ENTRY structure address
@@ -132,7 +132,6 @@ ntdll!_PEB
 
 
 // walking the list manually and getting loaded module info
-
 dt _LIST_ENTRY 0x00000000`002a2980
 // cmd module
 dt _LDR_DATA_TABLE_ENTRY 0x00000000`002a2980
@@ -154,19 +153,22 @@ If we check the loaded modules with `!peb`, it shows we were walking the list co
 
 ![](../.gitbook/assets/peb-modules2.png)
 
-Or another way to find the first `_LDR_DATA_TABLE_ENTRY`:
+Here is another way to find the first `_LDR_DATA_TABLE_ENTRY`:
 
 ```cpp
 dt _peb @$peb
 dt _PEB_LDR_DATA 0x00000000`774ed640
-dt _LDR_DATA_TABLE_ENTRY 0x00000000`002a2980
 ```
 
 ![](../.gitbook/assets/peb-manual1.png)
 
+```cpp
+dt _LDR_DATA_TABLE_ENTRY 0x00000000`002a2980
+```
+
 ![](../.gitbook/assets/peb-manual2.png)
 
-A nice way of getting a list of linked list structure addresses is by providing address of the first `list_entry` structure to the command `dl` and specifying how many list items it should print out:
+A nice way of getting a list of linked-list structure addresses is by providing address of the first `list_entry` structure to the command `dl` and specifying how many list items it should print out:
 
 ```cpp
 0:001> dl 0x00000000`002a2980 6
@@ -195,6 +197,14 @@ Another way of achieving the same would be to use the !list command to list thro
 Continuing further:
 
 ![](../.gitbook/assets/peb-dll-automated2.gif)
+
+## Abusing PEB
+
+It is possible to abuse the PEB structure and masquerade one windows processes with another process. See this lab for more:
+
+{% page-ref page="../offensive-security-experiments/masquerading-processes-in-userland-through-\_peb.md" %}
+
+## References
 
 {% embed url="https://docs.microsoft.com/en-us/windows/desktop/api/winternl/ns-winternl-\_peb\_ldr\_data" %}
 

@@ -68,5 +68,7 @@ Find machines on a domain or users on a given machine that are logged on:
 
 ![](../.gitbook/assets/powerview-invoke-user-hunter.png)
 
+## References
+
 {% embed url="https://github.com/PowerShellMafia/PowerSploit" %}
 

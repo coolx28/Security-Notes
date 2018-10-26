@@ -32,5 +32,7 @@ Both on the host initiating the connection and on the host that is being logged 
 
 ![](../.gitbook/assets/wmi-logons.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1047" %}
 

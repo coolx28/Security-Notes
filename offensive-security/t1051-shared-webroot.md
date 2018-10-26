@@ -83,5 +83,7 @@ See T1108: Webshells for observations:
 
 {% page-ref page="t1108-redundant-access.md" %}
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1051" %}
 

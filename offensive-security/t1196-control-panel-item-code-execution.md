@@ -79,6 +79,8 @@ $Shortcut.TargetPath = $TargetFile
 $Shortcut.Save()
 ```
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1196" %}
 
 {% embed url="https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1060/T1060.md" %}

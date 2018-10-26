@@ -57,6 +57,8 @@ Note how the connection was established one second after the process creation. T
 
 ![](../.gitbook/assets/cmstp-kibana%20%281%29.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1191" %}
 
 {% embed url="https://pentestlab.blog/2018/05/10/applocker-bypass-cmstp/" %}

@@ -24,5 +24,7 @@ As a defender, you may want to monitor commandline argument logs and look for an
 
 ![](../.gitbook/assets/passwords-registry.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1214" %}
 

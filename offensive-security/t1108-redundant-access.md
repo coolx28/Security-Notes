@@ -28,5 +28,7 @@ Looking at sysmon process creation logs, we can immediately identify nefarious b
 
 ![](../.gitbook/assets/webshell-sysmon.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1108" %}
 

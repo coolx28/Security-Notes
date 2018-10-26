@@ -26,6 +26,8 @@ Monitoring registry for changes in `HKEY_CLASSES_ROOT\mscfile\shell\open\command
 
 ![](../.gitbook/assets/com-sysmon.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1122" %}
 
 {% embed url="https://enigma0x3.net/2016/08/15/fileless-uac-bypass-using-eventvwr-exe-and-registry-hijacking/" %}

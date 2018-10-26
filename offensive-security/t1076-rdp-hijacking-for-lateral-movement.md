@@ -65,7 +65,7 @@ Just reinforcing the above - note the usernames and logon session IDs:
 
 ![](../.gitbook/assets/rdp-logon-sessions.png)
 
-
+## References
 
 {% embed url="http://blog.gentilkiwi.com/securite/vol-de-session-rdp" %}
 

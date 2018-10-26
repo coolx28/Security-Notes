@@ -83,6 +83,8 @@ Since we entered into a PS Shell on the remote system `(Enter-PSSession)` , ther
 
 ![](../.gitbook/assets/winrm-shell.png)
 
+## References
+
 {% embed url="http://www.hurryupandwait.io/blog/a-look-under-the-hood-at-powershell-remoting-through-a-ruby-cross-plaform-lens" %}
 
 {% embed url="https://attack.mitre.org/wiki/Technique/T1028" %}

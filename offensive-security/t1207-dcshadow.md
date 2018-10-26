@@ -78,6 +78,8 @@ We see that our suspicious computer exposes that exact service:
 
 ![Outputs for computer NOT belonging to DC OU and one belonging, respecitvely](../.gitbook/assets/dcshadow-ou-dc.png)
 
+## References
+
 Below are the resources related to DCShadow attack. Note that there is also a link to youtube by a security company Alsid, showing how to dynamically detect DCShadow, so please watch it.
 
 {% embed url="https://attack.mitre.org/wiki/Technique/T1207" %}

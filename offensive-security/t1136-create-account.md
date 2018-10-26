@@ -26,6 +26,8 @@ Details for the newly added account are logged as event `4720` :
 
 ![](../.gitbook/assets/account-created.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1136" %}
 
 

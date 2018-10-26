@@ -140,6 +140,8 @@ Another way to bypass the sysmon altogether is explored here:
 
 {% page-ref page="unloading-sysmon-driver.md" %}
 
+## References
+
 {% embed url="https://www.darkoperator.com/blog/2018/10/5/operating-offensively-against-sysmon" %}
 
 {% embed url="https://github.com/mattifestation/PSSysmonTools/blob/master/PSSysmonTools/Code/SysmonRuleParser.ps1" %}

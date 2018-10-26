@@ -66,6 +66,8 @@ socat TCP4-LISTEN:80,fork TCP4:10.0.0.2:80
 
 ![](../../.gitbook/assets/redirector-socat.gif)
 
+## References
+
 {% embed url="https://github.com/bluscreenofjeff/Red-Team-Infrastructure-Wiki\#https" %}
 
 {% embed url="https://www.frozentux.net/iptables-tutorial/chunkyhtml/x4033.html" %}

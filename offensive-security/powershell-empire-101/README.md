@@ -205,6 +205,8 @@ volatility -f /mnt/memdumps/w7-empire.bin consoles --profile Win7SP1x64
 
 ![](../../.gitbook/assets/empire-volatility.png)
 
+## References
+
 {% embed url="http://www.harmj0y.net/blog/empire/expanding-your-empire/" %}
 
 {% embed url="http://www.harmj0y.net/blog/empire/nothing-lasts-forever-persistence-with-empire/" %}

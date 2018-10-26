@@ -30,5 +30,7 @@ Windows security, application, Service Control Manager and sysmon logs provide s
 
 ![](../.gitbook/assets/services-shell.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1035" %}
 

@@ -46,6 +46,8 @@ Looking at the sysmon logs gives us a better understanding of what happened - CF
 
 ![](../.gitbook/assets/dll-logs.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1038" %}
 
 {% embed url="https://pentestlab.blog/2017/03/27/dll-hijacking/" %}

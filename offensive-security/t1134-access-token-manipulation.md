@@ -119,6 +119,8 @@ Windows event logs of IDs `4672` and `4674` may be helpful for you as a defender
 
 ![](../.gitbook/assets/token-logs.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1134" %}
 
 {% embed url="https://digital-forensics.sans.org/blog/2012/03/21/protecting-privileged-domain-accounts-access-tokens" %}

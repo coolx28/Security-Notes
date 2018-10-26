@@ -41,6 +41,8 @@ If you have the ability to downgrade to Powershell 2.0, this can allow you to by
 
 ![](../.gitbook/assets/ps-downgrade.png)
 
+## References
+
 {% embed url="https://blogs.msdn.microsoft.com/powershell/2017/11/02/powershell-constrained-language-mode/" %}
 
 {% embed url="https://www.blackhillsinfosec.com/powershell-without-powershell-how-to-bypass-application-whitelisting-environment-restrictions-av/" %}

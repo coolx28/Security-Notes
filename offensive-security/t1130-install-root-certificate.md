@@ -54,5 +54,7 @@ Computer\HKEY_CURRENT_USER\Software\Microsoft\SystemCertificates\Root\Certificat
 
 ![](../.gitbook/assets/certs-registry.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1130" %}
 

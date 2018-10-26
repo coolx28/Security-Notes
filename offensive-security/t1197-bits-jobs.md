@@ -26,5 +26,7 @@ Commandline arguments monitoring can help discover bitsadmin usage:
 
 ![](../.gitbook/assets/bits-operational-logs.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1197" %}
 

@@ -55,5 +55,7 @@ Monitoring commandlines can be useful in detecting the script being abused:
 
 ![](../.gitbook/assets/pubprn-logs.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1216" %}
 

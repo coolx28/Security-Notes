@@ -48,5 +48,7 @@ Let's have a look at the contents of the file `dec` which now contains the base6
 
 ![](../.gitbook/assets/certutil-decoded.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1140" %}
 

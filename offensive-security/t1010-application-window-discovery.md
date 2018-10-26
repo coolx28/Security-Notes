@@ -16,6 +16,8 @@ get-process | where-object {$_.mainwindowtitle -ne ""} | Select-Object mainwindo
 
 ![](../.gitbook/assets/window-titles.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1010" %}
 
 

@@ -215,6 +215,8 @@ For the sake of fun and wrapping this lab up, let's get an agent from the `dc-ma
 
 ![](../../.gitbook/assets/empire-agent-from-rootdomain.png)
 
+## References
+
 {% embed url="https://enigma0x3.net/2016/01/28/an-empire-case-study/" %}
 
 {% embed url="http://www.harmj0y.net/blog/redteaming/trusts-you-might-have-missed/" %}

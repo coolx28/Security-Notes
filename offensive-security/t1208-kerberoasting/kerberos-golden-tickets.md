@@ -52,6 +52,8 @@ However, switching back to the console the attacker used to create the golden ti
 
 ![](../../.gitbook/assets/kerberos-golden-share.png)
 
+## References
+
 {% embed url="https://blog.stealthbits.com/complete-domain-compromise-with-golden-tickets/" %}
 
 {% embed url="https://adsecurity.org/?p=1515" %}

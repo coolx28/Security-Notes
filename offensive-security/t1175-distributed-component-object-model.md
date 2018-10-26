@@ -70,6 +70,8 @@ A network connection is logged from 10.0.0.7 \(attacker\) to 10.0.0.2 \(victim\)
 
 ![](../.gitbook/assets/dcom-connection2.png)
 
+## References
+
 {% embed url="https://enigma0x3.net/2017/01/05/lateral-movement-using-the-mmc20-application-com-object/" %}
 
 {% embed url="https://docs.microsoft.com/en-us/previous-versions/windows/desktop/mmc/view-executeshellcommand" %}

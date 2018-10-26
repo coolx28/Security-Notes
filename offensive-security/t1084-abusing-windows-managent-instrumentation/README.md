@@ -146,6 +146,8 @@ Note how we can get a pretty decent glimpse into the malicious WMI persistence e
 
 ![](../../.gitbook/assets/wmi-strings-grep2.png)
 
+## References
+
 Based on the research by [Matthew Graeber](https://twitter.com/mattifestation) and other great resources listed below: 
 
 {% embed url="https://learn-powershell.net/2013/08/14/powershell-and-events-permanent-wmi-event-subscriptions/" %}

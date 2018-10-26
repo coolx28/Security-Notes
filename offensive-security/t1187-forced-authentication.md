@@ -98,6 +98,8 @@ Once the victim navigates to the C:\ where `link.url` file is placed, the OS tri
 
 ![](../.gitbook/assets/forced-authentication-url.gif)
 
+## References
+
 {% embed url="http://www.defensecode.com/whitepapers/Stealing-Windows-Credentials-Using-Google-Chrome.pdf" %}
 
 {% embed url="https://www.bleepingcomputer.com/news/security/you-can-steal-windows-login-credentials-via-google-chrome-and-scf-files/" %}

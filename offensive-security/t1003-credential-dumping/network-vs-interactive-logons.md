@@ -209,6 +209,8 @@ Network logons do not get cached in memory except for when using `PsExec` with a
 
 Interactive and remote interactive logons do get cached and can get easily dumped with Mimikatz.
 
+## References
+
 {% embed url="https://digital-forensics.sans.org/blog/2012/02/21/protecting-privileged-domain-account-safeguarding-password-hashes" %}
 
 

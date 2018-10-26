@@ -97,6 +97,8 @@ Note how in our case, volatility discovered the reflective dll injection we insp
 
 ![](../../.gitbook/assets/reflective-dll-volatility.png)
 
+## References
+
 {% embed url="https://github.com/stephenfewer/ReflectiveDLLInjection" %}
 
 {% embed url="https://github.com/volatilityfoundation/volatility/wiki/Command-Reference-Mal" %}

@@ -78,6 +78,8 @@ Monitoring the following registry keys/values helps discover this suspicious act
 
 ![](../.gitbook/assets/trust-sysmon2.png)
 
+## References
+
 For all the registry keys/values that should be used as a baseline, please refer to the original research whitepaper by Matt Graeber:   
 [SpecterOps Subverting Trust inWindows](https://specterops.io/assets/resources/SpecterOps_Subverting_Trust_in_Windows.pdf)
 

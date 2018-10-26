@@ -102,6 +102,8 @@ As an analyst, one should look for `CLSID 00021401-0000-0000-c000-000000000046` 
 
 ![](../../.gitbook/assets/lnk-clsid.png)
 
+## References
+
 {% embed url="https://msdn.microsoft.com/en-gb/library/dd891343.aspx" %}
 
 {% embed url="https://adsecurity.org/wp-content/uploads/2016/09/DerbyCon6-2016-AttackingEvilCorp-Anatomy-of-a-Corporate-Hack-Presented.pdf" %}

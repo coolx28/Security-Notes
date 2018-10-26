@@ -32,6 +32,8 @@ Monitoring command line arguments and events modifying registry keys: `HKLM\Soft
 
 ![](../.gitbook/assets/ifeo-cmdline2.png)
 
+## References
+
 {% embed url="https://attack.mitre.org/wiki/Technique/T1183" %}
 
 {% embed url="https://blogs.msdn.microsoft.com/mithuns/2010/03/24/image-file-execution-options-ifeo/" %}

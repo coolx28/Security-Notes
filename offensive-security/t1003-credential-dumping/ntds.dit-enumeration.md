@@ -48,6 +48,8 @@ Additionally, there are multiple Application logs that can indicate some activit
 
 ![](../../.gitbook/assets/ntds-appllication-log.png)
 
+## References
+
 {% embed url="https://adsecurity.org/?p=2362" %}
 
 {% embed url="https://www.trustwave.com/Resources/SpiderLabs-Blog/Tutorial-for-NTDS-goodness-\(VSSADMIN,-WMIS,-NTDS-dit,-SYSTEM\)/" %}
