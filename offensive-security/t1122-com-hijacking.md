@@ -5,8 +5,8 @@ description: 'UAC Bypass/Defense Evasion, Persistence'
 # T1122: COM Hijacking
 
 > The Microsoft Component Object Model \(COM\) is a platform-independent, distributed, object-oriented system for creating binary software components that can interact. COM is the foundation technology for Microsoft's OLE \(compound documents\), ActiveX \(Internet-enabled components\), as well as others.
->
-> [https://docs.microsoft.com/en-us/windows/desktop/com/the-component-object-model](https://docs.microsoft.com/en-us/windows/desktop/com/the-component-object-model)
+
+In this lab we will execute a file-less UAC bypass technique.
 
 ## Execution
 
