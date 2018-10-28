@@ -57,7 +57,21 @@ Below shows the entire attack:
 
 ## Observations
 
+Inspecting the traffic that was generated during this lab, it can be observed that once victim1 \(10.0.0.7\) gives away their hashes to the attacker \(10.0.0.5\) in packet \#25, the authentication hashes are immediately relayed to the victim2 \(10.0.0.2\) system via SMB as seen in packet \#26:
+
+![](../.gitbook/assets/screenshot-from-2018-10-28-12-26-34.png)
+
+A quick look into the first HTTP stream of this attack and we can see the NTLM authentication handshake taking place. Highlighted in green \(base64 encoded binary data in http stream\), the console, and a packet selected in Wireshark show the last step of the handshake where victim1 is sending its host name, its domain with user name and the challenge response to the server \(attacker\) - which is the data that gets relayed eventually in the packet \#26 as discussed above:
+
+![](../.gitbook/assets/screenshot-from-2018-10-28-12-44-49.png)
+
+Once the attacker successfully authenticates to the victim2 via SMB, a new service with our malicious payload is created remotely on the victim and executed, which is when we get our Empire stager executed and receive the shell back.
+
+{% file src="../.gitbook/assets/relay-attack.pcapng" caption="NTLM Relaying with Empire Shells" %}
+
 ## References
 
 {% embed url="https://byt3bl33d3r.github.io/practical-guide-to-ntlm-relaying-in-2017-aka-getting-a-foothold-in-under-5-minutes.html" %}
+
+{% embed url="https://blogs.msdn.microsoft.com/chiranth/2013/09/20/ntlm-want-to-know-how-it-works/" %}
 
