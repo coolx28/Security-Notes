@@ -32,3 +32,9 @@ Monitoring registry for changes in `HKEY_CLASSES_ROOT\mscfile\shell\open\command
 
 {% embed url="https://enigma0x3.net/2016/08/15/fileless-uac-bypass-using-eventvwr-exe-and-registry-hijacking/" %}
 
+{% embed url="https://www.greyhathacker.net/?p=796" %}
+
+{% embed url="http://www.fuzzysecurity.com/tutorials/27.html" %}
+
+
+

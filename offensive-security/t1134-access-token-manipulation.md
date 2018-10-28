@@ -4,11 +4,11 @@ description: >-
   tokens.
 ---
 
-# T1134: Access Token Manipulation
+# T1134: Primary Access Token Manipulation
 
 ## Context
 
-One of the techniques of token manipulations is creating a new process with a "stolen" token. This is when a token of an already existing access token present in one of the running processes on the victim host, is retrieved, duplicated and then used for creating a new process, making the new process assume the privileges of that stolen token.
+One of the techniques of token manipulation is creating a new process with a token "stolen" from another process. This is when a token of an already existing access token present in one of the running processes on the victim host, is retrieved, duplicated and then used for creating a new process, making the new process assume the privileges of that stolen token.
 
 A high level process of the token stealing that will be carried out in this lab is as follows:
 

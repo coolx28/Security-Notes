@@ -30,7 +30,7 @@
 * [T1208: Kerberoasting](offensive-security/t1208-kerberoasting/README.md)
   * [Kerberos: Silver Tickets](offensive-security/t1208-kerberoasting/kerberos-silver-tickets.md)
   * [Kerberos: Golden Tickets](offensive-security/t1208-kerberoasting/kerberos-golden-tickets.md)
-* [T1134: Access Token Manipulation](offensive-security/t1134-access-token-manipulation.md)
+* [T1134: Primary Access Token Manipulation](offensive-security/t1134-access-token-manipulation.md)
 * [AV Bypass with Metasploit Templates and Custom Binaries](offensive-security/av-bypass-with-metasploit-templates.md)
 * [Red Team Infrastructure](offensive-security/red-team-infrastructure/README.md)
   * [HTTP Forwarders / Relays](offensive-security/red-team-infrastructure/redirectors-forwarders.md)
