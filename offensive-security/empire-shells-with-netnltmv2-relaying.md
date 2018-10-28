@@ -75,3 +75,5 @@ Once the attacker successfully authenticates to the victim2 via SMB, a new servi
 
 {% embed url="https://blogs.msdn.microsoft.com/chiranth/2013/09/20/ntlm-want-to-know-how-it-works/" %}
 
+{% embed url="https://pen-testing.sans.org/blog/2013/04/25/smb-relay-demystified-and-ntlmv2-pwnage-with-python" %}
+
