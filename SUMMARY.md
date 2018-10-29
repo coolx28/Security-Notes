@@ -92,6 +92,7 @@
 * [WMI + MSI Lateral Movement](offensive-security/wmi-+-msi-lateral-movement.md)
 * [WMI + NewScheduledTaskAction Lateral Movement](offensive-security/wmi-via-newscheduledtask.md)
 * [Empire Shells with NetNLTMv2 Relaying](offensive-security/empire-shells-with-netnltmv2-relaying.md)
+* [Domain Compromise via Unrestricted Kerberos Delegation](offensive-security/domain-compromise-via-unrestricted-kerberos-delegation.md)
 
 ## Memory Forensics
 
