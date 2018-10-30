@@ -1,36 +1,25 @@
 # Domain Compromise via Unrestricted Kerberos Delegation
 
-This lab explores security impact of a domain computer that has unrestricted kerberos delegation rights assigned.
+This lab explores a security impact of unrestricted kerberos delegation enabled on a domain computer.
 
 ## Overview
 
-* Unrestricted kerberos delegation is a privilege that can be assigned to a domain computer
-* Usually, this privilege is given to computers running services like IIS, MSSQL, etc.
-* Those services usually require access to some back-end database so it can read/modify the database on the authenticated user's behalf
-* A computer which has the kerberos delegation privilege turned on, can impersonate any user that authenticates to any service running on that computer
-
-All of the above means that once a users authenticates to a service on a host with kerberos delegation enabled, it caches user's TGT so it can be impersonated when/if required when relaying user's request to another server or service.
+* Unrestricted kerberos delegation is a privilege that can be assigned to a domain computer or a user
+* Usually, this privilege is given to computers \(in this lab, it is assigned to a computer IIS01\) running services like IIS, MSSQL, etc. 
+* Those services usually require access to some back-end database \(or some other server\), so it can read/modify the database on the authenticated user's behalf
+* When a user authenticates to a computer that has unresitricted kerberos delegation privilege turned on, authenticated user's TGT ticket gets saved to that computer's memory. 
+* The TGTs get cached in memory so the computer \(with delegation rights\) can impersonate that user as and when required for accesing any other services on that user's behalf
 
 Essentially this looks like so:  
-`User` &lt;---authenticates --&gt; `IIS server` &lt;---authenticates on behalf of the user---&gt; `DB server`
+`User` &lt;---authenticates to--&gt; `IIS server` &lt;---authenticates on behalf of the user---&gt; `DB server`
 
-## Quick Setup
+{% hint style="warning" %}
+Any user authentication \(i.e CIFS\) to the computer with delegation right enabled will get that user's TGT cached in memory which can then be dumped and reused.
+{% endhint %}
 
-Add a new domain user, whic is going to be an IIS service account - `iis_svc`:
+## Setup
 
-![](../.gitbook/assets/screenshot-from-2018-10-29-23-01-49.png)
-
-Give it a servicePrincipalName:
-
-```text
-command here
-```
-
-Let's create a new IIS application pool running under our newly created user `offense\iis_svc`:
-
-![](../.gitbook/assets/screenshot-from-2018-10-29-23-02-51.png)
-
-Let's give our victim computer IIS01 \(Windows 2012R2 server running IIS\) unrestricted delegation privilege:
+Let's give one of our domain computers/our victim computer `IIS01` unrestricted kerberos delegation privilege:
 
 ![](../.gitbook/assets/screenshot-from-2018-10-29-22-50-27.png)
 
@@ -40,29 +29,29 @@ To confirm/find computers on a domain that have unrestricted kerberos delegation
 Get-ADComputer -Filter {TrustedForDelegation -eq $true -and primarygroupid -eq 515} -Properties trustedfordelegation,serviceprincipalname,description
 ```
 
-We can see our victim computer `IIS01` with `TrustedForDelegation` field set to `$true`:
+We can see our victim computer `IIS01` with `TrustedForDelegation` field set to `$true` - we are good to attack:
 
 ![](../.gitbook/assets/screenshot-from-2018-10-29-23-08-06.png)
 
 ## Execution
 
-On the computer IIS01 with kerberos delgation rights, let's do a base run of mimikatz to see what we have:
+On the computer IIS01 with kerberos delegation rights, let's do a base run of mimikatz to see what we can find in memory:
 
 ![](../.gitbook/assets/screenshot-from-2018-10-29-23-35-01.png)
 
-Note that we do not have a TGT for `offense\administrator` \(a Domain Admin\) just yet.
+Note that we do not have a TGT for `offense\administrator` \(Domain Admin\) just yet.
 
-Let's now send an HTTP request to IIS01 from a DC01 host from the context of offense\administrator:
+Let's now send an HTTP request to `IIS01` from a `DC01` host from the context of offense\administrator:
 
 ```csharp
 Invoke-WebRequest http://iis01.offense.local -UseDefaultCredentials -UseBasicParsing
 ```
 
-We see the request got a HTTP 200 OK:
+We see the request got a `HTTP 200 OK` response:
 
 ![](../.gitbook/assets/screenshot-from-2018-10-29-23-35-20.png)
 
-Let's check a victim host IIS01 for any new kerberos tickets now:
+Let's check the victim host `IIS01` for new kerberos tickets in memory:
 
 ```text
 mimikatz # sekurlsa::tickets
@@ -70,9 +59,9 @@ mimikatz # sekurlsa::tickets
 
 ![](../.gitbook/assets/screenshot-from-2018-10-29-23-40-27.png)
 
-We can see that the IIS01 has now a TGT for offense\administrator!
+We can see that the IIS01 has now got a TGT for offense\administrator - this means that we have effectively compromised the entire offense.local domain. We will get back to this in a minute.
 
-Let's export the tickets, so we can import the domain admin ticket into the current session::
+First, let's export all kerberos tickets, so we can load offense\administrator ticket TGT into the current session:
 
 ```csharp
 mimikatz::tickets /export
@@ -80,13 +69,13 @@ mimikatz::tickets /export
 
 ![](../.gitbook/assets/screenshot-from-2018-10-29-23-56-20.png)
 
-Before we proceed with ticket imports, let's try PSRemoting to a DC from IIS01 and check the current kerberos tickets available to the logon session:
+..but before we proceed with `pass-the-ticket` attack and become a DA, let's try PSRemoting to the `DC` from `IIS01` and check currently available kerberos tickets in a current logon session - to make sure we currently do not have those rights:
 
 ![](../.gitbook/assets/screenshot-from-2018-10-29-23-49-58.png)
 
-Above screenshow shows that there are no tickets and PSSession could not be established -  as expected.
+Above screenshow shows that there are no tickets and PSSession could not be established - as expected.
 
-Let's now proceed and import the previously dumped TGT into our current logon session on the IIS01 host:
+Let's now proceed and import the previously dumped offense\administrator TGT into our current logon session on the `IIS01` host:
 
 ```csharp
 mimikatz # kerberos::ptt C:\Users\Administrator\Desktop\mimikatz\[0;3c785]-2-0-40e10000-Administrator@krbtgt-OFFENSE.LOCAL.kirbi
@@ -94,11 +83,25 @@ mimikatz # kerberos::ptt C:\Users\Administrator\Desktop\mimikatz\[0;3c785]-2-0-4
 
 ![](../.gitbook/assets/screenshot-from-2018-10-29-23-50-40.png)
 
-Once the TGT is imported on IIS01, let's check abailable tickets and try connecting to the DC01 again:
+Once the TGT is imported on IIS01, let's check available tickets and try connecting to the `DC01` again:
 
 ![](../.gitbook/assets/screenshot-from-2018-10-29-23-59-12.png)
 
-As you can see from the above screengrab, the IIS01 system now contains a krbtgt for offense\administrator, which now enables this session to access DC C$ share and establish a PSSession and have console access to the domain controller.
+As you can see from the above screengrab, the `IIS01` system now contains a `krbtgt` for offense\administrator, which enables this session to access `DC01` C$ share and establish a PSSession with an interactive shell.
+
+### Reminder
+
+Note that successful authentication to ANY service on the IIS01 will cache the authenticated user's TGT. Below is an example of a user `offense\delegate` accessing a share on `IIS01` - the TGT gets cached:
+
+![](../.gitbook/assets/screenshot-from-2018-10-30-21-40-29.png)
+
+## Mitigation
+
+Some of the available mitigations:
+
+* Disable kerberos delegation where possible
+* Be cautious of whom you give privilege **Enable computer and user accounts to be trusted for delegation** - these are users who can enable unrestricted kerberos delagation
+* Enable **Account is sensitive and cannot be delegated** for high privileged accounts
 
 ## References
 
