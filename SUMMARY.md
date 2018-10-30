@@ -44,7 +44,7 @@
 * [T1099: Timestomping](offensive-security/t1099-timestomping.md)
 * [T1196: Control Panel Item](offensive-security/t1196-control-panel-item-code-execution.md)
 * [T1170: MSHTA](offensive-security/t1170-mshta-code-execution.md)
-* [T1191: CSMTP](offensive-security/t1191-csmtp-code-execution.md)
+* [T1191: CMSTP](offensive-security/t1191-cmstp-code-execution.md)
 * [T1118: InstallUtil](offensive-security/t1118-installutil.md)
 * [T1053: Schtask](offensive-security/t1053-schtask.md)
 * [T1214: Credentials in Registry](offensive-security/t1214-credentials-in-registry.md)
