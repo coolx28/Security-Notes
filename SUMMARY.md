@@ -6,9 +6,11 @@
 
 * [Powershell Payload Delivery via DNS using Invoke-PowerCloud](offensive-security-experiments/payload-delivery-via-dns-using-invoke-powercloud.md)
 * [Masquerading Processes in Userland via \_PEB](offensive-security-experiments/masquerading-processes-in-userland-through-_peb.md)
+* [Domain Compromise via Unrestricted Kerberos Delegation](offensive-security-experiments/domain-compromise-via-unrestricted-kerberos-delegation.md)
 
 ## offensive security
 
+* [Domain Compromise via DC Print Server and Kerberos Delegation](offensive-security/domain-compromise-via-dc-print-server-and-kerberos-delegation.md)
 * [Pentesting Cheatsheets](offensive-security/offensive-security-cheetsheets.md)
 * [T1055: Process Injection](offensive-security/t1055-process-injection/README.md)
   * [CreateRemoteThread Shellcode Injection](offensive-security/t1055-process-injection/process-injection.md)
@@ -92,7 +94,6 @@
 * [WMI + MSI Lateral Movement](offensive-security/wmi-+-msi-lateral-movement.md)
 * [WMI + NewScheduledTaskAction Lateral Movement](offensive-security/wmi-via-newscheduledtask.md)
 * [Empire Shells with NetNLTMv2 Relaying](offensive-security/empire-shells-with-netnltmv2-relaying.md)
-* [Domain Compromise via Unrestricted Kerberos Delegation](offensive-security/domain-compromise-via-unrestricted-kerberos-delegation.md)
 
 ## Memory Forensics
 
