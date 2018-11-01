@@ -94,6 +94,7 @@
 * [Unloading Sysmon Driver](offensive-security/unloading-sysmon-driver.md)
 * [WMI + MSI Lateral Movement](offensive-security/wmi-+-msi-lateral-movement.md)
 * [WMI + NewScheduledTaskAction Lateral Movement](offensive-security/wmi-via-newscheduledtask.md)
+* [WMI + PowerShell Desired State Configuration Lateral Movement](offensive-security/wmi-+-powershell-desired-state-configuration-lateral-movement.md)
 * [Empire Shells with NetNLTMv2 Relaying](offensive-security/empire-shells-with-netnltmv2-relaying.md)
 
 ## Memory Forensics
