@@ -10,7 +10,7 @@ This lab explores an attack that allows any domain user to request kerberos tick
 
 Note the vulnerable domain member - a user account with `servicePrincipalName` attribute set, which is very important piece for kerberoasting - only user accounts with that property set are most likely susceptible to kerberoasting:
 
-![](../../../.gitbook/assets/kerberoast-principalname.png)
+![](../../.gitbook/assets/kerberoast-principalname.png)
 
 Attacker setting up an nc listener to receive a hash for cracking:
 
@@ -34,7 +34,7 @@ Get-NetUser | Where-Object {$_.servicePrincipalName} | fl
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-![](../../../.gitbook/assets/kerberoast-enumeration.png)
+![](../../.gitbook/assets/kerberoast-enumeration.png)
 
 Using only built-in powershell, we can extract the susceptible accounts with:
 
@@ -42,7 +42,7 @@ Using only built-in powershell, we can extract the susceptible accounts with:
 get-adobject | Where-Object {$_.serviceprincipalname -ne $null -and $_.distinguishedname -like "*CN=Users*" -and $_.cn -ne "krbtgt"}
 ```
 
-![](../../../.gitbook/assets/kerberoast-powershell.png)
+![](../../.gitbook/assets/kerberoast-powershell.png)
 
 It would have been better to use the following command provided by [Sean Metcalf](https://adsecurity.org/?p=2293) purely because of the `-filter` usage \(quicker than `select-object`\), but it did not work for me:
 
@@ -56,7 +56,7 @@ Additionally, user accounts with SPN set could be extracted with a native window
  setspn -T offense -Q */*
 ```
 
-![](../../../.gitbook/assets/kerberoast-setspn%20%281%29.png)
+![](../../.gitbook/assets/kerberoast-setspn%20%281%29.png)
 
 Attacker requesting a kerberos ticket \(TGS\) for a user account with `servicePrincipalName` set to `HTTP/dc-mantvydas.offense.local`- it gets stored in the memory:
 
@@ -69,7 +69,7 @@ New-Object System.IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentL
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-![](../../../.gitbook/assets/kerberoast-kerberos-token.png)
+![](../../.gitbook/assets/kerberoast-kerberos-token.png)
 
 Using mimikatz, the attacker extracts kerberos ticket from the memory and exports it to a file for cracking:
 
@@ -81,7 +81,7 @@ mimikatz # kerberos::list /export
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-![](../../../.gitbook/assets/kerberoast-exported-kerberos-tickets.png)
+![](../../.gitbook/assets/kerberoast-exported-kerberos-tickets.png)
 
 Attacker sends the exported service ticket to attacking machine for offline cracking:
 
@@ -105,27 +105,27 @@ python2 tgsrepcrack.py pwd kerberoast.bin
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-![](../../../.gitbook/assets/kerberoast-cracked.png)
+![](../../.gitbook/assets/kerberoast-cracked.png)
 
 ## Observations
 
 Below is a security log `4769` showing service access being requested:
 
-![](../../../.gitbook/assets/kerberoast-4769.png)
+![](../../.gitbook/assets/kerberoast-4769.png)
 
 If you see `Add-event -AssemblyName SystemIdentityModel` \(from advanced Powershell logging\) followed by a windows security event `4769` immediately after that, you may be looking at an old school Kerberoasting, especially if ticket encryption type has a value `0x17` \(23 decimal, meaning it's RC4 encrypted\):
 
-![](../../../.gitbook/assets/kerberoast-logs.png)
+![](../../.gitbook/assets/kerberoast-logs.png)
 
 ### Traffic
 
 Below is the screenshot showing a request being sent to the `Ticket Granting Service` \(TGS\) for the service with a servicePrincipalName `HTTP/dc-mantvydas.offense.local` :
 
-![](../../../.gitbook/assets/kerberoast-tgs-req.png)
+![](../../.gitbook/assets/kerberoast-tgs-req.png)
 
-Below is the response from the TGS for the user `spotless` \(we initiated this attack from offense\spotless\) which contains the encrypted \(RC4\) kerberos ticket \(server part\) to access the `HTTP/dc-mantvydas.offense.local` service. It is the same ticket we cracked earlier with [tgsrepcrack.py](./#cracking-the-ticket):
+Below is the response from the TGS for the user `spotless` \(we initiated this attack from offense\spotless\) which contains the encrypted \(RC4\) kerberos ticket \(server part\) to access the `HTTP/dc-mantvydas.offense.local` service. It is the same ticket we cracked earlier with [tgsrepcrack.py](t1208-kerberoasting.md#cracking-the-ticket):
 
-![](../../../.gitbook/assets/kerberoast-tgs-res.png)
+![](../../.gitbook/assets/kerberoast-tgs-res.png)
 
 Out of curiosity, let's decrypt the kerberos ticket since we have the password the ticket was encrypted with. 
 
@@ -142,29 +142,29 @@ ktutil:  wkt /root/tools/iis.keytab
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-![](../../../.gitbook/assets/kerberoast-creating-keytab.png)
+![](../../.gitbook/assets/kerberoast-creating-keytab.png)
 
 Adding the keytab to wireshark:
 
-![](../../../.gitbook/assets/kerberoast-wireshark-keytab.png)
+![](../../.gitbook/assets/kerberoast-wireshark-keytab.png)
 
 Note how the ticket's previously encrypted piece is now in plain text and we can see information pertinent to the requested ticket for a service `HTTP/dc-mantvydas.offense.local` :
 
-![](../../../.gitbook/assets/kerberoast-decrypted.png)
+![](../../.gitbook/assets/kerberoast-decrypted.png)
 
 ### tgsrepcrack.py
 
 Looking inside the code and adding a couple of print statements in key areas of the script, we can see that the password from the dictionary \(`Passw0rd`\) initially gets converted into an NTLM \(`K0`\) hash, then another key `K1` is derived from the initial hash and a message type, yet another key `K2` is derived from K1 and an MD5 digest of the encrypted data. Key `K2` is the actual key used to decrypt the encrypted ticket data:
 
-![](../../../.gitbook/assets/kerberoast-crackstation.png)
+![](../../.gitbook/assets/kerberoast-crackstation.png)
 
-![](../../../.gitbook/assets/kerberoast-printstatements.png)
+![](../../.gitbook/assets/kerberoast-printstatements.png)
 
 I did not have to, but I also used an online RC4 decryptor tool to confirm the above findings:
 
-![](../../../.gitbook/assets/kerberoast-decryptedonline.png)
+![](../../.gitbook/assets/kerberoast-decryptedonline.png)
 
-{% file src="../../../.gitbook/assets/kerberoast.pcap" caption="kerberoast.pcap" %}
+{% file src="../../.gitbook/assets/kerberoast.pcap" caption="kerberoast.pcap" %}
 
 ## References
 
