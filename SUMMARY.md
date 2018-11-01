@@ -4,6 +4,7 @@
 
 ## Pinned posts
 
+* [Pentesting Cheatsheets](offensive-security-experiments/offensive-security-cheetsheets.md)
 * [Powershell Payload Delivery via DNS using Invoke-PowerCloud](offensive-security-experiments/payload-delivery-via-dns-using-invoke-powercloud.md)
 * [Masquerading Processes in Userland via \_PEB](offensive-security-experiments/masquerading-processes-in-userland-through-_peb.md)
 * [Active Directory](offensive-security-experiments/active-directory/README.md)
@@ -18,7 +19,6 @@
 
 ## offensive security
 
-* [Pentesting Cheatsheets](offensive-security/offensive-security-cheetsheets.md)
 * [T1055: Process Injection](offensive-security/t1055-process-injection/README.md)
   * [CreateRemoteThread Shellcode Injection](offensive-security/t1055-process-injection/process-injection.md)
   * [DLL Injection](offensive-security/t1055-process-injection/dll-injection.md)
