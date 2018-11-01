@@ -10,7 +10,6 @@
 
 ## offensive security
 
-* [Domain Compromise via DC Print Server and Kerberos Delegation](offensive-security/domain-compromise-via-dc-print-server-and-kerberos-delegation.md)
 * [Pentesting Cheatsheets](offensive-security/offensive-security-cheetsheets.md)
 * [T1055: Process Injection](offensive-security/t1055-process-injection/README.md)
   * [CreateRemoteThread Shellcode Injection](offensive-security/t1055-process-injection/process-injection.md)
@@ -33,6 +32,7 @@
   * [Kerberos: Silver Tickets](offensive-security/t1208-kerberoasting/kerberos-silver-tickets.md)
   * [Kerberos: Golden Tickets](offensive-security/t1208-kerberoasting/kerberos-golden-tickets.md)
 * [T1134: Primary Access Token Manipulation](offensive-security/t1134-access-token-manipulation.md)
+* [Domain Compromise via DC Print Server and Kerberos Delegation](offensive-security/domain-compromise-via-dc-print-server-and-kerberos-delegation.md)
 * [AV Bypass with Metasploit Templates and Custom Binaries](offensive-security/av-bypass-with-metasploit-templates.md)
 * [Red Team Infrastructure](offensive-security/red-team-infrastructure/README.md)
   * [HTTP Forwarders / Relays](offensive-security/red-team-infrastructure/redirectors-forwarders.md)
