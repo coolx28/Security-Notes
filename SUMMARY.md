@@ -13,6 +13,7 @@
   * [Kerberos: Silver Tickets](offensive-security-experiments/active-directory/kerberos-silver-tickets.md)
   * [Domain Compromise via Unrestricted Kerberos Delegation](offensive-security-experiments/active-directory/domain-compromise-via-unrestricted-kerberos-delegation.md)
   * [Domain Compromise via DC Print Server and Kerberos Delegation](offensive-security-experiments/active-directory/domain-compromise-via-dc-print-server-and-kerberos-delegation.md)
+  * [T1207: DCShadow](offensive-security-experiments/active-directory/t1207-dcshadow.md)
   * [PowerView: Active Directory Enumeration](offensive-security-experiments/active-directory/active-directory-enumeration-with-powerview.md)
 
 ## offensive security
@@ -74,7 +75,6 @@
 * [T1209: Hijacking Time Providers](offensive-security/t1209-hijacking-time-providers.md)
 * [T1084: Abusing Windows Managent Instrumentation](offensive-security/t1084-abusing-windows-managent-instrumentation/README.md)
   * [WMI as a Data Storage](offensive-security/t1084-abusing-windows-managent-instrumentation/wmi-data-storage.md)
-* [T1207: DCShadow](offensive-security/t1207-dcshadow.md)
 * [T1076: RDP Hijacking for Lateral Movement with tscon](offensive-security/t1076-rdp-hijacking-for-lateral-movement.md)
 * [T1140: Encode/Decode Data with Certutil](offensive-security/t1140-encode-decode-data-with-certutil.md)
 * [Downloading Files with Certutil](offensive-security/downloading-file-with-certutil.md)
