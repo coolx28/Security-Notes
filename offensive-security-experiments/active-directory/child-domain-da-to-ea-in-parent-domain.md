@@ -4,7 +4,7 @@ description: >-
   Escalation
 ---
 
-# From DA to EA
+# From Domain Admin to Enterprise Admin
 
 This lab is based on an [Empire Case Study](https://enigma0x3.net/2016/01/28/an-empire-case-study/) and its goal is to get more familiar with some of the concepts of Powershell Empire and its modules as well as Active Directory concepts such as Forests, Parent/Child domains and Trust Relationships and how they can be abused to escalate privileges.
 

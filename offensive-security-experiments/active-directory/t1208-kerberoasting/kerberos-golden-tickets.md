@@ -20,7 +20,7 @@ mimikatz # lsadump::lsa /inject /name:krbtgt
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-![](../../.gitbook/assets/kerberos-golden-krbtgt-hash.png)
+![](../../../.gitbook/assets/kerberos-golden-krbtgt-hash.png)
 
 Creating a forged golden ticket that automatically gets injected in current logon session's memory:
 
@@ -32,25 +32,25 @@ mimikatz # kerberos::golden /domain:offense.local /sid:S-1-5-21-4172452648-10219
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-![](../../.gitbook/assets/kerberos-golden-create.png)
+![](../../../.gitbook/assets/kerberos-golden-create.png)
 
 Checking if the ticket got created:
 
-![](../../.gitbook/assets/kerberos-golden-klist.png)
+![](../../../.gitbook/assets/kerberos-golden-klist.png)
 
 Opening another powershell console with low privileged account and trying to mount a `c$` share of `pc-mantvydas` and `dc-mantvydas` - not surprisingly, returns access denied:
 
-![](../../.gitbook/assets/kerberos-golden-denied.png)
+![](../../../.gitbook/assets/kerberos-golden-denied.png)
 
 However, switching back to the console the attacker used to create the golden ticket \(local admin\) and again attempting to access `c$` share of the domain controller - this time is a success:
 
-![](../../.gitbook/assets/kerberos-golden-granted.png)
+![](../../../.gitbook/assets/kerberos-golden-granted.png)
 
 ## Observations
 
-![](../../.gitbook/assets/kerberos-golden-logon.png)
+![](../../../.gitbook/assets/kerberos-golden-logon.png)
 
-![](../../.gitbook/assets/kerberos-golden-share.png)
+![](../../../.gitbook/assets/kerberos-golden-share.png)
 
 ## References
 

@@ -6,7 +6,14 @@
 
 * [Powershell Payload Delivery via DNS using Invoke-PowerCloud](offensive-security-experiments/payload-delivery-via-dns-using-invoke-powercloud.md)
 * [Masquerading Processes in Userland via \_PEB](offensive-security-experiments/masquerading-processes-in-userland-through-_peb.md)
-* [Domain Compromise via Unrestricted Kerberos Delegation](offensive-security-experiments/domain-compromise-via-unrestricted-kerberos-delegation.md)
+* [Active Directory](offensive-security-experiments/active-directory/README.md)
+  * [From Domain Admin to Enterprise Admin](offensive-security-experiments/active-directory/child-domain-da-to-ea-in-parent-domain.md)
+  * [T1208: Kerberoasting](offensive-security-experiments/active-directory/t1208-kerberoasting/README.md)
+    * [Kerberos: Silver Tickets](offensive-security-experiments/active-directory/t1208-kerberoasting/kerberos-silver-tickets.md)
+    * [Kerberos: Golden Tickets](offensive-security-experiments/active-directory/t1208-kerberoasting/kerberos-golden-tickets.md)
+  * [Domain Compromise via Unrestricted Kerberos Delegation](offensive-security-experiments/active-directory/domain-compromise-via-unrestricted-kerberos-delegation.md)
+  * [Domain Compromise via DC Print Server and Kerberos Delegation](offensive-security-experiments/active-directory/domain-compromise-via-dc-print-server-and-kerberos-delegation.md)
+  * [PowerView: Active Directory Enumeration](offensive-security-experiments/active-directory/active-directory-enumeration-with-powerview.md)
 
 ## offensive security
 
@@ -28,11 +35,7 @@
   * [Security Accounts Manager](offensive-security/t1003-credential-dumping/sam.md)
   * [NTDS - Domain Controller](offensive-security/t1003-credential-dumping/ntds.dit-enumeration.md)
   * [Network vs Interactive Logons](offensive-security/t1003-credential-dumping/network-vs-interactive-logons.md)
-* [T1208: Kerberoasting](offensive-security/t1208-kerberoasting/README.md)
-  * [Kerberos: Silver Tickets](offensive-security/t1208-kerberoasting/kerberos-silver-tickets.md)
-  * [Kerberos: Golden Tickets](offensive-security/t1208-kerberoasting/kerberos-golden-tickets.md)
 * [T1134: Primary Access Token Manipulation](offensive-security/t1134-access-token-manipulation.md)
-* [Domain Compromise via DC Print Server and Kerberos Delegation](offensive-security/domain-compromise-via-dc-print-server-and-kerberos-delegation.md)
 * [AV Bypass with Metasploit Templates and Custom Binaries](offensive-security/av-bypass-with-metasploit-templates.md)
 * [Red Team Infrastructure](offensive-security/red-team-infrastructure/README.md)
   * [HTTP Forwarders / Relays](offensive-security/red-team-infrastructure/redirectors-forwarders.md)
@@ -84,9 +87,7 @@
 * [T1010: Application Window Discovery](offensive-security/t1010-application-window-discovery.md)
 * [T1087: Account Discovery & Enumeration](offensive-security/t1087-account-discovery.md)
 * [T1175: Lateral Movement via DCOM](offensive-security/t1175-distributed-component-object-model.md)
-* [Powershell Empire 101](offensive-security/powershell-empire-101/README.md)
-  * [From DA to EA](offensive-security/powershell-empire-101/child-domain-da-to-ea-in-parent-domain.md)
-* [PowerView: Active Directory Enumeration](offensive-security/active-directory-enumeration-with-powerview.md)
+* [Powershell Empire 101](offensive-security/powershell-empire-101.md)
 * [Powershell Constrained Language Mode ByPass](offensive-security/powershell-constrained-language-mode-bypass.md)
 * [Powershell Without Powershell.exe](offensive-security/powershell-without-powershell.md)
 * [Detecting Sysmon on the Victim Host](offensive-security/detecting-sysmon-on-the-victim-host.md)
