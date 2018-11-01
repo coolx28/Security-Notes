@@ -48,6 +48,10 @@ mimikatz # lsadump::dcsync /domain:offense.local /user:spotless
 
 The above clearly shows the attack was successful and an NTLM hash for the user spotless got retrieved -  get cracking or passing it now.
 
+## Mitigation
+
+For mitigations, see [Domain Compromise via Unrestricted Kerberos Delegation](domain-compromise-via-unrestricted-kerberos-delegation.md#mitigation) mitigations section.
+
 ## References
 
 {% embed url="https://github.com/leechristensen/SpoolSample" %}
