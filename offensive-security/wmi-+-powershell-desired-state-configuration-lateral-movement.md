@@ -8,7 +8,7 @@ This lab is simply a test of the lateral movement technique desrcibed by Matt Gr
 
 ## Execution
 
-Below is the powershell script that allows an attacker to execute code on a remote machine via WMI. Note that the payload is defined in the variable `TestScript` on line 7. In our case, the payload is a rudimentary nc reverse shell:
+Below is the powershell script that allows an attacker to execute code on a remote machine via WMI. Note that the payload is defined in the variable `TestScript` on line 7. In our case, the payload is a rudimentary nc reverse shell \(luckily, we know the victim has nc on their machine :\):
 
 {% code-tabs %}
 {% code-tabs-item title="dsc.ps1" %}
