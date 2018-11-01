@@ -9,9 +9,7 @@ This lab demonstrates an attack on Active Directory Domain Controller \(or any o
   * Once the API is called, the DC attempts to authenticate to the compromised host by revealing its TGT to the attacker controlled compromised system.
 * Attacker extracts `DC01's` TGT from the compromised system and impersonates the DC to carry a DCSync attack and dump domain member hashes.
 
-This lab builds on:
-
-{% page-ref page="domain-compromise-via-unrestricted-kerberos-delegation.md" %}
+This lab builds on [Domain Compromise via Unrestricted Kerberos Delegation](domain-compromise-via-unrestricted-kerberos-delegation.md)
 
 ## Execution
 
