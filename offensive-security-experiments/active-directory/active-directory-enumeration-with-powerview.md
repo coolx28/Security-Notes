@@ -50,6 +50,16 @@ Enumerate forest trusts from the current domain's perspective:
 
 ![](../../.gitbook/assets/powerview-foresttrusts.png)
 
+## Get-NetProcess
+
+Get running processes for a given remote machine:
+
+```csharp
+Get-NetProcess -ComputerName dc01 -RemoteUserName offense\administrator -RemotePassword 123456 | ft
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-11-02-10-11-17.png)
+
 ## Invoke-MapDomainTrust
 
 Enumerate and map all domain trusts:
