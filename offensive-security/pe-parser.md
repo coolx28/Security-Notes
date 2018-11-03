@@ -1,6 +1,9 @@
 # PE Parser
 
 ```cpp
+// perparser.cpp : Defines the entry point for the console application.
+//
+
 #include "stdafx.h"
 #include "Windows.h"
 
@@ -105,25 +108,30 @@ int main() {
 	printf("\n******* SECTION HEADERS *******\n");
 	DWORD sectionLocation = (DWORD)imageNTHeaders + sizeof(DWORD) + (DWORD)(sizeof(IMAGE_FILE_HEADER)) + (DWORD)imageNTHeaders->FileHeader.SizeOfOptionalHeader;
 	DWORD sectionSize = (DWORD)sizeof(IMAGE_SECTION_HEADER);
-	DWORD offset = 0;
 	
 	for (int i = 0; i < imageNTHeaders->FileHeader.NumberOfSections; i++) {
 		sectionHeaders = (PIMAGE_SECTION_HEADER)sectionLocation;
 		printf("\tName:%s\n", sectionHeaders->Name);
-		printf("\t\t0x%x\tPhysical Address\n", sectionHeaders->Misc.PhysicalAddress);
-		printf("\t\t0x%x\tVirtual Size\n", sectionHeaders->Misc.VirtualSize);
-		printf("\t\t0x%x\tVirtual Address\n", sectionHeaders->VirtualAddress);
-		printf("\t\t0x%x\tSize Of Raw Data\n", sectionHeaders->SizeOfRawData);
-		printf("\t\t0x%x\tPointer To Raw Data\n", sectionHeaders->PointerToRawData);
-		printf("\t\t0x%x\tPointer To Relocations\n", sectionHeaders->PointerToRelocations);
-		printf("\t\t0x%x\tPointer To Line Numbers\n", sectionHeaders->PointerToLinenumbers);
-		printf("\t\t0x%x\tNumber Of Relocations\n", sectionHeaders->NumberOfRelocations);
-		printf("\t\t0x%x\tNumber Of Line Numbers\n", sectionHeaders->NumberOfLinenumbers);
-		printf("\t\t0x%x\tCharacteristics\n", sectionHeaders->Characteristics);
-		
+		printf("\t\t0x%x\t\tPhysical Address\n", sectionHeaders->Misc.PhysicalAddress);
+		printf("\t\t0x%x\t\tVirtual Size\n", sectionHeaders->Misc.VirtualSize);
+		printf("\t\t0x%x\t\tVirtual Address\n", sectionHeaders->VirtualAddress);
+		printf("\t\t0x%x\t\tSize Of Raw Data\n", sectionHeaders->SizeOfRawData);
+		printf("\t\t0x%x\t\tPointer To Raw Data\n", sectionHeaders->PointerToRawData);
+		printf("\t\t0x%x\t\tPointer To Relocations\n", sectionHeaders->PointerToRelocations);
+		printf("\t\t0x%x\t\tPointer To Line Numbers\n", sectionHeaders->PointerToLinenumbers);
+		printf("\t\t0x%x\t\tNumber Of Relocations\n", sectionHeaders->NumberOfRelocations);
+		printf("\t\t0x%x\t\tNumber Of Line Numbers\n", sectionHeaders->NumberOfLinenumbers);
+		printf("\t\t0x%x\tCharacteristics\n", sectionHeaders->Characteristics);		
 		sectionLocation += sectionSize;
 	}
+
+	// IMPORT_DIRECTORY
+	printf("\n******* IMPORT DIRECTORY *******\n");
+	//PIMAGE_IMPORT_DESCRIPTOR
+	
     return 0;
 }
+
+
 ```
 
