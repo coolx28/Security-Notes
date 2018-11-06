@@ -1,4 +1,31 @@
-# PE File Header Parser in C++
+# Parsing PE File Headers with C++
+
+## Context
+
+In this lab I'm writing a simple Portable Executable \(PE\) file header parser for 32bit binaries, using C++ as the programming language of choice.
+
+The purpose of this lab is two-fold:
+
+* Get a bit more comfortable with C++
+* Get a better understanding of PE file headers
+
+This lab is going to be light on text as most of the relevant info is shown in the code below, but I will touch on the piece that confused me the most in this endevour.
+
+Below is a graphic showing the end result - a program that parses a 32bit cmd.exe executable and spits out various pieces of information of from various headers as well as DLL imports.
+
+![](../.gitbook/assets/peek-2018-11-06-20-13.gif)
+
+{% hint style="warning" %}
+* The code is not made to work for 64bit executables
+* The code was not meant to be clean and well organised as it was not the goal of this lab
+* The parser is not full-blown - it only goes through the headers and DLL imports only \(no exports, relocations or resources, etc\)
+{% endhint %}
+
+## The Big Hurdle
+
+For the most part of this lab, header parsing was going smoothly, until it was time to parse the DLL imports. Boy this was fun and mind twisting.
+
+## Code
 
 ```cpp
 #include "stdafx.h"
@@ -17,10 +44,16 @@ int main(int argc, char* argv[]) {
 	PIMAGE_NT_HEADERS imageNTHeaders = {};
 	PIMAGE_SECTION_HEADER sectionHeader = {};
 	PIMAGE_SECTION_HEADER importSection = {};
+	IMAGE_IMPORT_DESCRIPTOR* importDescriptor = {};
+	PIMAGE_THUNK_DATA thunkData = {};
+	DWORD thunk = NULL;
+	DWORD rawOffset = NULL;
 
 	// open file
 	file = CreateFileA(fileName, GENERIC_ALL, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (file == INVALID_HANDLE_VALUE) printf("Could not read file");
+	
+	// allocate heap
 	fileSize = GetFileSize(file, NULL);
 	fileData = HeapAlloc(GetProcessHeap(), 0, fileSize);
 	
@@ -74,7 +107,7 @@ int main(int argc, char* argv[]) {
 	printf("\t0x%x\t\tSize Of UnInitialized Data\n", imageNTHeaders->OptionalHeader.SizeOfUninitializedData);
 	printf("\t0x%x\t\tAddress Of Entry Point (.text)\n", imageNTHeaders->OptionalHeader.AddressOfEntryPoint);
 	printf("\t0x%x\t\tBase Of Code\n", imageNTHeaders->OptionalHeader.BaseOfCode);
-	printf("\t0x%x\t\tBase Of Data\n", imageNTHeaders->OptionalHeader.BaseOfData);
+	//printf("\t0x%x\t\tBase Of Data\n", imageNTHeaders->OptionalHeader.BaseOfData);
 	printf("\t0x%x\t\tImage Base\n", imageNTHeaders->OptionalHeader.ImageBase);
 	printf("\t0x%x\t\tSection Alignment\n", imageNTHeaders->OptionalHeader.SectionAlignment);
 	printf("\t0x%x\t\tFile Alignment\n", imageNTHeaders->OptionalHeader.FileAlignment);
@@ -104,12 +137,14 @@ int main(int argc, char* argv[]) {
 
 	// SECTION_HEADERS
 	printf("\n******* SECTION HEADERS *******\n");
+	// get offset to first section headeer
 	DWORD sectionLocation = (DWORD)imageNTHeaders + sizeof(DWORD) + (DWORD)(sizeof(IMAGE_FILE_HEADER)) + (DWORD)imageNTHeaders->FileHeader.SizeOfOptionalHeader;
 	DWORD sectionSize = (DWORD)sizeof(IMAGE_SECTION_HEADER);
-	IMAGE_IMPORT_DESCRIPTOR* importDescriptor = {};
-	PIMAGE_THUNK_DATA thunkData = {};
+	
+	// get offset to the import directory RVA
 	DWORD importDirectoryRVA = imageNTHeaders->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress;
 
+	// print section data
 	for (int i = 0; i < imageNTHeaders->FileHeader.NumberOfSections; i++) {
 		sectionHeader = (PIMAGE_SECTION_HEADER)sectionLocation;
 		printf("\t%s\n", sectionHeader->Name);
@@ -123,17 +158,18 @@ int main(int argc, char* argv[]) {
 		printf("\t\t0x%x\t\tNumber Of Line Numbers\n", sectionHeader->NumberOfLinenumbers);
 		printf("\t\t0x%x\tCharacteristics\n", sectionHeader->Characteristics);
 
-		// save section that contains import directory
+		// save section that contains import directory table
 		if (importDirectoryRVA >= sectionHeader->VirtualAddress && importDirectoryRVA < sectionHeader->VirtualAddress + sectionHeader->Misc.VirtualSize) {
 			importSection = sectionHeader;
 		}
 		sectionLocation += sectionSize;
 	}
 
-	// file offset to import table
-	DWORD rawOffset = (DWORD)fileData + importSection->PointerToRawData;
+	// get file offset to import table
+	rawOffset = (DWORD)fileData + importSection->PointerToRawData;
+	
+	// get pointer to import descriptor's fileoffset. Note that the formula for calculating file offset is: imageBaseAddress + pointerToRawDataOfTheSectionContainingRVAofInterest + (RVAofInterest - SectionContainingRVAofInterest.VirtualAddress)
 	importDescriptor = (PIMAGE_IMPORT_DESCRIPTOR)(rawOffset + (imageNTHeaders->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress - importSection->VirtualAddress));
-	DWORD thunk = 0;
 	
 	printf("\n******* DLL IMPORTS *******\n");	
 	for (; importDescriptor->Name != 0; importDescriptor++)	{
@@ -144,7 +180,7 @@ int main(int argc, char* argv[]) {
 		
 		// dll exported functions
 		for (; thunkData->u1.AddressOfData != 0; thunkData++) {
-			//a cheap and probably non-reliable way of check if the function is imported via its ordinal number ¯\_(ツ)_/¯
+			//a cheap and probably non-reliable way of checking if the function is imported via its ordinal number ¯\_(ツ)_/¯
 			if (thunkData->u1.AddressOfData > 0x80000000) {
 				//show lower bits of the value to get the ordinal ¯\_(ツ)_/¯
 				printf("\t\tOrdinal: 0x%x\n", (WORD)thunkData->u1.AddressOfData);
@@ -157,4 +193,6 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 ```
+
+## References
 
