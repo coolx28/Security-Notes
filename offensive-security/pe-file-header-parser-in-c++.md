@@ -23,9 +23,157 @@ Below is a graphic showing the end result - a program that parses a 32bit cmd.ex
 
 ## The Big Hurdle
 
-For the most part of this lab, header parsing was going smoothly, until it was time to parse the DLL imports. Boy this was fun and mind twisting.
+For the most part of this lab, header parsing was going smoothly, until it was time to parse the DLL imports - this bit right here:
+
+![](../.gitbook/assets/screenshot-from-2018-11-06-20-11-12.png)
+
+Parsing out imported DLLs and their functions requires some offset calculations that initially may seem confusing and this is the bit I will try to put down in words here.
+
+So how do we go about extracting the DLL names the binary imports and the function names that DLL exports?
+
+First off, some terms:
+
+* Relative Virtual Address \(RVA\) - address of some item in memory minus the base address of the image.
+* Virtual Address \(VA\) - virtual memory address of some item in memory without the base address subtracted.
+  * For example, if we have a VA `0x01004000` and we know that the image base address is `0x0100000`, the RVA is `0x01004000 - 0x01000000 = 0x0004000`.
+* `Data Directories` - part of the `Optional Header` and contains RVAs to various tables - exports, resources and most importantly for this lab - imports. It also contains size of the table.
+* `Section` - a PE header that defines various sections contained in the PE. Some sections are `.text` - this is where the assembly code is stored, `.data` - contains global and static local variables, etc.
+
+## Calculating Offsets
+
+If we look at the notepad.exe binary using CFF Explorer \(or any other similar program\) and inspect the `Data Directories` from the `Optional Header` , we can see that the Import Table is located at RVA `0x0000A0A0` that happens to live in the `.text` section:
+
+![](../.gitbook/assets/screenshot-from-2018-11-06-20-51-04.png)
+
+Indeed, if we look at the Section Headers and note the values `Virtual Size` and `Virtual Address` for the `.text` section:
+
+![](../.gitbook/assets/screenshot-from-2018-11-06-20-51-27.png)
+
+and check if the `Import Directory RVA` of `0x0000A0A0` falls into the range of .text section like so:
+
+```csharp
+0x000a0a0 > 0x00001000 and 0x000a0a0 < 0x00001000 + 0x0000a6fc
+```
+
+...we can confirm it definitely does:
+
+![](../.gitbook/assets/screenshot-from-2018-11-06-21-26-56.png)
+
+Now in order to read out DLL names that this binary imports, we first need to populate a data structure called `PIMAGE_IMPORT_DESCRIPTOR` 
+
+In order to do this, we need to translate the `Import Directory RVA` to the file offset - a place in the binary file where the DLL import information is stored. The way this can be achieved is by using the following formula:
+
+$$
+offset = imageBase + text.RawOffset + (importDirectory.VA - text.VA)
+$$
+
+where `imageBase` is the start address of where the binary image is loaded, `text.RawOffset` is the `Raw Address` value from the `.text` section, `text.VA` is `Virtual Address` value from the `.text` section and `importDirectory.VA` is the `Import Directory RVA` value from `Data Directories` in `Optional Header`.
+
+Below is some simple powershell to do the calculations to get a file offset that we can later use for filling up the `PIMAGE_IMPORT_DESCRIPTOR` structure:
+
+{% code-tabs %}
+{% code-tabs-item title="PIMAGE\_IMPORT\_DESCRIPTOR" %}
+```csharp
+PS C:\Users\mantvydas> $fileBase = 0x0
+PS C:\Users\mantvydas> $textRawOffset = 0x00000400
+PS C:\Users\mantvydas> $importDirectoryRVA = 0x0000A0A0
+PS C:\Users\mantvydas> $textVA = 0x00001000
+PS C:\Users\mantvydas>
+PS C:\Users\mantvydas> # this points to the start of the .text section
+PS C:\Users\mantvydas> $rawOffsetToTextSection = $fileBase + $textRawOffset
+PS C:\Users\mantvydas> $importDescriptor = $rawOffsetToTextSection + ($importDirectoryRVA - $textVA)
+PS C:\Users\mantvydas> [System.Convert]::ToString($importDescriptor, 16)
+
+// this is the file offset we are looking for for PIMAGE_IMPORT_DESCRIPTOR
+94a0
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+If we check the file offset 0x95cc, we can see we are getting close to a list of imported DLL names - note that at we can see the VERSION.dll starting - that is a good start:
+
+![](../.gitbook/assets/screenshot-from-2018-11-06-22-08-49.png)
+
+Now more importantly, note the value highlighted at 0x000094ac - 7C A2 00 00 \(read A2 7C due to little indianness\) - this is important. If we consider the layout of the `PIMAGE_IMPORT_DESCRIPTOR` structure, we can see that the fourth member of the structure \(each member is a DWORD, so 4 bytes in size\) is `DWORD Name`, which implies that 0x000094ac contains something that should be useful for us to get our first imported DLL's name.
+
+![](../.gitbook/assets/screenshot-from-2018-11-06-22-12-26.png)
+
+Indeed, if we check the Import Directory of notepad.exe in CFF explorer, we see that indeed, the 0xA27C is another RVA to the DLL name, which happens to be ADVAPI32.dll:
+
+![](../.gitbook/assets/screenshot-from-2018-11-06-22-27-43.png)
+
+If we look closer at the ADVAPI32.dll import details and compare it with the hex dump at x94A0, we can see the remaining info laid out nicely as well:
+
+![](../.gitbook/assets/screenshot-from-2018-11-06-22-43-11.png)
+
+Let's see if we can translate this `Name RVA 0xA27c` to the file offset using the technique we used earlier and finally get the first imported DLL name. 
+
+This time the formula is:
+
+$$
+offset = imageBase + text.RawOffset + (nameRVA - text.VA)
+$$
+
+where `nameRVA` is `Name RVA` value for ADVAPI.dll from the Import Directory.
+
+Again, some powersehell to do the file offset calculation for us:
+
+```csharp
+# first dll name
+$nameRVA = 0x0000A27C
+$firstDLLname = $rawOffsetToTextSection + ($nameRVA - $textVA)
+[System.Convert]::ToString($firstDLLname, 16)
+```
+
+![](../.gitbook/assets/screenshot-from-2018-11-06-22-33-24.png)
+
+If we check offset `0x967c` in our hex editor - success, we found our first DLL name:
+
+![](../.gitbook/assets/screenshot-from-2018-11-06-22-34-51.png)
+
+Now in order to get the list of imported functions from the given DLL, we need to use a structure called .`PIMAGE_THUNK_DATA32`which looks like this:
+
+![](../.gitbook/assets/screenshot-from-2018-11-06-22-51-11.png)
+
+In order to utilise the above structure, again, we need to translate a RVA of the `OriginalFirstThunk` member of the structure `PIMAGE_IMPORT_DESCRIPTOR` which in our case was pointing to 0x0000A28C:
+
+![](../.gitbook/assets/screenshot-from-2018-11-06-22-55-16.png)
+
+If we use the same formula for calculating RVAs as previously and use the below Powershell to calculate the file offset, we get:
+
+```csharp
+# first thunk
+$firstThunk = $rawOffsetToTextSection + (0x0000A28C - $textVA)
+[System.Convert]::ToString($firstThunk, 16)
+
+968c
+```
+
+![](../.gitbook/assets/screenshot-from-2018-11-06-22-59-13.png)
+
+At that offset 968c+4 \(+4 because per `PIMAGE_THUNK_DATA32` structure layout, the second member is called `Function` and this is the member we are interested in\), we see another a couple more RVAs - `0x0000a690` and `0x0000a6a2`:
+
+![](../.gitbook/assets/screenshot-from-2018-11-06-23-03-44.png)
+
+If we do a final RVA to file offset conversion for the second RVA a6a2:
+
+```csharp
+$firstFunction = $rawOffsetToTextSection + (0x0000A6A2 - $textVA)
+[System.Convert]::ToString($firstFunction, 16)
+9aa2
+```
+
+Finally, with the file offset 9aa2, we geet to see our first \(but second for the DLL\) imported function name! Note that the function name actually starts 2 bytes further into the file, so the file offset 9aa2 becomes 9aa2 + 2 = 9aa4 - currently I'm not sure what the reason for this is:
+
+![](../.gitbook/assets/screenshot-from-2018-11-06-23-14-05.png)
+
+Cross checking the above findings with CFF Explorer's Imported DLLs parser, we can see that our calculations were correct:
+
+![](../.gitbook/assets/screenshot-from-2018-11-06-23-19-37.png)
 
 ## Code
+
+The below code shows how to loop through the file in its entirety to parse all the DLLs and all of their imported functions.
 
 ```cpp
 #include "stdafx.h"
@@ -183,7 +331,7 @@ int main(int argc, char* argv[]) {
 			//a cheap and probably non-reliable way of checking if the function is imported via its ordinal number ¯\_(ツ)_/¯
 			if (thunkData->u1.AddressOfData > 0x80000000) {
 				//show lower bits of the value to get the ordinal ¯\_(ツ)_/¯
-				printf("\t\tOrdinal: 0x%x\n", (WORD)thunkData->u1.AddressOfData);
+				printf("\t\tOrdinal: %x\n", (WORD)thunkData->u1.AddressOfData);
 			} else {
 				printf("\t\t%s\n", (rawOffset + (thunkData->u1.AddressOfData - importSection->VirtualAddress + 2)));
 			}
@@ -194,5 +342,23 @@ int main(int argc, char* argv[]) {
 }
 ```
 
+## Output Screenshots
+
+![](../.gitbook/assets/screenshot-from-2018-11-06-23-23-15.png)
+
+![](../.gitbook/assets/screenshot-from-2018-11-06-23-23-28.png)
+
+![](../.gitbook/assets/screenshot-from-2018-11-06-23-23-38.png)
+
+![](../.gitbook/assets/peek-2018-11-06-20-13.gif)
+
 ## References
+
+{% embed url="https://docs.microsoft.com/en-us/windows/desktop/debug/pe-format" %}
+
+{% embed url="http://win32assembly.programminghorizon.com/pe-tut6.html" %}
+
+{% embed url="https://docs.microsoft.com/en-us/windows/desktop/api/winnt/ns-winnt-\_image\_section\_header" %}
+
+{% embed url="https://msdn.microsoft.com/en-us/library/ms809762.aspx?f=255&MSPPError=-2147217396" %}
 
