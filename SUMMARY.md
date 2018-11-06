@@ -96,7 +96,7 @@
 * [WMI + NewScheduledTaskAction Lateral Movement](offensive-security/wmi-via-newscheduledtask.md)
 * [WMI + PowerShell Desired State Configuration Lateral Movement](offensive-security/wmi-+-powershell-desired-state-configuration-lateral-movement.md)
 * [Empire Shells with NetNLTMv2 Relaying](offensive-security/empire-shells-with-netnltmv2-relaying.md)
-* [PE Parser](offensive-security/pe-parser.md)
+* [PE File Header Parser in C++](offensive-security/pe-file-header-parser-in-c++.md)
 
 ## Memory Forensics
 

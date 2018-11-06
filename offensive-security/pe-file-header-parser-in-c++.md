@@ -1,24 +1,25 @@
-# PE Parser
+# PE File Header Parser in C++
 
 ```cpp
-// perparser.cpp : Defines the entry point for the console application.
-//
-
 #include "stdafx.h"
 #include "Windows.h"
+#include <iostream>
 
-int main() {
-	wchar_t fileName[] = L"C:\\notepad.exe";
-	HANDLE file = 0;
+int main(int argc, char* argv[]) {
+	const int MAX_FILEPATH = 255;
+	char fileName[MAX_FILEPATH] = {0};
+	memcpy_s(&fileName, MAX_FILEPATH, argv[1], MAX_FILEPATH);
+	HANDLE file = NULL;
 	DWORD fileSize = NULL;
-	DWORD bytesRead = 5;
+	DWORD bytesRead = NULL;
 	LPVOID fileData = NULL;
 	PIMAGE_DOS_HEADER dosHeader = {};
 	PIMAGE_NT_HEADERS imageNTHeaders = {};
-	PIMAGE_SECTION_HEADER sectionHeaders = {};
+	PIMAGE_SECTION_HEADER sectionHeader = {};
+	PIMAGE_SECTION_HEADER importSection = {};
 
 	// open file
-	file = CreateFile(fileName, GENERIC_ALL, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	file = CreateFileA(fileName, GENERIC_ALL, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (file == INVALID_HANDLE_VALUE) printf("Could not read file");
 	fileSize = GetFileSize(file, NULL);
 	fileData = HeapAlloc(GetProcessHeap(), 0, fileSize);
@@ -96,9 +97,6 @@ int main() {
 	printf("\t0x%x\t\tLoader Flags\n", imageNTHeaders->OptionalHeader.LoaderFlags);
 	printf("\t0x%x\t\tNumber Of Rva And Sizes\n", imageNTHeaders->OptionalHeader.NumberOfRvaAndSizes);
 
-	// just checking if the export table actually is at offset 0x96 (150), which it is.
-	//DWORD offset = DWORD(imageNTHeaders->OptionalHeader.DataDirectory) - DWORD(fileData);
-
 	// DATA_DIRECTORIES
 	printf("\n******* DATA DIRECTORIES *******\n");
 	printf("\tExport Directory Address: 0x%x; Size: 0x%x\n", imageNTHeaders->OptionalHeader.DataDirectory[0].VirtualAddress, imageNTHeaders->OptionalHeader.DataDirectory[0].Size);
@@ -108,30 +106,55 @@ int main() {
 	printf("\n******* SECTION HEADERS *******\n");
 	DWORD sectionLocation = (DWORD)imageNTHeaders + sizeof(DWORD) + (DWORD)(sizeof(IMAGE_FILE_HEADER)) + (DWORD)imageNTHeaders->FileHeader.SizeOfOptionalHeader;
 	DWORD sectionSize = (DWORD)sizeof(IMAGE_SECTION_HEADER);
-	
+	IMAGE_IMPORT_DESCRIPTOR* importDescriptor = {};
+	PIMAGE_THUNK_DATA thunkData = {};
+	DWORD importDirectoryRVA = imageNTHeaders->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress;
+
 	for (int i = 0; i < imageNTHeaders->FileHeader.NumberOfSections; i++) {
-		sectionHeaders = (PIMAGE_SECTION_HEADER)sectionLocation;
-		printf("\tName:%s\n", sectionHeaders->Name);
-		printf("\t\t0x%x\t\tPhysical Address\n", sectionHeaders->Misc.PhysicalAddress);
-		printf("\t\t0x%x\t\tVirtual Size\n", sectionHeaders->Misc.VirtualSize);
-		printf("\t\t0x%x\t\tVirtual Address\n", sectionHeaders->VirtualAddress);
-		printf("\t\t0x%x\t\tSize Of Raw Data\n", sectionHeaders->SizeOfRawData);
-		printf("\t\t0x%x\t\tPointer To Raw Data\n", sectionHeaders->PointerToRawData);
-		printf("\t\t0x%x\t\tPointer To Relocations\n", sectionHeaders->PointerToRelocations);
-		printf("\t\t0x%x\t\tPointer To Line Numbers\n", sectionHeaders->PointerToLinenumbers);
-		printf("\t\t0x%x\t\tNumber Of Relocations\n", sectionHeaders->NumberOfRelocations);
-		printf("\t\t0x%x\t\tNumber Of Line Numbers\n", sectionHeaders->NumberOfLinenumbers);
-		printf("\t\t0x%x\tCharacteristics\n", sectionHeaders->Characteristics);		
+		sectionHeader = (PIMAGE_SECTION_HEADER)sectionLocation;
+		printf("\t%s\n", sectionHeader->Name);
+		printf("\t\t0x%x\t\tVirtual Size\n", sectionHeader->Misc.VirtualSize);
+		printf("\t\t0x%x\t\tVirtual Address\n", sectionHeader->VirtualAddress);
+		printf("\t\t0x%x\t\tSize Of Raw Data\n", sectionHeader->SizeOfRawData);
+		printf("\t\t0x%x\t\tPointer To Raw Data\n", sectionHeader->PointerToRawData);
+		printf("\t\t0x%x\t\tPointer To Relocations\n", sectionHeader->PointerToRelocations);
+		printf("\t\t0x%x\t\tPointer To Line Numbers\n", sectionHeader->PointerToLinenumbers);
+		printf("\t\t0x%x\t\tNumber Of Relocations\n", sectionHeader->NumberOfRelocations);
+		printf("\t\t0x%x\t\tNumber Of Line Numbers\n", sectionHeader->NumberOfLinenumbers);
+		printf("\t\t0x%x\tCharacteristics\n", sectionHeader->Characteristics);
+
+		// save section that contains import directory
+		if (importDirectoryRVA >= sectionHeader->VirtualAddress && importDirectoryRVA < sectionHeader->VirtualAddress + sectionHeader->Misc.VirtualSize) {
+			importSection = sectionHeader;
+		}
 		sectionLocation += sectionSize;
 	}
 
-	// IMPORT_DIRECTORY
-	printf("\n******* IMPORT DIRECTORY *******\n");
-	//PIMAGE_IMPORT_DESCRIPTOR
+	// file offset to import table
+	DWORD rawOffset = (DWORD)fileData + importSection->PointerToRawData;
+	importDescriptor = (PIMAGE_IMPORT_DESCRIPTOR)(rawOffset + (imageNTHeaders->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress - importSection->VirtualAddress));
+	DWORD thunk = 0;
 	
+	printf("\n******* DLL IMPORTS *******\n");	
+	for (; importDescriptor->Name != 0; importDescriptor++)	{
+		// imported dll modules
+		printf("\t%s\n", rawOffset + (importDescriptor->Name - importSection->VirtualAddress));
+		thunk = importDescriptor->OriginalFirstThunk == 0 ? importDescriptor->FirstThunk : importDescriptor->OriginalFirstThunk;
+		thunkData = (PIMAGE_THUNK_DATA)(rawOffset + (thunk - importSection->VirtualAddress));
+		
+		// dll exported functions
+		for (; thunkData->u1.AddressOfData != 0; thunkData++) {
+			//a cheap and probably non-reliable way of check if the function is imported via its ordinal number ¯\_(ツ)_/¯
+			if (thunkData->u1.AddressOfData > 0x80000000) {
+				//show lower bits of the value to get the ordinal ¯\_(ツ)_/¯
+				printf("\t\tOrdinal: 0x%x\n", (WORD)thunkData->u1.AddressOfData);
+			} else {
+				printf("\t\t%s\n", (rawOffset + (thunkData->u1.AddressOfData - importSection->VirtualAddress + 2)));
+			}
+		}
+	}
+
     return 0;
 }
-
-
 ```
 
