@@ -64,10 +64,10 @@ Now in order to read out DLL names that this binary imports, we first need to po
 In order to do this, we need to translate the `Import Directory RVA` to the file offset - a place in the binary file where the DLL import information is stored. The way this can be achieved is by using the following formula:
 
 $$
-offset = imageBase + text.RawOffset + (importDirectory.VA - text.VA)
+offset = imageBase + text.RawOffset + (importDirectory.RVA - text.VA)
 $$
 
-where `imageBase` is the start address of where the binary image is loaded, `text.RawOffset` is the `Raw Address` value from the `.text` section, `text.VA` is `Virtual Address` value from the `.text` section and `importDirectory.VA` is the `Import Directory RVA` value from `Data Directories` in `Optional Header`.
+where `imageBase` is the start address of where the binary image is loaded, `text.RawOffset` is the `Raw Address` value from the `.text` section, `text.VA` is `Virtual Address` value from the `.text` section and `importDirectory.RVA` is the `Import Directory RVA` value from `Data Directories` in `Optional Header`.
 
 Below is some simple powershell to do the calculations to get a file offset that we can later use for filling up the `PIMAGE_IMPORT_DESCRIPTOR` structure:
 
@@ -114,7 +114,7 @@ $$
 offset = imageBase + text.RawOffset + (nameRVA - text.VA)
 $$
 
-where `nameRVA` is `Name RVA` value for ADVAPI.dll from the Import Directory.
+where `nameRVA` is `Name RVA` value for ADVAPI32.dll from the Import Directory.
 
 Again, some powersehell to do the file offset calculation for us:
 
@@ -151,7 +151,7 @@ $firstThunk = $rawOffsetToTextSection + (0x0000A28C - $textVA)
 
 ![](../.gitbook/assets/screenshot-from-2018-11-06-22-59-13.png)
 
-At that offset 968c+4 \(+4 because per `PIMAGE_THUNK_DATA32` structure layout, the second member is called `Function` and this is the member we are interested in\), we see another a couple more RVAs - `0x0000a690` and `0x0000a6a2`:
+At that offset 968c+4 \(+4 because per `PIMAGE_THUNK_DATA32` structure layout, the second member is called `Function` and this is the member we are interested in\), we see another a couple more values that look like RVAs - `0x0000a690` and `0x0000a6a2`:
 
 ![](../.gitbook/assets/screenshot-from-2018-11-06-23-03-44.png)
 
@@ -316,7 +316,7 @@ int main(int argc, char* argv[]) {
 	// get file offset to import table
 	rawOffset = (DWORD)fileData + importSection->PointerToRawData;
 	
-	// get pointer to import descriptor's fileoffset. Note that the formula for calculating file offset is: imageBaseAddress + pointerToRawDataOfTheSectionContainingRVAofInterest + (RVAofInterest - SectionContainingRVAofInterest.VirtualAddress)
+	// get pointer to import descriptor's file offset. Note that the formula for calculating file offset is: imageBaseAddress + pointerToRawDataOfTheSectionContainingRVAofInterest + (RVAofInterest - SectionContainingRVAofInterest.VirtualAddress)
 	importDescriptor = (PIMAGE_IMPORT_DESCRIPTOR)(rawOffset + (imageNTHeaders->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress - importSection->VirtualAddress));
 	
 	printf("\n******* DLL IMPORTS *******\n");	
