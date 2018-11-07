@@ -353,6 +353,8 @@ int main(int argc, char* argv[]) {
 }
 ```
 
+{% file src="../.gitbook/assets/perparser.exe" caption="peparser.exe" %}
+
 ## Output Screenshots
 
 ![](../.gitbook/assets/screenshot-from-2018-11-06-23-23-15.png)
