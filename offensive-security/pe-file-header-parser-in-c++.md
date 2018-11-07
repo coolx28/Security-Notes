@@ -2,7 +2,7 @@
 
 ## Context
 
-In this lab I'm writing a simple Portable Executable \(PE\) file header parser for 32bit binaries, using C++ as the programming language of choice.
+In this lab I'm writing a simple Portable Executable \(PE\) file header parser for 32bit binaries, using C++ as the programming language of choice. The lab was inspired by the techniques such as reflective DLL injection and process hollowing which both deal with various parts of the PE files.
 
 The purpose of this lab is two-fold:
 
