@@ -8,7 +8,6 @@
 * [Powershell Payload Delivery via DNS using Invoke-PowerCloud](offensive-security-experiments/payload-delivery-via-dns-using-invoke-powercloud.md)
 * [Masquerading Processes in Userland via \_PEB](offensive-security-experiments/masquerading-processes-in-userland-through-_peb.md)
 * [Active Directory](offensive-security-experiments/active-directory/README.md)
-  * [test](offensive-security-experiments/active-directory/test.md)
   * [From Domain Admin to Enterprise Admin](offensive-security-experiments/active-directory/child-domain-da-to-ea-in-parent-domain.md)
   * [T1208: Kerberoasting](offensive-security-experiments/active-directory/t1208-kerberoasting.md)
   * [Kerberos: Golden Tickets](offensive-security-experiments/active-directory/kerberos-golden-tickets.md)
@@ -17,6 +16,7 @@
   * [Domain Compromise via DC Print Server and Kerberos Delegation](offensive-security-experiments/active-directory/domain-compromise-via-dc-print-server-and-kerberos-delegation.md)
   * [T1207: DCShadow](offensive-security-experiments/active-directory/t1207-dcshadow.md)
   * [PowerView: Active Directory Enumeration](offensive-security-experiments/active-directory/active-directory-enumeration-with-powerview.md)
+  * [Abusing Active Directory ACLs/ACEs](offensive-security-experiments/active-directory/abusing-active-directory-acls-aces.md)
 
 ## offensive security
 
