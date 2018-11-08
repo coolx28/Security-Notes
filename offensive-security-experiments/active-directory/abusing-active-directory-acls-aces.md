@@ -6,7 +6,9 @@ WIP
 
 ## Context
 
-Some of the exploitable permissions:
+In this lab I am exploring ways to abuse weak permissions of Active Directory Distrctionary Access Control Lists \(DACLs\) and their Acccess Control Entries \(ACEs\).
+
+Some of the Active Directory object permissions and types that we as attackers are interested in:
 
 * **GenericAll** - full rights to the object \(add users to a group or reset user's password\)
 * **GenericWrite** - update object's attributes \(i.e logon script\)
