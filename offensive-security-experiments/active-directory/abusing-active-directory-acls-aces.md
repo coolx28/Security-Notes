@@ -199,3 +199,5 @@ Below shows the user's ~~`delegate`~~ logon script field got updated in the AD:
 
 {% embed url="https://docs.microsoft.com/en-us/dotnet/api/system.directoryservices.activedirectoryrights?view=netframework-4.7.2" %}
 
+{% embed url="https://blog.fox-it.com/2018/04/26/escalating-privileges-with-acls-in-active-directory/" %}
+
