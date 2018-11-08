@@ -8,6 +8,10 @@ WIP
 
 In this lab I am exploring ways to abuse weak permissions of Active Directory Distrctionary Access Control Lists \(DACLs\) and their Acccess Control Entries \(ACEs\).
 
+Active Directory objects such as users and groups are securable objects and DACL/ACEs define who can read/modify those objects. An example of ACEs for the "Domain Admins" securable object can be seen here:
+
+![](../../.gitbook/assets/screenshot-from-2018-11-08-20-21-25.png)
+
 Some of the Active Directory object permissions and types that we as attackers are interested in:
 
 * **GenericAll** - full rights to the object \(add users to a group or reset user's password\)
@@ -17,6 +21,8 @@ Some of the Active Directory object permissions and types that we as attackers a
 * **AllExtendedRights** - ability to add user to a group or reset password
 * **ForceChangePassword** - ability to change user's password
 * **Self \(Self-Membership\)** - ability to add yourself to a group
+
+In this lab, we are going to explore and try to exploit most of the above ACEs.
 
 ## Execution
 
