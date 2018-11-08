@@ -82,7 +82,7 @@ net user spotless /domain; Add-NetGroupUser -UserName spotless -GroupName "domai
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-08-12-30-11.png)
 
-```text
+```csharp
 # powerview
 Set-DomainUserPassword -Identity delegate -Verbose
 ```
