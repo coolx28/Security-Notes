@@ -97,6 +97,13 @@ Set-DomainUserPassword -Identity delegate -AccountPassword (ConvertTo-SecureStri
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-08-12-58-25.png)
 
+```csharp
+$c = Get-Credential
+Set-DomainUserPassword -Identity delegate -AccountPassword $c.Password -Verbose
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-11-08-14-11-25.png)
+
 
 
 ## References
