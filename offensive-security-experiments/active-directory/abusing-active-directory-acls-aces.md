@@ -89,6 +89,14 @@ Set-DomainUserPassword -Identity delegate -Verbose
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-08-12-31-52.png)
 
+or a one liner:
+
+```csharp
+Set-DomainUserPassword -Identity delegate -AccountPassword (ConvertTo-SecureString '123456' -AsPlainText -Force) -Verbose
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-11-08-12-58-25.png)
+
 
 
 ## References
