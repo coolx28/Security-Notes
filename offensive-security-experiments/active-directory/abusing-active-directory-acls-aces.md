@@ -251,3 +251,5 @@ Set-Acl -Path $path -AclObject $acl
 
 {% embed url="https://docs.microsoft.com/en-us/dotnet/api/system.directoryservices.activedirectoryaccessrule.-ctor?view=netframework-4.7.2\#System\_DirectoryServices\_ActiveDirectoryAccessRule\_\_ctor\_System\_Security\_Principal\_IdentityReference\_System\_DirectoryServices\_ActiveDirectoryRights\_System\_Security\_AccessControl\_AccessControlType\_" %}
 
+[PowerView Tricks](https://gist.github.com/HarmJ0y/184f9822b195c52dd50c379ed3117993)
+
