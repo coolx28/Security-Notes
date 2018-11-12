@@ -75,7 +75,7 @@ After checking the DNS logs I saw the below error, suggesting there was somethin
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-11-21-45-51.png)
 
-I tried exporting functions with C++ name mangling and without and although the DLL exports seemed to be OK per CFF Explorer, I was still not able to make DC send a reverse shell back to my attacking system:
+I tried exporting functions with C++ name mangling and without and although the DLL exports seemed to be OK per CFF Explorer, I was still not able to make the DC load my malicious DLL successfully:
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-11-21-46-09.png)
 
