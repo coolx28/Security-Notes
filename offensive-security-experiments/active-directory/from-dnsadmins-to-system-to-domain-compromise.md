@@ -137,6 +137,22 @@ We can now access the C$ using DC01 computer name:
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-11-23-24-44.png)
 
+### Bonus Reminder
+
+It turns out that the reason the meterpreter shell failed was a classic mistake of not using the right staged/non-staged payloads - always double check your payloads vs listeners. 
+
+Once I set up the listener correctly, the meterpreter shell came back as expected:
+
+![](../../.gitbook/assets/peek-2018-11-12-21-58.gif)
+
+## Observations
+
+As a defender, one should be suspicious of child processes spawned by dns.exe on DCs:
+
+![](../../.gitbook/assets/screenshot-from-2018-11-12-22-09-43.png)
+
+Also, you may want to consider monitoring HKLM\SYSTEM\CurrentControlSet\Services\DNS\Parameters value `ServerLevelPluginDll`
+
 ## References
 
 {% embed url="https://medium.com/@esnesenon/feature-not-bug-dnsadmin-to-dc-compromise-in-one-line-a0f779b8dc83" %}
