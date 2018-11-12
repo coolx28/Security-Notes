@@ -28,7 +28,7 @@ rundll32.exe .\dnsprivesc.dll,DnsPluginInitialize
 
 ### Abuse DNS with dnscmd
 
-Now that we have the DLL and we checked that it is working, we can ask the victim DC to load our malicious DLL \(from the victim controlled network share on host 10.0.0.2\) next time the service starts:
+Now that we have the DLL and we checked that it is working, we can ask the victim DC to load our malicious DLL \(from the victim controlled network share on host 10.0.0.2\) next time the service starts \(or the attacker restarts it\):
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim.memberOfDnsAdmins" %}
@@ -48,7 +48,7 @@ The below looks promising and suggests the request to load our malicious DLL was
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-11-17-04-48.png)
 
-The below command on the victim further confirms that our request was successful:
+The below command on the victim further suggests that our request was successful:
 
 ```csharp
 Get-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Services\DNS\Parameters\ -Name ServerLevelPluginDll
@@ -58,7 +58,7 @@ Get-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Services\DNS\Parameters\ -Name S
 
 ### Getting code execution with NT\SYSTEM
 
-Now the next time dns service loads/gets restarted, our malicious DLL should be loaded and a reverse shell should be sent back to our attacking system, so let's go and restart the DNS service.
+Now the next time dns service loads/gets restarted, our malicious DLL should be loaded and a reverse shell should be sent back to our attacking system, so let's go and restart the DNS service:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@victim" %}
@@ -71,21 +71,21 @@ sc.exe \\dc01 start dns
 
 By this point, I should have received a reverse shell, but unfortunately, in my lab, this technique did not work as expected. 
 
-After checking the DNS logs I saw the below error, suggesting there was something off with my DLL:
+After checking the DNS logs on the `DC01` I saw the below error, suggesting there was something off with my DLL:
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-11-21-45-51.png)
 
-I tried exporting functions with C++ name mangling and without and although the DLL exports seemed to be OK per CFF Explorer, I was still not able to make the DC load my malicious DLL successfully:
+I tried exporting functions with C++ name mangling and without and although the DLL exports seemed to be OK per CFF Explorer, I was still not able to make the DC load my malicious DLL successfully without corrupting the dns service:
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-11-21-46-09.png)
 
 {% hint style="warning" %}
-Although I was not able to pull the attack in my labs, I did not want to remove these notes, just in case the they will be stubmled upon by a reader who had successfully carried out this attack and who would like to share their thoughts on what I am overlooking - this would be much appreciated.
+Although I was not able to correctly injected the DLL without crashing the dns service in my labs, I still decided to publish these notes, just in case they will be stubmled upon by a reader who had successfully injected a custom DLL and who would like to share their thoughts on what I am overlooking - this would be much appreciated.
 {% endhint %}
 
-Although I could not get my DLL loaded, I wanted to try injecting the meterpreter DLL into dns.exe using the same technique. 
+Since I could not get my malicious DLL injected into the dns.exe successfully, I thought of trying to inject the meterpreter payload using the same technique.
 
-It can be observed, that the DLL gets ineed loaded and we receive a call back from the meterpreter payload, but since the DLL does not conform to the required format \(does not have required exported functions\), the session dies immediately:
+It can be observed, that the DLL gets ineed loaded and we receive a call back attempt from meterpreter, but since the DLL does not conform to the required format \(does not have required exported functions\), the session dies immediately:
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-11-22-33-58.png)
 
@@ -110,10 +110,10 @@ Now if we restart the DNS service which will load our addDA.dll, we see that the
 ![](../../.gitbook/assets/screenshot-from-2018-11-11-23-03-52.png)
 
 {% hint style="danger" %}
-Warning: at this time the DNS service is probably crashed, so this is not the stealthiest methods and probably will get picked up by defenders real quick unless you can restore the DNS service immedialy.
+Warning: at this time the DNS service is probably crashed, so be warned - this is not the stealthiest method and the activity probably will get picked up by defenders real quick unless you can restore the DNS service immediately.
 {% endhint %}
 
-Below confirms that the dns service is down, but we can still access the DC C$ share by DC's IP:
+Below confirms that the dns service is down, however we can still access the DC C$ share by DC's IP:
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-11-23-09-23.png)
 
