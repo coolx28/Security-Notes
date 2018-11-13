@@ -44,11 +44,11 @@ Checking that the iptables rules were created successfully:
 
 ### Testing iptables
 
-Let's simulate a simplified reverse shell from a victim system 10.0.0.11 to the attacking system 10.0.0.2 using redirector system 10.0.0.5 as a proxy and inspect the traffic over the wire - if redirector was setup correctly, systems 10.0.0.11 and 10.0.0.2 should not be communicating directly - all the traffic will be flowing through 10.0.0.5 and 10.0.0.2 \(attacking system\) will not be visible to the victim 10.0.0.11:
+Let's simulate a simplified reverse shell from the victim system 10.0.0.11 to the attacking system 10.0.0.2 using our redirector system 10.0.0.5 as a proxy and inspect the traffic crossing over the wire - if the redirector was setup correctly, we should see that systems 10.0.0.11 and 10.0.0.2 will not be communicating directly - all the traffic will be flowing through the box at 10.0.0.5 and 10.0.0.2 \(attacking system\) will not be visible to the victim 10.0.0.11:
 
 ![](../../.gitbook/assets/redirector.gif)
 
-Having a closer look at the traffic/conversations between the endpoints, we can clearly see that at no point the victim system 10.0.0.11 communicated directly with the attacking system 10.0.0.2 - all communications were flowing through the redirector host 10.0.0.5:
+Having a closer look at the traffic/conversations between the endpoints, we can clearly see that at no point the victim system 10.0.0.11 communicated directly with the attacking system 10.0.0.2 - all communications were flowing through the redirector host 10.0.0.5 as described earlier:
 
 ![](../../.gitbook/assets/redirector-conversations.png)
 
@@ -56,7 +56,7 @@ Having a closer look at the traffic/conversations between the endpoints, we can 
 
 ## HTTP Forwarding with SOCAT
 
-SOCAT is another tool that can be used to do the "dumb pipe" traffic forwarding. The environment in exercise remains the same as described above.
+SOCAT is another tool that can be used to do the "dumb pipe" traffic forwarding. The environment in this  exercise remains the same as in the previous scenario.
 
 Setting up an HTTP redirector with socat:
 
