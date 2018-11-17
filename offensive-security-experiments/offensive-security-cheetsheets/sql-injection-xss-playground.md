@@ -1,6 +1,8 @@
-# SQL Injection Playground
+---
+description: This is my playground for SQL injection and XSS
+---
 
-This is my playground for all things SQL injection which helps me visualize some of the most commont sqli techniques.
+# SQL Injection & XSS Playground
 
 ## Classic SQL Injection
 
@@ -60,6 +62,10 @@ select * from users where user_id = 1 union select 1,2,3,4,5,sleep(1);
 ```
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-17-15-53-52.png)
+
+## XSS
+
+![](../../.gitbook/assets/peek-2018-11-17-20-17.gif)
 
 ### References
 
