@@ -4,7 +4,8 @@
 
 ## Pinned posts
 
-* [Pentesting Cheatsheets](offensive-security-experiments/offensive-security-cheetsheets.md)
+* [Pentesting Cheatsheets](offensive-security-experiments/offensive-security-cheetsheets/README.md)
+  * [SQL Injection Playground](offensive-security-experiments/offensive-security-cheetsheets/sql-injection-playground.md)
 * [Powershell Payload Delivery via DNS using Invoke-PowerCloud](offensive-security-experiments/payload-delivery-via-dns-using-invoke-powercloud.md)
 * [Masquerading Processes in Userland via \_PEB](offensive-security-experiments/masquerading-processes-in-userland-through-_peb.md)
 * [Active Directory](offensive-security-experiments/active-directory/README.md)
