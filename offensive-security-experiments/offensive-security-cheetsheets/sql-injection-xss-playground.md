@@ -55,6 +55,14 @@ mysql> select * from users where user = (select concat((select if(1>0,'adm','b')
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-18-21-39-53.png)
 
+### Bypassing Whitespace Filtering
+
+```sql
+mysql> select * from users where user_id = 1/**/union/**/select/**/all/**/1,2,3,4,5,6;
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-11-19-22-43-46.png)
+
 ## Time Based SQL Injection
 
 ### Sleep Invokation
@@ -70,6 +78,10 @@ select * from users where user_id = 1 union select 1,2,3,4,5,sleep(1);
 ```
 
 ![](../../.gitbook/assets/screenshot-from-2018-11-17-15-53-52.png)
+
+```
+
+```
 
 ## XSS
 
