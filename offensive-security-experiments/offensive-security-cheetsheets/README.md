@@ -639,6 +639,13 @@ sc qc [service_name] (to verify!)
 sc start [service_name]
 ```
 
+### Find File/Folder Permissions Explicitly Set for a Given User
+
+```csharp
+icacls.exe C:\folder /findsid userName-or-*sid /t
+//look for (F)ull, (M)odify, (W)rite
+```
+
 ### AlwaysInstallElevated MSI
 
 ```csharp
