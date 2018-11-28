@@ -414,6 +414,8 @@ __import__('os').system('id')
 
 ## Local Enumeration & Privilege Escalation
 
+![https://github.com/sagishahar/lpeworkshop](../../.gitbook/assets/privesc.jpg)
+
 ### Binary Exploitation with ImmunityDebugger
 
 #### Get Loaded Modules
