@@ -42,7 +42,7 @@ The way the tool works is by performing the following high level steps:
 * Divide the payload file into chunks of 255 bytes and base64 encode them
 * Create a DNS zone file with DNS TXT records representing each chunk of the payload data retrieved from the previous step
 * Send the generated DNS zone file to cloudflare using their APIs
-* Generate two stagers for use with autoritative NS/non-authoritative NS
+* Generate two stagers for use with authoritative NS/non-authoritative NS
 * Stager can then be executed on the victim system. The stager will recover the base64 chunks from the DNS TXT records and rebuild the original payload
 * Stager executes the payload in memory!
 
