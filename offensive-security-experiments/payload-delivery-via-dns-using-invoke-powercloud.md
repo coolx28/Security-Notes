@@ -38,8 +38,8 @@ Invoke-PowerCloud works in a similar fashion, except for a couple of key differe
 
 The way the tool works is by performing the following high level steps:
 
-* Take the powershell payload file
-* Divide the payload file into chunks of 255 bytes and base64 encode them
+* Take the powershell payload file and base64 encode it
+* Divide the payload into chunks of 255 bytes
 * Create a DNS zone file with DNS TXT records representing each chunk of the payload data retrieved from the previous step
 * Send the generated DNS zone file to cloudflare using their APIs
 * Generate two stagers for use with authoritative NS/non-authoritative NS
