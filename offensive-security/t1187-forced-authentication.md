@@ -144,6 +144,22 @@ Below is the attack illustrated:
 
 {% file src="../.gitbook/assets/test-xls-stylesheet.xml" caption="test-xls-stylesheet.xml" %}
 
+## Execution via Field IncludePicture
+
+Create a new Word document and insert a new field `IncludePicture`:
+
+![](../.gitbook/assets/screenshot-from-2018-12-09-17-01-11.png)
+
+Save the file as .xml. Note that the sneaky image url is present in the XML:
+
+![](../.gitbook/assets/screenshot-from-2018-12-09-17-02-32.png)
+
+Launching the document gives away victim's hashes immediately:
+
+![](../.gitbook/assets/peek-2018-12-09-17-04.gif)
+
+{% file src="../.gitbook/assets/smb-image.xml" caption="smb-image.xml" %}
+
 ## References
 
 {% embed url="http://www.defensecode.com/whitepapers/Stealing-Windows-Credentials-Using-Google-Chrome.pdf" %}
@@ -155,4 +171,6 @@ Below is the attack illustrated:
 {% embed url="https://medium.com/@markmotig/a-better-way-to-capture-hashes-with-no-user-interaction-by-markmo-bd1569bfa208" %}
 
 {% embed url="https://bohops.com/2018/08/04/capturing-netntlm-hashes-with-office-dot-xml-documents/" %}
+
+{% embed url="https://twitter.com/bohops/status/1062935197107322880?s=12" %}
 
