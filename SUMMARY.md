@@ -19,7 +19,7 @@
   * [PowerView: Active Directory Enumeration](offensive-security-experiments/active-directory/active-directory-enumeration-with-powerview.md)
   * [Abusing Active Directory ACLs/ACEs](offensive-security-experiments/active-directory/abusing-active-directory-acls-aces.md)
   * [From DnsAdmins to SYSTEM to Domain Compromise](offensive-security-experiments/active-directory/from-dnsadmins-to-system-to-domain-compromise.md)
-  * [Less Known Privileged Accounts](offensive-security-experiments/active-directory/less-known-privileged-accounts.md)
+  * [Privileged Accounts and Privileges](offensive-security-experiments/active-directory/privileged-accounts-and-privileges.md)
 
 ## offensive security
 
