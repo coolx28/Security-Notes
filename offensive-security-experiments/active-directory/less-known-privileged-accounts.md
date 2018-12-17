@@ -43,6 +43,16 @@ The story changes:
 
 ![](../../.gitbook/assets/screenshot-from-2018-12-17-17-39-08.png)
 
+## Backup Operators
+
+Similarly to Server Operators, we can access the DC01 file system if we belong to `Backup Operators`:
+
+![](../../.gitbook/assets/screenshot-from-2018-12-17-17-42-47.png)
+
+
+
+
+
 {% embed url="https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-b--privileged-accounts-and-groups-in-active-directory" %}
 
 {% embed url="https://adsecurity.org/?p=3658" %}
