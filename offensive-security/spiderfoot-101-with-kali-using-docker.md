@@ -2,6 +2,8 @@
 
 This lab walks through some simple steps required to get the OSINT tool Spiderfoot up and running on a Kali Linux using Docker.
 
+Spiderfoot is an application that enables you as a pentester/red teamer to collect intelligence about a given subject - email address, username, domain or IP address that may help you in planning and advancing your attacks against them.
+
 ## Download Spiderfoot
 
 Download the Spiderfoot linux package from [https://www.spiderfoot.net/download/](https://www.spiderfoot.net/download/) and extract it to a location of your choice on your file system.  
