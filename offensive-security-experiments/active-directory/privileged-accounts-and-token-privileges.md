@@ -227,6 +227,34 @@ We can now download and compile the Capcom exploit from [https://github.com/tand
 
 ![](../../.gitbook/assets/screenshot-from-2018-12-17-23-40-56.png)
 
+## GPO Delegation
+
+Sometimes, certain users/groups may be delegated access to manage Group Policy Objects as is the case with `offense\spotless` user:
+
+![](../../.gitbook/assets/screenshot-from-2018-12-18-14-58-34.png)
+
+We can see this by leveraging PowerView like so:
+
+{% code-tabs %}
+{% code-tabs-item title="attacker@victim" %}
+```csharp
+Get-ObjectAcl -ResolveGUIDs | ? {$_.IdentityReference -eq "OFFENSE\spotless"}
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+The below indicates that the user `offense\spotless` has **WriteProperty**, **WriteDacl**, **WriteOwner** privileges among a couple of others:
+
+![](../../.gitbook/assets/screenshot-from-2018-12-18-14-57-21.png)
+
+It is know that those privileges can be abused - for more information about how to abuse ACL/ACE refer to the lab:
+
+{% page-ref page="abusing-active-directory-acls-aces.md" %}
+
+We know the above ObjectDN from the above screenshot is referring to the `New Group Policy Object` GPO since the ObjectDN points to `CN=Policies` and also the `CN={DDC640FF-634A-4442-BC2E-C05EED132F0C}` which is the same in the GPO settings as highlighted below:
+
+![](../../.gitbook/assets/screenshot-from-2018-12-18-15-05-25.png)
+
 ## References
 
 {% embed url="https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-b--privileged-accounts-and-groups-in-active-directory" %}
