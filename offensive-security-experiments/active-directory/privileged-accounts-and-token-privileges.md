@@ -1,6 +1,6 @@
 # Privileged Accounts and Token Privileges
 
-Administrators, Domain Admins, Enterprise Admins are well known AD groups that pentesters and red teamers will aim for, but there are other account memberships and access token privileges that can be useful during engagements.
+Administrators, Domain Admins, Enterprise Admins are well known AD groups that allow for privilege escalation, that pentesters and red teamers will aim for in their engagements, but there are other account memberships and access token privileges that can also be useful during security assesments when chaining multiple attack vectors.
 
 ## Account Operators
 
@@ -122,11 +122,11 @@ To further prove the `SeLoadDriverPrivilege` is dangerous, let's see how we can 
 Let's build on the previous code and leverage the Win32 API call ntdll.NtLoadDriver\(\) to load our malicious kernel driver `Capcom.sys`. Note that lines 55 and 56 of the `privileges.cpp` are:
 
 ```cpp
-	PCWSTR pPathSource = L"C:\\experiments\\privileges\\Capcom.sys";
-	PCWSTR pPathSourceReg = L"\\registry\\machine\\System\\CurrentControlSet\\Services\\
+PCWSTR pPathSource = L"C:\\experiments\\privileges\\Capcom.sys";
+PCWSTR pPathSourceReg = L"\\registry\\machine\\System\\CurrentControlSet\\Services\\SomeService";
 ```
 
-The first one declares a string variable indicating where the vulnerable Capcom.sys driver is located on the victim system and the second one is a string indicating a service name that will be used \(could be any\) to execute the exploit:
+The first one declares a string variable indicating where the vulnerable Capcom.sys driver is located on the victim system and the second one is a string variable indicating a service name that will be used \(could be any service\) to execute the exploit:
 
 {% code-tabs %}
 {% code-tabs-item title="privileges.cpp" %}
@@ -217,7 +217,7 @@ int main()
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Once the above code is compiled and executed, we can see that `Capcom.sys` driver gets loaded onto the victim system:
+Once the above code is compiled and executed, we can see that our malicious `Capcom.sys` driver gets loaded onto the victim system:
 
 ![](../../.gitbook/assets/screenshot-from-2018-12-17-22-14-26%20%281%29.png)
 
