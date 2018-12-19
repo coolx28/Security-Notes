@@ -49,7 +49,7 @@ Note the following from the above screenshot:
 * Let's look at the file through GDB with Peda plugin
   * Let's set a break point on the main function 
   * Do a quick `disas` of the `main` function to remind ourselves once again what the routine for password checking was
-  * put a breakpoint `check_pw` routine
+  * Let's set a breakpoint `check_pw` routine as well
 
 ```text
 gdb bin
@@ -77,18 +77,18 @@ If we skip through instructions one by one and keep observing how register value
 Note this from the above screenshot:
 
 * current instruction at `check_pw+88: cmp dl, al` - al and dl register values are being compared
-* note register `rax` and `rdx` values - which are `b` and `t` respectively \(organge at the top\). If you followed the register values whilst stepping through the code, you would notice that the value in the rdx is actually the first letter of our password **`t`**`est`. Having said this, it looks like the binary is checking if the first character of the  provided password is actually an ascii **`b`**
+* register `rax` and `rdx` values are `b` and `t` respectively \(organge at the top\). If you followed the register values whilst stepping through the code, you would notice that the value in the rdx is actually the first letter of our password **`t`**`est`. Having said this, it looks like the binary is checking if the first character of the  provided password is actually an ascii **`b`**
 * If `dl==al`, the code should jump to `check_pw+99` as seen at offset `check_pw+90`
 
-However, stepping through the instructions further, we can see that the jump is NOT taken - the program continues executing instructions at offset `check_pw+92` - suggesting the first character of the password does not start with **`t`**:
+However, stepping through the instructions further, we can see that the jump is NOT taken - the program continues executing instructions at offset `check_pw+92` - suggesting the first character of the password does NOT start with a **`t`**:
 
 ![](../.gitbook/assets/screenshot-from-2018-12-19-13-43-00.png)
 
 ### Check\_pw Routine: Round 2
 
-What if we rerun the program and supply it with a password `best` this time \(replacing the first `t` with `b`, since the binary seemed to be expecting to see in the `dl` register\)?
+What if we rerun the program and supply it with a password **`b`**`est` this time \(replacing the first `t` with `b`, since the binary seemed to be expecting to see in the `dl` register\)?
 
-Well, this time the `cmp al,dl` sets the `zero` flag to `true` and the jump at `check_pw+90` is taken - suggesting that the first character of the password is indeed `b`:
+Well, this time the `cmp al,dl` sets the `zero` flag to `true` and the jump at `check_pw+90` is taken - suggesting that the first character of the password is indeed a **`b`**:
 
 ![](../.gitbook/assets/screenshot-from-2018-12-19-13-38-14.png)
 
@@ -96,7 +96,7 @@ If we repeat this process 32 more times \(remember the `%32s` string discussed p
 
 ![](../.gitbook/assets/screenshot-from-2018-12-19-13-43-39.png)
 
-Going back to the long strings we saw earlier - they were indeed used in the password decryption routine, but going through the algorithm is out of scope for today.
+Going back to the long strings we saw earlier - they were indeed used in the password decryption routine, but going through the algorithm is out of scope for today:
 
 ![](../.gitbook/assets/screenshot-from-2018-12-19-14-47-40.png)
 
