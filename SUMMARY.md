@@ -109,3 +109,7 @@
 * [Process Environment Block](memory-forensics/process-environment-block.md)
 * [Dump Virtual Box Memory](memory-forensics/dump-virtual-box-memory.md)
 
+## CTFs / Walkthroughs
+
+* [Reversing Password Checking Routine](ctfs-walkthroughs/reversing-password-checking-routine.md)
+
