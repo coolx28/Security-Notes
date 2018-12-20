@@ -2,9 +2,9 @@
 
 ## AdminSDHolder
 
-AdminSDHolder is a special AD container with security permissions that is used as a template on other protected AD accounts and groups to prevent accidental and unintended modifications of high privileged accounts and groups like `Domain Admins`. 
+AdminSDHolder is a special AD container with some "default" security permissions that is used as a template on protected AD accounts and groups \(like Domain Admins and some other\) to prevent their accidental and unintended modifications.
 
-Once you have agained Domain Admin privileges, AdminSDHolder can be abused by backdooring it by adding your backdoor user and giving it `GenericAll` privileges, which in turn allows the backdoored user to obtain DA rights whenever.
+Once you have agained Domain Admin privileges, `AdminSDHolder` container can be abused by backdooring it by giving your user `GenericAll` privileges, which in effectively makes that user a Domain Admin.
 
 ## Execution
 
@@ -16,7 +16,7 @@ Add-ObjectAcl -TargetADSprefix 'CN=AdminSDHolder,CN=System' -PrincipalSamAccount
 
 ![](../../.gitbook/assets/screenshot-from-2018-12-20-20-21-53.png)
 
-This is actually what happens to the container:
+This is actually what happens to the container - the security ACLs get updated and spotless gets all the privileges:
 
 ![](../../.gitbook/assets/screenshot-from-2018-12-20-20-24-32.png)
 
