@@ -18,8 +18,8 @@
   * [T1207: DCShadow](offensive-security-experiments/active-directory/t1207-dcshadow.md)
   * [PowerView: Active Directory Enumeration](offensive-security-experiments/active-directory/active-directory-enumeration-with-powerview.md)
   * [Abusing Active Directory ACLs/ACEs](offensive-security-experiments/active-directory/abusing-active-directory-acls-aces.md)
-  * [From DnsAdmins to SYSTEM to Domain Compromise](offensive-security-experiments/active-directory/from-dnsadmins-to-system-to-domain-compromise.md)
   * [Privileged Accounts and Token Privileges](offensive-security-experiments/active-directory/privileged-accounts-and-token-privileges.md)
+  * [From DnsAdmins to SYSTEM to Domain Compromise](offensive-security-experiments/active-directory/from-dnsadmins-to-system-to-domain-compromise.md)
 
 ## offensive security
 

