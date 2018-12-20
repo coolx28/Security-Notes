@@ -2,7 +2,7 @@
 
 ## AdminSDHolder
 
-AdminSDHolder is a special AD container with some "default" security permissions that is used as a template on protected AD accounts and groups \(like Domain Admins and some other\) to prevent their accidental and unintended modifications.
+AdminSDHolder is a special AD container with some "default" security permissions that is used as a template for protected AD accounts and groups \(like Domain Admins, Enterprise Admins, etc.\) to prevent their accidental and unintended modifications and to keep them secure.
 
 Once you have agained Domain Admin privileges, `AdminSDHolder` container can be abused by backdooring it by giving your user `GenericAll` privileges, which in effectively makes that user a Domain Admin.
 
