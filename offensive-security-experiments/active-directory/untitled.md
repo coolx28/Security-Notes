@@ -20,13 +20,31 @@ This is actually what happens to the container:
 
 ![](../../.gitbook/assets/screenshot-from-2018-12-20-20-24-32.png)
 
-Confirming that the user spotless has now GenericAll privileges against `Domain Admins` group:
+After 60+ minutes, the changes will propagate automatically, but if you want to force it \(if you are testing this in your labs\), you can do it via ldp.exe by Modifying DN like so:
+
+![](../../.gitbook/assets/screenshot-from-2018-12-20-21-07-01.png)
+
+Now, confirming that the user spotless has got `GenericAll` privileges against `Domain Admins` group:
 
 ```csharp
 Get-ObjectAcl -SamAccountName "Domain Admins" -ResolveGUIDs | ?{$_.IdentityReference -match 'spotless'}
 ```
 
+![](../../.gitbook/assets/screenshot-from-2018-12-20-21-07-30.png)
+
+We can now hop back to the Domain Admins any time we want to:
+
+![](../../.gitbook/assets/screenshot-from-2018-12-20-21-12-38.png)
+
+In fact, we do not even need to be part of DA group, we still have full access to the DC:
+
+![](../../.gitbook/assets/screenshot-from-2018-12-20-21-19-14.png)
+
 ## References
 
 {% embed url="http://www.harmj0y.net/blog/redteaming/abusing-active-directory-permissions-with-powerview/" %}
+
+{% embed url="https://blogs.technet.microsoft.com/askds/2009/05/07/five-common-questions-about-adminsdholder-and-sdprop/" %}
+
+{% embed url="https://adsecurity.org/?p=1906" %}
 
