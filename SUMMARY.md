@@ -20,6 +20,7 @@
   * [Abusing Active Directory ACLs/ACEs](offensive-security-experiments/active-directory/abusing-active-directory-acls-aces.md)
   * [Privileged Accounts and Token Privileges](offensive-security-experiments/active-directory/privileged-accounts-and-token-privileges.md)
   * [From DnsAdmins to SYSTEM to Domain Compromise](offensive-security-experiments/active-directory/from-dnsadmins-to-system-to-domain-compromise.md)
+  * [Backdooring AdminSDHolder for Persistence](offensive-security-experiments/active-directory/untitled.md)
 
 ## offensive security
 

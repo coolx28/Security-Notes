@@ -383,6 +383,8 @@ The same privilege escalation could be achieved by abusing the GPO Users and Gro
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+Additionally, we could think about leveraging logon/logoff scripts, using registry for autoruns, installing .msi, edit services and similar code execution avenues.
+
 ## References
 
 {% embed url="https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-b--privileged-accounts-and-groups-in-active-directory" %}
