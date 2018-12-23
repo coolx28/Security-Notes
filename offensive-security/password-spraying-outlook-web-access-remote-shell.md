@@ -1,5 +1,9 @@
 # Password Spraying Outlook Web Access: Remote Shell
 
+{% hint style="warning" %}
+Work In Progress
+{% endhint %}
+
 {% code-tabs %}
 {% code-tabs-item title="attacker@kali" %}
 ```csharp
