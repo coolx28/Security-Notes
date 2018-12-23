@@ -50,3 +50,5 @@ ruler -k --verbose --email spotless@offense.local --username spotless -p 123456 
 
 ![](../.gitbook/assets/peek-2018-12-23-18-13.gif)
 
+![](../.gitbook/assets/screenshot-from-2018-12-23-18-17-10.png)
+
