@@ -48,3 +48,5 @@ In fact, we do not even need to be part of DA group, we still have full access t
 
 {% embed url="https://adsecurity.org/?p=1906" %}
 
+{% embed url="https://blog.stealthbits.com/persistence-using-adminsdholder-and-sdprop/" %}
+
