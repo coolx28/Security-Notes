@@ -8,9 +8,9 @@ description: 'Credential Access, Stealing hashes'
 
 Let's create a Word document that has a hyperlink to our attacking server where  `responder` will be listening on port 445:
 
-![](../.gitbook/assets/forced-auth-word.png)
+![](../../.gitbook/assets/forced-auth-word.png)
 
-{% file src="../.gitbook/assets/totes-not-a-scam.docx" caption="Forced SMBv2 Authentication - MS Word File" %}
+{% file src="../../.gitbook/assets/totes-not-a-scam.docx" caption="Forced SMBv2 Authentication - MS Word File" %}
 
 Let's start `Responder` on our kali box:
 
@@ -24,7 +24,7 @@ responder -I eth1
 
 Once the link in the document is clicked, the target system sends an authentication request to the attacking host. Since responder is listening on the other end, victim's `NetNTLMv2` hash is captured:
 
-![](../.gitbook/assets/forced-auth-hashes.png)
+![](../../.gitbook/assets/forced-auth-hashes.png)
 
 The retrieved hash can then be cracked offline with hashcat:
 
@@ -34,11 +34,11 @@ hashcat -m5600 /usr/share/responder/logs/SMBv2-NTLMv2-SSP-10.0.0.2.txt /usr/shar
 
 Success, the password is cracked:
 
-![](../.gitbook/assets/forced-auth-cracked.png)
+![](../../.gitbook/assets/forced-auth-cracked.png)
 
 Using the cracked passsword to get a shell on the victim system:
 
-![](../.gitbook/assets/forced-auth-shell%20%281%29.png)
+![](../../.gitbook/assets/forced-auth-shell%20%281%29.png)
 
 ## Execution via .SCF
 
@@ -56,17 +56,17 @@ Command=ToggleDesktop
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-{% file src="../.gitbook/assets/fa.scf" caption="fa.scf" %}
+{% file src="../../.gitbook/assets/fa.scf" caption="fa.scf" %}
 
 A victim user `low` opens the share `\\10.0.0.7\tools` and the `fa.scf` gets executed automatically, which in turn forces the victim system to attempt to authenticate to the attacking system at 10.0.0.5 where responder is listening:
 
-![victim opens \\10.0.0.7\tools, fa.scf executes and gives away low&apos;s hashes](../.gitbook/assets/forced-auth-shares.png)
+![victim opens \\10.0.0.7\tools, fa.scf executes and gives away low&apos;s hashes](../../.gitbook/assets/forced-auth-shares.png)
 
-![user&apos;s low hashes were received by the attacker](../.gitbook/assets/forced-auth-scf.png)
+![user&apos;s low hashes were received by the attacker](../../.gitbook/assets/forced-auth-scf.png)
 
 What's interesting with the `.scf` attack is that the file could easily be downloaded through the browser and as soon as the user navigates to the `Downloads` folder, users's hash is stolen:
 
-![](../.gitbook/assets/forced-auth-downloads.png)
+![](../../.gitbook/assets/forced-auth-downloads.png)
 
 ## Execution via .URL
 
@@ -96,7 +96,7 @@ responder -I eth1 -v
 
 Once the victim navigates to the C:\ where `link.url` file is placed, the OS tries to authenticate to the attacker's malicious SMB listener on `10.0.0.5` where NetNTLMv2 hash is captured:
 
-![](../.gitbook/assets/forced-authentication-url.gif)
+![](../../.gitbook/assets/forced-authentication-url.gif)
 
 ## Execution via .RTF
 
@@ -122,13 +122,13 @@ responder -I eth1 -v
 
 Executing the file.rtf on the victim system gives away user's hashes:
 
-![](../.gitbook/assets/rtf-hashes.gif)
+![](../../.gitbook/assets/rtf-hashes.gif)
 
 ## Execution via .XML
 
 MS Word Documents can be saved as .xml:
 
-![](../.gitbook/assets/screenshot-from-2018-12-09-16-23-39.png)
+![](../../.gitbook/assets/screenshot-from-2018-12-09-16-23-39.png)
 
 This can be exploited by including a tag that requests the document stylesheet \(line 3\) from an attacker controlled server. The victim system will share its NetNTLM hashes with the attacker when attempting to authenticate to the attacker's system:
 
@@ -140,25 +140,25 @@ This can be exploited by including a tag that requests the document stylesheet \
 
 Below is the attack illustrated:
 
-![](../.gitbook/assets/peek-2018-12-09-16-44.gif)
+![](../../.gitbook/assets/peek-2018-12-09-16-44.gif)
 
-{% file src="../.gitbook/assets/test-xls-stylesheet.xml" caption="test-xls-stylesheet.xml" %}
+{% file src="../../.gitbook/assets/test-xls-stylesheet.xml" caption="test-xls-stylesheet.xml" %}
 
 ## Execution via Field IncludePicture
 
 Create a new Word document and insert a new field `IncludePicture`:
 
-![](../.gitbook/assets/screenshot-from-2018-12-09-17-01-11.png)
+![](../../.gitbook/assets/screenshot-from-2018-12-09-17-01-11.png)
 
 Save the file as .xml. Note that the sneaky image url is present in the XML:
 
-![](../.gitbook/assets/screenshot-from-2018-12-09-17-02-32.png)
+![](../../.gitbook/assets/screenshot-from-2018-12-09-17-02-32.png)
 
 Launching the document gives away victim's hashes immediately:
 
-![](../.gitbook/assets/peek-2018-12-09-17-04.gif)
+![](../../.gitbook/assets/peek-2018-12-09-17-04.gif)
 
-{% file src="../.gitbook/assets/smb-image.xml" caption="smb-image.xml" %}
+{% file src="../../.gitbook/assets/smb-image.xml" caption="smb-image.xml" %}
 
 ## References
 
