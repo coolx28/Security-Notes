@@ -4,5 +4,5 @@ description: >-
   authentication, Domain Controllers and similar matters.
 ---
 
-# Active Directory Abuse
+# Active Directory / Kerberos Abuse
 
