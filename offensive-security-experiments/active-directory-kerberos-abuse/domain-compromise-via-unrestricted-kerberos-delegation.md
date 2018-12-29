@@ -37,6 +37,10 @@ We can see our victim computer `IIS01` with `TrustedForDelegation` field set to 
 
 On the computer IIS01 with kerberos delegation rights, let's do a base run of mimikatz to see what we can find in memory:
 
+```csharp
+sekurlsa::tickets
+```
+
 ![](../../.gitbook/assets/screenshot-from-2018-10-29-23-35-01.png)
 
 Note that we do not have a TGT for `offense\administrator` \(Domain Admin\) just yet.
