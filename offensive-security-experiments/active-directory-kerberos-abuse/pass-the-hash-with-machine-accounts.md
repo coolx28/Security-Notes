@@ -74,7 +74,7 @@ sekurlsa::pth /user:ws01$ /domain:offense.local /ntlm:ab53503b0f35c9883ff89b7552
 
 ![](../../.gitbook/assets/screenshot-from-2018-12-29-15-52-35.png)
 
-Below shows how the machine's hash is passed, an elevated prompt is provided to the attacker, who can then access the domain controller with dir `\\dc01\c$`:
+Below shows how the machine's hash is passed which results in an elevated cmd.exe prompt. Using the elevated prompt enables us to access the domain controller as shown with `dir \\dc01\c$`:
 
 ![](../../.gitbook/assets/peek-2018-12-29-15-49.gif)
 
