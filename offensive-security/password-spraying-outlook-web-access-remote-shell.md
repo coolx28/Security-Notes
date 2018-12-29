@@ -145,3 +145,9 @@ ruler -k --verbose --email spotless@offense.local --username spotless -p 123456 
 
 {% embed url="https://github.com/sensepost/ruler/wiki" %}
 
+{% embed url="https://silentbreaksecurity.com/malicious-outlook-rules/" %}
+
+{% embed url="https://labs.mwrinfosecurity.com/blog/malicous-outlook-rules/" %}
+
+
+
