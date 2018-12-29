@@ -1,13 +1,8 @@
----
-description: >-
-  Publicly accessible personal notes about my red teaming experiments involving
-  playing with various tools and techniques used by red teams and advanced
-  adversaries in a controlled environment and more.
----
-
 # About /?
 
 ## What is this about
+
+This is publicly accessible personal notes at [https://ired.team](https://ired.team) about my pentesting / red teaming experiments in a controlled environment that involve playing with various tools and techniques used by penetration testers,  red teams and advanced adversaries.
 
 The following sub-pages of this page will explore some of the common offensive security techniques involving gaining code execution, lateral movement, persistence and more.
 
