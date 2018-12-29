@@ -56,5 +56,7 @@ Below shows how the machine's hash is passed, an elevated prompt is provided to 
 
 ## References
 
+{% embed url="https://blog.secarma.co.uk/labs/using-machine-account-passwords-during-an-engagement" %}
+
 {% embed url="https://www.c0d3xpl0it.com/2018/05/machine-accounts-in-pentest-engagement.html?m=1" %}
 
