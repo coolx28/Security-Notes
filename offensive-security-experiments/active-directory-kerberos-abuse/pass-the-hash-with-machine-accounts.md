@@ -1,6 +1,6 @@
 # Pass the Hash with Machine$ Accounts
 
-This lab looks at leveraring machine account NTLM password hashes, and more specifically how they can be used in pass the hash attacks to gain additional privileges, depending on which groups the machine is a member of.
+This lab looks at leveraging machine account NTLM password hashes or more specifically - how they can be used in pass the hash attacks to gain additional privileges, depending on which groups the machine is a member of \(ideally administrators/domain administrators\).
 
 This labs is based on an assumption that you have gained local administrator privileges on a workstation \(machine\), let's call it `WS01$`. Since you have done your AD enumeration, you notice that the WS01$ is a member of `Domain Admins` group - congratulations, you are one step away from escalating from local admin to Domain Admin and a full domain compromise.
 
@@ -17,6 +17,30 @@ Get-ADComputer -Filter * -Properties MemberOf | ? {$_.MemberOf}
 {% endcode-tabs %}
 
 ![](../../.gitbook/assets/screenshot-from-2018-12-29-16-03-19.png)
+
+Of course, the same can be observed by simply checking the Domain Admins net group:
+
+{% code-tabs %}
+{% code-tabs-item title="attacker@victim" %}
+```csharp
+net group "domain admins" /domain
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+![](../../.gitbook/assets/screenshot-from-2018-12-29-17-22-59.png)
+
+or administrators group \(not applicable to our lab, but showing as a sidenote\):
+
+{% code-tabs %}
+{% code-tabs-item title="attacker@victim" %}
+```csharp
+net localgroup administrators /domain
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+![](../../.gitbook/assets/screenshot-from-2018-12-29-17-24-07.png)
 
 In AD, the highlighted part can be seen here:
 
