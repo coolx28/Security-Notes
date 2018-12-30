@@ -31,13 +31,7 @@ smbrelayx.py -h 10.0.0.6 -c "ipconfig"
 
 ## Mitigation
 
-```text
-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters
-```
-
-![](../.gitbook/assets/screenshot-from-2018-12-30-22-29-05.png)
-
-![](../.gitbook/assets/screenshot-from-2018-12-30-22-38-24.png)
+![](../.gitbook/assets/screenshot-from-2018-12-30-22-56-39.png)
 
 ![](../.gitbook/assets/screenshot-from-2018-12-30-22-36-01.png)
 
