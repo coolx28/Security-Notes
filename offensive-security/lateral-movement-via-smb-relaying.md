@@ -47,6 +47,10 @@ HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters
 
 {% embed url="https://blogs.technet.microsoft.com/josebda/2010/12/01/the-basics-of-smb-signing-covering-both-smb1-and-smb2/" %}
 
+{% embed url="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc785861\(v=ws.10\)" %}
+
+{% embed url="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc728025\(v=ws.10\)" %}
+
 {% embed url="https://nmap.org/nsedoc/scripts/smb-security-mode.html" %}
 
 
