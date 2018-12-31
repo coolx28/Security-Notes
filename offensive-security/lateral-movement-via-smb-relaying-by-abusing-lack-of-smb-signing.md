@@ -47,6 +47,12 @@ Since we know that victim2@10.0.0.6 has SMB signing disabled and is vulnerable t
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+{% hint style="info" %}
+Any other forced authentication method will also work - follow below link for a list of techniques.
+{% endhint %}
+
+{% page-ref page="t1187-forced-authentication/" %}
+
 ...at the same time, let's fire up SMBRelayx tool that will listen for incoming SMB authentication requests and will relay them to victim2@10.0.0.6 and will attempt to execute a command `ipconfig`on the end host:
 
 {% code-tabs %}
@@ -57,7 +63,11 @@ smbrelayx.py -h 10.0.0.6 -c "ipconfig"
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-Below is an gif showing the technique in action - on the left - victim 1 opening the malicious html we crafted earlier that forces it to attempt to authenticate to the attacker system \(on the right\). Once the authentication attempt comes in, it gets relayed to victim2@10.0.0.6 and ipconfig gets executed:
+{% hint style="info" %}
+Note that smbrelayx could be used with a `-e` switch that allows attacker to execute their payload file - say, a meterpreter executable.
+{% endhint %}
+
+Below is a gif showing the technique in action - on the left - `victim1@10.0.0.2` opening the malicious html we crafted earlier that forces it to attempt to authenticate to the attacker system \(on the right\). Once the authentication attempt comes in, it gets relayed to `victim2@10.0.0.6` and ipconfig gets executed:
 
 ![](../.gitbook/assets/peek-2018-12-30-22-31.gif)
 
