@@ -65,17 +65,21 @@ A stop frame from the above gif that highlights that the code execution indeed h
 
 ![](../.gitbook/assets/screenshot-from-2018-12-30-22-33-59.png)
 
-## Mitigation
+## Observations & Mitigation
 
-In order to mitigate this type of attack, the best way to do it is use GPOs if possible and set the policy **Microsoft network client: Digitally sign communications \(always\)** to `Enabled`:
+Smbrelayx.py leaves a pretty good footprint for defenders in Microsoft-Windows-Sysmon/Operational - the parent image is services.exe and the commandline has juicy details - note though that the commandline arguments are subject to forgery:
+
+![](../.gitbook/assets/screenshot-from-2018-12-31-13-29-13.png)
+
+In order to mitigate this type of attack, the best way to do it is by implementing GPOs if possible by setting the policy **Microsoft network client: Digitally sign communications \(always\)** to `Enabled`:
 
 ![](../.gitbook/assets/screenshot-from-2018-12-31-10-36-45.png)
 
-With the above change, trying to execute the same attack, we get `Signature is REQUIRED`:
+With the above change, trying to execute the same attack, we get `Signature is REQUIRED` errors message and lateral movement is prevented:
 
 ![](../.gitbook/assets/screenshot-from-2018-12-30-22-36-01.png)
 
-The same nmap scan we did earlier now shows that the message signing is required:
+The same nmap scan we did earlier now also shows that the `message signing is required`:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@kali" %}
