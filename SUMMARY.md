@@ -104,7 +104,7 @@
 * [WMI + NewScheduledTaskAction Lateral Movement](offensive-security/wmi-via-newscheduledtask.md)
 * [WMI + PowerShell Desired State Configuration Lateral Movement](offensive-security/wmi-+-powershell-desired-state-configuration-lateral-movement.md)
 * [Empire Shells with NetNLTMv2 Relaying](offensive-security/empire-shells-with-netnltmv2-relaying.md)
-* [Lateral Movement via SMB Relaying](offensive-security/lateral-movement-via-smb-relaying.md)
+* [Lateral Movement via SMB Relaying](offensive-security/lateral-movement-via-smb-relaying-by-abusing-lack-of-smb-signing.md)
 * [Parsing PE File Headers with C++](offensive-security/pe-file-header-parser-in-c++.md)
 * [Spiderfoot 101 with Kali using Docker](offensive-security/spiderfoot-101-with-kali-using-docker.md)
 
