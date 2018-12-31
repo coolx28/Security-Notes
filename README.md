@@ -17,9 +17,9 @@ The goal of this project is simple - read other researchers work, execute some c
 * make any notes as a reference for the future
 
 {% hint style="warning" %}
-Note that these are just my personal notes that happen to be accessible publicly.   
+These are my personal notes accessible publicly.   
   
-Do not take everything or anything for granted nor expect the notes to be very detailed or covering the techniques or the artifacts they produce in full and consult other resources.
+Do not take everything or anything for granted nor expect the notes to be very detailed or covering the techniques or the artifacts they produce in full and always consult additional resources.
 {% endhint %}
 
 Follow me on twitter:
