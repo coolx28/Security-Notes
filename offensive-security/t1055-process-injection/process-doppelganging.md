@@ -38,6 +38,8 @@ Below are two links where we explore the PEB in a bit more depth:
 
 Going back to my original motivation as to why I wanted to try this technique out, which was to see if Windows 10 would detect this type of code injection - below is the answer:
 
+![](../../.gitbook/assets/screenshot-from-2018-12-31-16-15-21.png)
+
 ![](../../.gitbook/assets/screenshot-from-2018-12-31-15-35-14.png)
 
 ## References
