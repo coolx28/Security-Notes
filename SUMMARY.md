@@ -29,6 +29,7 @@
   * [CreateRemoteThread Shellcode Injection](offensive-security/t1055-process-injection/process-injection.md)
   * [DLL Injection](offensive-security/t1055-process-injection/dll-injection.md)
   * [Reflective DLL Injection](offensive-security/t1055-process-injection/reflective-dll-injection.md)
+  * [Process Doppelganging](offensive-security/t1055-process-injection/process-doppelganging.md)
 * [Phishing with MS Office](offensive-security/phishing-with-ms-office/README.md)
   * [Phishing: XLM / Macro 4.0](offensive-security/phishing-with-ms-office/phishing-xlm-macro-4.0.md)
   * [T1173: Phishing - DDE](offensive-security/phishing-with-ms-office/t1173-dde.md)
