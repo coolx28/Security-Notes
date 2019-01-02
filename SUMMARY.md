@@ -21,6 +21,7 @@
   * [Privileged Accounts and Token Privileges](offensive-security-experiments/active-directory-kerberos-abuse/privileged-accounts-and-token-privileges.md)
   * [From DnsAdmins to SYSTEM to Domain Compromise](offensive-security-experiments/active-directory-kerberos-abuse/from-dnsadmins-to-system-to-domain-compromise.md)
   * [Pass the Hash with Machine$ Accounts](offensive-security-experiments/active-directory-kerberos-abuse/pass-the-hash-with-machine-accounts.md)
+  * [BloodHound: 101](offensive-security-experiments/active-directory-kerberos-abuse/bloodhound-101.md)
   * [Backdooring AdminSDHolder for Persistence](offensive-security-experiments/active-directory-kerberos-abuse/untitled.md)
 
 ## offensive security
