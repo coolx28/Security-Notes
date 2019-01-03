@@ -1,10 +1,17 @@
-# BloodHound: 101
+# BloodHound with Kali Linux: 101
 
 {% hint style="info" %}
 WIP
 {% endhint %}
 
+```text
+apt-get install bloodhound
+neo4j console
+bloodhound
+```
+
 ```csharp
+https://raw.githubusercontent.com/BloodHoundAD/BloodHound/master/Ingestors/SharpHound.ps1
 PS C:\tools> . .\SharpHound.ps1
 PS C:\tools> Invoke-BloodHound
 ```
@@ -27,4 +34,6 @@ Invoke-BloodHound -CollectionMethod All -JSONFolder "c:\experiments\bloodhound"
 
 
 {% page-ref page="abusing-active-directory-acls-aces.md" %}
+
+{% embed url="https://github.com/BloodHoundAD/BloodHound/wiki" %}
 
