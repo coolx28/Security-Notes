@@ -142,5 +142,7 @@ See my previous lab that explores some of the ways of manually exploiting and ab
 
 {% page-ref page="abusing-active-directory-acls-aces.md" %}
 
+## References
+
 {% embed url="https://github.com/BloodHoundAD/BloodHound/wiki" %}
 
