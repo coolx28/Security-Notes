@@ -47,6 +47,7 @@
   * [Network vs Interactive Logons](offensive-security/t1003-credential-dumping/network-vs-interactive-logons.md)
 * [T1134: Primary Access Token Manipulation](offensive-security/t1134-access-token-manipulation.md)
 * [AV Bypass with Metasploit Templates and Custom Binaries](offensive-security/av-bypass-with-metasploit-templates.md)
+* [Cobalt Strike: 101](offensive-security/cobalt-strike-101.md)
 * [Red Team Infrastructure](offensive-security/red-team-infrastructure/README.md)
   * [HTTP Forwarders / Relays](offensive-security/red-team-infrastructure/redirectors-forwarders.md)
   * [SMTP Forwarders / Relays](offensive-security/red-team-infrastructure/smtp.md)
