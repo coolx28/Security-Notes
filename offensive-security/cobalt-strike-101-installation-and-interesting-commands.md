@@ -190,7 +190,7 @@ beacon> browserpivot 244 x86
 
 ![](../.gitbook/assets/peek-2019-01-07-21-36.gif)
 
-## System Profiler
+### System Profiler
 
 ![](../.gitbook/assets/screenshot-from-2019-01-07-21-52-32.png)
 
