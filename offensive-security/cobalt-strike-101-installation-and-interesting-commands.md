@@ -1,4 +1,4 @@
-# Cobalt Strike: 101
+# Cobalt Strike 101
 
 This lab is for exploring the advanced penetration testing / post-exploitation tool Cobalt Strike.
 
@@ -72,7 +72,7 @@ Enter the following:
 
 ![](../.gitbook/assets/screenshot-from-2019-01-07-18-22-38.png)
 
-## Interesting Commands
+## Interesting Commands & Features
 
 ### Argue
 
@@ -189,6 +189,16 @@ beacon> browserpivot 244 x86
 ![](../.gitbook/assets/screenshot-from-2019-01-07-21-33-54.png)
 
 ![](../.gitbook/assets/peek-2019-01-07-21-36.gif)
+
+## System Profiler
+
+![](../.gitbook/assets/screenshot-from-2019-01-07-21-52-32.png)
+
+![](../.gitbook/assets/screenshot-from-2019-01-07-21-52-50.png)
+
+![](../.gitbook/assets/screenshot-from-2019-01-07-21-52-58.png)
+
+
 
 
 
