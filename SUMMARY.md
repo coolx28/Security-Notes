@@ -109,6 +109,7 @@
 * [Empire Shells with NetNLTMv2 Relaying](offensive-security/empire-shells-with-netnltmv2-relaying.md)
 * [Lateral Movement via SMB Relaying](offensive-security/lateral-movement-via-smb-relaying-by-abusing-lack-of-smb-signing.md)
 * [Parsing PE File Headers with C++](offensive-security/pe-file-header-parser-in-c++.md)
+* [Phishing with GoPhish and DigitalOcean](offensive-security/phishing-with-gophish-and-digitalocean.md)
 * [Spiderfoot 101 with Kali using Docker](offensive-security/spiderfoot-101-with-kali-using-docker.md)
 
 ## Memory Forensics
