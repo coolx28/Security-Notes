@@ -6,7 +6,7 @@ description: SMTP Redirector + Stripping Email Headers
 
 ## Setting up Relay Mail Server
 
-I am going to set up a mail server that will be later used as an SMTP relay server. First off, a new Ubuntu droplet was created in Digital Ocean. 
+I am going to set up a mail server that will be later used as an SMTP relay server. First off, a new Ubuntu droplet was created in Digital Ocean:
 
 ![](../../.gitbook/assets/smtp-relay-droplet.png)
 
