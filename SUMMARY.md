@@ -15,7 +15,7 @@
   * [Kerberos: Silver Tickets](offensive-security-experiments/active-directory-kerberos-abuse/kerberos-silver-tickets.md)
   * [Domain Compromise via Unrestricted Kerberos Delegation](offensive-security-experiments/active-directory-kerberos-abuse/domain-compromise-via-unrestricted-kerberos-delegation.md)
   * [Domain Compromise via DC Print Server and Kerberos Delegation](offensive-security-experiments/active-directory-kerberos-abuse/domain-compromise-via-dc-print-server-and-kerberos-delegation.md)
-  * [T1207: DCShadow](offensive-security-experiments/active-directory-kerberos-abuse/t1207-dcshadow.md)
+  * [T1207: DCShadow](offensive-security-experiments/active-directory-kerberos-abuse/t1207-creating-rogue-domain-controllers-with-dcshadow.md)
   * [PowerView: Active Directory Enumeration](offensive-security-experiments/active-directory-kerberos-abuse/active-directory-enumeration-with-powerview.md)
   * [Abusing Active Directory ACLs/ACEs](offensive-security-experiments/active-directory-kerberos-abuse/abusing-active-directory-acls-aces.md)
   * [Privileged Accounts and Token Privileges](offensive-security-experiments/active-directory-kerberos-abuse/privileged-accounts-and-token-privileges.md)
