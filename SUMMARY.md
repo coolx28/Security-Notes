@@ -21,7 +21,7 @@
   * [Privileged Accounts and Token Privileges](offensive-security-experiments/active-directory-kerberos-abuse/privileged-accounts-and-token-privileges.md)
   * [From DnsAdmins to SYSTEM to Domain Compromise](offensive-security-experiments/active-directory-kerberos-abuse/from-dnsadmins-to-system-to-domain-compromise.md)
   * [Pass the Hash with Machine$ Accounts](offensive-security-experiments/active-directory-kerberos-abuse/pass-the-hash-with-machine-accounts.md)
-  * [BloodHound with Kali Linux: 101](offensive-security-experiments/active-directory-kerberos-abuse/bloodhound-101.md)
+  * [BloodHound with Kali Linux: 101](offensive-security-experiments/active-directory-kerberos-abuse/abusing-active-directory-with-bloodhound-on-kali-linux.md)
   * [Backdooring AdminSDHolder for Persistence](offensive-security-experiments/active-directory-kerberos-abuse/how-to-abuse-and-backdoor-adminsdholder-to-obtain-domain-admin-persistence.md)
 
 ## offensive security
