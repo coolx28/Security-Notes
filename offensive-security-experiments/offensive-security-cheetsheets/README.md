@@ -133,7 +133,7 @@ smtp-user-enum -U /usr/share/wordlists/names.txt -t $TARGET -m 150
 ([System.DirectoryServices.ActiveDirectory.Forest]::GetForest((New-Object System.DirectoryServices.ActiveDirectory.DirectoryContext('Forest', 'forest-of-interest.local')))).GetAllTrustRelationships()
 
 # get DCs of a domain
-nltest /dclist:offes.local
+nltest /dclist:offense.local
 
 # get domain trusts from cmd shell
 nltest /domain_trusts
