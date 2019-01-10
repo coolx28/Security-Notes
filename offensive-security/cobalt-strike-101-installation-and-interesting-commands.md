@@ -244,7 +244,9 @@ Event logs will show how many times the profiler has been used by victims:
 
 ![](../.gitbook/assets/screenshot-from-2019-01-07-21-52-50.png)
 
+## References
 
+[https://www.cobaltstrike.com/downloads/csmanual313.pdf](https://www.cobaltstrike.com/downloads/csmanual313.pdf)
 
 
 
