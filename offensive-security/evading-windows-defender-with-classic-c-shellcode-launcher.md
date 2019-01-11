@@ -2,26 +2,32 @@
 
 This is a fun little lab to illustrate that sometimes changing just 1 byte in the shellcode is enough to bypass certain antivirus products, including the latest Windows Defender at the time of writing 11th Jan, 2019.
 
-In this lab I'm using latest Windows 10 version as a victim system, Kali running Cobalt Strike and Windows 7 where bad C++ happens.
+In this lab I'm using Windows 10 \(1803\) as a victim system, Kali running Cobalt Strike and Windows 7 where bad C++ happens.
 
 ## Out of the Box Payload Getting Caught
 
-As you probably know, default out of the box payloads are usually caught by antivirus vendors immedialy. No exception is the Cobalt Strike's default stageless beacon executable which gets flagged by Windows Defender on Windows 10 immediately:
+As you probably know, default / out of the box payloads are usually caught by antivirus vendors immedialy. No exception is the Cobalt Strike's default stageless beacon which gets flagged by Windows Defender on Windows 10:
 
 ![](../.gitbook/assets/screenshot-from-2019-01-11-13-02-28.png)
 
+Can we do something about it?
+
 ## 1byte-trick to Evade Windows Defender
 
-Let's now try to generate a Cobalt Strike shellcode for C:
+Let's generate a Cobalt Strike shellcode for our listener in C:
 
 ![](../.gitbook/assets/screenshot-from-2019-01-11-14-35-25.png)
 
-Let's put a classic shellcode launcher around it with a twist:
+Note that the first byte of the shellcode is `\xfc`.
 
-* My version of Cobalt Strike payload starts with a `\xfc`
-* Change `\xfc` to any other byte value. I changed it to `\xfd` \(line 80\)
-* Store the correct byte \xfc in a char variable \(line 81\)
-* Before copying the shellcode to a newly allocated memory, replace the \xfd with \xfc \(line 86\)
+For the next step, I'm using a classic shellcode injection technique I played with in [T1055: Process Injection](t1055-process-injection/).
+
+Let's put the shellcode we got into the launcher, but with a small twist:
+
+* Change `\xfc` to any other byte value. I chose `\xfd` \(line 80\)
+* Store the correct first byte `\xfc` in a char variable \(line 81\)
+* Before copying the full shellcode to the newly allocated memory, flip the bad byte `\xfd` with a good one `\xfc` \(line 86\)
+* Build the executable
 * Profit?
 
 ![](../.gitbook/assets/screenshot-from-2019-01-11-14-32-50.png)
@@ -54,19 +60,19 @@ int main(int argc, char *argv[]) {
 
 ## Execution
 
-On the left - Windows 10 1803 with Windows Defender turned on and on the left is Cobalt Strike receiving a beacon checkin:
+On the left - Windows 10 with Windows Defender turned on and on the left is Cobalt Strike receiving the beacon checkin once our shellcode is invoked:
 
 ![](../.gitbook/assets/peek-2019-01-11-14-45.gif)
 
 {% hint style="danger" %}
-Since this is a quick and dirty proof of concept, the console Window is visible for a brief moment, meaning the target user can become suspicious of this activity, but the aim of the lab is to show that a change in one byte is sometimes enough to evade AV detection.
+Since this is a quick and dirty proof of concept, the console Window is visible for a brief moment, meaning a target user can suspect nefarious activity. However, the aim of this lab is to show that a change in one byte is sometimes enough to evade AV detection.
 {% endhint %}
 
-Below just shows that the beacon is stable and is working as expected:
+Below shows that the beacon that called back is stable and working as expected:
 
 ![](../.gitbook/assets/screenshot-from-2019-01-11-14-47-10.png)
 
-Below is another quick demo showing that the latest Windows updates were installed at the time of testing the POC:
+Below is another quick demo showing that the latest Windows updates were installed at the time of testing the POC on 11th Jan, 2019:
 
 ![](../.gitbook/assets/peek-2019-01-11-15-02.gif)
 
