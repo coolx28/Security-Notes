@@ -107,6 +107,7 @@
 * [WMI + NewScheduledTaskAction Lateral Movement](offensive-security/wmi-via-newscheduledtask.md)
 * [WMI + PowerShell Desired State Configuration Lateral Movement](offensive-security/wmi-+-powershell-desired-state-configuration-lateral-movement.md)
 * [Empire Shells with NetNLTMv2 Relaying](offensive-security/empire-shells-with-netnltmv2-relaying.md)
+* [Simple TCP Relaying with NetCat](offensive-security/simple-tcp-relaying-with-netcat.md)
 * [Lateral Movement via SMB Relaying](offensive-security/lateral-movement-via-smb-relaying-by-abusing-lack-of-smb-signing.md)
 * [Parsing PE File Headers with C++](offensive-security/pe-file-header-parser-in-c++.md)
 * [Phishing with GoPhish and DigitalOcean](offensive-security/phishing-with-gophish-and-digitalocean.md)
