@@ -47,7 +47,7 @@
   * [Network vs Interactive Logons](offensive-security/t1003-credential-dumping/network-vs-interactive-logons.md)
 * [T1134: Primary Access Token Manipulation](offensive-security/t1134-access-token-manipulation.md)
 * [AV Bypass with Metasploit Templates and Custom Binaries](offensive-security/av-bypass-with-metasploit-templates.md)
-* [Evading Windows Defender with Classic C Shellcode Launcher by Changing 1 byte in the Shellcode](offensive-security/evading-windows-defender-with-classic-c-shellcode-launcher-by-changing-1-byte-in-the-shellcode.md)
+* [Evading Windows Defender with 1 Byte Change](offensive-security/evading-windows-defender-with-classic-c-shellcode-launcher-with-1-byte-change.md)
 * [Cobalt Strike 101](offensive-security/cobalt-strike-101-installation-and-interesting-commands.md)
 * [Red Team Infrastructure](offensive-security/red-team-infrastructure/README.md)
   * [HTTP Forwarders / Relays](offensive-security/red-team-infrastructure/redirectors-forwarders.md)
