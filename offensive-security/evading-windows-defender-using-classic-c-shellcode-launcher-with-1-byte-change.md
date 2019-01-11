@@ -12,7 +12,7 @@ As you probably know, default / out of the box payloads are usually caught by an
 
 Can we do something about it?
 
-## 1byte-trick to Evade Windows Defender
+## 1 Byte Trick
 
 Let's generate a Cobalt Strike shellcode for our listener in C:
 
@@ -60,12 +60,12 @@ int main(int argc, char *argv[]) {
 
 ## Execution
 
-On the left - Windows 10 with Windows Defender turned on and on the left is Cobalt Strike receiving the beacon checkin once our shellcode is invoked:
+On the left - Windows 10 with Windows Defender turned on and on the right is Cobalt Strike receiving the beacon checkin once our shellcode is invoked:
 
 ![](../.gitbook/assets/peek-2019-01-11-14-45.gif)
 
 {% hint style="danger" %}
-Since this is a quick and dirty proof of concept, the console Window is visible for a brief moment, meaning a target user can suspect nefarious activity. However, the aim of this lab is to show that a change in one byte is sometimes enough to evade AV detection.
+This is a quick and dirty proof of concept and hence the console window is visible for a brief moment, meaning a target user can suspect nefarious activity.
 {% endhint %}
 
 Below shows that the beacon that called back is stable and working as expected:
@@ -78,7 +78,17 @@ Below is another quick demo showing that the latest Windows updates were install
 
 ## Default Payload
 
-Below shows that if the Cobalt Strike shellcode is injected as is, it immediately gets flagged by Defender:
+Below shows that if the Cobalt Strike shellcode was injected as is, it immediately gets flagged:
 
 ![](../.gitbook/assets/peek-2019-01-11-16-50.gif)
+
+## Conclusion
+
+Although not completely stealthy - the console window is visible for a brief moment during shellcode exeution, this short lab demonstrates that sometimes all it takes to evade AV detection is 1 one byte way.
+
+## Subliminal Inspiration
+
+{% embed url="https://twitter.com/curi0usjack/status/1083470829290164227?s=12" %}
+
+
 
