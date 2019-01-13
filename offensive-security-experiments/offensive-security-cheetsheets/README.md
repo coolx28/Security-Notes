@@ -135,12 +135,20 @@ smtp-user-enum -U /usr/share/wordlists/names.txt -t $TARGET -m 150
 # get DCs of a domain
 nltest /dclist:offense.local
 
+# get DC for currently authenticated session
+nltest /dsgetdc:offense.local
+
 # get domain trusts from cmd shell
 nltest /domain_trusts
 
 # get user info
 nltest /user:"spotless"
 
+# get DC for currently authenticated session
+set l
+
+# whoami on older Windows systems
+set u
 ```
 
 ## Gaining Access

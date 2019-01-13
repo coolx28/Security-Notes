@@ -92,7 +92,7 @@ Although not completely stealthy - the console window is visible for a brief mom
 
 {% hint style="info" %}
 **Update**  
-[@curi0usJack](https://twitter.com/curi0usJack) informed me that [@HackingDave](https://twitter.com/HackingDave) had found the same bypass technique as seen here [https://github.com/trustedsec/unicorn/commit/40569caff60cc533a5b8d0ad68d8c822aa0fb932\#diff-97dd53d8ebb9afbc90da38a12a3ff1a4L844](https://github.com/trustedsec/unicorn/commit/40569caff60cc533a5b8d0ad68d8c822aa0fb932#diff-97dd53d8ebb9afbc90da38a12a3ff1a4L844) as part of his `Unicorn` project - very nice work! I will be definitely checking out the tool and its capabilities!
+[@curi0usJack](https://twitter.com/curi0usJack) informed me that [@HackingDave](https://twitter.com/HackingDave) had found the same Windows Defender bypass technique as seen here [https://github.com/trustedsec/unicorn/commit/40569caff60cc533a5b8d0ad68d8c822aa0fb932\#diff-97dd53d8ebb9afbc90da38a12a3ff1a4L844](https://github.com/trustedsec/unicorn/commit/40569caff60cc533a5b8d0ad68d8c822aa0fb932#diff-97dd53d8ebb9afbc90da38a12a3ff1a4L844) as part of his `Unicorn` project - very nice work! I will be definitely checking out the tool and its capabilities!
 {% endhint %}
 
 
