@@ -40,6 +40,7 @@
   * [Phishing: .SLK Excel](offensive-security/phishing-with-ms-office/phishing-.slk-excel.md)
   * [Phishing: Embedded HTML Forms](offensive-security/phishing-with-ms-office/phishing-embedded-html-forms.md)
 * [Password Spraying Outlook Web Access: Remote Shell](offensive-security/password-spraying-outlook-web-access-remote-shell.md)
+* [Dump GAL from OWA](offensive-security/dumping-gal-global-address-list-from-outlook-web-application.md)
 * [T1003: Credential Dumping](offensive-security/t1003-credential-dumping/README.md)
   * [Local Security Authority](offensive-security/t1003-credential-dumping/local-security-authority.md)
   * [Security Accounts Manager](offensive-security/t1003-credential-dumping/sam.md)
