@@ -2,7 +2,7 @@
 
 This lab uses MailSniper to dump Global Address List \(GAL\) off the Outlook Web Application \(OWA\).
 
-GAL - in the laymans terms is a address book of all the people that are known to the Exchange server. When you are typing in the email address in the TO field and outlook provides you with an autocomplet/autosuggestion list of recipients - they are coming from the GAL.
+GAL - in layman terms is simply an address book of all the people that are known to the Exchange mail server. You know those auto suggestions when you are typing in the email address in the TO field in your email client - they are coming from the GAL.
 
 What Microsoft says about GAL:
 
@@ -29,15 +29,19 @@ When looking at the contacts through the OWA UI, as mentioned in Blackhill Secur
 
 ![](../.gitbook/assets/screenshot-from-2019-01-15-20-16-39.png)
 
-It is then passed to `FindPeople` API to get a JSON object back with contacts found in the GAL:
+It is then passed to `FindPeople` API:
 
 ![](../.gitbook/assets/screenshot-from-2019-01-15-20-21-13.png)
 
+...which in turn retrieves a JSON object with contacts from the GAL
+
 ![](../.gitbook/assets/screenshot-from-2019-01-15-19-03-13.png)
+
+If you are interested in the JSON only \(most likely\), just switch to the Response tab:
 
 ![](../.gitbook/assets/screenshot-from-2019-01-15-20-12-57%20%281%29.png)
 
-If you have logged on to the OWA, you could also dump the JSON via CURL in bash if you have no other tools to hand:
+If you have logged on to the OWA UI, you could also dump the JSON via CURL in bash:
 
 {% code-tabs %}
 {% code-tabs-item title="attacker@kali" %}
