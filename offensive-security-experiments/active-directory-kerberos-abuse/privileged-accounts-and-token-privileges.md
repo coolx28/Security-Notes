@@ -265,6 +265,8 @@ Get-NetGPO | %{Get-ObjectAcl -ResolveGUIDs -Name $_.Name} | ? {$_.IdentityRefere
 
 ![](../../.gitbook/assets/screenshot-from-2018-12-20-11-41-55.png)
 
+#### Computers with a Given Policy Applied
+
 We can now resolve the computer names the GPO `Misconfigured Policy` is applied to:
 
 ```csharp
@@ -272,6 +274,24 @@ Get-NetOU -GUID "{DDC640FF-634A-4442-BC2E-C05EED132F0C}" | % {Get-NetComputer -A
 ```
 
 ![ws01.offense.local has &quot;Misconfigured Policy&quot; applied to it](../../.gitbook/assets/screenshot-from-2018-12-20-11-42-04.png)
+
+#### Policies Applied to a Given Computer
+
+```csharp
+Get-DomainGPO -ComputerIdentity ws01 -Properties Name, DisplayName
+```
+
+![](../../.gitbook/assets/screenshot-from-2019-01-16-19-44-19.png)
+
+#### OUs with a Given Policy Applied
+
+```csharp
+Get-DomainOU -GPLink "{DDC640FF-634A-4442-BC2E-C05EED132F0C}" -Properties DistinguishedName
+```
+
+![](../../.gitbook/assets/screenshot-from-2019-01-16-19-46-33.png)
+
+#### Abusing Weak GPO Permissions
 
 One of the ways to abuse this misconfiguration and get code execution is to create an immediate scheduled task through the GPO like so:
 
