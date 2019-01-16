@@ -397,6 +397,8 @@ Additionally, we could think about leveraging logon/logoff scripts, using regist
 
 {% embed url="https://www.tarlogic.com/en/blog/abusing-seloaddriverprivilege-for-privilege-escalation/" %}
 
+{% embed url="https://rastamouse.me/2019/01/gpo-abuse-part-1/" %}
+
 {% embed url="https://github.com/killswitch-GUI/HotLoad-Driver/blob/master/NtLoadDriver/EXE/NtLoadDriver-C%2B%2B/ntloaddriver.cpp\#L13" %}
 
 {% embed url="https://github.com/tandasat/ExploitCapcom" %}
